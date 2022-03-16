@@ -1,0 +1,19 @@
+<%- include('includes/head.ejs') %>
+
+<body>
+    <h1 id="principal">Mis Mentorados</h1>
+    <h2><%= nombre %>, estos son tus mentorados:</h2>
+    <br><br>
+    <ul>
+        <% for (let mentorado in mentorados) { %>
+        <li><% mentorado.nombre></li>
+        <% }>
+    </ul>
+   
+    <br><br>
+    <a href="/musica"><button type="button" class="btn btn-secondary">Regresar a los TOPS de audio visuales</button></a>
+    </div>
+    <br>
+    </body>
+
+<%- include('includes/foot.ejs') %>

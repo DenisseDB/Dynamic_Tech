@@ -22,12 +22,16 @@ exports.login = (request, response, next) => {
             if (rows.length < 1) {
                 return response.redirect('/users/login');
             }
+            const user = new User(rows[0].nombre,
+               rows[0].correo, rows[0].idEmpleado,rows[0].idRol);
+
             request.session.isLoggedIn = true;
+            request.session.idEmpleado = user.idEmpleado;
+            request.session.nombre = user.nombre;
             return response.redirect('./tops/');
            
 
-            // const user = new User(rows[0].nombre,rows[0].apellidoPaterno,rows[0].apellidoMaterno,
-            //    rows[0].correo, rows[0].contrasena, rows[0].idEquipo);
+            
         
 
             // if(request.body.contrasena = user.contrasena ){
@@ -79,6 +83,27 @@ exports.logout = (request, response, next) => {
         response.redirect('/users/login'); //Este código se ejecuta cuando la sesión se elimina.
     });
 };
+
+exports.misMentorados= (request, response, next) => {
+    User.fecthMentorados(request.session.idEmpleado)
+    .then(([rows, fielData])=>{
+        console.log(rows);
+        //Si no existe el correo, redirige a la pantalla de login
+        // const user = new User(rows[0].nombre,
+        //    rows[0].correo, rows[0].idEmpleado,rows[0].idRol);
+
+        // request.session.isLoggedIn = true;
+        // request.session.idEmpleado = user.idEmpleado;
+        response.render('misMentorados',
+        {
+            mentorados : rows,
+            nombre : request.session.nombre
+        }
+
+        );
+    }
+       
+    )};
 
 exports.root = (request, response, next) => {
     response.redirect('/users/login'); 
