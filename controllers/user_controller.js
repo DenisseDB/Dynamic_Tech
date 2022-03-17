@@ -22,17 +22,23 @@ exports.login = (request, response, next) => {
             if (rows.length < 1) {
                 return response.redirect('/users/login');
             }
-            const user = new User(rows[0].nombre,
-               rows[0].correo, rows[0].idEmpleado,rows[0].idRol);
+
+            // Revisión del save() usuario
+            //const user = new User(rows[0].nombre,
+            //   rows[0].correo, rows[0].idEmpleado, rows[0].idRol);
+            
+            // idRol, idEmpleado - indefinido
+            //console.log(rows[0].idEmpleado);
 
             request.session.isLoggedIn = true;
-            request.session.idEmpleado = user.idEmpleado;
-            request.session.nombre = user.nombre;
-            return response.redirect('./tops/');
-           
+            request.session.idEmpleado = rows[0].idEmpleado;
+            request.session.nombre = rows[0].nombre;
+            request.session.correo = rows[0].correo;
+            request.session.idRol = rows[0].idRol;
 
-            
-        
+
+            console.log(request.session.idEmpleado);
+            return response.redirect('./tops/');
 
             // if(request.body.contrasena = user.contrasena ){
             //      response.redirect('./tops/');
@@ -52,12 +58,11 @@ exports.login = (request, response, next) => {
         //         }).catch(err => {
         //             response.redirect('/users/login');
         //         });
-        // }).catch((error)=>{
-        //     console.log(error)
-        // });
-        }
-    
-    )};
+        }).catch((error)=>{
+             console.log(error);
+        });
+            
+    };
 
 exports.get_signup = (request, response, next) => {
     response.render('signup', {
@@ -85,9 +90,10 @@ exports.logout = (request, response, next) => {
 };
 
 exports.misMentorados= (request, response, next) => {
+    console.log("LLegamos aquí");
     User.fecthMentorados(request.session.idEmpleado)
     .then(([rows, fielData])=>{
-        console.log(rows);
+        // console.log(rows);
         //Si no existe el correo, redirige a la pantalla de login
         // const user = new User(rows[0].nombre,
         //    rows[0].correo, rows[0].idEmpleado,rows[0].idRol);
@@ -96,8 +102,9 @@ exports.misMentorados= (request, response, next) => {
         // request.session.idEmpleado = user.idEmpleado;
         response.render('misMentorados',
         {
-            mentorados : rows,
-            nombre : request.session.nombre
+            mentorados : rows, // obtener los mentorados 
+            nombre : request.session.nombre, // sacar su nombre
+            correo : request.session.correo  // sacar su correo            
         }
 
         );

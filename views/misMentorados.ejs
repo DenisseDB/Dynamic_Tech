@@ -5,15 +5,10 @@
     <h2><%= nombre %>, estos son tus mentorados:</h2>
     <br><br>
     <ul>
-        <% for (let mentorado in mentorados) { %>
-        <li><% mentorado.nombre></li>
-        <% }>
+        <% for (let mentorado of mentorados) { %>
+        <li><%= mentorado.nombre %></li>
+        <% } %>
     </ul>
-   
-    <br><br>
-    <a href="/musica"><button type="button" class="btn btn-secondary">Regresar a los TOPS de audio visuales</button></a>
-    </div>
-    <br>
     </body>
 
 <%- include('includes/foot.ejs') %>
