@@ -5,26 +5,23 @@ exports.get_login = (request, response, next) => {
     response.render('login', {
         correo: request.session.correo ? request.session.correo : '',
         info: ''
-    }); 
+    });
 };
 
-
+// ROLES AUTORIZADOS PARA TOPS
 exports.tops = (request, response, next) => {
-    let roles = [1,2];
-    response.render('index', {
+    let roles = [1, 2]; // roles autorizados
+    response.render('index', { // mandamos su informacion al index
         correo: request.session.correo ? request.session.correo : '',
         rol: request.session.idRol ? request.session.idRol : '',
-        roles_autorizados : roles  
-    
-        
-    }); 
+        roles_autorizados: roles
+    });
 };
 
 exports.login = (request, response, next) => {
     User.findOne(request.body.correo)
-        .then(([rows, fielData])=>{
-            //console.log(rows);
-            
+        .then(([rows, fielData]) => {
+
             //Si no existe el correo, redirige a la pantalla de login
             if (rows.length < 1) {
                 return response.redirect('/users/login');
@@ -33,7 +30,7 @@ exports.login = (request, response, next) => {
             // Revisión del save() usuario
             //const user = new User(rows[0].nombre,
             //   rows[0].correo, rows[0].idEmpleado, rows[0].idRol);
-            
+
             request.session.isLoggedIn = true;
             request.session.idEmpleado = rows[0].idEmpleado;
             request.session.nombre = rows[0].nombre;
@@ -42,27 +39,27 @@ exports.login = (request, response, next) => {
 
             return response.redirect('./tops/');
 
-        }).catch((error)=>{
-             console.log(error);
+        }).catch((error) => {
+            console.log(error);
         });
-            
-    };
+
+};
 
 exports.get_signup = (request, response, next) => {
     response.render('signup', {
         correo: request.session.correo ? request.session.correo : '',
         info: ''
-    }); 
+    });
 };
 
 exports.post_signup = (request, response, next) => {
-    const user = 
-        new User(request.body.nombre,request.body.apellidoP,request.body.apellidoM,
-             request.body.correo, request.body.contrasena,request.body.idEquipo);
+    const user =
+        new User(request.body.nombre, request.body.apellidoP, request.body.apellidoM,
+            request.body.correo, request.body.contrasena, request.body.idEquipo);
     user.save()
-        .then(()=>{
-            response.redirect('/users/login'); 
-        }).catch((error)=>{
+        .then(() => {
+            response.redirect('/users/login');
+        }).catch((error) => {
             console.log(error);
         });
 };
@@ -73,27 +70,24 @@ exports.logout = (request, response, next) => {
     });
 };
 
-exports.misMentorados= (request, response, next) => {
-    console.log("LLegamos aquí");
+exports.misMentorados = (request, response, next) => {
     User.fecthMentorados(request.session.idEmpleado)
-    .then(([rows, fielData])=>{
-        let roles = [1,2];
-        //console.log(roles)
+        .then(([rows, fielData]) => {
+            response.render('misMentorados',
+                {
+                    // TODO ESTO SE ENVIA A MISMENTORADOS.EJS
+                    mentorados: rows, // llevar los mentorados
+                    nombre: request.session.nombre, // sacar su nombre
+                    correo: request.session.correo,  // correo del usurio que esta en header
+                    rol: request.session.idRol, // obtener rol del usario
+                }
 
-        response.render('misMentorados',
-        {
-            mentorados : rows, // obtener los mentorados 
-            nombre : request.session.nombre, // sacar su nombre
-            correo : request.session.correo,  // sacar su correo
-            rol : request.session.idRol,
-            roles_autorizados : roles    
-        }
-
-        );
-    }
-       
-    )};
+            );
+        }).catch((error) => {
+            console.log(error);
+        });
+};
 
 exports.root = (request, response, next) => {
-    response.redirect('/users/login'); 
+    response.redirect('/users/login');
 };
