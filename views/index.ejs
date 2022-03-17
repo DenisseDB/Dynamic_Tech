@@ -4,11 +4,14 @@
 <h1 id="principal">Este sitio es contiene tops de Audio Visuales y Música </h1><br>
 <p>Tenemos los siguientes TOPS:</p>
 <br>
-<p>Mis mentorados:</p>
-<a href="/users/misMentorados"><button type="button" class="btn btn-outline-secondary">Mis Mentorados</button></a>
-<br><br>
 
 
+
+<% if (roles_autorizados.includes(rol)) { %>
+  <p>Mis mentorados:</p>
+  <a href="/users/misMentorados"><button type="button" class="btn btn-outline-secondary">Mis Mentorados</button></a>
+  <br><br>
+<% } %>
 
 
 <!-- Preguntas a responder -->

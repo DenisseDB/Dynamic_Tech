@@ -12,7 +12,7 @@ module.exports = (roles) => (request, response, next) => {
     // ir de rol en rol para verificar que si haya coincidencia   
     for (let rol of roles){
         if (request.session.idRol == rol) {
-            r = true; // hay coincidencia con el rol
+            r = true; // hay coincidencia con el rol que se ha mandado
         }
     }
     
