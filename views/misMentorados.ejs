@@ -1,0 +1,15 @@
+<%- include('includes/head.ejs') %>
+
+<body>
+    <h1 id="principal">Mis Mentorados</h1>
+    <h2><%= nombre %>, estos son tus mentorados:</h2>
+    <br><br>
+    <ul>
+        <% for (let mentorado of mentorados) { %>
+        <li><%= mentorado.nombre %></li>
+        <% } %>
+    </ul>
+    </div>
+</body>
+
+<%- include('includes/foot.ejs') %>

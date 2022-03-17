@@ -1,0 +1,100 @@
+<%- include('includes/head.ejs') %>
+   <body>
+    <h1 id="principal"><br>Este sitio es de Películas, Series y Caricaturas favoritas</h1><br>
+    <p>Tenemos los siguientes TOPS:</p>
+    
+    <!--Películas-->
+     <br><h3><p>Películas:</p></h3>
+     <div class="row row-cols-1 row-cols-md-2 g-2">
+        <% for (let pelicula of peliculas) { %>
+        <div class = "row">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="<%- pelicula.imagen %>" class="img-fluid rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title"><%- pelicula.nombre %></h5>
+                      <p class="card-text"><%- pelicula.sinopsis %></p>
+                      <p class="card-text"><small class="text-muted"><%- pelicula.created_at %></small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        <%} %>  
+      </div>
+    <br>
+    <% if (ultima_pelicula != '') { %>
+        <p><b>La última película agregada fue: <%= ultima_pelicula %></b></p>
+    <% } %>  
+    <br>
+    <a href="audioVisual/nuevaPeli"><button type="button" class="btn btn-outline-secondary">Agregar un nueva película</button></a>
+    <br><br>
+    
+     <!-- Series -->
+    <br><h3><p>Series:</p></h3>
+    <div class="row row-cols-1 row-cols-md-2 g-2">
+      <% for (let serie of series) { %>
+      <div class = "row">
+          <div class="card mb-3" style="max-width: 540px;">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img src="<%- serie.imagen %>" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title"><%- serie.nombre %></h5>
+                    <p class="card-text"><%- serie.sinopsis %></p>
+                    <p class="card-text"><small class="text-muted"><%- serie.created_at %></small></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      <%} %>  
+    </div>
+    <% if (ultima_serie != '') { %>
+      <p><b>La última serie agregada fue: <%= ultima_serie %></b></p>
+    <% } %> 
+     <br>
+     <a href="audioVisual/nuevaSerie"><button type="button" class="btn btn-outline-secondary">Agregar una nueva serie</button></a>
+     <br>
+     <br>
+    
+     <!-- //Caricaturas -->
+     <br><h3><p>Caricaturas</p></h3>
+     <div class="row row-cols-1 row-cols-md-2 g-2">
+      <% for (let caricatura of caricaturas) { %>
+      <div class = "row">
+          <div class="card mb-3" style="max-width: 540px;">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img src="<%- caricatura.imagen %>" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title"><%- caricatura.nombre %></h5>
+                    <p class="card-text"><%- caricatura.sinopsis %></p>
+                    <p class="card-text"><small class="text-muted"><%- caricatura.created_at %></small></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      <%} %>  
+     </div>
+     <br>
+     <% if (ultima_caricatura!= '') { %>
+      <p><b>La última caricatura agregada fue: <%= ultima_caricatura %></b></p>
+    <% } %> 
+     <a href="audioVisual/nuevaCaricatura"><button type="button" class="btn btn-outline-secondary">Agregar un nueva caricatura</button></a>
+     <br><br>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+      </div>
+     </body>
+<%- include('includes/foot.ejs') %>

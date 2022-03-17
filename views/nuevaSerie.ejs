@@ -1,0 +1,29 @@
+<%- include('includes/head.ejs') %>
+
+    
+   <body>
+    <h1 id="principal">Este sitio es de series favoritas</h1>
+    <h2><%= username %>, agrega tu película favorita:</h2>
+    <br><br>
+    <form action="/audioVisual/nuevaSerie" method="POST">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
+    <label for="nombre">Nombre: </label> 
+    <input type="text" id="nombre" name="nombre" placeholder="Drake y Josh">
+    <br><br>
+    <label for="nombre">Sinopsis: </label> <br>
+    <textarea rows = "5" cols = "60" id = "sinopsis" name = "sinopsis" placeholder="Drake y Josh son jóvenes que se convierten en hermanastros de la noche a la mañana. Un día, cada uno tiene su propia vida en la que se ignoraban completamente el uno al otro y, al día siguiente, viven en la misma casa. Y no pueden ser más diferentes entre ellos.
+    "></textarea><br>
+    <br><br>
+    <label for="nombre">Imagen: </label> <br>
+    <textarea rows = "2" cols = "60" id = "imagen" name = "imagen" placeholder="https://static.wikia.nocookie.net/doblaje/images/a/a7/DJ2.jpg/revision/latest?cb=20200906221154&path-prefix=es"></textarea><br>
+    <br><br>
+    <a><input type ="submit" value="Enviar"></a>
+    </form>
+    <br><br>
+    <a href="/audioVisual"><button type="button" class="btn btn-secondary">Regresar a los TOPS de la página</button></a>
+    </div>
+    <br>
+    </body>
+
+
+<%- include('includes/foot.ejs') %>

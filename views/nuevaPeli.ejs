@@ -1,0 +1,27 @@
+<%- include('includes/head.ejs') %>
+
+   <body>
+    <h1 id="principal">Este sitio es de películas favoritas</h1>
+    <h2><%= username %>, agrega tu película favorita:</h2>
+    <br><br>
+    <form action="/audioVisual/nuevaPeli" method="POST">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
+    <label for="nombre">Nombre: </label> 
+    <input type="text" id="nombre" name="nombre" placeholder="Titanic">
+    <br><br>
+    <label for="nombre">Sinopsis: </label> <br>
+    <textarea rows = "5" cols = "60" id = "sinopsis" name = "sinopsis" placeholder="Jack es un joven artista que gana un pasaje para viajar a América en el Titanic, el transatlántico más grande y seguro jamás construido..."></textarea><br>
+    <br><br>
+    <label for="nombre">Imagen: </label> <br>
+    <textarea rows = "2" cols = "60" id = "imagen" name = "imagen" placeholder="https://es.web.img3.acsta.net/medias/nmedia/18/86/91/41/19870073.jpg"></textarea><br>
+    <br><br>
+    <a><input type ="submit" value="Enviar"></a>
+    </form>
+    <br><br>
+    <a href="/audioVisual"><button type="button" class="btn btn-secondary">Regresar a los TOPS de audio visuales</button></a>
+    </div>
+    <br>
+    </body>
+
+
+<%- include('includes/foot.ejs') %>

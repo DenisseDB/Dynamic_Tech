@@ -1,0 +1,27 @@
+<%- include('includes/head.ejs') %>
+
+    <body>
+        <h1 id="principal">Este sitio es de artistas favoritos</h1>
+        <h2><%= username %>, agrega tu artista favorito:</h2>
+        <br><br>
+        <form action="/musica/nuevoArtista" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
+        <label for="nombre">Nombre: </label> 
+        <input type="text" id="nombre" name="nombre" placeholder="Ed Sheeran">
+        <br><br>
+        <label for="nombre">Información general: </label> <br>
+        <textarea rows = "5" cols = "60" id = "sinopsis" name = "sinopsis" placeholder="Edward Christopher Sheeran (Halifax, Inglaterra, 17 de febrero de 1991), más conocido como Ed Sheeran, es un músico y cantante británico. ​ A corta edad, comenzó a cantar en la iglesia a la que asistía y también aprendió a tocar la guitarra."></textarea><br>
+        <br><br>
+        <label for="nombre">Imagen: </label> <br>
+        <textarea rows = "2" cols = "60" id = "imagen" name = "imagen" placeholder="https://upload.wikimedia.org/wikipedia/commons/c/c1/Ed_Sheeran-6886_%28cropped%29.jpg"></textarea><br>
+        <br><br>
+        <a><input type ="submit" value="Enviar"></a>
+        </form>
+        <br><br>
+        <a href="/musica"><button type="button" class="btn btn-secondary">Regresar a los TOPS de música</button></a>
+        </div>
+        <br>
+        </body>
+
+
+<%- include('includes/foot.ejs') %>
