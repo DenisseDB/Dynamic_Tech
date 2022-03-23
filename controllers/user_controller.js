@@ -11,7 +11,7 @@ exports.get_login = (request, response, next) => {
 // ROLES AUTORIZADOS PARA TOPS
 exports.tops = (request, response, next) => {
     let roles = [1, 2]; // roles autorizados
-    response.render('index', { // mandamos su informacion al index
+    response.render('index', { // mandamos su informacion al sidenav
         correo: request.session.correo ? request.session.correo : '',
         rol: request.session.idRol ? request.session.idRol : '',
         roles_autorizados: roles
