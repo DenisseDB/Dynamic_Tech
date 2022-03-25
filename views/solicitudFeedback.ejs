@@ -1,7 +1,7 @@
 <%- include('includes/sidenavsup.ejs') %>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <body>
-  <h2>Solicitudes de Feedback</h2><br>
+  <h2>Solicitudes de Feedback- Periodo</h2><br>
     <div class="row">
         <div class="col-sm-6">
           <div class="card">
@@ -31,13 +31,14 @@
                       <tr>
                   <% for (let persona of responder) { %>
                       <td><%= persona.nombre %>  <%= persona.apellidoP %></td>
-                   
-                        <% if (persona.estatus= 'NULL') { %>
-                          <td><i class="large material-icons">access_time</i></td>                        </td>
-                          <td><a href="#" class="btn btn-primary">Responder</a></td>
-                        <% } else { %>
+     
+                        <% if (persona.estatus == 1) { %>
                           <td><i class="large material-icons">check</i></td>
                           <td><button type="button" class="btn btn-ms btn-primary" disabled>Responder</button></td>
+                        <% } else { %>
+                          <td><i class="large material-icons">access_time</i></td>                    
+                          <td><a href="/responderFeedback" class="btn btn-primary">Responder</a></td>
+                         
                         <% }%>
                     
                       <!-- <button type="button" class="btn btn-lg btn-primary" disabled>Responder</button> -->

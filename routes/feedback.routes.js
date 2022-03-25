@@ -8,5 +8,7 @@ const feedController = require('../controllers/feed_controller');
 
 router.get('/solicitudesFeedback', isAuth,feedController.solicitudesFeedback);
 
+router.get('/responderFeedback', isAuth,feedController.cuestionario)
+
 
 module.exports = router;
