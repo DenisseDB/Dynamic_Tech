@@ -10,6 +10,7 @@ const csrfProtection = csrf();
 // pasamos a las rutas
 const rutas_users = require('./routes/user.routes');
 const rutas_feed = require('./routes/feedback.routes');
+const rutas_createfb = require('./routes/createfb.routes');
 
 
 const path = require('path');
@@ -38,6 +39,7 @@ app.use(session({
 //Para login
 app.use('/', rutas_feed);
 app.use('/users', rutas_users);
+app.use('/feedback', rutas_createfb);
 
 
 //Middleware página principal

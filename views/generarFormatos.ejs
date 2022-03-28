@@ -1,0 +1,53 @@
+<%- include('includes/sidenavsup.ejs') %>
+    <body>
+        <h2 id="principal">Generar Formatos de Evaluación</h1> 
+        <br><br>
+        <div class="container px-8">
+            <div class="row justify-content-md-center">
+                <div class="col-sm-7">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Nombre del Cuestionario</span>
+                        <input type="text" class="form-control" placeholder="Cuestionario1" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <br>
+                    <!--div class="col-sm-6"-->
+                        <div class="row justify-content-md-center">
+                            <div class="col-sm-6">
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="inputGroupSelect01">Dimensión</label>
+                                    <select class="form-select" id="inputGroupSelect01">
+                                    <option disabled selected>Selecciona una dimensión</option>
+                                    <% for (let dimension of dimensiones) { %>
+                                        <option value="<%= dimension.idDimension %>"><%= dimension.nombre %></option>
+                                    <% } %>
+                                    <!--option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option-->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="inputGroupSelect01">Nivel</label>
+                                    <select class="form-select" id="inputGroupSelect01">
+                                    <option disabled selected>Selecciona un nivel</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    <br><br>
+                    <div class="row justify-content-md-end">
+                        <div class="col-sm-2 align-self-end">
+                            <a class="btn btn-outline-secondary" href="/feedback/generarFormato" role="button">Continuar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+<%- include('includes/foot.ejs') %></br>
