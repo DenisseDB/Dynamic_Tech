@@ -26,6 +26,12 @@ module.exports = class User {
             }); 
     }
 
+    //El primer rol es ver mentorados
+    static rolMentorados() {
+        return db.execute('SELECT idRol FROM rolprivilegio WHERE idPrivilegio = 1 ',);
+
+    }
+
     static fecthMentorados(idEmpleado) {
         return db.execute('SELECT nombre FROM Empleado E, asignacionempleado AE WHERE E.idEmpleado = AE.idMentorado AND AE.idMentor = ?',
             [idEmpleado]);

@@ -9,6 +9,7 @@ exports.solicitudesFeedback = (request, response, next) => {
                     // request.session.idEvaluado = rows[0].idEvaluado;
 
                     idEvaluado : request.session.idEvaluado,
+                    idPeriodo : request.session.idPeriodo,
                     responder : rows,
                 }
 
@@ -18,28 +19,8 @@ exports.solicitudesFeedback = (request, response, next) => {
         });
 };
 
-// exports.solicitudesFeedback = (request, response, next) => {
-//     Feed.findPeriodo()
-//         .then(([periodo, fielData]) => {
-//             Feed.fecthSolFeedback(request.session.idEmpleado,periodo.idPeriodo)
-//             .then(([rows, fielData]) => {
-//                 response.render('solicitudFeedback.ejs',
-//                     {
-//                         periodo : periodo,
-//                         responder : rows,
-//                     }
-    
-//                 );
-//             }).catch((error) => {
-//                 console.log(error);
-//             });
-//         }).catch((error) => {
-//             console.log(error);
-//         });
-// };
-
 exports.cuestionario =  (request, response, next) => {
-    Feed.fecthCuestionario(request.session.idEmpleado,request.session.idEvaluador)
+    Feed.fecthCuestionario(request.session.idEmpleado,request.params.idEvaluado,request.params.idPeriodo)
         .then(([rows, fielData]) => {
             response.render('llenarCuestionario.ejs',
                 {

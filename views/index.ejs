@@ -2,12 +2,15 @@
         <!-- Para las rutas -->
         <h1 id="principal">Este sitio es el principal</h1><br>
 
+
         <!-- Verificar que sean los roles autorizados provenientes del index -->
-        <% if (roles_autorizados.includes(rol)) { %> <!-- array de roles + el id del usuario -->
-           <!-- si el rol esta en los autorizados, se muestra misMentorados -->
-          <p>Mis mentorados:</p>
-          <a href="/users/misMentorados"><button type="button" class="btn btn-outline-secondary">Mis Mentorados</button></a>
-          <br><br>
+        <% for (let esRol of rolesA) { %>
+          <% if (esRol.idRol == rol) { %> <!-- array de roles + el id del usuario -->
+            <!-- si el rol esta en los autorizados, se muestra misMentorados -->
+            <p>Mis mentorados:</p>
+            <a href="/users/misMentorados"><button type="button" class="btn btn-outline-secondary">Mis Mentorados</button></a>
+            <br><br>
+          <% } %>
         <% } %>
         
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>

@@ -23,23 +23,28 @@ module.exports = class Feedback {
     }
 
     static fecthSolFeedback(idEvaluador) {
-        return db.execute('SELECT nombre, apellidoP, apellidoM, idEvaluado,estatus FROM empleado, retroalimentacion WHERE empleado.idEmpleado = retroalimentacion.idEvaluado and idEvaluador = ?;',
+        return db.execute('SELECT nombre, apellidoP, apellidoM, r.idEvaluado,estatus, NombrePeriodo, p.idPeriodo FROM empleado e, retroalimentacion r ,periodo p WHERE e.idEmpleado = r.idEvaluado and p.idPeriodo = r.idPeriodo and r.idEvaluador = ? and p.idPeriodo in (SELECT MAX(idPeriodo) FROM periodo);',
             [idEvaluador]);
 
+        // return db.execute('SELECT nombre, apellidoP, apellidoM, idEvaluado,estatus FROM empleado, retroalimentacion WHERE empleado.idEmpleado = retroalimentacion.idEvaluado and idEvaluador = ? and idPeriodo = ?;',
+        //     [idEvaluador,idPeriodo]);
+
     }
 
-    //Este método nos devuelve el nombre del periodo más reciente
-    static findPeriodo() {
-        return db.execute('SELECT idPeriodo,  NombrePeriodo FROM periodo ORDER by fecha_inicial DESC LIMIT 1;');
-    }
-
-    static fecthCuestionario(idEvaluador,idEvaluado) {
-        var cuestionario =  db.execute('SELECT p.idPregunta, p.pregunta FROM retroalimentacion r, preguntacuestionario pc , pregunta p WHERE r.idCuestionario = pc.idCuestionario and pc.idPregunta = p.idPregunta and r.idPeriodo = 12 and r.idEvaluador = ? and r.idEvaluado = 2 ORDER BY estatus asc;',
-        [idEvaluador]);
-        // [idEvaluador,idEvaluado]);
+    static fecthCuestionario(idEvaluador,idEvaluado,idPeriodo) {
+        var cuestionario =  db.execute('SELECT p.idPregunta, p.pregunta FROM retroalimentacion r, preguntacuestionario pc , pregunta p WHERE (r.idCuestionarioCraft = pc.idCuestionario or r.idCuestionarioPeople = pc.idCuestionario or r.idCuestionarioBusiness = pc.idCuestionario ) and pc.idPregunta = p.idPregunta and r.idEvaluador = ? and r.idEvaluado = ? and r.idPeriodo = ? ORDER BY estatus asc;',
+        [idEvaluador, idEvaluado, idPeriodo]);
         return cuestionario
 
     }
+
+    // static fecthCuestionario(idEvaluador,idEvaluado,idPeriodo) {
+    //     var cuestionario =  db.execute('SELECT p.idPregunta, p.pregunta FROM retroalimentacion r, preguntacuestionario pc , pregunta p WHERE (r.idCuestionarioCraft = pc.idCuestionario or r.idCuestionarioPeople = pc.idCuestionario or r.idCuestionarioBusiness = pc.idCuestionario ) and pc.idPregunta = p.idPregunta and r.idEvaluador = ? and r.idEvaluado = ?  and r.idPeriodo = ? ORDER BY estatus asc;',
+    //     [idEvaluador, idEvaluado,idPeriodo]);
+    //     // [idPeriodo,idEvaluador,idEvaluado]);
+    //     return cuestionario
+
+    // }
 
 
 
