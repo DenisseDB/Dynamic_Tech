@@ -32,7 +32,7 @@ module.exports = class Feedback {
     }
 
     static fecthCuestionario(idEvaluador,idEvaluado,idPeriodo) {
-        var cuestionario =  db.execute('SELECT p.idPregunta, p.pregunta FROM retroalimentacion r, preguntacuestionario pc , pregunta p WHERE (r.idCuestionarioCraft = pc.idCuestionario or r.idCuestionarioPeople = pc.idCuestionario or r.idCuestionarioBusiness = pc.idCuestionario ) and pc.idPregunta = p.idPregunta and r.idEvaluador = ? and r.idEvaluado = ? and r.idPeriodo = ? ORDER BY estatus asc;',
+        var cuestionario =  db.execute('SELECT p.idPregunta, p.pregunta, e.nombre, e.apellidoP, e.apellidoM FROM retroalimentacion r, preguntacuestionario pc , pregunta p, empleado e WHERE (r.idCuestionarioCraft = pc.idCuestionario or r.idCuestionarioPeople = pc.idCuestionario or r.idCuestionarioBusiness = pc.idCuestionario ) and e.idEmpleado = r.idEvaluado and pc.idPregunta = p.idPregunta and r.idEvaluador = ? and r.idEvaluado = ? and r.idPeriodo = ? ORDER BY estatus asc;',
         [idEvaluador, idEvaluado, idPeriodo]);
         return cuestionario
 
