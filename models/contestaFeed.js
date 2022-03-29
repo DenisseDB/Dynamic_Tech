@@ -4,22 +4,17 @@ const bcrypt = require('bcryptjs');
 module.exports = class Feedback {
 
     //Constructor de la clase. Sirve para crear un nuevo objeto, y en él se definen las propiedades del modelo
-    constructor(Evalaudo,Evaluador,CuestionarioNivel,Periodo,nomPeriodo,idPregunta,pregunta,estatus) {
+    constructor(Evaluado,Evaluador,CuestionarioNivel,Periodo,nomPeriodo,idPregunta,pregunta,estatus,respuesta) {
         this.idEvaluado = Evaluado;
         this.idEvaluador = Evaluador;
-        this.idCuestionario = CuestionarioNivel;
         this.idPeriodo = Periodo;
-        this.NombrePeriodo = nomPeriodo;
-        this.idPregunta = idPregunta;
-        this.pregunta = pregunta;
-        this.estatus = estatus
+        this.respuesta = respuesta
     }
 
     // //Este método servirá para guardar de manera persistente el nuevo objeto. 
     save() {
-        return db.execute('INSERT INTO retroalimentacion (idEvaluado, idEvaluador,idCuestionario,idPeriodo) VALUES (?, ?,?,?)',
-        [this.idEvaluado, this.idEvaluador,this.idCuestionario,this.idEvaluador]
-    );
+        return db.execute('INSERT INTO respondesolicita (idEvaluado, idEvaluador, idPregunta, idPeriodo, respuesta) VALUES (?, ?,?,?,?)',
+        [this.idEvaluado, this.idEvaluador,this.idPregunta,this.idPeriodo,this.respuesta] );
     }
 
     static fecthSolFeedback(idEvaluador) {
@@ -31,20 +26,34 @@ module.exports = class Feedback {
 
     }
 
-    static fecthCuestionario(idEvaluador,idEvaluado,idPeriodo) {
-        var cuestionario =  db.execute('SELECT p.idPregunta, p.pregunta, e.nombre, e.apellidoP, e.apellidoM FROM retroalimentacion r, preguntacuestionario pc , pregunta p, empleado e WHERE (r.idCuestionarioCraft = pc.idCuestionario or r.idCuestionarioPeople = pc.idCuestionario or r.idCuestionarioBusiness = pc.idCuestionario ) and e.idEmpleado = r.idEvaluado and pc.idPregunta = p.idPregunta and r.idEvaluador = ? and r.idEvaluado = ? and r.idPeriodo = ? ORDER BY estatus asc;',
+    // static fecthCuestionario(idEvaluador,idEvaluado,idPeriodo) {
+    //     var cuestionario =  db.execute('SELECT p.idPregunta, p.pregunta, e.nombre, e.apellidoP, e.apellidoM FROM retroalimentacion r, preguntacuestionario pc , pregunta p, empleado e WHERE (r.idCuestionarioCraft = pc.idCuestionario or r.idCuestionarioPeople = pc.idCuestionario or r.idCuestionarioBusiness = pc.idCuestionario ) and e.idEmpleado = r.idEvaluado and pc.idPregunta = p.idPregunta and r.idEvaluador = ? and r.idEvaluado = ? and r.idPeriodo = ? ORDER BY estatus asc;',
+    //     [idEvaluador, idEvaluado, idPeriodo]);
+    //     return cuestionario
+
+    // }
+
+    static fecthCuestionarioCraft(idEvaluador,idEvaluado,idPeriodo) {
+        var cuestionario =  db.execute('SELECT p.idPregunta, p.pregunta, e.nombre, e.apellidoP, e.apellidoM FROM retroalimentacion r, preguntacuestionario pc , pregunta p, empleado e WHERE (r.idCuestionarioCraft = pc.idCuestionario) and e.idEmpleado = r.idEvaluado and pc.idPregunta = p.idPregunta and r.idEvaluador = ? and r.idEvaluado = ? and r.idPeriodo = ? ORDER BY estatus asc;',
         [idEvaluador, idEvaluado, idPeriodo]);
         return cuestionario
 
     }
 
-    // static fecthCuestionario(idEvaluador,idEvaluado,idPeriodo) {
-    //     var cuestionario =  db.execute('SELECT p.idPregunta, p.pregunta FROM retroalimentacion r, preguntacuestionario pc , pregunta p WHERE (r.idCuestionarioCraft = pc.idCuestionario or r.idCuestionarioPeople = pc.idCuestionario or r.idCuestionarioBusiness = pc.idCuestionario ) and pc.idPregunta = p.idPregunta and r.idEvaluador = ? and r.idEvaluado = ?  and r.idPeriodo = ? ORDER BY estatus asc;',
-    //     [idEvaluador, idEvaluado,idPeriodo]);
-    //     // [idPeriodo,idEvaluador,idEvaluado]);
-    //     return cuestionario
+    static fecthCuestionarioPeople(idEvaluador,idEvaluado,idPeriodo) {
+        var cuestionario =  db.execute('SELECT p.idPregunta, p.pregunta, e.nombre, e.apellidoP, e.apellidoM FROM retroalimentacion r, preguntacuestionario pc , pregunta p, empleado e WHERE (r.idCuestionarioPeople = pc.idCuestionario) and e.idEmpleado = r.idEvaluado and pc.idPregunta = p.idPregunta and r.idEvaluador = ? and r.idEvaluado = ? and r.idPeriodo = ? ORDER BY estatus asc;',
+        [idEvaluador, idEvaluado, idPeriodo]);
+        return cuestionario
 
-    // }
+    }
+
+    static fecthCuestionarioBusiness(idEvaluador,idEvaluado,idPeriodo) {
+        var cuestionario =  db.execute('SELECT p.idPregunta, p.pregunta, e.nombre, e.apellidoP, e.apellidoM FROM retroalimentacion r, preguntacuestionario pc , pregunta p, empleado e WHERE (r.idCuestionarioBusiness = pc.idCuestionario) and e.idEmpleado = r.idEvaluado and pc.idPregunta = p.idPregunta and r.idEvaluador = ? and r.idEvaluado = ? and r.idPeriodo = ? ORDER BY estatus asc;',
+        [idEvaluador, idEvaluado, idPeriodo]);
+        return cuestionario
+
+    }
+
 
 
 

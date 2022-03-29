@@ -11,4 +11,5 @@ router.get('/solicitudesFeedback', isAuth,feedController.solicitudesFeedback);
 router.get('/responderFeedback/:idEvaluado/:idPeriodo', isAuth,feedController.cuestionario)
 
 
+
 module.exports = router;

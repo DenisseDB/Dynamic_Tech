@@ -5,8 +5,8 @@
     <div class="row">
         <div class="col-sm-6">
           <div class="card">
+            <h5 class="card-header"><i class="large material-icons">search</i>  Mis Solicitudes</h5>
             <div class="card-body">
-              <h5 class="card-title"> <i class="large material-icons">search</i>  Mis Solicitudes</h5>
               <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
               <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
@@ -14,14 +14,13 @@
         </div>
         <div class="col-sm-6">
           <div class="card">
+            <h5 class="card-header"><i class="large material-icons">library_books</i>  A evaluar</h5>
             <div class="card-body">
-              <h5 class="card-title"><i class="large material-icons">library_books</i>  A evaluar</h5>
-              <p class="card-text">
-                <ul class="list-group">
                   <!--Para tabla con boostrap-->
                   <table class="table">
                     <thead class="thead-dark">
                       <tr>
+                        <th scope="col"></th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Estatus</th>
                         <th scope="col">Feedback</th>
@@ -30,7 +29,8 @@
                     <tbody>
                       <tr>
                   <% for (let persona of responder) { %>
-                      <td><%= persona.nombre %>  <%= persona.apellidoP %></td>
+                      <td> <img src="https://github.com/mdo.png" alt="hugenerd" width="60" height="60" class="rounded-circle"></td>
+                      <td><%= persona.nombre %>  <%= persona.apellidoP %> <%= persona.apellidoM %></td>
      
                         <% if (persona.estatus == 1) { %>
                           <td><i class="large material-icons">check</i></td>
