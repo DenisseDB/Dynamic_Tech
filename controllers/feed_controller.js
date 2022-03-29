@@ -45,6 +45,7 @@ exports.cuestionario =  (request, response, next) => {
 
 exports.salvarRespuestas =  (request, response, next) => {
     const respuesta = new Feed(request.body.idEmpleado,request.params.idEvaluado,request.params.idPeriodo,request.body.respuesta);
+    console.log(request.body);
     respuesta.save().then(() => {
         response.redirect('/solicitudFeedback');
     }).catch(err => console.log(err));

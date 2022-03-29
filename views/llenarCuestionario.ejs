@@ -9,41 +9,46 @@
     </h2><br>
 
     <div class='container'>
-      <form>
-        <fieldset id="group1">
+      <form id = 'FormularioGeneral'>
         <div class="card">
           <h5 class="card-header">Preguntas de Craft</h5>
           <div class="card-body">
-           
+            
+            <% var nombreCraft = 1 %>
+
               <% for (let pregunta of preguntasC) { %>
                 <h5>
                   <%= pregunta.pregunta %>
                 </h5>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                    value="option1">
-                  <label class="form-check-label" for="inlineRadio1">1</label>
+                  <input class="form-check-input" type="radio" name="<%= nombreCraft  %>" id="C1"
+                    value="1">
+                  <label class="form-check-label" for="C1">1</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                    value="option2">
-                  <label class="form-check-label" for="inlineRadio2">2</label>
+                  <input class="form-check-input" type="radio" name="<%= nombreCraft  %>" id="C2"
+                    value="2">
+                  <label class="form-check-label" for="C2">2</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
-                    value="option3">
-                  <label class="form-check-label" for="inlineRadio3">3</label>
+                  <input class="form-check-input" type="radio" name="<%= nombreCraft  %>" id="C3"
+                    value="3">
+                  <label class="form-check-label" for="C3">3</label>
                 </div>
+             
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4"
-                    value="option4">
-                  <label class="form-check-label" for="inlineRadio2">4</label>
+                  <input class="form-check-input" type="radio" name="<%= nombreCraft  %>" id="C4"
+                    value="4">
+                  <label class="form-check-label" for= "C4">4</label>
                 </div>
+           
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5"
-                    value="option5">
-                  <label class="form-check-label" for="inlineRadio5">5</label>
+                  <input class="form-check-input" type="radio" name="<%= nombreCraft  %>" id="C5"
+                    value="5">
+                  <label class="form-check-label" for="C5">5</label>
                 </div>
+
+                <% nombreCraft ++  %>
                 <br><br>
                 <% } %>
           </div>
@@ -54,37 +59,43 @@
         <div class="card">
           <h5 class="card-header">Preguntas de People</h5>
           <div class="card-body">
-              <% for (let pregunta of preguntasP) { %>
-                <h5>
-                  <%= pregunta.pregunta %>
-                </h5>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                    value="option1">
-                  <label class="form-check-label" for="inlineRadio1">1</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                    value="option2">
-                  <label class="form-check-label" for="inlineRadio2">2</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
-                    value="option3">
-                  <label class="form-check-label" for="inlineRadio3">3</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4"
-                    value="option4">
-                  <label class="form-check-label" for="inlineRadio2">4</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5"
-                    value="option5">
-                  <label class="form-check-label" for="inlineRadio5">5</label>
-                </div>
-                <br><br>
-                <% } %>
+            <% var nombrePeople = 1 %>
+
+            <% for (let pregunta of preguntasC) { %>
+              <h5>
+                <%= pregunta.pregunta %>
+              </h5>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="<%= nombrePeople  %>" id="C1"
+                  value="1">
+                <label class="form-check-label" for="C1">1</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="<%= nombrePeople  %>" id="C2"
+                  value="2">
+                <label class="form-check-label" for="C2">2</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="<%= nombrePeople %>" id="C3"
+                  value="3">
+                <label class="form-check-label" for="C3">3</label>
+              </div>
+           
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="<%= nombrePeople  %>" id="C4"
+                  value="4">
+                <label class="form-check-label" for= "C4">4</label>
+              </div>
+         
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="<%= nombrePeople  %>" id="C5"
+                  value="5">
+                <label class="form-check-label" for="C5">5</label>
+              </div>
+
+              <% nombrePeople ++  %>
+              <br><br>
+              <% } %>
           </div>
         </div>
         <br>
@@ -92,37 +103,43 @@
         <div class="card">
           <h5 class="card-header">Preguntas de Business</h5>
           <div class="card-body">
-              <% for (let pregunta of preguntasB) { %>
-                <h5>
-                  <%= pregunta.pregunta %>
-                </h5>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                    value="option1">
-                  <label class="form-check-label" for="inlineRadio1">1</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                    value="option2">
-                  <label class="form-check-label" for="inlineRadio2">2</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
-                    value="option3">
-                  <label class="form-check-label" for="inlineRadio3">3</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4"
-                    value="option4">
-                  <label class="form-check-label" for="inlineRadio2">4</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5"
-                    value="option5">
-                  <label class="form-check-label" for="inlineRadio5">5</label>
-                </div>
-                <br><br>
-                <% } %>
+            <% var nombreBusiness = 1 %>
+
+            <% for (let pregunta of preguntasC) { %>
+              <h5>
+                <%= pregunta.pregunta %>
+              </h5>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="<%= nombreBusiness  %>" id="C1"
+                  value="1">
+                <label class="form-check-label" for="C1">1</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="<%= nombreBusiness  %>" id="C2"
+                  value="2">
+                <label class="form-check-label" for="C2">2</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="<%= nombreBusiness %>" id="C3"
+                  value="3">
+                <label class="form-check-label" for="C3">3</label>
+              </div>
+           
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="<%= nombreBusiness  %>" id="C4"
+                  value="4">
+                <label class="form-check-label" for= "C4">4</label>
+              </div>
+         
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="<%= nombreBusiness %>" id="C5"
+                  value="5">
+                <label class="form-check-label" for="C5">5</label>
+              </div>
+
+              <% nombreBusiness ++  %>
+              <br><br>
+              <% } %>
           </div>
         </div>
         <br>
