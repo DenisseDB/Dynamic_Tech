@@ -1,20 +1,24 @@
 const User = require('../models/user');
 const Feed = require('../models/contestaFeed');
-
+const Solicitudes = require('../models/solicitud');
 
 exports.solicitudesFeedback = (request, response, next) => {
-    Feed.fecthSolFeedback(request.session.idEmpleado)
+    Solicitudes.fecthSolicitudes(request.session.idEmpleado)
         .then(([rows, fielData]) => {
-            response.render('solicitudFeedback.ejs',
-                {
-                    // request.session.idEvaluado = rows[0].idEvaluado;
 
-                    idEvaluado : request.session.idEvaluado,
-                    idPeriodo : request.session.idPeriodo,
-                    responder : rows,
-                }
+            Solicitudes.fecthEmpleados(request.session.idEmpleado)
+                .then(([rows1, fielData]) => {
+                    
+                    response.render('solicitudFeedback.ejs',
+                        {
+                            empleados : rows1,
+                            solicitudes : rows
+                        }
+                    );
+                }).catch((error) => {
+                    console.log(error);
+            });
 
-            );
         }).catch((error) => {
             console.log(error);
         });
