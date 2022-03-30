@@ -8,9 +8,9 @@ module.exports = class Pregunta {
 
     }
 
-    static findQuestions(nivelP) {
-        return db.execute('SELECT * FROM Pregunta WHERE nivelP=?',
-            [nivelP]);
+    static findQuestions(nivelP, dimP) {
+        return db.execute('SELECT * FROM Pregunta WHERE nivelP=? AND idDimension=?',
+            [nivelP, dimP]);
     }
 
     /*static findQuestions(nivelP, idDimension) {

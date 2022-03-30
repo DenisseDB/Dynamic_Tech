@@ -87,6 +87,7 @@
                 document.getElementById("inputDimension").disabled = true;
                 document.getElementById("inputNivel").disabled = true;
                 nivelp = document.getElementById("inputNivel").value;
+                document.getElementById("button1").style.visibility = "hidden";
                 accion_asincrona();
                 console.log('t');
             }
@@ -95,8 +96,15 @@
 
         const accion_asincrona = () => {
             const nivel = document.getElementById('inputNivel').value;
+            const dimension = document.getElementById('inputDimension').value;
             console.log(nivel);
-            fetch('/feedback/buscarFormato/' + nivel, {
+
+            var parametros = {
+                niv: nivel,
+                dim: dimension
+            };
+
+            fetch('/feedback/buscarFormato/' + nivel + '/' + dimension, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

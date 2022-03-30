@@ -6,7 +6,7 @@ const router = express.Router();
 const createfb = require('../controllers/createfb_controller');
 
 router.get('/generarFormato', isAuth, checkRoleAuth([1]), createfb.generarFormato);
-router.get('/buscarFormato/:valor', isAuth, checkRoleAuth([1]), createfb.buscarFormato);
+router.get('/buscarFormato/:nivel/:dim', isAuth, checkRoleAuth([1]), createfb.buscarFormato);
 router.get('/', isAuth, checkRoleAuth([1]), createfb.root);
 
 
