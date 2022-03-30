@@ -1,149 +1,147 @@
 <%- include('includes/sidenavsup.ejs') %>
 
-    <body>
-        <h2 id="principal">Generar Formatos de Evaluación</h1>
-            <br><br>
-            <div class="container px-8">
-                <div class="row justify-content-md-center">
-                    <div class="col-sm-7">
-                        <form id="form1" class="was-validated">
-                            <div class="input-group has-validation mb-3">
-                                <span class="input-group-text" id="basic-addon1">Nombre del Cuestionario</span>
-                                <!--label for="validationCustom01" class="form-label"> Nombre del Cuestionario </label-->
-                                <!--label for="validationInput" class="form-label">Textarea</label-->
-                                <input type="text" class="form-control" id="nombreCuestionario"
-                                    placeholder="Cuestionario1" aria-describedby="basic-addon1" required>
-                                <div class="invalid-feedback">
-                                    Es necesario ingresar el nombre del cuestionario para continuar
-                                </div>
-                            </div>
-                            <br>
-
-                            <div class="row justify-content-md-center">
-                                <div class="col-sm-6">
-                                    <div class="input-group mb-3">
-                                        <label class="input-group-text" for="inputDimension">Dimensión</label>
-                                        <select class="form-select" id="inputDimension" required
-                                            aria-label="select example">
-                                            <option value="" disabled selected>Selecciona una dimensión</option>
-                                            <% for (let dimension of dimensiones) { %>
-                                                <option value="<%= dimension.idDimension %>">
-                                                    <%= dimension.nombre %>
-                                                </option>
-                                                <% } %>
-                                        </select>
-                                        <div class="invalid-feedback">Selecciona una dimensión</div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="input-group mb-3">
-                                        <label class="input-group-text" for="inputNivel">Nivel</label>
-                                        <select class="form-select" id="inputNivel" required
-                                            aria-label="select example">
-                                            <option value="" disabled selected>Selecciona un nivel</option>
-                                            <option value="1">1 </option>
-                                            <option value="2">2 </option>
-                                            <option value="3">3 </option>
-                                            <option value="4">4 </option>
-                                            <option value="5">5 </option>
-                                        </select>
-                                        <div class="invalid-feedback">Selecciona un nivel</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row justify-content-md-end">
-                                <div class="col-sm-2 align-self-end">
-                                    <button class="btn btn-primary" type="submit" id="button1">Continuar</button>
-                                    <!--button type="button" id="button1">Open Form</button-->
-                                    <!--a class="btn btn-outline-secondary" href="/feedback/generarFormato" role="submit">Continuar</a-->
-                                </div>
-                            </div>
-                        </form>
-                        <div class="form" id="myForm">
-                        </div>
-                    </div>
+  <body>
+    <h2 id="principal">Generar Formatos de Evaluación</h1>
+      <br><br>
+      <div class="container px-8">
+        <div class="row justify-content-md-center">
+          <div class="col-sm-7">
+            <form id="form1" class="was-validated">
+              <div class="input-group has-validation mb-3">
+                <span class="input-group-text" id="basic-addon1">Nombre del Cuestionario</span>
+                <!--label for="validationCustom01" class="form-label"> Nombre del Cuestionario </label-->
+                <!--label for="validationInput" class="form-label">Textarea</label-->
+                <input type="text" class="form-control" id="nombreCuestionario" placeholder="Cuestionario1"
+                  aria-describedby="basic-addon1" required>
+                <div class="invalid-feedback">
+                  Es necesario ingresar el nombre del cuestionario para continuar
                 </div>
-    </body>
-    <script>
+              </div>
+              <br>
 
-        let nivelp;
+              <div class="row justify-content-md-center">
+                <div class="col-sm-6">
+                  <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputDimension">Dimensión</label>
+                    <select class="form-select" id="inputDimension" required aria-label="select example">
+                      <option value="" disabled selected>Selecciona una dimensión</option>
+                      <% for (let dimension of dimensiones) { %>
+                        <option value="<%= dimension.idDimension %>">
+                          <%= dimension.nombre %>
+                        </option>
+                        <% } %>
+                    </select>
+                    <div class="invalid-feedback">Selecciona una dimensión</div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputNivel">Nivel</label>
+                    <select class="form-select" id="inputNivel" required aria-label="select example">
+                      <option value="" disabled selected>Selecciona un nivel</option>
+                      <option value="1">1 </option>
+                      <option value="2">2 </option>
+                      <option value="3">3 </option>
+                      <option value="4">4 </option>
+                      <option value="5">5 </option>
+                    </select>
+                    <div class="invalid-feedback">Selecciona un nivel</div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="row justify-content-md-end">
+                <div class="col-sm-2 align-self-end">
+                  <button class="btn btn-primary" type="submit" id="button1">Continuar</button>
+                  <!--button type="button" id="button1">Open Form</button-->
+                  <!--a class="btn btn-outline-secondary" href="/feedback/generarFormato" role="submit">Continuar</a-->
+                </div>
+              </div>
+            </form>
+            <div class="form" id="myForm">
+            </div>
+          </div>
+        </div>
+  </body>
+  <script>
 
-        document.getElementById("myForm").style.display = "none";
-        document.getElementById("form1").onsubmit = () => {
-            console.log("hola2");
-            return false;
+    let nivelp;
+
+    document.getElementById("myForm").style.display = "none";
+    document.getElementById("form1").onsubmit = () => {
+      console.log("hola2");
+      return false;
+    }
+    document.getElementById("button1").onclick = () => {
+
+      let nombre = document.getElementById("nombreCuestionario").value;
+      let dimension = document.getElementById("inputDimension").value;
+      let nivel = document.getElementById("inputNivel").value;
+
+      if (nombre != '' && dimension != '' && nivel != '') {
+        console.log("hola");
+        document.getElementById("myForm").style.display = "block";
+        document.getElementById("nombreCuestionario").disabled = true;
+        document.getElementById("inputDimension").disabled = true;
+        document.getElementById("inputNivel").disabled = true;
+        nivelp = document.getElementById("inputNivel").value;
+        document.getElementById("button1").style.visibility = "hidden";
+        accion_asincrona();
+        console.log('t');
+      }
+
+    }
+
+    const accion_asincrona = () => {
+      const nivel = document.getElementById('inputNivel').value;
+      const dimension = document.getElementById('inputDimension').value;
+      console.log(nivel);
+
+      var parametros = {
+        niv: nivel,
+        dim: dimension
+      };
+
+      fetch('/feedback/buscarFormato/' + nivel + '/' + dimension, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          //'csrf-token': csrf
         }
-        document.getElementById("button1").onclick = () => {
+        //body: JSON.stringify(data)
+      }).then(result => {
+        return result.json(); //Regresa otra promesa
+      }).then(data => {
+        //Modificamos el DOM de nuestra página de acuerdo a los datos de la segunda promesa
+        //...
 
-            let nombre = document.getElementById("nombreCuestionario").value;
-            let dimension = document.getElementById("inputDimension").value;
-            let nivel = document.getElementById("inputNivel").value;
+        console.log(data);
+        let respuesta = '';
+        respuesta += '<div class="row justify-content-md-start">' +
+          '<div class="col-sm-8">' +
+          '<div class="input-group mb-3">' +
+          '<label class="input-group-text" for="inputGroupSelect03">Pregunta</label>' +
+          '<select class="form-select" id="inputGroupSelect03" required aria-label="select example">' +
+          '<option value="" disabled selected>Selecciona una pregunta</option>';
 
-            if (nombre != '' && dimension != '' && nivel != '') {
-                console.log("hola");
-                document.getElementById("myForm").style.display = "block";
-                document.getElementById("nombreCuestionario").disabled = true;
-                document.getElementById("inputDimension").disabled = true;
-                document.getElementById("inputNivel").disabled = true;
-                nivelp = document.getElementById("inputNivel").value;
-                document.getElementById("button1").style.visibility = "hidden";
-                accion_asincrona();
-                console.log('t');
-            }
-
+        for (let d of data) {
+          respuesta += '<option>' + d.pregunta + '</option>';
         }
 
-        const accion_asincrona = () => {
-            const nivel = document.getElementById('inputNivel').value;
-            const dimension = document.getElementById('inputDimension').value;
-            console.log(nivel);
+        respuesta += '</select>' +
+          '<div class="invalid-feedback">Selecciona una dimensión</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>';
 
-            var parametros = {
-                niv: nivel,
-                dim: dimension
-            };
+        document.getElementById('myForm').innerHTML = respuesta;
 
-            fetch('/feedback/buscarFormato/' + nivel + '/' + dimension, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    //'csrf-token': csrf
-                }
-                //body: JSON.stringify(data)
-            }).then(result => {
-                return result.json(); //Regresa otra promesa
-            }).then(data => {
-                //Modificamos el DOM de nuestra página de acuerdo a los datos de la segunda promesa
-                //...
+      }).catch(err => {
+        console.log(err);
 
-                console.log(data);
-                let respuesta = '';
-                respuesta += '<div class="row justify-content-md-start">' +
-                    '<div class="col-sm-8">' +
-                    '<div class="input-group mb-3">' +
-                    '<label class="input-group-text" for="inputGroupSelect03">Pregunta</label>' +
-                    '<select class="form-select" id="inputGroupSelect03" required aria-label="select example">' +
-                    '<option value="" disabled selected>Selecciona una pregunta</option>';
-
-                for (let d of data) {
-                    respuesta += '<option>' + d.pregunta + '</option>';
-                }
-
-                respuesta += '</select>' +
-                    '<div class="invalid-feedback">Selecciona una dimensión</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>';
-
-                document.getElementById('myForm').innerHTML = respuesta;
-
-            }).catch(err => {
-                console.log(err);
-
-            });
-        };
+      });
+    };
 
         //document.getElementById("button1").onclick = accion_asincrona;
 
@@ -151,5 +149,5 @@
             //console.log("hola");
             //document.getElementById("myForm").style.display = "block";
 
-    </script>
-    <%- include('includes/foot.ejs') %></br>
+  </script>
+  <%- include('includes/foot.ejs') %></br>
