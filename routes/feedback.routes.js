@@ -10,6 +10,8 @@ router.get('/solicitudesFeedback', isAuth,feedController.solicitudesFeedback);
 
 router.get('/responderFeedback/:idEvaluado/:idPeriodo', isAuth,feedController.cuestionario)
 
+router.post('/responderFeedback/:idEvaluado/:idPeriodo', isAuth,feedController.salvarRespuestas)
+
 
 
 module.exports = router;

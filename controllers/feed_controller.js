@@ -44,8 +44,11 @@ exports.cuestionario =  (request, response, next) => {
 };
 
 exports.salvarRespuestas =  (request, response, next) => {
-    const respuesta = new Feed(request.body.idEmpleado,request.params.idEvaluado,request.params.idPeriodo,request.body.respuesta);
+
+    const respuesta = new Feed(request.session.idEmpleado,request.params.idEvaluado,request.body.idPregunta,request.params.idPeriodo,request.body.value);
+    console.log(request.body);
     respuesta.save().then(() => {
         response.redirect('/solicitudFeedback');
     }).catch(err => console.log(err));
+    
 };
