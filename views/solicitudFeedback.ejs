@@ -1,17 +1,38 @@
 <%- include('includes/sidenavsup.ejs') %>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <body>
-  <h2>Solicitudes de Feedback- Periodo <%= responder[1].NombrePeriodo %></h2><br>
+  <h2>Solicitudes de Feedback- Periodo </h2><br>
     <div class="row">
+        <!--------------------------------------  Mis solicitudes ---------------------------------------------->
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title"> <i class="large material-icons">search</i>  Mis Solicitudes</h5>
               <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <p>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-plus-fill" viewBox="1 0 20 20">
+                      <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                      <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                    </svg> 
+                    Nueva solicitud
+                </button>
+              </p>
+              <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                  <div class="col-md-6">
+                    <label for="inputState" class="form-label">Nombre de compañero:</label>
+                    <select id="inputState" class="form-select">
+                      <option selected>Choose...</option>
+                      <option>...</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <!------------------------------------------------------------------------------------------------------>
         <div class="col-sm-6">
           <div class="card">
             <div class="card-body">
