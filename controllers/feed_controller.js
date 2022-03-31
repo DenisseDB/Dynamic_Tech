@@ -6,8 +6,7 @@ exports.solicitudesFeedback = (request, response, next) => {
         .then(([rows, fielData]) => {
             response.render('solicitudFeedback.ejs',
                 {
-                    // request.session.idEvaluado = rows[0].idEvaluado;
-
+    
                     idEvaluado : request.session.idEvaluado,
                     idPeriodo : request.session.idPeriodo,
                     responder : rows,
