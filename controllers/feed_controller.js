@@ -3,32 +3,39 @@ const Feed = require('../models/contestaFeed');
 const Solicitud = require('../models/solicitud');
 
 exports.solicitudesFeedback = (request, response, next) => {
-    // Consulta. A evaluar
-    Solicitud.fecthEvaluaciones(request.session.idEmpleado)
-        .then(([eval, fielData]) => {
+    Solicitud.fecthPeriodo()
+        .then(([pd, fielData]) => {
+            // Consulta. A evaluar
+            Solicitud.fecthEvaluaciones(request.session.idEmpleado)
+            .then(([eval, fielData]) => {
 
-            // Consulta. Mis solicitudes
-            Solicitud.fecthSolicitudes(request.session.idEmpleado)
-                .then(([sol, fielData]) => {
-                    
-                    // Consulta. Nueva solicitud (compañeros)
-                    Solicitud.fecthEmpleados(request.session.idEmpleado)
-                        .then(([emp, fielData]) => {
-                            
-                            response.render('solicitudFeedback.ejs',
-                                {
-                                    evaluaciones : eval,
-                                    solicitudes : sol,
-                                    empleados : emp,
-                                }
-                            );
-                        }).catch((error) => {
-                            console.log(error);
+                // Consulta. Mis solicitudes
+                Solicitud.fecthSolicitudes(request.session.idEmpleado)
+                    .then(([sol, fielData]) => {
+                        
+                        // Consulta. Nueva solicitud (compañeros)
+                        Solicitud.fecthEmpleados(request.session.idEmpleado)
+                            .then(([emp, fielData]) => {
+                                
+                                response.render('solicitudFeedback.ejs',
+                                    {
+                                        evaluaciones : eval,
+                                        solicitudes : sol,
+                                        empleados : emp,
+                                        periodo : pd
+                                    }
+                                );
+                            }).catch((error) => {
+                                console.log(error);
+                        });
+
+                    }).catch((error) => {
+                        console.log(error);
                     });
 
-                }).catch((error) => {
-                    console.log(error);
-                });
+            }).catch((error) => {
+                console.log(error);
+            });
 
         }).catch((error) => {
             console.log(error);

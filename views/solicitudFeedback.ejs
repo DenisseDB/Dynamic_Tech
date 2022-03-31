@@ -2,7 +2,7 @@
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <body>
-  <h2>Solicitudes de Feedback- <i><%= evaluaciones[0].NombrePeriodo %></i></h2><br>
+  <h2>Solicitudes de Feedback- <i><%= periodo[0].NombrePeriodo %></i></h2><br>
     <div class="row">
         <!--------------------------------------  Mis solicitudes ---------------------------------------------->
         <div class="col-sm-6">
@@ -10,24 +10,28 @@
             <h5 class="card-header"><i class="large material-icons">search</i>  Mis Solicitudes</h5>
             <div class="card-body">
                 <ul class="list-group">
-                  <table class="table">
-                    <thead class="thead-dark">
-                      <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Estatus</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <% for (let solicitud of solicitudes) { %>
-                        <tr>
-                          <td style="width:30px;"><%= solicitud.nombre %> <%= solicitud.apellidoP %></td>      
-                          <% if (solicitud.estatus == 1) { %>
-                            <td style="width:20px;"><i class="large material-icons">check</i></td>
-                          <% } else { %>
-                            <td style="width:20px;"><i class="large material-icons">access_time</i></td>
-                          <% } %>                                      
-                        </tr>
-                      <% } %>  
+                      <% if (solicitudes.length > 0) { %>
+                        <table class="table">
+                          <thead class="thead-dark">
+                            <tr>
+                              <th scope="col">Nombre</th>
+                              <th scope="col">Estatus</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                        <% for (let solicitud of solicitudes) { %>
+                          <tr>
+                            <td style="width:30px;"><%= solicitud.nombre %> <%= solicitud.apellidoP %></td>      
+                            <% if (solicitud.estatus == 1) { %>
+                              <td style="width:20px;"><i class="large material-icons">check</i></td>
+                            <% } else { %>
+                              <td style="width:20px;"><i class="large material-icons">access_time</i></td>
+                            <% } %>                                      
+                          </tr>
+                        <% } %> 
+                      <% } else { %>
+                        <p>Por el momento, no has hecho ninguna solicitud.</p>
+                      <% } %> 
                     </tbody>
                   </table>
                 </ul>
@@ -46,7 +50,7 @@
               <div class="collapse" id="collapseExample">
                 <div class="card card-body">
                   <form action="/solicitudes" method="POST">
-                    <input id="periodo" name="periodo" type="hidden" value="<%= solicitudes[0].idPeriodo %>">
+                    <input id="periodo" name="periodo" type="hidden" value="<%= periodo[0].idPeriodo %>">
                     <div class="row">
                       <div class="col-md-6">
                         <select id="inputState" name="inputState" class="form-select">
@@ -77,32 +81,36 @@
             <h5 class="card-header"><i class="large material-icons">library_books</i>  A evaluar</h5>
             <div class="card-body">
                 <ul class="list-group">
-                  <table class="table">
-                    <thead class="thead-dark">
-                      <tr>
-                        <th scope="col"></th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Estatus</th>
-                        <th scope="col">Feedback</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <% for (let evaluacion of evaluaciones) { %>
+                  <% if (evaluaciones.length > 0) { %>
+                    <table class="table">
+                      <thead class="thead-dark">
                         <tr>
-                        <td> <img src="https://github.com/mdo.png" alt="hugenerd" width="60" height="60" class="rounded-circle"></td>
-                        <td><%= evaluacion.nombre %> <%= evaluacion.apellidoP %></td>
-     
-                        <% if (evaluacion.estatus == 1) { %>
-                          <td><i class="large material-icons">check</i></td>
-                          <td><button type="button" class="btn btn-ms btn-primary" disabled>Responder</button></td>
-                        <% } else { %> 
-                          <td><i class="large material-icons">access_time</i></td>                    
-                          <td><a href="/responderFeedback/<%= evaluacion.idEvaluado %>/<%= evaluacion.idPeriodo %>" class="btn btn-primary">Responder</a></td>
-                        <% } %> 
+                          <th scope="col"></th>
+                          <th scope="col">Nombre</th>
+                          <th scope="col">Estatus</th>
+                          <th scope="col">Feedback</th>
                         </tr>
-                      <% } %>
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        <% for (let evaluacion of evaluaciones) { %>
+                          <tr>
+                          <td> <img src="https://github.com/mdo.png" alt="hugenerd" width="60" height="60" class="rounded-circle"></td>
+                          <td><%= evaluacion.nombre %> <%= evaluacion.apellidoP %></td>
+      
+                          <% if (evaluacion.estatus == 1) { %>
+                            <td><i class="large material-icons">check</i></td>
+                            <td><button type="button" class="btn btn-ms btn-primary" disabled>Responder</button></td>
+                          <% } else { %> 
+                            <td><i class="large material-icons">access_time</i></td>                    
+                            <td><a href="/responderFeedback/<%= evaluacion.idEvaluado %>/<%= periodo[0].idPeriodo %>" class="btn btn-primary">Responder</a></td>
+                          <% } %> 
+                          </tr>
+                        <% } %>
+                      </tbody>
+                    </table>
+                  <% } else { %>
+                    <p>Todavía no has recibido ninguna solicitud para contestar feedback de otro compañero. Regresa más tarde.</p>
+                  <% } %>
             </div>
           </div>
         </div>

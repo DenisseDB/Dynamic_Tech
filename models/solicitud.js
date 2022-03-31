@@ -49,5 +49,10 @@ module.exports = class Solicitud{
         return db.execute('SELECT nombre, apellidoP, R.idEvaluado, estatus, NombrePeriodo, P.idPeriodo, fecha_inicial, fecha_final FROM empleado E, retroalimentacion R, periodo P WHERE E.idEmpleado = R.idEvaluado AND P.idPeriodo = R.idPeriodo AND R.idEvaluador = ? AND P.idPeriodo in (SELECT MAX(idPeriodo) FROM periodo);',
             [idSesionado]);
     }
+
+    // Método. Último periodo de retroalimentación.
+    static fecthPeriodo() {
+        return db.execute('SELECT * FROM periodo ORDER BY idPeriodo DESC LIMIT 1;');
+    }
     
 }
