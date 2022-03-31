@@ -25,6 +25,11 @@ exports.login = (request, response, next) => {
             request.session.correo = rows[0].correo;
             request.session.idRol = rows[0].idRol;
 
+            // Nivel en cada dimensión del sesionado
+            request.session.craft = rows[0].nivelE;
+            request.session.people = rows[1].nivelE;
+            request.session.business = rows[2].nivelE;
+
             // Redirección al HOME
             return response.redirect('../home');
 

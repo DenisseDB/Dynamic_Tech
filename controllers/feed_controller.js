@@ -1,18 +1,18 @@
 const User = require('../models/user');
 const Feed = require('../models/contestaFeed');
-const Solicitudes = require('../models/solicitud');
+const Solicitud = require('../models/solicitud');
 
 exports.solicitudesFeedback = (request, response, next) => {
-    Solicitudes.fecthSolicitudes(request.session.idEmpleado)
-        .then(([rows, fielData]) => {
+    Solicitud.fecthSolicitudes(request.session.idEmpleado)
+        .then(([rows0, fielData]) => {
 
-            Solicitudes.fecthEmpleados(request.session.idEmpleado)
+            Solicitud.fecthEmpleados(request.session.idEmpleado)
                 .then(([rows1, fielData]) => {
                     
                     response.render('solicitudFeedback.ejs',
                         {
                             empleados : rows1,
-                            solicitudes : rows
+                            solicitudes : rows0,
                         }
                     );
                 }).catch((error) => {
@@ -23,6 +23,35 @@ exports.solicitudesFeedback = (request, response, next) => {
             console.log(error);
         });
 };
+
+exports.nuevaSolicitud = (request, response, next) => {
+
+    Solicitud.fecthIDCuestionarios(request.session.craft, request.session.people, request.session.business)
+        .then(([rows0, fielData]) => {
+            console.log(rows0)
+
+            Solicitud.fecthOneID(request.body.inputState)
+                .then(([rows1, fielData]) => {
+                    console.log(rows1)
+                    const solicitud =
+                        new Solicitud(request.session.idEmpleado, rows1[0].idEmpleado, 
+                            rows0[0].idCuestionario, rows0[1].idCuestionario, rows0[2].idCuestionario, request.body.periodo, new Date());
+                    solicitud.save()
+                        .then(() => {
+                            response.redirect('/solicitudes');
+                        }).catch((error) => {
+                            console.log(error);
+                        });
+
+                }).catch((error) => {
+                    console.log(error);
+                });
+        
+        }).catch((error) => {
+            console.log(error);
+        });        
+};
+
 
 exports.cuestionario =  (request, response, next) => {
     Feed.fecthCuestionario(request.session.idEmpleado,request.params.idEvaluado,request.params.idPeriodo)

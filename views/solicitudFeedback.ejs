@@ -1,7 +1,7 @@
 <%- include('includes/sidenavsup.ejs') %>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <body>
-  <h2>Solicitudes de Feedback- Periodo </h2><br>
+  <h2>Solicitudes de Feedback- Periodo (Último periodo) </h2><br>
     <div class="row">
         <!--------------------------------------  Mis solicitudes ---------------------------------------------->
         <div class="col-sm-6">
@@ -35,7 +35,7 @@
 
               <!--------------------------------------  Nueva Solicitud ---------------------------------------------->
               <p>
-                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-plus-fill" viewBox="1 0 20 20">
                       <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                       <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
@@ -45,22 +45,27 @@
               </p>
               <div class="collapse" id="collapseExample">
                 <div class="card card-body">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <select id="inputState" class="form-select">
-                        <option selected>Selecciona a un compañero</option>
-                        <% for (let empleado of empleados) { %>
-                          <option><%= empleado.nombre %> <%= empleado.apellidoP %></option>
-                        <% }%>
-                      </select>
+                  <form action="/solicitudes" method="POST">
+                    <input id="periodo" name="periodo" type="hidden" value="<%= solicitudes[0].idPeriodo %>">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <select id="inputState" name="inputState" class="form-select">
+                          <option selected>Selecciona a un compañero</option>
+                          <% for (let empleado of empleados) { %>
+                            <option><%= empleado.nombre %> <%= empleado.apellidoP %></option>
+                          <% }%>
+                        </select>
+                      </div>
+                      <div class="col-md-2">
+                        <button type="submit" class="btn btn-dark">Enviar</button>
+                      </div>
+                      <div class="col-md-2">
+                        <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                          Cancelar
+                        </button>
+                      </div>  
                     </div>
-                    <div class="col-md-2">
-                      <button type="button" class="btn btn-dark">Enviar</button>
-                    </div>
-                    <div class="col-md-2">
-                      <button type="button" class="btn btn-secondary">Cancelar</button>
-                    </div>
-                  </div>
+                  </form> 
                 </div>
               </div>
             </div>

@@ -40,8 +40,11 @@ module.exports = class User {
 
     //Este método servirá para devolver los objetos del almacenamiento persistente.
     static findOne(correo) {
-        return db.execute('SELECT nombre,correo,E.idEmpleado,idRol FROM empleado E, rolEmpleado RE WHERE E.idEmpleado = RE.idEmpleado AND correo=?',
-            [correo]);
+        //return db.execute('SELECT nombre,correo,E.idEmpleado,idRol FROM empleado E, rolEmpleado RE WHERE E.idEmpleado = RE.idEmpleado AND correo=?',
+        //    [correo]);
+        
+        return db.execute('SELECT E.idEmpleado, nombre, correo, idRol, idDimension, nivelE, DE.fecha FROM empleado E, rolEmpleado RE, dimempleado DE WHERE E.idEmpleado = RE.idEmpleado AND E.idEmpleado = DE.idEmpleado AND correo = ? ORDER BY idDimension ASC;',
+        [correo]);  
     }
 
 }
