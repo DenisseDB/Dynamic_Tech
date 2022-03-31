@@ -5,13 +5,12 @@ const router = express.Router();
 
 const feedController = require('../controllers/feed_controller');
 
+router.get('/home', isAuth, feedController.home); // HOME - Inicio
+router.get('/solicitudes', isAuth, feedController.solicitudesFeedback); // SOLICITUDES - Mis Solicitudes
+router.post('/solicitudes', isAuth, feedController.nuevaSolicitud); // SOLICITUDES - Mis Solicitudes
+router.get('/mentorados', isAuth, checkRoleAuth([1,2]), feedController.misMentorados); // MENTORADOS - Assistant, Lead*
 
-router.get('/solicitudesFeedback', isAuth,feedController.solicitudesFeedback);
-
-router.get('/responderFeedback/:idEvaluado/:idPeriodo', isAuth,feedController.cuestionario)
-
+router.get('/responderFeedback/:idEvaluado/:idPeriodo', isAuth,feedController.cuestionario) // CUESTIONARIO - Formulario de feedback
 router.post('/responderFeedback/:idEvaluado/:idPeriodo', isAuth,feedController.salvarRespuestas)
-
-
 
 module.exports = router;
