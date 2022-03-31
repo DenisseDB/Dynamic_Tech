@@ -8,6 +8,9 @@ exports.solicitudesFeedback = (request, response, next) => {
                 {
                     // request.session.idEvaluado = rows[0].idEvaluado;
 
+                    rolesA : request.session.rolesPermitidos,
+                    rol: request.session.idRol ? request.session.idRol : '',
+
                     idEvaluado : request.session.idEvaluado,
                     idPeriodo : request.session.idPeriodo,
                     responder : rows,
@@ -27,6 +30,10 @@ exports.cuestionario =  (request, response, next) => {
             Feed.fecthCuestionarioBusiness(request.session.idEmpleado,request.params.idEvaluado,request.params.idPeriodo)
             .then(([preguntasBusiness,fieldData]) =>{
                 response.render('llenarCuestionario', {
+
+                    rolesA : request.session.rolesPermitidos,
+                    rol: request.session.idRol ? request.session.idRol : '',
+
                     preguntasC : preguntasCraft,
                     preguntasP : preguntasPeople,
                     preguntasB : preguntasBusiness

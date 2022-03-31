@@ -85,6 +85,8 @@ exports.misMentorados = (request, response, next) => {
         .then(([rows, fielData]) => {
             response.render('misMentorados',
                 {
+                    rolesA : request.session.rolesPermitidos,
+                    rol: request.session.idRol ? request.session.idRol : '',
                     // TODO ESTO SE ENVIA A MISMENTORADOS.EJS
                     mentorados: rows, // llevar los mentorados
                     nombre: request.session.nombre, // sacar su nombre

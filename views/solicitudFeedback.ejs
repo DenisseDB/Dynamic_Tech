@@ -1,4 +1,15 @@
-<%- include('includes/sidenavsup.ejs') %>
+ 
+  <% if (rolesA[0].idRol == rol) { %> <!-- array de roles + el id del usuario -->
+    <!-- Rol 1 Chapter Lead mostrar navbar para Lead -->
+    <%- include('includes/sidenavAsis.ejs') %>
+  <% } else if (rolesA[1].idRol == rol){  %>
+      <!-- Rol 2 Chapter Assistant mostrar navbar para Lead -->
+      <%- include('includes/sidenavAsis.ejs') %>
+  <% } else { %>
+    <!-- Rol 3 Chapter member mostrar navbar para Empleado-->
+    <%- include('includes/sidenavsup.ejs') %>
+  <% }  %>
+
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <body>
   <h2>Solicitudes de Feedback- Periodo <%= responder[1].NombrePeriodo %></h2><br>
@@ -12,6 +23,7 @@
             </div>
           </div>
         </div>
+        
         <div class="col-sm-6">
           <div class="card">
             <h5 class="card-header"><i class="large material-icons">library_books</i>  A evaluar</h5>
