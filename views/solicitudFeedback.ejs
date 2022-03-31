@@ -1,7 +1,7 @@
 <%- include('includes/sidenavsup.ejs') %>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <body>
-  <h2>Solicitudes de Feedback- Periodo (Último periodo) </h2><br>
+  <h2>Solicitudes de Feedback- <i><%= evaluaciones[0].NombrePeriodo %></i></h2><br>
     <div class="row">
         <!--------------------------------------  Mis solicitudes ---------------------------------------------->
         <div class="col-sm-6">
@@ -71,8 +71,8 @@
             </div>
           </div>
         </div>
-        <!------------------------------------------------------------------------------------------------------>
-        <!-- <div class="col-sm-6">
+        <!--------------------------------------  A evaluar ---------------------------------------------->
+        <div class="col-sm-6">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title"><i class="large material-icons">library_books</i>  A evaluar</h5>
@@ -87,28 +87,24 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                  //for (let persona of responder) {
-                  //    <td> persona.nombre  persona.apellidoP </td>
+                      <% for (let evaluacion of evaluaciones) { %>
+                        <tr>
+                        <td><%= evaluacion.nombre %> <%= evaluacion.apellidoP %></td>
      
-                  //      if (persona.estatus == 1) { 
+                        <% if (evaluacion.estatus == 1) { %>
                           <td><i class="large material-icons">check</i></td>
                           <td><button type="button" class="btn btn-ms btn-primary" disabled>Responder</button></td>
-                  //       else 
+                        <% } else { %> 
                           <td><i class="large material-icons">access_time</i></td>                    
-                  //        <td><a href="/responderFeedback/persona.idEvaluado persona.idPeriodo  " class="btn btn-primary">Responder</a></td>
-                         
-                  //      }
-
-                      <button type="button" class="btn btn-lg btn-primary" disabled>Responder</button>
-                  
-                    </tr>
-                  //    } 
+                          <td><a href="/responderFeedback/<%= evaluacion.idEvaluado %><%= evaluacion.idPeriodo %>" class="btn btn-primary">Responder</a></td>
+                        <% } %> 
+                        </tr>
+                      <% } %>
                     </tbody>
                   </table>
             </div>
           </div>
-        </div> -->
+        </div>
       </div
       
 </body>

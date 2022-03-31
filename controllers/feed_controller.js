@@ -3,29 +3,41 @@ const Feed = require('../models/contestaFeed');
 const Solicitud = require('../models/solicitud');
 
 exports.solicitudesFeedback = (request, response, next) => {
-    Solicitud.fecthSolicitudes(request.session.idEmpleado)
-        .then(([rows0, fielData]) => {
 
-            Solicitud.fecthEmpleados(request.session.idEmpleado)
-                .then(([rows1, fielData]) => {
+    // Consulta. A evaluar
+    Solicitud.fecthEvaluaciones(request.session.idEmpleado)
+        .then(([eval, fielData]) => {
+
+            // Consulta. Mis solicitudes
+            Solicitud.fecthSolicitudes(request.session.idEmpleado)
+                .then(([sol, fielData]) => {
                     
-                    response.render('solicitudFeedback.ejs',
-                        {
-                            empleados : rows1,
-                            solicitudes : rows0,
-                        }
-                    );
+                    // Consulta. Nueva solicitud (compañeros)
+                    Solicitud.fecthEmpleados(request.session.idEmpleado)
+                        .then(([emp, fielData]) => {
+                            
+                            response.render('solicitudFeedback.ejs',
+                                {
+                                    evaluaciones : eval,
+                                    solicitudes : sol,
+                                    empleados : emp,
+                                }
+                            );
+                        }).catch((error) => {
+                            console.log(error);
+                    });
+
                 }).catch((error) => {
                     console.log(error);
-            });
+                });
 
         }).catch((error) => {
             console.log(error);
         });
+
 };
 
 exports.nuevaSolicitud = (request, response, next) => {
-
     Solicitud.fecthIDCuestionarios(request.session.craft, request.session.people, request.session.business)
         .then(([rows0, fielData]) => {
             console.log(rows0)
