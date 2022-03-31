@@ -20,14 +20,16 @@ app.set('views', 'views');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({
+   extended: false
+}));
 app.use(bodyParser.json());
 
 app.use(cookieParser());
 app.use(session({
-    secret: 'Hola Zebrands', 
-    resave: false, //La sesión no se guardará en cada petición, sino sólo se guardará si algo cambió 
-    saveUninitialized: false, //Asegura que no se guarde una sesión para una petición que no lo necesita
+   secret: 'Hola Zebrands',
+   resave: false, //La sesión no se guardará en cada petición, sino sólo se guardará si algo cambió 
+   saveUninitialized: false, //Asegura que no se guarde una sesión para una petición que no lo necesita
 }));
 
 // app.use(csrfProtection); 
@@ -46,8 +48,8 @@ app.use('/feedback', rutas_createfb);
 
 //Middleware página principal
 app.use((request, response, next) => {
-    response.redirect('/users');
-    next();
+   response.redirect('/users');
+   next();
 });
 
 app.listen(3000);

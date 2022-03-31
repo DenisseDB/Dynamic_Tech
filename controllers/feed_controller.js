@@ -10,15 +10,14 @@ const Feed = require('../models/contestaFeed');
 
 
 exports.solicitudesFeedback = (request, response, next) => {
-    Feed.fecthSolFeedback(request.session.idEmpleado)
-        .then(([rows, fielData]) => {
-            response.render('solicitudFeedback.ejs',
-                {
-                    responder : rows,
-                }
+   Feed.fecthSolFeedback(request.session.idEmpleado)
+      .then(([rows, fielData]) => {
+         response.render('solicitudFeedback.ejs', {
+               responder: rows,
+            }
 
-            );
-        }).catch((error) => {
-            console.log(error);
-        });
+         );
+      }).catch((error) => {
+         console.log(error);
+      });
 };
