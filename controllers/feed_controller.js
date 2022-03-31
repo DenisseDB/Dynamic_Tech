@@ -2,72 +2,43 @@ const User = require('../models/user');
 const Feed = require('../models/contestaFeed');
 const Solicitud = require('../models/solicitud');
 
-exports.solicitudesFeedback = (request, response, next) => {
-    Solicitud.fecthPeriodo()
-        .then(([pd, fielData]) => {
-            // Consulta. A evaluar
-            Solicitud.fecthEvaluaciones(request.session.idEmpleado)
-            .then(([eval, fielData]) => {
+exports.solicitudesFeedback = async (request, response, next) => {
+    const pd = await Solicitud.fecthPeriodo(); // Periodo de evaluación.
+    const eval = await Solicitud.fecthEvaluaciones(request.session.idEmpleado); // A evaluar.
+    const sol = await  Solicitud.fecthSolicitudes(request.session.idEmpleado); // Mis Solicitudes.
 
-                // Consulta. Mis solicitudes
-                Solicitud.fecthSolicitudes(request.session.idEmpleado)
-                    .then(([sol, fielData]) => {
-                        
-                        // Consulta. Nueva solicitud (compañeros)
-                        Solicitud.fecthEmpleados(request.session.idEmpleado)
-                            .then(([emp, fielData]) => {
-                                
-                                response.render('solicitudFeedback.ejs',
-                                    {
-                                        evaluaciones : eval,
-                                        solicitudes : sol,
-                                        empleados : emp,
-                                        periodo : pd
-                                    }
-                                );
-                            }).catch((error) => {
-                                console.log(error);
-                        });
-
-                    }).catch((error) => {
-                        console.log(error);
-                    });
-
-            }).catch((error) => {
-                console.log(error);
-            });
-
+    Solicitud.fecthEmpleados(request.session.idEmpleado)
+        .then(([emp, fielData]) => {
+            
+            response.render('solicitudFeedback.ejs',
+                {
+                    periodo : pd,
+                    evaluaciones : eval,
+                    solicitudes : sol,
+                    empleados : emp
+                }
+            );
         }).catch((error) => {
             console.log(error);
-        });
+    });
 
 };
 
-exports.nuevaSolicitud = (request, response, next) => {
-    // Consulta. Cuestionarios del sesionado.
-    Solicitud.fecthIDCuestionarios(request.session.craft, request.session.people, request.session.business)
-        .then(([IDC, fielData]) => {
-            // Consulta. ID del evaluador.
-            Solicitud.fecthOneID(request.body.inputState)
-                .then(([eval, fielData]) => {
-                    // Consulta. Guardar nueva solicitud.
-                    const solicitud =
-                        new Solicitud(request.session.idEmpleado, eval[0].idEmpleado, 
-                            IDC[0].idCuestionario, IDC[1].idCuestionario, IDC[2].idCuestionario, request.body.periodo, new Date());
-                    solicitud.save()
-                        .then(() => {
-                            response.redirect('/solicitudes');
-                        }).catch((error) => {
-                            console.log(error);
-                        });
+exports.nuevaSolicitud = async (request, response, next) => {
+    const IDC = await Solicitud.fecthIDCuestionarios(request.session.craft, 
+        request.session.people, request.session.business); // Cuestionarios del sesionado.
 
-                }).catch((error) => {
-                    console.log(error);
-                });
-        
+    const IDE = await Solicitud.fecthOneID(request.body.inputState); // ID del evaluador.
+
+    const solicitud = new Solicitud(request.session.idEmpleado, IDE[0].idEmpleado, 
+        IDC[0].idCuestionario, IDC[1].idCuestionario, IDC[2].idCuestionario, request.body.periodo, new Date()); // Nueva solicitud.
+    
+    solicitud.save()
+        .then(() => {
+            response.redirect('/solicitudes');
         }).catch((error) => {
             console.log(error);
-        });        
+        });       
 };
 
 
