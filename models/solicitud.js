@@ -35,16 +35,15 @@ module.exports = class Solicitud{
                 });
     }
 
-    // Método. Selección de compañero(s) para solicitud.
+    // Método. Selección de compañero(s) (evaluadores) para solicitud.
     static fecthEmpleados(idSesionado) {
         return db.execute('SELECT idEmpleado, nombre, apellidoP FROM empleado WHERE idEmpleado <> ? AND idEmpleado NOT IN (SELECT idEvaluador FROM retroalimentacion WHERE idEvaluado = ? AND idPeriodo = (SELECT MAX(idPeriodo) FROM periodo));', 
             [idSesionado, idSesionado]);
     }
     
-    // Método. Obtención del ID del compañero por su nombre.
+    // Método. Obtención del ID del compañero (evaluador) por su nombre.
     static fecthOneID(Evaluador) {
-        const nombre = Evaluador.split(" ");
-        return db.execute('SELECT idEmpleado FROM empleado WHERE nombre LIKE ? AND apellidoP LIKE ?;', [nombre[0] + '%', nombre[1] + '%'])
+        return db.execute('SELECT idEmpleado FROM empleado WHERE CONCAT(nombre , " ", apellidoP) = ?;', [Evaluador])
             .then(([rows, fielData]) => {
                 return rows;
             })
@@ -56,7 +55,7 @@ module.exports = class Solicitud{
 
     // Método. Solicitudes hechas por el sesionado. - Mis Solicitudes
     static fecthSolicitudes(idSesionado) {
-        return db.execute('SELECT idEvaluado, idEvaluador, nombre, apellidoP, idPeriodo, estatus FROM retroalimentacion R, empleado E WHERE R.idEvaluador = E.idEmpleado AND idPeriodo in (SELECT MAX(idPeriodo) FROM periodo) AND R.idEvaluado = ?;', 
+        return db.execute('SELECT idEvaluado, idEvaluador, nombre, apellidoP, idPeriodo, estatus FROM retroalimentacion R, empleado E WHERE R.idEvaluador = E.idEmpleado AND idPeriodo in (SELECT MAX(idPeriodo) FROM periodo) AND R.idEvaluado = ? ORDER BY estatus ASC;', 
             [idSesionado])
                 .then(([rows, fielData]) => {
                     return rows;
