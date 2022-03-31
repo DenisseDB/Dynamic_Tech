@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 
 module.exports = class Dimension {
 
-   //Constructor de la clase. Sirve para crear un nuevo objeto, y en él se definen las propiedades del modelo
+   // Constructor de la clase. Sirve para crear un nuevo objeto, y en él se definen las propiedades del modelo
    constructor() {
 
    }
@@ -11,5 +11,4 @@ module.exports = class Dimension {
    static fetchAll() {
       return db.execute('SELECT * FROM Dimension ORDER BY idDimension ASC');
    }
-
-}
+};

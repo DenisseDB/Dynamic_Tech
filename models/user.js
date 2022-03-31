@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 
 module.exports = class User {
 
-   //Constructor de la clase. Sirve para crear un nuevo objeto, y en él se definen las propiedades del modelo
+   // Constructor de la clase. Sirve para crear un nuevo objeto, y en él se definen las propiedades del modelo
    constructor(nuevo_nombre, nuevo_aP, nuevo_aM, nuevo_correo, nuevo_password, nuevo_idEquipo) {
       this.nombre = nuevo_nombre;
       this.apellidoP = nuevo_aP;
@@ -13,7 +13,7 @@ module.exports = class User {
       this.idEquipo = nuevo_idEquipo;
    }
 
-   // //Este método servirá para guardar de manera persistente el nuevo objeto. 
+   // Este método servirá para guardar de manera persistente el nuevo objeto. 
    save() {
       return bcrypt.hash(this.constrasena, 12)
          .then((password_cifrado) => {
@@ -33,10 +33,10 @@ module.exports = class User {
 
    }
 
-   //Este método servirá para devolver los objetos del almacenamiento persistente.
+   // Este método servirá para devolver los objetos del almacenamiento persistente.
    static findOne(correo) {
       return db.execute('SELECT nombre,correo,E.idEmpleado,idRol FROM empleado E, rolEmpleado RE WHERE E.idEmpleado = RE.idEmpleado AND correo=?',
          [correo]);
    }
 
-}
+};

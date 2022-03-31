@@ -24,7 +24,7 @@ exports.buscarFormato = (request, response, next) => {
       .catch(err => {
          console.log(err);
       });
-}
+};
 
 exports.generarFormato = (request, response, next) => {
    Dimension.fetchAll()

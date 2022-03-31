@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 
 module.exports = class Pregunta {
 
-   //Constructor de la clase. Sirve para crear un nuevo objeto, y en él se definen las propiedades del modelo
+   // Constructor de la clase. Sirve para crear un nuevo objeto, y en él se definen las propiedades del modelo
    constructor() {
 
    }
@@ -12,12 +12,5 @@ module.exports = class Pregunta {
       return db.execute('SELECT * FROM Pregunta WHERE nivelP=? AND idDimension=?',
          [nivelP, dimP]);
    }
-   // static findQuestions(nivelP, idDimension) {
-   //    return db.execute('SELECT * FROM Pregunta WHERE nivelP=? AND idDimension=?',
-   //       [nivelP, idDimension]);
-   // }
 
-   // static findQuestions() {
-   //    return db.execute('SELECT * FROM Pregunta');
-   // }
-}
+};
