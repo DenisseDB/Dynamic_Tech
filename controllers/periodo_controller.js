@@ -7,7 +7,7 @@ exports.generarPeriodo=(request,response,next)=>{
     Periodo.fetchAll()
     .then(([rows, fielData]) => {
         response.render('generarPeriodo', {
-            Periodos: rows // DUDADUDODSA
+            periodos: rows // DUDADUDODSA
         });
     }).catch((error) => {
         console.log(error);
