@@ -3,16 +3,6 @@ const Feed = require('../models/contestaFeed');
 const Solicitud = require('../models/solicitud');
 
 exports.solicitudesFeedback = (request, response, next) => {
-    // Feed.fecthSolFeedback(request.session.idEmpleado)
-    //     .then(([rows, fielData]) => {
-    //         response.render('solicitudFeedback.ejs',
-    //             {
-    
-    //                 idEvaluado : request.session.idEvaluado,
-    //                 idPeriodo : request.session.idPeriodo,
-    //                 responder : rows,
-    //             }
-
     // Consulta. A evaluar
     Solicitud.fecthEvaluaciones(request.session.idEmpleado)
         .then(([eval, fielData]) => {
@@ -47,16 +37,16 @@ exports.solicitudesFeedback = (request, response, next) => {
 };
 
 exports.nuevaSolicitud = (request, response, next) => {
+    // Consulta. Cuestionarios del sesionado.
     Solicitud.fecthIDCuestionarios(request.session.craft, request.session.people, request.session.business)
-        .then(([rows0, fielData]) => {
-            console.log(rows0)
-
+        .then(([IDC, fielData]) => {
+            // Consulta. ID del evaluador.
             Solicitud.fecthOneID(request.body.inputState)
-                .then(([rows1, fielData]) => {
-                    console.log(rows1)
+                .then(([eval, fielData]) => {
+                    // Consulta. Guardar nueva solicitud.
                     const solicitud =
-                        new Solicitud(request.session.idEmpleado, rows1[0].idEmpleado, 
-                            rows0[0].idCuestionario, rows0[1].idCuestionario, rows0[2].idCuestionario, request.body.periodo, new Date());
+                        new Solicitud(request.session.idEmpleado, eval[0].idEmpleado, 
+                            IDC[0].idCuestionario, IDC[1].idCuestionario, IDC[2].idCuestionario, request.body.periodo, new Date());
                     solicitud.save()
                         .then(() => {
                             response.redirect('/solicitudes');

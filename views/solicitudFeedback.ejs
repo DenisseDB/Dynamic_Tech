@@ -9,8 +9,6 @@
           <div class="card">
             <h5 class="card-header"><i class="large material-icons">search</i>  Mis Solicitudes</h5>
             <div class="card-body">
-              <h5 class="card-title"> <i class="large material-icons">search</i>  Mis Solicitudes</h5>
-              <p class="card-text">
                 <ul class="list-group">
                   <table class="table">
                     <thead class="thead-dark">
@@ -99,7 +97,7 @@
                           <td><button type="button" class="btn btn-ms btn-primary" disabled>Responder</button></td>
                         <% } else { %> 
                           <td><i class="large material-icons">access_time</i></td>                    
-                          <td><a href="/responderFeedback/<%= evaluacion.idEvaluado %><%= evaluacion.idPeriodo %>" class="btn btn-primary">Responder</a></td>
+                          <td><a href="/responderFeedback/<%= evaluacion.idEvaluado %>/<%= evaluacion.idPeriodo %>" class="btn btn-primary">Responder</a></td>
                         <% } %> 
                         </tr>
                       <% } %>
