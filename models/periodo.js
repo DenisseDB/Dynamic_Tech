@@ -20,7 +20,6 @@ module.exports = class Periodo{
     );
     }
     
-    // static VerPeriodos(
 
     static fetchAll() { return db.execute('SELECT * FROM periodo');    }
 }

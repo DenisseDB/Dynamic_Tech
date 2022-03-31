@@ -43,7 +43,7 @@ app.use(session({
 app.use('/', rutas_feed);
 app.use('/users', rutas_users);
 app.use('/feedback', rutas_createfb);
-//app.use('/periodo', rutas_periodo);
+app.use('/periodo', rutas_periodo);
 
 
 //Middleware página principal
