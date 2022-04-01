@@ -1,4 +1,4 @@
-const formatoEvaluacion = require('../models/formatoEvaluacion');
+const FormatoEvaluacion = require('../models/formatoEvaluacion');
 const Dimension = require('../models/dimension');
 const Pregunta = require('../models/pregunta');
 const { route } = require('../routes/createfb.routes');
@@ -30,6 +30,7 @@ exports.root = (request, response, next) => {
 exports.buscarFormato = (request, response, next) => {
     console.log(request.params.nivel);
     console.log(request.params.dim);
+    console.log(request.body);
     console.log('buscar');
     Pregunta.findQuestions(request.params.nivel, request.params.dim)
         .then(([rows, fieldData]) => {
@@ -53,4 +54,27 @@ exports.generarFormato = (request, response, next) => {
 
     /*response.render('generarFormatos', {
     });*/
+};
+
+exports.generarFormato_post = (request, response, next) => {
+
+    //console.log("Controlador:");
+    //console.log(request.body);
+
+    const formatoEvaluacion = new FormatoEvaluacion(request.body.nombreCuestionario, request.body.inputDimension, request.body.inputNivel, request.body.pregunta0);
+    formatoEvaluacion.saveCuestionario()
+        .then(() => {
+            formatoEvaluacion.savePreguntasCuestionario()
+                .then(() => {
+                    response.render('formatosEvaluacion');
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    //response.render('generarFormatos', {
+    //});
 };
