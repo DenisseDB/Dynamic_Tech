@@ -61,6 +61,15 @@
                                     </select>
                                     <div class="invalid-feedback">Selecciona una pregunta</div>
                                 </div>
+                                <button href="#" class="btn btn-primary" id="button3">Agregar Pregunta</button>
+                                <div id="pregunta_nueva2" class="col-sm-8">
+                                    <div class="input-group mb-3">
+                                        <label class="input-group-text" for="pregunta1">Pregunta</label>
+                                        <select class="form-select" id="pregunta1" name="pregunta1" required>
+                                        </select>
+                                        <div class="invalid-feedback">Selecciona una pregunta</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -78,6 +87,9 @@
 
         document.getElementById("button2").style.display = "none";
         document.getElementById("pregunta_nueva").style.display = "none";
+
+        document.getElementById("button3").style.display = "none";
+        document.getElementById("pregunta_nueva2").style.display = "none";
         document.getElementById("button1").onclick = () => {
             let nombre = document.getElementById("nombreCuestionario").value;
             let dimension = document.getElementById("inputDimension").value;
@@ -91,13 +103,13 @@
                 document.getElementById("inputDimension").setAttribute("readonly", "readonly");
                 document.getElementById("inputNivel").setAttribute("readonly", "readonly");
                 document.getElementById("button1").style.visibility = "hidden";
-                accion_asincrona();
+                accion_asincrona('pregunta0');
                 console.log('t');
             }
 
         }
 
-        const accion_asincrona = () => {
+        const accion_asincrona = (id) => {
             const nivel = document.getElementById('inputNivel').value;
             const dimension = document.getElementById('inputDimension').value;
             console.log(nivel);
@@ -124,13 +136,31 @@
                 console.log('Q ' + document.getElementById("inputDimension").value);
                 console.log('Q ' + document.getElementById("inputNivel").value);
 
-                document.getElementById('pregunta0').innerHTML = respuesta;
+                //document.getElementById('pregunta0').innerHTML = respuesta;
+                document.getElementById(id).innerHTML = respuesta;
 
             }).catch(err => {
                 console.log(err);
 
             });
         };
+
+
+        document.getElementById("pregunta0").onchange = () => {
+            if (document.getElementById("inputDimension").value == 1) {
+                document.getElementById("button3").style.display = "block";
+            }
+        }
+
+        document.getElementById("button3").onclick = () => {
+            document.getElementById("pregunta_nueva2").style.display = "block";
+            document.getElementById("pregunta0").setAttribute("readonly", "readonly");
+            document.getElementById("nombreCuestionario").setAttribute("readonly", "readonly");
+            document.getElementById("inputDimension").setAttribute("readonly", "readonly");
+            document.getElementById("inputNivel").setAttribute("readonly", "readonly");
+            document.getElementById("button3").style.visibility = "hidden";
+            accion_asincrona('pregunta1');
+        }
 
     </script>
 

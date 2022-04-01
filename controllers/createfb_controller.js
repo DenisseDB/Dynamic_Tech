@@ -60,8 +60,8 @@ exports.generarFormato_post = (request, response, next) => {
 
     //console.log("Controlador:");
     //console.log(request.body);
-
-    const formatoEvaluacion = new FormatoEvaluacion(request.body.nombreCuestionario, request.body.inputDimension, request.body.inputNivel, request.body.pregunta0);
+    let preguntas = [request.body.pregunta0, request.body.pregunta1];
+    const formatoEvaluacion = new FormatoEvaluacion(request.body.nombreCuestionario, request.body.inputDimension, request.body.inputNivel, preguntas);
     formatoEvaluacion.saveCuestionario()
         .then(() => {
             formatoEvaluacion.savePreguntasCuestionario()
