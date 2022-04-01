@@ -141,7 +141,13 @@
         </div>
         <br>
 
-        <a href="/solicitudes"><button type="button" class="btn btn-outline-secondary">Cancelar</button></a>
+        <script>
+          function alertaCancelado() {  
+              alert("Las respuestas no serán guardadas")
+          } 
+      </script>
+
+        <a href="/solicitudes"><button type="button" onclick="alertaCancelado();" class="btn btn-outline-secondary">Cancelar</button></a>
         <a href="/solicitudes"><input type="submit" class="btn btn-primary" value="Enviar"></a>
 
       </form>
