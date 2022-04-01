@@ -20,23 +20,30 @@ module.exports = class formatoEvaluacion {
     savePreguntasCuestionario() {
         let query = 'INSERT INTO preguntaCuestionario VALUES'
 
-        for (let i = 0; i < this.pregunta.length; i++) {
-            query += '(LAST_INSERT_ID(), ? , CURRENT_DATE())';
-
-            if (i < this.pregunta.length - 1) {
-                query += ',';
-            }
-            else {
-                query += ';';
-            }
-
-            console.log(query);
-        }
-
         console.log(this.pregunta[0]);
         console.log(this.pregunta[1]);
+        console.log(typeof this.pregunta[1] === 'undefined');
 
-        return db.execute(query, [this.pregunta[0], this.pregunta[1]]);
+        if (typeof this.pregunta[1] !== 'undefined') {
+            for (let i = 0; i < this.pregunta.length; i++) {
+                query += '(LAST_INSERT_ID(), ? , CURRENT_DATE())';
+
+                if (i < this.pregunta.length - 1) {
+                    query += ',';
+                }
+                else {
+                    query += ';';
+                }
+
+                console.log(query);
+            }
+            return db.execute(query, [this.pregunta[0], this.pregunta[1]]);
+
+        }
+        else {
+            query += '(LAST_INSERT_ID(), ? , CURRENT_DATE());';
+            return db.execute(query, [this.pregunta[0]]);
+        }
         /*return db.execute('INSERT INTO preguntaCuestionario VALUES(LAST_INSERT_ID(), ? , CURRENT_DATE());',
             [this.pregunta[i]]);*/
 

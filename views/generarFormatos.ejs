@@ -87,6 +87,7 @@
 
         document.getElementById("button2").style.display = "none";
         document.getElementById("pregunta_nueva").style.display = "none";
+        document.getElementById("pregunta1").disabled = true;
 
         document.getElementById("button3").style.display = "none";
         document.getElementById("pregunta_nueva2").style.display = "none";
@@ -154,6 +155,7 @@
 
         document.getElementById("button3").onclick = () => {
             document.getElementById("pregunta_nueva2").style.display = "block";
+            document.getElementById("pregunta1").disabled = false;
             document.getElementById("pregunta0").setAttribute("readonly", "readonly");
             document.getElementById("nombreCuestionario").setAttribute("readonly", "readonly");
             document.getElementById("inputDimension").setAttribute("readonly", "readonly");
