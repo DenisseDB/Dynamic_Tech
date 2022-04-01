@@ -41,12 +41,12 @@ module.exports = class Solicitud{
 
     // Método. Solicitudes hechas por el sesionado. - Mis Solicitudes
     static fecthSolicitudes(idSesionado) {
-        return db.execute('SELECT idEvaluado, idEvaluador, nombre, apellidoP, idPeriodo, estatus FROM retroalimentacion R, empleado E WHERE R.idEvaluador = E.idEmpleado AND idPeriodo in (SELECT MAX(idPeriodo) FROM periodo) AND R.idEvaluado = ?;', [idSesionado]);
+        return db.execute('SELECT idEvaluado, idEvaluador, nombre, apellidoP, idPeriodo, estatus FROM retroalimentacion R, empleado E WHERE R.idEvaluador = E.idEmpleado AND idPeriodo in (SELECT MAX(idPeriodo) FROM periodo) AND R.idEvaluado = ? ;', [idSesionado]);
     }
 
     // Método. Solicitudes hechas al sesionado. - A evaluar
     static fecthEvaluaciones(idSesionado) {
-        return db.execute('SELECT nombre, apellidoP, R.idEvaluado, estatus, NombrePeriodo, P.idPeriodo, fecha_inicial, fecha_final FROM empleado E, retroalimentacion R, periodo P WHERE E.idEmpleado = R.idEvaluado AND P.idPeriodo = R.idPeriodo AND R.idEvaluador = ? AND P.idPeriodo in (SELECT MAX(idPeriodo) FROM periodo);',
+        return db.execute('SELECT nombre, apellidoP, R.idEvaluado, estatus, NombrePeriodo, P.idPeriodo, fecha_inicial, fecha_final FROM empleado E, retroalimentacion R, periodo P WHERE E.idEmpleado = R.idEvaluado AND P.idPeriodo = R.idPeriodo AND R.idEvaluador = ? AND P.idPeriodo in (SELECT MAX(idPeriodo) FROM periodo) ORDER BY estatus;',
             [idSesionado]);
     }
 

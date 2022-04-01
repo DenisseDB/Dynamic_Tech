@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const Feed = require('../models/contestaFeed');
 const Solicitud = require('../models/solicitud');
+const res = require('express/lib/response');
 
 exports.solicitudesFeedback = (request, response, next) => {
     Solicitud.fecthPeriodo()
@@ -72,12 +73,21 @@ exports.nuevaSolicitud = (request, response, next) => {
 
 
 exports.cuestionario =  (request, response, next) => {
+    //Tomo las preguntas del cuestionario de Craft asignardo
     Feed.fecthCuestionarioCraft(request.session.idEmpleado,request.params.idEvaluado,request.params.idPeriodo)
     .then(([preguntasCraft, fieldData]) => {
+        request.session.preguntasCraft = preguntasCraft;
+
+         //Tomo las preguntas del cuestionario de People
         Feed.fecthCuestionarioPeople(request.session.idEmpleado,request.params.idEvaluado,request.params.idPeriodo)
         .then(([preguntasPeople,fieldData]) =>{
+            request.session.preguntasPeople = preguntasPeople;
+
+             //Tomo las preguntas del cuestionario de Business asignardo
             Feed.fecthCuestionarioBusiness(request.session.idEmpleado,request.params.idEvaluado,request.params.idPeriodo)
             .then(([preguntasBusiness,fieldData]) =>{
+                request.session.preguntasBusiness = preguntasBusiness;
+
                 response.render('llenarCuestionario', {
                     preguntasC : preguntasCraft,
                     preguntasP : preguntasPeople,
@@ -95,14 +105,56 @@ exports.cuestionario =  (request, response, next) => {
 
 };
 
-exports.salvarRespuestas =  (request, response, next) => {
+exports.salvarRespuestas = async (request, response, next) => {
 
-    const respuesta = new Feed(request.session.idEmpleado,request.params.idEvaluado,request.body.idPregunta,request.params.idPeriodo,request.body.value);
-    console.log(request.body);
-    respuesta.save().then(() => {
-        response.redirect('/solicitudFeedback');
-    }).catch(err => console.log(err));
+    console.log("Salvar respuestas");
+
+    //Para facilitar el manejo de las preguntas
+    let craft = request.session.preguntasCraft;
+    let people = request.session.preguntasPeople;
+    let bus = request.session.preguntasBusiness;
+
+    //Para obtener cuantas preguntas fueron
+    var total = craft.length + people.length + bus.length
+
+    //Para obtener los ids de cada pregunta
+    /* Recorro cada cuestinario para obtener sus ids preguntas y los guardo en 
+        un array
+    */
+    var idP = [];
+    for (i = 0; i < craft.length; i++ ) {
+        idP.push(craft[i].idPregunta);
+    }
+    for (i = 0; i < people.length; i++ ) {
+        idP.push(people[i].idPregunta);
+    }
+    for (i = 0; i < bus.length; i++ ) {
+        idP.push(bus[i].idPregunta);
+    }
+
+    //Para obtener las respuestas del body
+    /* Recorro cada radio button del body para obtener sus respuesta y la guardo en 
+        un array
+    */
+    var respuestas = [];
+    for (i = 1; i <= total; i++ ) {
+        respuestas.push(request.body[i]);
+    }
+
+    try {
+        //Ciclo for para realizar insert de preguntas y respuestas
+        for (i = 0; i < total; i++ ) {
+            let res = new Feed (request.params.idEvaluado, request.session.idEmpleado, idP[i],request.params.idPeriodo, respuestas[i])
+            await res.save();
+        }
+       response.redirect('/solicitudes');
+
+    } catch(error) {
+        console.log(error)
+    }
     
+    
+
 };
 
 exports.misMentorados = (request, response, next) => {

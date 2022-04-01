@@ -14,23 +14,23 @@ module.exports = class Feedback {
 
     // //Este método servirá para guardar de manera persistente el nuevo objeto. 
     save() {
-        return db.execute('START TRANSACTION; insert into respondesolicita values (?,?,?,?,?);  UPDATE retroalimentacion SET estatus = 1 WHERE idEvaluador = ? and idEvaluado = ? and idPeriodo = ?; COMMIT; ',
-        [this.idEvaluado, this.idEvaluador,this.idPregunta,this.idPeriodo,this.respuesta,this.idEvaluador, this.idEvaluado,this.idPeriodo] );
+       ;
+        //Llamo a un procedue que a la vez es una transacción
+        /* Lo que hace es realizar un insert de una pregunta-respuesta y cambia el
+        estatus de respondida a true */
+        return db.execute('CALL registrarFeedback (?,?,?,?,?)',
+        [this.idEvaluado, this.idEvaluador,this.idPregunta,this.idPeriodo,this.respuesta] );
     }
 
-    static fecthSolFeedback(idEvaluador) {
-        return db.execute('SELECT nombre, apellidoP, apellidoM, r.idEvaluado,estatus, NombrePeriodo, p.idPeriodo FROM empleado e, retroalimentacion r ,periodo p WHERE e.idEmpleado = r.idEvaluado and p.idPeriodo = r.idPeriodo and r.idEvaluador = ? and p.idPeriodo in (SELECT MAX(idPeriodo) FROM periodo);',
-            [idEvaluador]);
-
-    }
-
-    static fecthCuestionarioCraft(idEvaluador,idEvaluado,idPeriodo) {
+    //Para obtener las preguntas de craft asignadas a un evaluado
+       static fecthCuestionarioCraft(idEvaluador,idEvaluado,idPeriodo) {
         var cuestionario =  db.execute('SELECT p.idPregunta, p.pregunta, e.nombre, e.apellidoP, e.apellidoM FROM retroalimentacion r, preguntacuestionario pc , pregunta p, empleado e WHERE (r.idCuestionarioCraft = pc.idCuestionario) and e.idEmpleado = r.idEvaluado and pc.idPregunta = p.idPregunta and r.idEvaluador = ? and r.idEvaluado = ? and r.idPeriodo = ? ORDER BY estatus asc;',
         [idEvaluador, idEvaluado, idPeriodo]);
         return cuestionario
 
     }
 
+     //Para obtener las preguntas de people asignadas a un evaluado
     static fecthCuestionarioPeople(idEvaluador,idEvaluado,idPeriodo) {
         var cuestionario =  db.execute('SELECT p.idPregunta, p.pregunta, e.nombre, e.apellidoP, e.apellidoM FROM retroalimentacion r, preguntacuestionario pc , pregunta p, empleado e WHERE (r.idCuestionarioPeople = pc.idCuestionario) and e.idEmpleado = r.idEvaluado and pc.idPregunta = p.idPregunta and r.idEvaluador = ? and r.idEvaluado = ? and r.idPeriodo = ? ORDER BY estatus asc;',
         [idEvaluador, idEvaluado, idPeriodo]);
@@ -38,14 +38,13 @@ module.exports = class Feedback {
 
     }
 
+     //Para obtener las preguntas de business asignadas a un evaluado
     static fecthCuestionarioBusiness(idEvaluador,idEvaluado,idPeriodo) {
         var cuestionario =  db.execute('SELECT p.idPregunta, p.pregunta, e.nombre, e.apellidoP, e.apellidoM FROM retroalimentacion r, preguntacuestionario pc , pregunta p, empleado e WHERE (r.idCuestionarioBusiness = pc.idCuestionario) and e.idEmpleado = r.idEvaluado and pc.idPregunta = p.idPregunta and r.idEvaluador = ? and r.idEvaluado = ? and r.idPeriodo = ? ORDER BY estatus asc;',
         [idEvaluador, idEvaluado, idPeriodo]);
         return cuestionario
 
     }
-
-
 
 
 }
