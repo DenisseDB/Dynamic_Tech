@@ -7,6 +7,6 @@ module.exports = class Cuestionario {
    }
 
    static fetchAll() {
-      return db.execute('SELECT * ');
+      return db.execute('SELECT * FROM cuestionario order by nombre ASC ');
    }
 };

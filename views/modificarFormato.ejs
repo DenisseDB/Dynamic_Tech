@@ -9,60 +9,80 @@
                <form id="form1" class="was-validated">
 
 
-                  <!-- <div class="input-group has-validation mb-3">
-                     <span class="input-group-text" id="basic-addon1">Nombre del Cuestionario</span>
+                  <div class="input-group has-validation mb-3">
+                     <!-- <span class="input-group-text" id="basic-addon1">Nombre del Cuestionario</span>
 
 
-                     <input type="text" class="form-control" id="nombreCuestionario" placeholder="Cuestionario1"
-                        aria-describedby="basic-addon1" required>
-                     <div class="invalid-feedback"> Ingrese el nombre del cuestionario a modificar</div>
-                  </div> -->
+                                    <input type="text" class="form-control" id="nombreCuestionario" placeholder="Cuestionario1"
+                                       aria-describedby="basic-addon1" required>
+                                    <div class="invalid-feedback"> Ingrese el nombre del cuestionario a modificar</div> -->
 
-
-                  <br>
-
-                  <!-- -------------------Forms donde se despliegan los elementos de la base de datos------------------- -->
-
-                  <div class="row justify-content-md-center">
-                     <div class="col-sm-6">
-                        <div class="input-group mb-3">
-                           <label class="input-group-text" for="inputDimension">Dimensión</label>
-                           <select class="form-select" id="inputDimension" required aria-label="select example">
-                              <option value="" disabled selected>Selecciona una dimensión</option>
-                              <% for (let dimension of dimensiones) { %>
-                                 <option value="<%= dimension.idDimension %>">
-                                    <%= dimension.nombre %>
+                     <div class="row justify-content-md-center">
+                        <div class="col-sm-6">
+                           <div class="input-group mb-3">
+                              <label class="input-group-text" for="nombreCuestionario">Cuestionario</label>
+                              <select class="form-select" id="nombreCuestionario" required aria-label="select example">
+                                 <option value="" disabled selected>Seleccione el nombre del cuestionario a modificar
                                  </option>
-                                 <% } %>
-                           </select>
-                           <div class="invalid-feedback">Selecciona una dimensión</div>
+                                 <% for (let cuestionario of cuestionarios { %>
+                                    <option value="<%= cuestionario.idCuestionario %>">
+                                       <%= cuestionario.nombre %>
+                                    </option>
+                                    <% } %>
+                              </select>
+                              <div class="invalid-feedback">Selecciona un cuestionario existente </div>
+                           </div>
+                        </div>
+
+                     </div>
+
+
+
+
+                     <br>
+
+                     <!-- -------------------Forms donde se despliegan los elementos de la base de datos------------------- -->
+
+                     <div class="row justify-content-md-center">
+                        <div class="col-sm-6">
+                           <div class="input-group mb-3">
+                              <label class="input-group-text" for="inputDimension">Dimensión</label>
+                              <select class="form-select" id="inputDimension" required aria-label="select example">
+                                 <option value="" disabled selected>Selecciona una dimensión</option>
+                                 <% for (let dimension of dimensiones) { %>
+                                    <option value="<%= dimension.idDimension %>">
+                                       <%= dimension.nombre %>
+                                    </option>
+                                    <% } %>
+                              </select>
+                              <div class="invalid-feedback">Selecciona una dimensión</div>
+                           </div>
+                        </div>
+
+
+                        <div class="col-sm-6">
+                           <div class="input-group mb-3">
+                              <label class="input-group-text" for="inputNivel">Nivel</label>
+                              <select class="form-select" id="inputNivel" required aria-label="select example">
+                                 <option value="" disabled selected>Selecciona un nivel</option>
+                                 <option value="1">1 </option>
+                                 <option value="2">2 </option>
+                                 <option value="3">3 </option>
+                                 <option value="4">4 </option>
+                                 <option value="5">5 </option>
+                              </select>
+                              <div class="invalid-feedback">Selecciona un nivel</div>
+                           </div>
                         </div>
                      </div>
 
+                     <br>
+                     <div class="row justify-content-md-end">
+                        <div class="col-sm-2 align-self-end">
+                           <button class="btn btn-primary" type="submit" id="button1">Continuar</button>
 
-                     <div class="col-sm-6">
-                        <div class="input-group mb-3">
-                           <label class="input-group-text" for="inputNivel">Nivel</label>
-                           <select class="form-select" id="inputNivel" required aria-label="select example">
-                              <option value="" disabled selected>Selecciona un nivel</option>
-                              <option value="1">1 </option>
-                              <option value="2">2 </option>
-                              <option value="3">3 </option>
-                              <option value="4">4 </option>
-                              <option value="5">5 </option>
-                           </select>
-                           <div class="invalid-feedback">Selecciona un nivel</div>
                         </div>
                      </div>
-                  </div>
-
-                  <br>
-                  <div class="row justify-content-md-end">
-                     <div class="col-sm-2 align-self-end">
-                        <button class="btn btn-primary" type="submit" id="button1">Continuar</button>
-
-                     </div>
-                  </div>
                </form>
                <div class="form" id="myForm">
                </div>
@@ -70,6 +90,92 @@
          </div>
    </body>
    <script>
+
+
+      // ---------------------------Funciones de AJAX---------------------------
+      let nivelp;
+
+      document.getElementById("myForm").style.display = "none";
+      document.getElementById("form1").onsubmit = () => {
+         console.log("hola2");
+         return false;
+      }
+      document.getElementById("button1").onclick = () => {
+
+         let nombre = document.getElementById("nombreCuestionario").value;
+         let dimension = document.getElementById("inputDimension").value;
+         let nivel = document.getElementById("inputNivel").value;
+
+         if (nombre != '' && dimension != '' && nivel != '') {
+            console.log("hola");
+            document.getElementById("myForm").style.display = "block";
+            document.getElementById("nombreCuestionario").disabled = true;
+            document.getElementById("inputDimension").disabled = true;
+            document.getElementById("inputNivel").disabled = true;
+            nivelp = document.getElementById("inputNivel").value;
+            document.getElementById("button1").style.visibility = "hidden";
+            accion_asincrona();
+            console.log('t');
+         }
+
+      }
+
+      const accion_asincrona = () => {
+         const nivel = document.getElementById('inputNivel').value;
+         const dimension = document.getElementById('inputDimension').value;
+         console.log(nivel);
+
+         var parametros = {
+            niv: nivel,
+            dim: dimension
+         };
+
+         fetch('/feedback/buscarFormato/' + nivel + '/' + dimension, {
+            method: 'GET',
+            headers: {
+               'Content-Type': 'application/json',
+               //'csrf-token': csrf
+            }
+            //body: JSON.stringify(data)
+         }).then(result => {
+            return result.json(); //Regresa otra promesa
+         }).then(data => {
+            //Modificamos el DOM de nuestra página de acuerdo a los datos de la segunda promesa
+            //...
+
+            console.log(data);
+            let respuesta = '';
+            respuesta += '<div class="row justify-content-md-start">' +
+               '<div class="col-sm-8">' +
+               '<div class="input-group mb-3">' +
+               '<label class="input-group-text" for="inputGroupSelect03">Pregunta</label>' +
+               '<select class="form-select" id="inputGroupSelect03" required aria-label="select example">' +
+               '<option value="" disabled selected>Selecciona una pregunta</option>';
+
+            for (let d of data) {
+               respuesta += '<option>' + d.pregunta + '</option>';
+            }
+
+            respuesta += '</select>' +
+               '<div class="invalid-feedback">Selecciona una dimensión</div>' +
+               '</div>' +
+               '</div>' +
+               '</div>' +
+               '</div>';
+
+            document.getElementById('myForm').innerHTML = respuesta;
+
+         }).catch(err => {
+            console.log(err);
+
+         });
+      };
+
+               //document.getElementById("button1").onclick = accion_asincrona;
+
+               //function openForm() {
+               //console.log("hola");
+               //document.getElementById("myForm").style.display = "block";
 
    </script>
    <%- include('includes/foot.ejs') %></br>

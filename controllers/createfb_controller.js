@@ -1,6 +1,7 @@
 const formatoEvaluacion = require('../models/formatoEvaluacion');
 const Dimension = require('../models/dimension');
 const Pregunta = require('../models/pregunta');
+
 const {
    route
 } = require('../routes/createfb.routes');
@@ -35,14 +36,12 @@ exports.generarFormato = (request, response, next) => {
       }).catch((error) => {
          console.log(error);
       });
-
-   /*response.render('generarFormatos', {
-   });*/
-
 };
+
 exports.modificarFormato = (request, response, next) => {
    Dimension.fetchAll()
       .then(([rows, fielData]) => {
+
          response.render('modificarFormato', {
             dimensiones: rows
          });
@@ -50,7 +49,5 @@ exports.modificarFormato = (request, response, next) => {
          console.log(error);
       });
 
-   /*response.render('generarFormatos', {
-   });*/
 
 };
