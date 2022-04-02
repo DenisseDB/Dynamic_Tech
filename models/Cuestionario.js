@@ -7,6 +7,6 @@ module.exports = class Cuestionario {
    }
 
    static fetchAll() {
-      return db.execute('SELECT * FROM cuestionario order by nombre ASC ');
+      return db.execute('SELECT cuestionario.nombre FROM cuestionario NATURAL join preguntacuestionario NATURAL join pregunta INNER JOIN dimension on dimension.idDimension = pregunta.idDimension');
    }
 };

@@ -49,9 +49,9 @@
                               <label class="input-group-text" for="inputDimension">Dimensión</label>
                               <select class="form-select" id="inputDimension" required aria-label="select example">
                                  <option value="" disabled selected>Selecciona una dimensión</option>
-                                 <% for (let dimension of dimensiones) { %>
+                                 <% for (let dimension of cuestionarios) { %>
                                     <option value="<%= dimension.idDimension %>">
-                                       <%= dimension.nombre %>
+                                       <%= dimension.dimension.nombre %>
                                     </option>
                                     <% } %>
                               </select>
