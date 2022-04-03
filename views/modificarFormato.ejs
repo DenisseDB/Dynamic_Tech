@@ -24,9 +24,9 @@
                               <select class="form-select" id="nombreCuestionario" required aria-label="select example">
                                  <option value="" disabled selected>Seleccione el nombre del cuestionario a modificar
                                  </option>
-                                 <% for (let cuestionario of cuestionarios { %>
+                                 <% for (let cuestionario of cuestionarios) { %>
                                     <option value="<%= cuestionario.idCuestionario %>">
-                                       <%= cuestionario.nombre %>
+                                       <%= cuestionario.nombre_Cuestionario %>
                                     </option>
                                     <% } %>
                               </select>
@@ -51,7 +51,7 @@
                                  <option value="" disabled selected>Selecciona una dimensión</option>
                                  <% for (let dimension of cuestionarios) { %>
                                     <option value="<%= dimension.idDimension %>">
-                                       <%= dimension.dimension.nombre %>
+                                       <%= dimension.nombre_Dimension %>
                                     </option>
                                     <% } %>
                               </select>
