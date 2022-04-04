@@ -24,7 +24,7 @@ module.exports = class Feedback {
 
     //Para obtener las preguntas de craft asignadas a un evaluado
        static fecthCuestionarioCraft(idEvaluador,idEvaluado,idPeriodo) {
-        var cuestionario =  db.execute('SELECT p.idPregunta, p.pregunta, e.nombre, e.apellidoP, e.apellidoM FROM retroalimentacion r, preguntacuestionario pc , pregunta p, empleado e WHERE (r.idCuestionarioCraft = pc.idCuestionario) and e.idEmpleado = r.idEvaluado and pc.idPregunta = p.idPregunta and r.idEvaluador = ? and r.idEvaluado = ? and r.idPeriodo = ? ORDER BY estatus asc;',
+        var cuestionario =  db.execute('SELECT p.idPregunta, p.pregunta, p.idTipo, e.nombre, e.apellidoP, e.apellidoM FROM retroalimentacion r, preguntacuestionario pc , pregunta p, empleado e WHERE (r.idCuestionarioCraft = pc.idCuestionario) and e.idEmpleado = r.idEvaluado and pc.idPregunta = p.idPregunta and r.idEvaluador = ? and r.idEvaluado = ? and r.idPeriodo = ? ORDER BY estatus asc;',
         [idEvaluador, idEvaluado, idPeriodo]);
         return cuestionario
 
@@ -32,7 +32,7 @@ module.exports = class Feedback {
 
      //Para obtener las preguntas de people asignadas a un evaluado
     static fecthCuestionarioPeople(idEvaluador,idEvaluado,idPeriodo) {
-        var cuestionario =  db.execute('SELECT p.idPregunta, p.pregunta, e.nombre, e.apellidoP, e.apellidoM FROM retroalimentacion r, preguntacuestionario pc , pregunta p, empleado e WHERE (r.idCuestionarioPeople = pc.idCuestionario) and e.idEmpleado = r.idEvaluado and pc.idPregunta = p.idPregunta and r.idEvaluador = ? and r.idEvaluado = ? and r.idPeriodo = ? ORDER BY estatus asc;',
+        var cuestionario =  db.execute('SELECT p.idPregunta, p.pregunta,p.idTipo, e.nombre, e.apellidoP, e.apellidoM FROM retroalimentacion r, preguntacuestionario pc , pregunta p, empleado e WHERE (r.idCuestionarioPeople = pc.idCuestionario) and e.idEmpleado = r.idEvaluado and pc.idPregunta = p.idPregunta and r.idEvaluador = ? and r.idEvaluado = ? and r.idPeriodo = ? ORDER BY estatus asc;',
         [idEvaluador, idEvaluado, idPeriodo]);
         return cuestionario
 
@@ -40,7 +40,7 @@ module.exports = class Feedback {
 
      //Para obtener las preguntas de business asignadas a un evaluado
     static fecthCuestionarioBusiness(idEvaluador,idEvaluado,idPeriodo) {
-        var cuestionario =  db.execute('SELECT p.idPregunta, p.pregunta, e.nombre, e.apellidoP, e.apellidoM FROM retroalimentacion r, preguntacuestionario pc , pregunta p, empleado e WHERE (r.idCuestionarioBusiness = pc.idCuestionario) and e.idEmpleado = r.idEvaluado and pc.idPregunta = p.idPregunta and r.idEvaluador = ? and r.idEvaluado = ? and r.idPeriodo = ? ORDER BY estatus asc;',
+        var cuestionario =  db.execute('SELECT p.idPregunta, p.pregunta,p.idTipo, e.nombre, e.apellidoP, e.apellidoM FROM retroalimentacion r, preguntacuestionario pc , pregunta p, empleado e WHERE (r.idCuestionarioBusiness = pc.idCuestionario) and e.idEmpleado = r.idEvaluado and pc.idPregunta = p.idPregunta and r.idEvaluador = ? and r.idEvaluado = ? and r.idPeriodo = ? ORDER BY estatus asc;',
         [idEvaluador, idEvaluado, idPeriodo]);
         return cuestionario
 

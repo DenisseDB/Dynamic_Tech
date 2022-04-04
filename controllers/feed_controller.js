@@ -108,6 +108,7 @@ exports.cuestionario =  (request, response, next) => {
 exports.salvarRespuestas = async (request, response, next) => {
 
     console.log("Salvar respuestas");
+    console.log(request.body);
 
     //Para facilitar el manejo de las preguntas
     let craft = request.session.preguntasCraft;
@@ -131,7 +132,8 @@ exports.salvarRespuestas = async (request, response, next) => {
     for (i = 0; i < bus.length; i++ ) {
         idP.push(bus[i].idPregunta);
     }
-
+ 
+    console.log(idP)
     //Para obtener las respuestas del body
     /* Recorro cada radio button del body para obtener sus respuesta y la guardo en 
         un array
@@ -140,6 +142,8 @@ exports.salvarRespuestas = async (request, response, next) => {
     for (i = 1; i <= total; i++ ) {
         respuestas.push(request.body[i]);
     }
+
+    console.log(respuestas)
 
     try {
         //Ciclo for para realizar insert de preguntas y respuestas
