@@ -56,6 +56,7 @@
               </p>
 
               <!--------------------------------------  Nueva Solicitud ---------------------------------------------->
+              <% if ((fecha_i <= fecha) && (fecha_f >= fecha)) { %>
               <p>
                 <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-plus-fill" viewBox="1 0 20 20">
@@ -71,11 +72,11 @@
                     <input id="periodo" name="periodo" type="hidden" value="<%= periodo[0].idPeriodo %>">
                     <div class="row">
                       <div class="col-md-6">
-                        <select id="inputState" name="inputState" class="form-select">
+                        <select id="inputState" name="inputState" class="form-select" data-live-search="true">
                           <option selected>Selecciona a un compañero</option>
                           <% for (let empleado of empleados) { %>
                             <option><%= empleado.nombre %> <%= empleado.apellidoP %></option>
-                          <% }%>
+                          <% } %>
                         </select>
                       </div>
                       <div class="col-md-2">
@@ -90,6 +91,7 @@
                   </form> 
                 </div>
               </div>
+              <% } %>
             </div>
           </div>
         </div>

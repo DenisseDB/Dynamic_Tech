@@ -6,6 +6,15 @@ exports.solicitudesFeedback = async (request, response, next) => {
     const pd = await Solicitud.fecthPeriodo(); // Periodo de evaluación.
     const eval = await Solicitud.fecthEvaluaciones(request.session.idEmpleado); // A evaluar.
     const sol = await  Solicitud.fecthSolicitudes(request.session.idEmpleado); // Mis Solicitudes.
+    
+    // Rango de fechas (para solicitar/responder feedback).
+    const date = new Date().toLocaleDateString();
+
+    let inicio = pd[0].fecha_inicial;
+    inicio = inicio.toLocaleDateString();
+
+    let final = pd[0].fecha_final;
+    final = final.toLocaleDateString();
 
     Solicitud.fecthEmpleados(request.session.idEmpleado)
         .then(([emp, fielData]) => {
@@ -15,7 +24,10 @@ exports.solicitudesFeedback = async (request, response, next) => {
                     periodo : pd,
                     evaluaciones : eval,
                     solicitudes : sol,
-                    empleados : emp
+                    empleados : emp,
+                    fecha: date,
+                    fecha_i : inicio,
+                    fecha_f : final
                 }
             );
         }).catch((error) => {
