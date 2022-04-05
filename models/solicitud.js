@@ -18,7 +18,7 @@ module.exports = class Solicitud{
         return db.execute(
             'INSERT INTO retroalimentacion(idEvaluado,idEvaluador,idCuestionarioCraft,idCuestionarioPeople,idCuestionarioBusiness,idPeriodo,fecha) VALUES(?,?,?,?,?,?,?)',
             [this.idEvaluado, this.idEvaluador, this.idCuestionarioCraft, 
-                this.idCuestionarioPeople, this.idCuestionarioBusiness, this.idPeriodo, this.fecha]); 
+                this.idCuestionarioPeople, this.idCuestionarioBusiness, this.idPeriodo, this.fecha])
     }
 
     // Método. Cuestionarios del sesionado dados sus niveles de cada dimensión.

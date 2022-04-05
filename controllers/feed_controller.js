@@ -6,6 +6,7 @@ exports.solicitudesFeedback = async (request, response, next) => {
     const pd = await Solicitud.fecthPeriodo(); // Periodo de evaluación.
     const eval = await Solicitud.fecthEvaluaciones(request.session.idEmpleado); // A evaluar.
     const sol = await  Solicitud.fecthSolicitudes(request.session.idEmpleado); // Mis Solicitudes.
+    request.session.solicitudes = sol.length; // Número. Mis Solicitudes
     
     // Rango de fechas (para solicitar/responder feedback).
     const date = new Date().toLocaleDateString();
@@ -15,7 +16,7 @@ exports.solicitudesFeedback = async (request, response, next) => {
 
     let final = pd[0].fecha_final;
     final = final.toLocaleDateString();
-
+ 
     Solicitud.fecthEmpleados(request.session.idEmpleado)
         .then(([emp, fielData]) => {
             
@@ -37,20 +38,23 @@ exports.solicitudesFeedback = async (request, response, next) => {
 };
 
 exports.nuevaSolicitud = async (request, response, next) => {
-    const IDC = await Solicitud.fecthIDCuestionarios(request.session.craft, 
-        request.session.people, request.session.business); // Cuestionarios del sesionado.
+    let evaluador = request.body.nombre; // Nombre(s) de compañeros evaluadores.
 
-    const IDE = await Solicitud.fecthOneID(request.body.inputState); // ID del evaluador.
+    if(request.session.solicitudes >= (request.session.solicitudes + evaluador.length)){
+        const IDC = await Solicitud.fecthIDCuestionarios(request.session.craft, 
+                request.session.people, request.session.business); // Cuestionarios del sesionado.
+                
+            for (i = 0; i < evaluador.length; i++) {
+                const IDE = await Solicitud.fecthOneID(evaluador[i]); // ID del evaluador.
 
-    const solicitud = new Solicitud(request.session.idEmpleado, IDE[0].idEmpleado, 
-        IDC[0].idCuestionario, IDC[1].idCuestionario, IDC[2].idCuestionario, request.body.periodo, new Date()); // Nueva solicitud.
+                const solicitud = new Solicitud(request.session.idEmpleado, IDE[0].idEmpleado, 
+                    IDC[0].idCuestionario, IDC[1].idCuestionario, IDC[2].idCuestionario, request.body.periodo, new Date()); // Nueva solicitud.
+                
+                solicitud.save();
+            }
+    }
     
-    solicitud.save()
-        .then(() => {
-            response.redirect('/solicitudes');
-        }).catch((error) => {
-            console.log(error);
-        });       
+    response.redirect('/solicitudes');      
 };
 
 
