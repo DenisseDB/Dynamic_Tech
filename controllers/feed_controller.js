@@ -8,7 +8,7 @@ exports.solicitudesFeedback = (request, response, next) => {
                 {
                     // request.session.idEvaluado = rows[0].idEvaluado;
 
-                    rolesA : request.session.rolesPermitidos,
+                    rolesA :  request.session.privilegiosPermitidos,
                     rol: request.session.idRol ? request.session.idRol : '',
 
                     idEvaluado : request.session.idEvaluado,
@@ -31,7 +31,7 @@ exports.cuestionario =  (request, response, next) => {
             .then(([preguntasBusiness,fieldData]) =>{
                 response.render('llenarCuestionario', {
 
-                    rolesA : request.session.rolesPermitidos,
+                    rolesA :  request.session.privilegiosPermitidos,
                     rol: request.session.idRol ? request.session.idRol : '',
 
                     preguntasC : preguntasCraft,

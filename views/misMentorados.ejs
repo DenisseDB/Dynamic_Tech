@@ -1,22 +1,26 @@
-  <% if (rolesA[0].idRol == rol) { %> <!-- array de roles + el id del usuario -->
-    <!-- Rol 1 Chapter Lead mostrar navbar para Lead -->
-    <%- include('includes/sidenavAsis.ejs') %>
-  <% } else if (rolesA[1].idRol == rol){  %>
-      <!-- Rol 2 Chapter Assistant mostrar navbar para Lead -->
-      <%- include('includes/sidenavAsis.ejs') %>
-  <% } else { %>
-    <!-- Rol 3 Chapter member mostrar navbar para Empleado-->
-    <%- include('includes/sidenavsup.ejs') %>
-  <% }  %>
+<!-- Partes que siempre aparecen en el navbar -->
+<%- include('includes/sidenavsup.ejs') %>
+
+<!-- Para que aparezca Mis Mentorados -->
+<% for (i = 0; i < rolesA.length; i++) {  %>
+  <% if (rolesA[i].idPrivilegio == 1) { %> 
+  <%- include('includes/sideMentorados.ejs') %>
+  <% } %>
+<% } %>
+
+<!-- Final de la nav-->
+<%- include('includes/sidenavFin.ejs') %>
+
 
 <body>
     <h1 id="principal">Mis Mentorados</h1>
+    <br>
     <h2><%= nombre %>, estos son tus mentorados:</h2>
     <br><br>
     <div class = "container">
     <div class="col-sm-12">
         <div class="card">
-          <h5 class="card-header"><i class="large material-icons">library_books</i>  A evaluar</h5>
+          <h5 class="card-header"><i class="large material-icons">library_books</i> Mentorados</h5>
           <div class="card-body">
                 <!--Para tabla con boostrap-->
                 <table class="table">

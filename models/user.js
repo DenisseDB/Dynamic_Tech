@@ -33,14 +33,21 @@ module.exports = class User {
     }
 
     static fecthMentorados(idEmpleado) {
-        return db.execute('SELECT nombre, apellidoP, apellidoM FROM Empleado E, asignacionempleado AE WHERE E.idEmpleado = AE.idMentorado AND AE.idMentor = ?',
+        return db.execute('SELECT nombre, apellidoP, apellidoM FROM empleado E, asignacionempleado AE WHERE E.idEmpleado = AE.idMentorado AND AE.idMentor = ?',
             [idEmpleado]);
+
+    }
+
+    //Para obtener los privilegios que tenga un usuario sesionado
+    static fecthPrivilegios(idEmpleadoRol) {
+        return db.execute('SELECT idPrivilegio FROM rolprivilegio where idRol = ?;',
+            [idEmpleadoRol]);
 
     }
 
     //Este método servirá para devolver los objetos del almacenamiento persistente.
     static findOne(correo) {
-        return db.execute('SELECT nombre,correo,E.idEmpleado,idRol FROM empleado E, rolEmpleado RE WHERE E.idEmpleado = RE.idEmpleado AND correo=?',
+        return db.execute('SELECT nombre,correo,E.idEmpleado,idRol FROM empleado E, rolempleado RE WHERE E.idEmpleado = RE.idEmpleado AND correo=?',
             [correo]);
     }
 

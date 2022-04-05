@@ -38,10 +38,10 @@ exports.login = (request, response, next) => {
 
 // ROLES AUTORIZADOS PARA TOPS
 exports.tops = (request, response, next) => {
-    User.rolMentorados()
+    User.fecthPrivilegios( request.session.idRol)
     .then(([rows,fielData]) => {
 
-        request.session.rolesPermitidos = rows,
+        request.session.privilegiosPermitidos = rows,
      
         response.render('index', { // mandamos su informacion al sidenav
             correo: request.session.correo ? request.session.correo : '',
@@ -85,7 +85,7 @@ exports.misMentorados = (request, response, next) => {
         .then(([rows, fielData]) => {
             response.render('misMentorados',
                 {
-                    rolesA : request.session.rolesPermitidos,
+                    rolesA :  request.session.privilegiosPermitidos,
                     rol: request.session.idRol ? request.session.idRol : '',
                     // TODO ESTO SE ENVIA A MISMENTORADOS.EJS
                     mentorados: rows, // llevar los mentorados
