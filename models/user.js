@@ -33,7 +33,7 @@ module.exports = class User {
     }
 
     static fecthMentorados(idEmpleado) {
-        return db.execute('SELECT nombre FROM Empleado E, asignacionempleado AE WHERE E.idEmpleado = AE.idMentorado AND AE.idMentor = ?',
+        return db.execute('SELECT nombre, apellidoP, apellidoM FROM empleado E, asignacionempleado AE WHERE E.idEmpleado = AE.idMentorado AND AE.idMentor = ?',
             [idEmpleado]);
 
     }
@@ -46,5 +46,12 @@ module.exports = class User {
         return db.execute('SELECT E.idEmpleado, nombre, correo, idRol, idDimension, nivelE, DE.fecha FROM empleado E, rolempleado RE, dimempleado DE WHERE E.idEmpleado = RE.idEmpleado AND E.idEmpleado = DE.idEmpleado AND correo = ? ORDER BY idDimension ASC;',
         [correo]);  
     }
+
+        //Para obtener los privilegios que tenga un usuario sesionado
+        static fecthPrivilegios(idEmpleadoRol) {
+            return db.execute('SELECT idPrivilegio FROM rolprivilegio where idRol = ?;',
+                [idEmpleadoRol]);
+    
+        }
 
 }
