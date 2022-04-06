@@ -21,48 +21,58 @@
 <body>
   <h1 id="principal">Mis Mentorados</h1>
   <br>
-  <h2><%= nombre %>, estos son tus mentorados:</h2>
+  <h2>
+    <%= nombre %>, estos son tus mentorados:
+  </h2>
   <br><br>
-  <div class = "container">
-  <div class="col-sm-12">
+  <div class="container">
+    <div class="col-sm-12">
       <div class="card">
         <h5 class="card-header"><i class="large material-icons">library_books</i> Mentorados</h5>
         <div class="card-body">
-              <!--Para tabla con boostrap-->
-              <table class="table">
-                <thead class="thead-dark">
-                  <tr>
-                    <th scope="col"></th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Craft</th>
-                    <th scope="col">People</th>
-                    <th scope="col">Busisness</th>
-                    <th scope="col">Retroalimentación</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-              <% for (let  mentorado of  mentorados) { %>
-                  <td> <img src="https://github.com/mdo.png" alt="hugenerd" width="60" height="60" class="rounded-circle"></td>
-                  <td><%= mentorado.nombre %>  <%=  mentorado.apellidoP %> <%=  mentorado.apellidoM %></td>
-                  <td><img src="https://www.visme.co/wp-content/themes/visme/images/graph-maker-header-4.jpg" alt="hugenerd" width="100" height="60" ></td>
-                  <td><img src="https://www.visme.co/wp-content/themes/visme/images/graph-maker-header-4.jpg" alt="hugenerd" width="100" height="60" ></td>
-                  <td><img src="https://www.visme.co/wp-content/themes/visme/images/graph-maker-header-4.jpg" alt="hugenerd" width="100" height="60" ></td>
+          <!--Para tabla con boostrap-->
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Craft</th>
+                <th scope="col">People</th>
+                <th scope="col">Busisness</th>
+                <th scope="col">Retroalimentación</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <% for (let mentorado of mentorados) { %>
+                  <td> <img src="https://github.com/mdo.png" alt="hugenerd" width="60" height="60"
+                      class="rounded-circle"></td>
+                  <td>
+                    <%= mentorado.nombre %>
+                      <%= mentorado.apellidoP %>
+                        <%= mentorado.apellidoM %>
+                  </td>
+                  <td><img src="https://www.visme.co/wp-content/themes/visme/images/graph-maker-header-4.jpg"
+                      alt="hugenerd" width="100" height="60"></td>
+                  <td><img src="https://www.visme.co/wp-content/themes/visme/images/graph-maker-header-4.jpg"
+                      alt="hugenerd" width="100" height="60"></td>
+                  <td><img src="https://www.visme.co/wp-content/themes/visme/images/graph-maker-header-4.jpg"
+                      alt="hugenerd" width="100" height="60"></td>
                   <td><button type="button" class="btn btn-ms btn-primary">Detalle</button></td>
-                 
-                
+
+
                   <!-- <button type="button" class="btn btn-lg btn-primary" disabled>Responder</button> -->
-              
-                </tr>
-                  <%} %>
-                  <td></td>
-                  <td><b>Promedio por dimensión</b></td>
-                  <td><b>3.1</b></td>
-                  <td><b>4.2</b></td>
-                  <td><b>2.3</b></td>
-                  
-                </tbody>
-              </table>
+
+              </tr>
+              <%} %>
+                <td></td>
+                <td><b>Promedio por dimensión</b></td>
+                <td><b>3.1</b></td>
+                <td><b>4.2</b></td>
+                <td><b>2.3</b></td>
+
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

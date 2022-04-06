@@ -11,15 +11,33 @@ exports.agregarEmpleados = (request, response, next) => {
          //Tomo las preguntas del cuestionario de People
       Lead.fecthEquipos()
         .then(([equipos,fieldData]) =>{
-           
-            response.render('empleadosChapter',{
-                rolesA :  request.session.privilegiosPermitidos,
-                rol: request.session.idRol ? request.session.idRol : '',
-                roles : roles,
-                equipos: equipos,
-                // // TODO ESTO SE ENVIA A MISMENTORADOS.EJS
-                // nombre: request.session.nombre, // sacar su nombre
-            })
+            Lead.fecthMiembrosChapter()
+            .then(([miembros,fieldData]) =>{
+               
+                Lead.fecthDimEmpleado()
+            .then(([dimEmpleado,fieldData]) =>{
+               
+                response.render('empleadosChapter',{
+                    rolesA :  request.session.privilegiosPermitidos,
+                    rol: request.session.idRol ? request.session.idRol : '',
+                    roles : roles,
+                    equipos: equipos,
+                    miembros : miembros,
+                    dimEmpleado : dimEmpleado,
+                
+                })
+                
+    
+                }).catch(error => {
+                    console.log(error);
+                });
+               
+               
+    
+                }).catch(error => {
+                    console.log(error);
+                });
+            
 
             }).catch(error => {
                 console.log(error);
@@ -30,3 +48,4 @@ exports.agregarEmpleados = (request, response, next) => {
 
 
 };
+

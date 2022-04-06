@@ -27,7 +27,7 @@
                 <h2 class="accordion-header" id="headingOne">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        <h5><i class="large material-icons">add_circle_outline</i> Agregar Empleado</h5>
+                        <h5><i class="large material-icons">person_add</i> Agregar Empleado</h5>
                     </button>
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
@@ -169,6 +169,77 @@
                 </div>
             </div>
         </div>
+
+        <br><br>
+
+        <!--Para tabla de chapter members-->
+        <div class="col-sm-12">
+            <div class="card">
+              <h5 class="card-header"><i class="large material-icons">person</i> Miembros del chapter</h5>
+              <div class="card-body">
+                <!--Para tabla con boostrap-->
+                <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Correo</th>
+                      <th scope="col">Nivel Craft</th>
+                      <th scope="col">Nivel People</th>
+                      <th scope="col">Nivel  Busisness</th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <% for (let mentorado of miembros) { %>
+                        <td> <img src="https://github.com/mdo.png" alt="hugenerd" width="60" height="60"
+                            class="rounded-circle"></td>
+                        <td>
+                          <%= mentorado.nombre %>
+                            <%= mentorado.apellidoP %>
+                              <%= mentorado.apellidoM %>
+                        </td>
+                        
+                        <td><%= mentorado.correo %></td>
+                        
+                        <!--Para craft-->
+                        <% for (let dim of dimEmpleado) { %>
+                            <% if ( (mentorado.idEmpleado == dim.idEmpleado) && (dim.idDimension == 1)) { %>
+                            <td><%= dim.nivelE.toFixed(1) %></td>
+                            <% } %>
+                        <% } %>
+
+                        <!--Para people-->
+                        <% for (let dim of dimEmpleado) { %>
+                            <% if ( (mentorado.idEmpleado == dim.idEmpleado) && (dim.idDimension == 2)) { %>
+                            <td><%= dim.nivelE.toFixed(1) %></td>
+                            <% } %>
+                        <% } %>
+
+                        <!--Para business-->
+                        <% for (let dim of dimEmpleado) { %>
+                            <% if ( (mentorado.idEmpleado == dim.idEmpleado) && (dim.idDimension == 3)) { %>
+                            <td><%= dim.nivelE.toFixed(1) %></td>
+                            <% } %>
+                        <% } %>
+
+
+                        <td><button type="button" class="btn btn-ms btn-primary">Modificar</button></td>
+                        <td><button type="button" class="btn btn-ms btn-primary">Eliminar</button></td>
+      
+      
+                        <!-- <button type="button" class="btn btn-lg btn-primary" disabled>Responder</button> -->
+      
+                    </tr>
+                    <%} %>
+      
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
 
 
 </body>

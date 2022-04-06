@@ -37,5 +37,18 @@ module.exports = class ChapterLead {
 
     }
 
+     //Para obtener todos los miebros del chapter
+     static fecthMiembrosChapter() {
+        return db.execute ('SELECT * from empleado;');
+
+    }
+
+     //Para obtener todos los miebros del chapter
+     static fecthDimEmpleado() {
+        return db.execute ('SELECT * from dimempleado;');
+
+    }
+
+
 
 }
