@@ -1,0 +1,177 @@
+<!-- Partes que siempre aparecen en el navbar -->
+<%- include('includes/sidenavsup.ejs') %>
+
+<!-- Para que aparezca Mis Mentorados -->
+<% for (i = 0; i < rolesA.length; i++) {  %>
+  <% if (rolesA[i].idPrivilegio == 1) { %> 
+  <%- include('includes/sideMentorados.ejs') %>
+  <% } %>
+<% } %>
+
+<!-- Para que aparezca Empleados del chapter -->
+<% for (i = 0; i < rolesA.length; i++) {  %>
+  <% if (rolesA[i].idPrivilegio == 2) { %> 
+  <%- include('includes/sideAgregarE.ejs') %>
+  <% } %>
+<% } %>
+
+<!-- Final de la nav-->
+<%- include('includes/sidenavFin.ejs') %>
+
+<body>
+    <h1 id="principal">Empleados de chapter</h1>
+    <br>
+    <div class="container">
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <h5><i class="large material-icons">add_circle_outline</i> Agregar Empleado</h5>
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <form>
+                            <div class="row">
+                                <div class="col">
+                                    <!--Nombre input -->
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="Juan"
+                                            required>
+                                        <label for="floatingInput">Nombre</label>
+                                    </div>
+                                </div>
+                                <!-- Apellido paterno input -->
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="Juan"
+                                            required>
+                                        <label for="floatingInput">Apellido Paterno</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <!-- Apellido Materno -->
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="Juan"
+                                            required>
+                                        <label for="floatingInput">Apellido Materno</label>
+                                    </div>
+                                </div>
+
+                                <hr />
+
+                                
+                                    <div class="col">
+                                        <!-- Email inputt -->
+                                        <div class="form-floating mb-3">
+                                            <input type="email" class="form-control" id="floatingInput"
+                                                placeholder="name@example.com" required>
+                                            <label for="floatingInput">Email address</label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <!-- Contraseña -->
+                                        <div class="form-floating">
+                                            <input type="password" class="form-control" id="floatingPassword"
+                                                placeholder="Password">
+                                            <label for="floatingPassword">Password</label>
+                                        </div>
+                                    </div>
+
+                                <hr />
+
+                                <!-- Para los niveles de cada dimensión -->
+                                <div class="col">
+                                    <!-- Name input -->
+                                    <div class="form-floating">
+                                        <select class="form-select" id="floatingSelect"
+                                            aria-label="Floating label select example">
+                                            <option selected>Elige el nivel de Craft</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                            
+                                        </select>
+                                        <label for="floatingSelect" required>Nivel Craft</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <!-- Name input -->
+                                    <div class="form-floating">
+                                        <select class="form-select" id="floatingSelect"
+                                            aria-label="Floating label select example">
+                                            <option selected>Elige el nivel de People</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                        <label for="floatingSelect">Nivel People</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <!-- Email input -->
+                                    <div class="form-floating">
+                                        <select class="form-select" id="floatingSelect"
+                                            aria-label="Floating label select example">
+                                            <option selected>Elige el nivel de Business</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                        <label for="floatingSelect">Nivel Business</label>
+                                        <br>
+                                    </div>
+
+                                </div>
+
+                                <hr />
+
+                                <div class="col">
+                                    <!-- Name input -->
+                                    <div class="form-floating">
+                                        <select class="form-select" id="floatingSelect"
+                                            aria-label="Floating label select example">
+                                            <option selected>Elije un rol de empleado</option>
+                                            <% for (let  rolOpcion of  roles) { %>
+                                                <option value="<%= rolOpcion.idRol %>"><%= rolOpcion.descripcion %></option>
+                                              <% } %>
+                                        </select>
+                                        <label for="floatingSelect">Rol</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <!-- Name input -->
+                                    <div class="form-floating">
+                                        <select class="form-select" id="floatingSelect"
+                                            aria-label="Floating label select example">
+                                            <option selected>Elige un equipo de trabajo</option>
+                                            <% for (let  equipoOpcion of  equipos) { %>
+                                                <option value="<%= equipoOpcion.idEquipo %>"><%= equipoOpcion.nombre %></option>
+                                              <% } %>
+                                        </select>
+                                        <label for="floatingSelect">Equipo</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <!-- Email input -->
+                                    <div class="form-outline">
+                                        <label for="formFile" class="form-label">Seleciona una foto de perfil</label>
+                                        <input class="form-control" type="file" id="formFile">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Agregar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+</body>
+
+
+<%- include('includes/foot.ejs') %>

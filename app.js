@@ -7,6 +7,8 @@ const csrf = require('csurf');
 const csrfProtection = csrf();
 const rutas_users = require('./routes/user.routes'); // Usuario por autenticarse.
 const rutas_feed = require('./routes/feedback.routes'); // Usuario sesionado.
+const rutas_lead = require('./routes/lead.routes'); // Usuario sesionado.
+
 
 const path = require('path');
 const app = express();
@@ -29,6 +31,8 @@ app.use(session({
 
 // Rutas.
 app.use('/', rutas_feed);
+app.use('/', rutas_lead);
+
 app.use('/users', rutas_users);
 
 app.use((request, response, next) => {
