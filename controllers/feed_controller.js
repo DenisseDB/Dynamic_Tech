@@ -8,7 +8,7 @@ exports.solicitudesFeedback = async (request, response, next) => {
     const sol = await  Solicitud.fecthSolicitudes(request.session.idEmpleado); // Mis Solicitudes.
     request.session.solicitudes = sol.length; // N. Solicitudes.
 
-    let nos = request.session.success;
+    let nsuccess = request.session.success;
     request.session.success = '';
     
     // Rango de fechas (para solicitar/responder feedback).
@@ -32,7 +32,7 @@ exports.solicitudesFeedback = async (request, response, next) => {
                     fecha: date,
                     fecha_i : inicio,
                     fecha_f : final,
-                    notificacion : nos ? nos : ''
+                    notificacion : nsuccess ? nsuccess : ''
                 }
             );
         }).catch((error) => {
@@ -44,36 +44,39 @@ exports.solicitudesFeedback = async (request, response, next) => {
 exports.nuevaSolicitud = async (request, response, next) => {
     let evaluadores = request.body.nombre; // Nombre(s) de compañeros evaluadores.
     let arr = Array.isArray(evaluadores); // ¿evaluadores es un array?
+    let str = typeof evaluadores === 'string'; // ¿evaluadores es un array?
     let n_solicitudes = request.session.solicitudes;
 
-    const IDC = await Solicitud.fecthIDCuestionarios(request.session.craft, 
-        request.session.people, request.session.business); // Cuestionarios del sesionado.
+    if(arr && ((n_solicitudes + evaluadores.length) <= 7)){
+        const IDC = await Solicitud.fecthIDCuestionarios(request.session.craft, 
+            request.session.people, request.session.business); // Cuestionarios del sesionado.
 
-    if(arr){
-        if((n_solicitudes + evaluadores.length) <= 7){                   
-            for await(let evaluador of evaluadores) {
-                const IDE = await Solicitud.fecthOneID(evaluador); // ID del evaluador.
-    
-                const solicitud = new Solicitud(request.session.idEmpleado, IDE[0].idEmpleado, 
-                    IDC[0].idCuestionario, IDC[1].idCuestionario, IDC[2].idCuestionario,
-                    request.body.periodo, new Date()); // Nueva solicitud.
-                                    
-                solicitud.save();
-            }
-            request.session.success = true;
-        }
-    } else {
-        if((n_solicitudes + 1) <= 7){
-            const IDE = await Solicitud.fecthOneID(evaluadores); // ID del evaluador.
+        for await(let evaluador of evaluadores) {
+            const IDE = await Solicitud.fecthOneID(evaluador); // ID del evaluador.
 
             const solicitud = new Solicitud(request.session.idEmpleado, IDE[0].idEmpleado, 
-                IDC[0].idCuestionario, IDC[1].idCuestionario, IDC[2].idCuestionario, 
+                IDC[0].idCuestionario, IDC[1].idCuestionario, IDC[2].idCuestionario,
                 request.body.periodo, new Date()); // Nueva solicitud.
-                            
+                                
             solicitud.save();
-                    
-            request.session.success = true;
         }
+        request.session.success = 1;
+
+    } else if(str && ((n_solicitudes + 1) <= 7)){
+        const IDC = await Solicitud.fecthIDCuestionarios(request.session.craft, 
+            request.session.people, request.session.business); // Cuestionarios del sesionado.
+
+        const IDE = await Solicitud.fecthOneID(evaluadores); // ID del evaluador.
+
+        const solicitud = new Solicitud(request.session.idEmpleado, IDE[0].idEmpleado, 
+            IDC[0].idCuestionario, IDC[1].idCuestionario, IDC[2].idCuestionario, 
+            request.body.periodo, new Date()); // Nueva solicitud.
+                            
+        solicitud.save();
+                    
+        request.session.success = 1;
+    } else {
+        request.session.success = 2;        
     }
     
     response.redirect('/solicitudes');      
