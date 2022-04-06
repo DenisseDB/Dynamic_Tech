@@ -11,7 +11,7 @@ const rutas_feed = require('./routes/feedback.routes'); // Usuario sesionado.
 const rutas_lead = require('./routes/lead.routes'); // Usuario sesionado.
 
 
-const path = require('path');
+path = require('path');
 const app = express();
 
 // Configuración EJS.

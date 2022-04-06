@@ -1,4 +1,4 @@
-* {
+/* * {
     margin: 0;
   }
   html, body {
@@ -11,4 +11,11 @@
 footer {
     height: 4rem;
     background-color: #bb3131;
+  } */
+
+  .alert-float {
+    position: fixed;
+    bottom:0;
+    right:1em;
+    z-index: 1000;
   }

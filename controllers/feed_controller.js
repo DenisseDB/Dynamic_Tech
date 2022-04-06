@@ -3,73 +3,85 @@ const Feed = require('../models/contestaFeed');
 const Solicitud = require('../models/solicitud');
 const res = require('express/lib/response');
 
-exports.solicitudesFeedback = (request, response, next) => {
-    Solicitud.fecthPeriodo()
-        .then(([pd, fielData]) => {
-            // Consulta. A evaluar
-            Solicitud.fecthEvaluaciones(request.session.idEmpleado)
-            .then(([eval, fielData]) => {
+exports.solicitudesFeedback = async (request, response, next) => {
+    const pd = await Solicitud.fecthPeriodo(); // Periodo de evaluación.
+    const eval = await Solicitud.fecthEvaluaciones(request.session.idEmpleado); // A evaluar.
+    const sol = await  Solicitud.fecthSolicitudes(request.session.idEmpleado); // Mis Solicitudes.
+    request.session.solicitudes = sol.length; // N. Solicitudes.
 
-                // Consulta. Mis solicitudes
-                Solicitud.fecthSolicitudes(request.session.idEmpleado)
-                    .then(([sol, fielData]) => {
-                        
-                        // Consulta. Nueva solicitud (compañeros)
-                        Solicitud.fecthEmpleados(request.session.idEmpleado)
-                            .then(([emp, fielData]) => {
-                                
-                                response.render('solicitudFeedback.ejs',
-                                    {
-                                        rolesA :  request.session.privilegiosPermitidos,
-                                        evaluaciones : eval,
-                                        solicitudes : sol,
-                                        empleados : emp,
-                                        periodo : pd
-                                    }
-                                );
-                            }).catch((error) => {
-                                console.log(error);
-                        });
+    let nsuccess = request.session.success;
+    request.session.success = '';
+    
+    // Rango de fechas (para solicitar/responder feedback).
+    const date = new Date().toLocaleDateString();
 
-                    }).catch((error) => {
-                        console.log(error);
-                    });
+    let inicio = pd[0].fecha_inicial;
+    inicio = inicio.toLocaleDateString();
 
-            }).catch((error) => {
-                console.log(error);
-            });
-
+    let final = pd[0].fecha_final;
+    final = final.toLocaleDateString();
+ 
+    Solicitud.fecthEmpleados(request.session.idEmpleado)
+        .then(([emp, fielData]) => {
+            
+            response.render('solicitudFeedback.ejs',
+                {
+                    rolesA :  request.session.privilegiosPermitidos,
+                    periodo : pd,
+                    evaluaciones : eval,
+                    solicitudes : sol,
+                    empleados : emp,
+                    fecha: date,
+                    fecha_i : inicio,
+                    fecha_f : final,
+                    notificacion : nsuccess ? nsuccess : ''
+                }
+            );
         }).catch((error) => {
             console.log(error);
-        });
+    });
 
 };
 
-exports.nuevaSolicitud = (request, response, next) => {
-    // Consulta. Cuestionarios del sesionado.
-    Solicitud.fecthIDCuestionarios(request.session.craft, request.session.people, request.session.business)
-        .then(([IDC, fielData]) => {
-            // Consulta. ID del evaluador.
-            Solicitud.fecthOneID(request.body.inputState)
-                .then(([eval, fielData]) => {
-                    // Consulta. Guardar nueva solicitud.
-                    const solicitud =
-                        new Solicitud(request.session.idEmpleado, eval[0].idEmpleado, 
-                            IDC[0].idCuestionario, IDC[1].idCuestionario, IDC[2].idCuestionario, request.body.periodo, new Date());
-                    solicitud.save()
-                        .then(() => {
-                            response.redirect('/solicitudes');
-                        }).catch((error) => {
-                            console.log(error);
-                        });
+exports.nuevaSolicitud = async (request, response, next) => {
+    let evaluadores = request.body.nombre; // Nombre(s) de compañeros evaluadores.
+    let arr = Array.isArray(evaluadores); // ¿evaluadores es un array?
+    let str = typeof evaluadores === 'string'; // ¿evaluadores es un array?
+    let n_solicitudes = request.session.solicitudes;
 
-                }).catch((error) => {
-                    console.log(error);
-                });
-        
-        }).catch((error) => {
-            console.log(error);
-        });        
+    if(arr && ((n_solicitudes + evaluadores.length) <= 7)){
+        const IDC = await Solicitud.fecthIDCuestionarios(request.session.craft, 
+            request.session.people, request.session.business); // Cuestionarios del sesionado.
+
+        for await(let evaluador of evaluadores) {
+            const IDE = await Solicitud.fecthOneID(evaluador); // ID del evaluador.
+
+            const solicitud = new Solicitud(request.session.idEmpleado, IDE[0].idEmpleado, 
+                IDC[0].idCuestionario, IDC[1].idCuestionario, IDC[2].idCuestionario,
+                request.body.periodo, new Date()); // Nueva solicitud.
+                                
+            solicitud.save();
+        }
+        request.session.success = 1;
+
+    } else if(str && ((n_solicitudes + 1) <= 7)){
+        const IDC = await Solicitud.fecthIDCuestionarios(request.session.craft, 
+            request.session.people, request.session.business); // Cuestionarios del sesionado.
+
+        const IDE = await Solicitud.fecthOneID(evaluadores); // ID del evaluador.
+
+        const solicitud = new Solicitud(request.session.idEmpleado, IDE[0].idEmpleado, 
+            IDC[0].idCuestionario, IDC[1].idCuestionario, IDC[2].idCuestionario, 
+            request.body.periodo, new Date()); // Nueva solicitud.
+                            
+        solicitud.save();
+                    
+        request.session.success = 1;
+    } else {
+        request.session.success = 2;        
+    }
+    
+    response.redirect('/solicitudes');      
 };
 
 
