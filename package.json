@@ -18,6 +18,7 @@
   "license": "MIT",
   "homepage": "https://github.com/DenisseDB/Dynamic_Tech#readme",
   "devDependencies": {
+    "multer": "^1.4.4",
     "nodemon": "^2.0.15"
   },
   "dependencies": {

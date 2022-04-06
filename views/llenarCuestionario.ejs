@@ -8,6 +8,13 @@
   <% } %>
 <% } %>
 
+<!-- Para que aparezca Empleados del chapter -->
+<% for (i = 0; i < rolesA.length; i++) {  %>
+  <% if (rolesA[i].idPrivilegio == 2) { %> 
+  <%- include('includes/sideAgregarE.ejs') %>
+  <% } %>
+<% } %>
+
 <!-- Final de la nav-->
 <%- include('includes/sidenavFin.ejs') %>
 

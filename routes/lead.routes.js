@@ -6,5 +6,6 @@ const router = express.Router();
 const leadController = require('../controllers/chapterLead_controller');
 
 router.get('/empleados',isAuth, checkRoleAuth([1]), leadController.agregarEmpleados);
+router.post('/empleados',isAuth, checkRoleAuth([1]), leadController.guardarEmpleado);
 
 module.exports = router;

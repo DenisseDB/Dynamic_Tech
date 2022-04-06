@@ -21,8 +21,9 @@ module.exports = class ChapterLead {
         //Llamo a un procedue que a la vez es una transacción
         /* Lo que hace es realizar un insert de una pregunta-respuesta y cambia el
         estatus de respondida a true */
-        return db.execute('CALL registrarFeedback (?,?,?,?,?)',
-        [this.idEvaluado, this.idEvaluador,this.idPregunta,this.idPeriodo,this.respuesta] );
+        return db.execute('CALL agregarEmpleado (?,?,?,?,?,?,?,?,?,?,?)',
+        [ this.idEmpleado,this.nombre,this.apellidoP, this.apellidoM, this.correo,
+            this.contraseña, this.idEquipo, this.idRol,this.fotoPerfil] );
     }
 
      //Para obtener los roles disponibles
