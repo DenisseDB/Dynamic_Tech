@@ -8,7 +8,7 @@ const csrfProtection = csrf();
 const rutas_users = require('./routes/user.routes'); // Usuario por autenticarse.
 const rutas_feed = require('./routes/feedback.routes'); // Usuario sesionado.
 
-const path = require('path');
+path = require('path');
 const app = express();
 
 // Configuración EJS.

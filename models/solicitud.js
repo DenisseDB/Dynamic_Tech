@@ -55,7 +55,7 @@ module.exports = class Solicitud{
 
     // Método. Solicitudes hechas por el sesionado. - Mis Solicitudes
     static fecthSolicitudes(idSesionado) {
-        return db.execute('SELECT idEvaluado, idEvaluador, nombre, apellidoP, idPeriodo, estatus FROM retroalimentacion R, empleado E WHERE R.idEvaluador = E.idEmpleado AND idPeriodo in (SELECT MAX(idPeriodo) FROM periodo) AND R.idEvaluado = ? ORDER BY estatus ASC;', 
+        return db.execute('SELECT idEvaluado, idEvaluador, nombre, apellidoP, idPeriodo, estatus FROM retroalimentacion R, empleado E WHERE R.idEvaluador = E.idEmpleado AND idPeriodo in (SELECT MAX(idPeriodo) FROM periodo) AND R.idEvaluado = ? ORDER BY estatus, nombre ASC;', 
             [idSesionado])
                 .then(([rows, fielData]) => {
                     return rows;

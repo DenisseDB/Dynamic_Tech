@@ -6,7 +6,10 @@ exports.solicitudesFeedback = async (request, response, next) => {
     const pd = await Solicitud.fecthPeriodo(); // Periodo de evaluación.
     const eval = await Solicitud.fecthEvaluaciones(request.session.idEmpleado); // A evaluar.
     const sol = await  Solicitud.fecthSolicitudes(request.session.idEmpleado); // Mis Solicitudes.
-    request.session.solicitudes = sol.length; // Número. Mis Solicitudes
+    request.session.solicitudes = sol.length; // N. Solicitudes.
+
+    let nos = request.session.success;
+    request.session.success = '';
     
     // Rango de fechas (para solicitar/responder feedback).
     const date = new Date().toLocaleDateString();
@@ -28,7 +31,8 @@ exports.solicitudesFeedback = async (request, response, next) => {
                     empleados : emp,
                     fecha: date,
                     fecha_i : inicio,
-                    fecha_f : final
+                    fecha_f : final,
+                    notificacion : nos ? nos : ''
                 }
             );
         }).catch((error) => {
@@ -38,20 +42,38 @@ exports.solicitudesFeedback = async (request, response, next) => {
 };
 
 exports.nuevaSolicitud = async (request, response, next) => {
-    let evaluador = request.body.nombre; // Nombre(s) de compañeros evaluadores.
+    let evaluadores = request.body.nombre; // Nombre(s) de compañeros evaluadores.
+    let arr = Array.isArray(evaluadores); // ¿evaluadores es un array?
+    let n_solicitudes = request.session.solicitudes;
 
-    if(request.session.solicitudes >= (request.session.solicitudes + evaluador.length)){
-        const IDC = await Solicitud.fecthIDCuestionarios(request.session.craft, 
-                request.session.people, request.session.business); // Cuestionarios del sesionado.
-                
-            for (i = 0; i < evaluador.length; i++) {
-                const IDE = await Solicitud.fecthOneID(evaluador[i]); // ID del evaluador.
+    const IDC = await Solicitud.fecthIDCuestionarios(request.session.craft, 
+        request.session.people, request.session.business); // Cuestionarios del sesionado.
 
+    if(arr){
+        if((n_solicitudes + evaluadores.length) <= 7){                   
+            for await(let evaluador of evaluadores) {
+                const IDE = await Solicitud.fecthOneID(evaluador); // ID del evaluador.
+    
                 const solicitud = new Solicitud(request.session.idEmpleado, IDE[0].idEmpleado, 
-                    IDC[0].idCuestionario, IDC[1].idCuestionario, IDC[2].idCuestionario, request.body.periodo, new Date()); // Nueva solicitud.
-                
+                    IDC[0].idCuestionario, IDC[1].idCuestionario, IDC[2].idCuestionario,
+                    request.body.periodo, new Date()); // Nueva solicitud.
+                                    
                 solicitud.save();
             }
+            request.session.success = true;
+        }
+    } else {
+        if((n_solicitudes + 1) <= 7){
+            const IDE = await Solicitud.fecthOneID(evaluadores); // ID del evaluador.
+
+            const solicitud = new Solicitud(request.session.idEmpleado, IDE[0].idEmpleado, 
+                IDC[0].idCuestionario, IDC[1].idCuestionario, IDC[2].idCuestionario, 
+                request.body.periodo, new Date()); // Nueva solicitud.
+                            
+            solicitud.save();
+                    
+            request.session.success = true;
+        }
     }
     
     response.redirect('/solicitudes');      
