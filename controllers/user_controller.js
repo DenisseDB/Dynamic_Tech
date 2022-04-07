@@ -15,6 +15,7 @@ exports.tops = (request, response, next) => {
         correo: request.session.correo ? request.session.correo : '',
         rol: request.session.idRol ? request.session.idRol : '',
         roles_autorizados: roles,
+        idEmpleado: request.session.idEmpleado ? request.session.idEmpleado : '',
     });
 };
 

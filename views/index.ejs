@@ -1,7 +1,7 @@
 <%- include('includes/sidenavsup.ejs') %>
   <!-- Para las rutas -->
   <h1 id="principal">Este sitio es el principal</h1><br>
-
+  <input id="idE" value="<% idEmpleado %>" type="hidden">
   <!-- Verificar que sean los roles autorizados provenientes del index -->
   <% if (roles_autorizados.includes(rol)) { %>
     <!-- array de roles + el id del usuario -->
@@ -18,17 +18,14 @@
       <button type="button" class="btn btn-primary" id="b1">Gráficas</button>
 
       <script>
-
+        console.log(document.getElementById("idE").value);
         console.log("abc1");
-
-        document.getElementById("b1").onclick = graficas;
-
 
         const graficas = () => {
 
           console.log("a");
 
-          const new_id = request.session.idEmpleado;
+          const new_id = document.getElementById("idE");
           console.log(new_id);
 
           fetch('/users/tops/' + new_id, {
@@ -51,6 +48,8 @@
 
           });
         };
+
+        document.getElementById("b1").onclick = graficas;
       </script>
 
       <!-- javascript -->
