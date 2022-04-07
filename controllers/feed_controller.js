@@ -84,6 +84,13 @@ exports.nuevaSolicitud = async (request, response, next) => {
     response.redirect('/solicitudes');      
 };
 
+exports.miFeedback =  (request, response, next) => {
+    response.render('miFeedback.ejs',
+    {
+        rolesA :  request.session.privilegiosPermitidos
+    });
+};
+
 
 exports.cuestionario =  (request, response, next) => {
     //Tomo las preguntas del cuestionario de Craft asignardo
