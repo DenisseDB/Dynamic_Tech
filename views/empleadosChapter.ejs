@@ -197,18 +197,42 @@
                                 </div>
                             </div>
 
-                            <script>
-                                function alertaEmpleadoAgregado() {  
-                                    alert("Se agregó exitosamente")
-                                } 
-                            </script>
 
-                             <a href="/empleados"><button type="submit" class="btn btn-primary">Agregar</button></a>
+                             <a href="/empleados"><button type="submit" class="btn btn-primary"  id="liveToastBtn">Agregar</button></a>
                         </form>
+                        
+                        
                     </div>
                 </div>
             </div>
         </div>
+
+      
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div class="toast align-items-center text-white bg-secondary border-0" id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <i class="large material-icons">person_add </i> 
+      <strong class="me-auto">  Agregar Empleado</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Se ha agregado correctamente al nuevo empleado.
+    </div>
+  </div>
+</div>
+
+<script>
+    var toastTrigger = document.getElementById('liveToastBtn')
+    var toastLiveExample = document.getElementById('liveToast')
+    if (toastTrigger) {
+    toastTrigger.addEventListener('click', function () {
+        var toast = new bootstrap.Toast(toastLiveExample)
+
+        toast.show()
+    })
+    }
+    </script>
 
         <br><br>
 
