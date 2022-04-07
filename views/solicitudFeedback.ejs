@@ -56,7 +56,7 @@
               </p>
 
               <!--------------------------------------  Nueva Solicitud ---------------------------------------------->
-              <% if ((fecha_i <= fecha) && (fecha_f >= fecha) && (solicitudes.length < 7)) { %>
+              <% if (fecha && (solicitudes.length < 7)) { %>
               <p>
                 <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-plus-fill" viewBox="1 0 20 20">
@@ -159,7 +159,7 @@
         <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center" role="alert">
           <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
           <div>
-            Límite de solicitudes excedido         
+            Algo sucedió mal en el proceso...         
           </div>
           <button class="btn-close" type="button" data-dismiss="alert" aria-label="Close"></button>
         </div>

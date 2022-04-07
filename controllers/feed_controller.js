@@ -1,10 +1,11 @@
 const User = require('../models/user');
 const Feed = require('../models/contestaFeed');
 const Solicitud = require('../models/solicitud');
+const Historial = require('../models/historico');
 const res = require('express/lib/response');
 
 exports.solicitudesFeedback = async (request, response, next) => {
-    const pd = await Solicitud.fecthPeriodo(); // Periodo de evaluación.
+    const pd = await Solicitud.fecthLastPeriodo(); // Último periodo de evaluación.
     const eval = await Solicitud.fecthEvaluaciones(request.session.idEmpleado); // A evaluar.
     const sol = await  Solicitud.fecthSolicitudes(request.session.idEmpleado); // Mis Solicitudes.
     request.session.solicitudes = sol.length; // N. Solicitudes.
@@ -13,13 +14,16 @@ exports.solicitudesFeedback = async (request, response, next) => {
     request.session.success = '';
     
     // Rango de fechas (para solicitar/responder feedback).
-    const date = new Date().toLocaleDateString();
+    const d = new Date();
+    const date = new Date(d.toDateString());
 
     let inicio = pd[0].fecha_inicial;
-    inicio = inicio.toLocaleDateString();
+    inicio =  new Date(inicio.toDateString());
 
     let final = pd[0].fecha_final;
-    final = final.toLocaleDateString();
+    final = new Date(final.toDateString());
+
+    const pa = (inicio <= date) && (final >= date);
  
     Solicitud.fecthEmpleados(request.session.idEmpleado)
         .then(([emp, fielData]) => {
@@ -31,9 +35,7 @@ exports.solicitudesFeedback = async (request, response, next) => {
                     evaluaciones : eval,
                     solicitudes : sol,
                     empleados : emp,
-                    fecha: date,
-                    fecha_i : inicio,
-                    fecha_f : final,
+                    fecha: pa,
                     notificacion : nsuccess ? nsuccess : ''
                 }
             );
@@ -84,10 +86,13 @@ exports.nuevaSolicitud = async (request, response, next) => {
     response.redirect('/solicitudes');      
 };
 
-exports.miFeedback =  (request, response, next) => {
+exports.miFeedback =  async (request, response, next) => {
+    const pds = await Historial.fecthAllPeriodo(); // Último periodo de evaluación.
+
     response.render('miFeedback.ejs',
     {
-        rolesA :  request.session.privilegiosPermitidos
+        rolesA :  request.session.privilegiosPermitidos,
+        periodos : pds
     });
 };
 

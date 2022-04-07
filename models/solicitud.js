@@ -80,7 +80,7 @@ module.exports = class Solicitud{
     }
 
     // Método. Último periodo de retroalimentación.
-    static fecthPeriodo() {
+    static fecthLastPeriodo() {
         return db.execute('SELECT * FROM periodo ORDER BY idPeriodo DESC LIMIT 1;')
             .then(([rows, fielData]) => {
                 return rows;
