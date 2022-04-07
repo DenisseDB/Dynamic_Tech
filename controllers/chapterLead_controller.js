@@ -51,12 +51,17 @@ exports.agregarEmpleados = (request, response, next) => {
 
 exports.guardarEmpleado = (request, response, next) => {
 
-    var empleado = new Lead (request.body.nombre,request.body.apellidoP,request.body.apellidoM,
-        request.body.email,request.body.password,request.body.nivelCraft,request.body.nivelPeople,
-        request.body.nivelBusiness,request.body.rol,request.body.equipo,request.file.filename )
-
     console.log("Salvar empleado");
     console.log(request.body);
+
+    var empleado = new Lead (request.body.nombre,request.body.apellidoP,request.body.apellidoM,
+        request.body.email,request.body.password,request.body.equipo, request.file.filename, request.body.rol,
+        request.body.nivelCraft,request.body.nivelPeople,request.body.nivelBusiness);
+
+        empleado.save().then(() => {
+        }).catch(err => console.log(err));
+
+    
 
 };
 
