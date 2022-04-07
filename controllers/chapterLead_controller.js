@@ -8,6 +8,10 @@ exports.agregarEmpleados = (request, response, next) => {
     //Tomo las preguntas del cuestionario de Craft asignardo
     Lead.fecthRoles()
         .then(([roles, fieldData]) => {
+
+            let nsuccess = request.session.success;
+            request.session.success = '';
+
             //Tomo las preguntas del cuestionario de People
             Lead.fecthEquipos()
                 .then(([equipos, fieldData]) => {
@@ -16,7 +20,8 @@ exports.agregarEmpleados = (request, response, next) => {
 
                             Lead.fecthDimEmpleado()
                                 .then(([dimEmpleado, fieldData]) => {
-
+                                    const success = request.session.empleadoSuccess ? request.session.empleadoSuccess : false;
+                                    request.session.empleadoSuccess = false;
                                     response.render('empleadosChapter', {
                                         rolesA: request.session.privilegiosPermitidos,
                                         rol: request.session.idRol ? request.session.idRol : '',
@@ -24,6 +29,8 @@ exports.agregarEmpleados = (request, response, next) => {
                                         equipos: equipos,
                                         miembros: miembros,
                                         dimEmpleado: dimEmpleado,
+                                        notificacion : nsuccess ? nsuccess : '',
+                                        success: success,
 
                                     })
 
@@ -59,7 +66,11 @@ exports.guardarEmpleado = (request, response, next) => {
         request.body.nivelCraft,request.body.nivelPeople,request.body.nivelBusiness);
 
         empleado.save().then(() => {
+            request.session.empleadoSuccess = true;
+            response.redirect('/empleados'); 
         }).catch(err => console.log(err));
+
+    
 
     
 
