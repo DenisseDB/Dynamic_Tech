@@ -13,14 +13,15 @@ exports.solicitudesFeedback = async (request, response, next) => {
     request.session.success = '';
     
     // Rango de fechas (para solicitar/responder feedback).
-    const date = new Date().toLocaleDateString();
+    const d = new Date();
+    const date = new Date(d.toDateString());
 
     let inicio = pd[0].fecha_inicial;
-    inicio = inicio.toLocaleDateString();
+    inicio =  new Date(inicio.toDateString());
 
     let final = pd[0].fecha_final;
-    final = final.toLocaleDateString();
- 
+    final = new Date(final.toDateString());
+  
     Solicitud.fecthEmpleados(request.session.idEmpleado)
         .then(([emp, fielData]) => {
             
