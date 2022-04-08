@@ -48,22 +48,33 @@
                   <table class="table">
                     <thead class="thead-dark">
                       <tr>
-                        <th scope="col" style="width:25%">Nombre</th>
-                        <th scope="col" style="width:10%">Craft</th>
-                        <th scope="col" style="width:10%">People & Business</th>
-                        <th scope="col" style="width:10%">Commercial & Costume</th>
-                        <th scope="col" style="width:35%">Retroalimentación</th>
+                        <th scope="col" style="width:20%">Nombre</th>
+                        <th scope="col" style="width:20%">Craft</th>
+                        <th scope="col" style="width:20%">People & Business</th>
+                        <th scope="col" style="width:20%">Commercial & Costume</th>
+                        <th scope="col" style="width:20%">Retroalimentación</th>
                       </tr>
                     </thead>
                     <tbody>
                       <% for (let retro of retroalimentaciones) { %>
+                        <% if (retro.idPeriodo == periodos[0].idPeriodo) { %>
                       <tr>
-                          <td style="width:30px;"><%= retro.nombre %> <%= retro.apellidoP %></td>
-                          <td>4</td>
-                          <td>4</td>
-                          <td>4</td>
-                          <td><button type="button" class="btn btn-dark">Detalle</button></td>                                         
+                        <form action="/miFeedback" method="POST">
+                          <!-- <input id="IdSesion" name="IdSesion" type="hidden" value="<%= idSesionado %>"> -->
+                          <input id="IdPed" name="IdPed" type="hidden" value="<%= retro.idPeriodo %>">
+                          <input id="IdEval" name="IdEval" type="hidden" value="<%= retro.idEvaluador %>">
+                          <input id="IdCraft" name="IdCraft" type="hidden" value="<%= retro.idCuestionarioCraft %>">
+                          <input id="IdPeople" name="IdPeople" type="hidden" value="<%= retro.idCuestionarioPeople %>">
+                          <input id="IdCommercial" name="IdCommercial" type="hidden" value="<%= retro.idCuestionarioBusiness %>">
+
+                          <td style="text-align: left;"><img src="https://emser.es/wp-content/uploads/2016/08/usuario-sin-foto.png" width="40px">&nbsp;&nbsp;<%= retro.nombre %> <%= retro.apellidoP %></td>
+                          <td>/4/</td>
+                          <td>/4/</td>
+                          <td>/4/</td>
+                          <td><button type="submit" class="btn btn-dark">Detalle</button></td>
+                        </form>
                       </tr>
+                        <% } %>
                       <% } %> 
                     </tbody>
                   </table>

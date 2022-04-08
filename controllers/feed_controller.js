@@ -92,12 +92,19 @@ exports.miFeedback =  async (request, response, next) => {
 
     response.render('miFeedback.ejs',
     {
+        idSesionado: request.session.idEmpleado,
         rolesA :  request.session.privilegiosPermitidos,
         periodos : pds,
         retroalimentaciones : sr 
     });
 };
 
+exports.detalleFeedback =  async (request, response, next) => {
+    response.render('detalleFeedback.ejs',
+    {
+        rolesA :  request.session.privilegiosPermitidos
+    });
+};
 
 exports.cuestionario =  (request, response, next) => {
     //Tomo las preguntas del cuestionario de Craft asignardo

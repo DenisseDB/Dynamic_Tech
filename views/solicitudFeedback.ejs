@@ -39,7 +39,7 @@
                           <tbody>
                         <% for (let solicitud of solicitudes) { %>
                           <tr>
-                            <td style="width:30px;"><%= solicitud.nombre %> <%= solicitud.apellidoP %></td>      
+                            <td style="width:30px; text-align: left;"><%= solicitud.nombre %> <%= solicitud.apellidoP %></td>      
                             <% if (solicitud.estatus == 1) { %>
                               <td style="width:20px;"><i class="large material-icons">check</i></td>
                             <% } else { %>

@@ -10,6 +10,8 @@ router.get('/solicitudes', isAuth, feedController.solicitudesFeedback); // SOLIC
 router.post('/solicitudes', isAuth, feedController.nuevaSolicitud); // SOLICITUDES - Nueva Solicitud
 router.get('/mentorados', isAuth, checkRoleAuth([1,2]), feedController.misMentorados); // MENTORADOS - Assistant, Lead*
 router.get('/miFeedback', isAuth, feedController.miFeedback); // FEEDBACK - Mi Feedback
+router.post('/miFeedback', isAuth, feedController.detalleFeedback);
+
 
 router.get('/responderFeedback/:idEvaluado/:idPeriodo', isAuth,feedController.cuestionario) // CUESTIONARIO - Formulario de feedback
 router.post('/responderFeedback/:idEvaluado/:idPeriodo', isAuth,feedController.salvarRespuestas)

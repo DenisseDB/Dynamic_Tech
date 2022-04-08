@@ -1,0 +1,41 @@
+<!------------------- Navbar -------------------->
+<%- include('includes/sidenavsup.ejs') %>
+
+<!-- Para que aparezca Mis Mentorados -->
+<% for (i = 0; i < rolesA.length; i++) {  %>
+  <% if (rolesA[i].idPrivilegio == 1) { %> 
+  <%- include('includes/sideMentorados.ejs') %>
+  <% } %>
+<% } %>
+
+<!-- Para que aparezca Empleados del chapter -->
+<% for (i = 0; i < rolesA.length; i++) {  %>
+  <% if (rolesA[i].idPrivilegio == 2) { %> 
+  <%- include('includes/sideAgregarE.ejs') %>
+  <% } %>
+<% } %>
+
+<!---------------- Fin Navbar -------------------->
+<%- include('includes/sidenavFin.ejs') %>
+
+<body>
+    <div class="space">
+        <h5>Mi Feedback > (Nombre Periodo) > Retroalimentación de (Nombre Evaluador)</h5>
+        <hr class="style17">
+        <h3><strong>Recolección de Feedback</strong></h3>
+        <h4>People & Business</h4>
+
+
+
+        <h4>Commercial & Costume</h4>
+
+
+
+        <h4>Craft</h4>
+
+
+        
+    </div>
+</body>
+
+<%- include('includes/foot.ejs') %>
