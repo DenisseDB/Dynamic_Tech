@@ -1,6 +1,5 @@
 const periodoEvaluacion = require('../models/periodoEvaluacion');
 //const Periodo = require('../models/periodo');
-const Pregunta = require('../models/pregunta');
 const { route } = require('../routes/createPeriodo.routes');
 const { execute } = require('../util/database');
 
