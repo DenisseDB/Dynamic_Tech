@@ -90,12 +90,12 @@
                 document.getElementById("finFecha").setAttribute("readonly", "readonly");
 
 
-                let respuesta = '<h2 id="principal">Periodo de evaluación ' + nombre_periodo + ' generado </h1>';
+                let respuesta = alert('Periodo de evaluación ' + nombre_periodo + ' generado.');
                 document.getElementById('myForm').innerHTML = respuesta;
 
                 document.getElementById("button1").style.visibility = "hidden";
                 document.getElementById("myForm").style.display = "block";
-                document.getElementById("button1").style.visibility = "hidden";
+                document.getElementById("button1").style.visibility = "hidden"; 
               //  accion_asincrona();
                 console.log('Si hay fechas');
 
