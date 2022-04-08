@@ -38,16 +38,16 @@ exports.generarFormato = (request, response, next) => {
       });
 };
 
-exports.modificarFormato = (request, response, next) => {
-   Dimension.fetchAll()
-      .then(([rows, fielData]) => {
+// exports.modificarFormato = (request, response, next) => {
+//    Dimension.fetchAll()
+//       .then(([rows, fielData]) => {
 
-         response.render('modificarFormato', {
-            dimensiones: rows
-         });
-      }).catch((error) => {
-         console.log(error);
-      });
+//          response.render('modificarFormato', {
+//             dimensiones: rows
+//          });
+//       }).catch((error) => {
+//          console.log(error);
+//       });
 
 
-};
+// };
