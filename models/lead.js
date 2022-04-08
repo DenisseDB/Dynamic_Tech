@@ -57,6 +57,13 @@ module.exports = class ChapterLead {
 
     }
 
+    static fetchEmpleado(idEmpleado){
+        return db.execute
+        ('SELECT e.idEmpleado,nombre,apellidoP,apellidoM,correo,contrasena,idEquipo,fotoPerfil,idRol, idDimension,nivelE from empleado e, rolempleado re,dimempleado di WHERE e.idEmpleado = re.idEmpleado AND e.idEmpleado = di.idEmpleado and e.idEmpleado = ?;',
+        [idEmpleado]);
+   
+    }
+
 
 
 }
