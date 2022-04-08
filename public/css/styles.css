@@ -13,6 +13,10 @@ footer {
     background-color: #bb3131;
   } */
 
+  td, th {
+    text-align: center;
+  }
+
   .alert-float {
     position: fixed;
     bottom:0;
@@ -42,3 +46,8 @@ footer {
     -moz-transform: rotate(60deg);
     transform: rotate(60deg);
   }
+
+  .accordion-button:focus {
+    box-shadow: none;
+    border-color: rgba(0,0,0,.125);
+}

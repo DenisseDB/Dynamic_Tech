@@ -87,12 +87,14 @@ exports.nuevaSolicitud = async (request, response, next) => {
 };
 
 exports.miFeedback =  async (request, response, next) => {
-    const pds = await Historial.fecthAllPeriodo(); // Último periodo de evaluación.
+    const pds = await Historial.fecthAllPeriodo(); // Periodos de evaluación.
+    const sr = await Historial.fecthFeedHistorico(request.session.idEmpleado); // Histórico de solicitudes respondidas.
 
     response.render('miFeedback.ejs',
     {
         rolesA :  request.session.privilegiosPermitidos,
-        periodos : pds
+        periodos : pds,
+        retroalimentaciones : sr 
     });
 };
 
