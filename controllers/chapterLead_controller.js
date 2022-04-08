@@ -61,8 +61,21 @@ exports.guardarEmpleado = (request, response, next) => {
     console.log("Salvar empleado");
     console.log(request.body);
 
+    var file;
+    console.log(request.file.filename);
+
+    //Falta que si no hay imagen, también jale 
+    if (request.file.filename =! ""){
+       
+        file = request.file.filename;
+    }else{
+
+        request.file.filename = ""
+        file = request.file.filename;
+    }
+
     var empleado = new Lead (request.body.nombre,request.body.apellidoP,request.body.apellidoM,
-        request.body.email,request.body.password,request.body.equipo, request.file.filename, request.body.rol,
+        request.body.email,request.body.password,request.body.equipo, file, request.body.rol,
         request.body.nivelCraft,request.body.nivelPeople,request.body.nivelBusiness);
 
         empleado.save().then(() => {
@@ -73,6 +86,56 @@ exports.guardarEmpleado = (request, response, next) => {
     
 
     
+
+};
+
+exports.modificarEmpleado = (request, response, next) => {
+
+    Lead.fetchEmpleado(request.params.idEmpleado)
+    .then(([rows,fielData]) => {
+
+        Lead.fecthEquipos(request.params.idEmpleado)
+        .then(([equipos,fielData]) => {
+
+            Lead.fecthRoles(request.params.idEmpleado)
+            .then(([roles,fielData]) => {
+        
+                response.render('modificarEmpleado', { 
+
+                    correo: request.session.correo ? request.session.correo : '',
+                    rolesA: request.session.privilegiosPermitidos,
+                    rol: request.session.idRol ? request.session.idRol : '',
+                    empleado : rows,
+                    equipos: equipos,
+                    roles : roles,
+            
+            
+                });
+
+
+                
+                
+            }).catch((error) => {
+                console.log(error);
+            });
+        
+    
+         
+            
+            
+        }).catch((error) => {
+            console.log(error);
+        });
+    
+     
+        
+        
+    }).catch((error) => {
+        console.log(error);
+    });
+
+  
+
 
 };
 

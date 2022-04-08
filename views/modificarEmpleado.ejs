@@ -1,0 +1,151 @@
+<!-- Partes que siempre aparecen en el navbar -->
+<%- include('includes/sidenavsup.ejs') %>
+
+<!-- Para que aparezca Mis Mentorados -->
+<% for (i = 0; i < rolesA.length; i++) {  %>
+  <% if (rolesA[i].idPrivilegio == 1) { %> 
+  <%- include('includes/sideMentorados.ejs') %>
+  <% } %>
+<% } %>
+
+<!-- Para que aparezca Empleados del chapter -->
+<% for (i = 0; i < rolesA.length; i++) {  %>
+  <% if (rolesA[i].idPrivilegio == 2) { %> 
+  <%- include('includes/sideAgregarE.ejs') %>
+  <% } %>
+<% } %>
+
+<!-- Final de la nav-->
+<%- include('includes/sidenavFin.ejs') %>
+
+<style>
+  .container { 
+  width: 50%;
+}
+</style>
+<body>
+
+  <div class="container">
+    <br><br>
+    <div class="col-sm-12">
+      <div class="card">
+        <h5 class="card-header"><i class="large material-icons">person</i> Datos de <%= empleado[0].nombre %>
+            <%= empleado[0].apellidoP %>
+              <%= empleado[0].apellidoM %>
+        </h5>
+        <div class="card-body" >
+          <!--Para tabla con boostrap-->
+          <table class="table">
+            <tbody>
+              <tr>
+                <!-- Foto de perfil-->
+                <th scope="row">Foto de perfil: </th>
+                <td> <img src="https://github.com/mdo.png" alt="hugenerd" width="60" height="60" class="rounded-circle">
+                  <!-- <td> <img src="<%= empleado[0].fotoPerfil%>" alt="hugenerd" width="60" height="60" class="rounded-circle"> -->
+                </td>
+              </tr>
+
+              <tr>
+                <!-- Nombre -->
+                <th scope="row">Nombre: </th>
+                <td>
+                  <%= empleado[0].nombre %>
+                    <%= empleado[0].apellidoP %>
+                      <%= empleado[0].apellidoM %>
+                </td>
+              </tr>
+
+              <!-- Correo-->
+              <tr>
+                <th scope="row">Correo: </th>
+                <td>
+                  <%= empleado[0].correo %>
+                </td>
+              </tr>
+
+              <!-- Contraseña -->
+              <tr>
+                <th scope="row">Contraseña: </th>
+                <td>
+                  <%= empleado[0].contrasena %>
+
+                </td>
+              </tr>
+
+              <!-- Rol-->
+              <% for (let rol of roles) { %>
+                <tr>
+                  <% if ( rol.idRol==empleado[0].idRol) { %>
+                    <th scope="row">Rol: </th>
+                    <td>
+                      <%= rol.descripcion %>
+
+                    </td>
+                    <% } %>
+                </tr>
+                <% } %>
+
+                  <!-- Equipo -->
+                  <% for (let equipo of equipos) { %>
+                    <tr>
+                      <% if ( equipo.idEquipo==empleado[0].idEquipo) { %>
+                        <th scope="row">Equipo: </th>
+                        <td>
+                          <%= equipo.nombre %>
+
+                        </td>
+                        <% } %>
+                    </tr>
+                    <% } %>
+
+
+                      <% for (let datosE of empleado) { %>
+                        <tr>
+                          <!--Para craft-->
+
+                          <% if ( datosE.idDimension==1) { %>
+                            <th scope="row">Nivel Craft: </th>
+                            <td>
+                              <%= datosE.nivelE.toFixed(1) %>
+                            </td>
+                            <% } %>
+                        </tr>
+
+                        <tr>
+                          <!--Para people-->
+                          <% if ( datosE.idDimension==2) { %>
+                            <th scope="row">Nivel People: </th>
+                            <td>
+                              <%= datosE.nivelE.toFixed(1) %>
+                            </td>
+                            <% } %>
+                        </tr>
+
+                        <tr>
+                          <!--Para business-->
+                          <% if ( datosE.idDimension==3) { %>
+                            <th scope="row">Nivel Business: </th>
+                            <td>
+                              <%= datosE.nivelE.toFixed(1) %>
+                            </td>
+                            <% } %>
+
+                        </tr>
+                        <%} %>
+
+
+
+            </tbody>
+          </table>
+
+          <a href="/empleados" class="btn btn-primary">Atrás</a>
+          <a href="/empleados" class="btn btn-primary">Eliminar Empleado</a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+<%- include('includes/foot.ejs') %>
