@@ -10,8 +10,8 @@ const csrfProtection = csrf();
 // pasamos a las rutas
 const rutas_users = require('./routes/user.routes');
 const rutas_feed = require('./routes/feedback.routes');
-const rutas_createfb = require('./routes/createfb.routes');
-const rutas_periodo = require('./routes/periodo.routes');
+const rutas_createPeriodo = require('./routes/createPeriodo.routes');
+
 
 const path = require('path');
 
@@ -30,8 +30,7 @@ app.use(session({
     saveUninitialized: false, //Asegura que no se guarde una sesión para una petición que no lo necesita
 }));
 
-// app.use(csrfProtection); S
-
+// app.use(csrfProtection); 
 
 // app.use((request, response, next) => {
 //     response.locals.csrfToken = request.csrfToken();
@@ -42,8 +41,7 @@ app.use(session({
 //Para login
 app.use('/', rutas_feed);
 app.use('/users', rutas_users);
-app.use('/feedback', rutas_createfb);
-app.use('/periodo', rutas_periodo);
+app.use('/feedback', rutas_createPeriodo);
 
 
 //Middleware página principal
@@ -52,4 +50,4 @@ app.use((request, response, next) => {
     next();
 });
 
-app.listen(3000);//
+app.listen(3000);
