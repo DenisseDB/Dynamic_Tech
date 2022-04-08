@@ -36,9 +36,12 @@ exports.generarPeriodoPost = (request, response, next) => {
 
     let nombre_periodo = nombreMesInicio + ' ' + nombreMesFinal;
 
-    
+    fecha_inicio = (request.body.fecha_inicial).toString();
+    fecha_fin = (request.body.fecha_final).toString();
 
-    const periodoEvaluacion = new periodoEvaluacion(nombre_periodo, request.body.fecha_inicial, request.body.fecha_inicial, anio_periodo);
+
+
+    const periodoEvaluacion = new periodoEvaluacion(nombre_periodo, fecha_inicio, fecha_fin, anio_periodo);
     periodoEvaluacion.savePeriodo()
         .then(() => {
                     response.render('PeriodosEvaluacion');

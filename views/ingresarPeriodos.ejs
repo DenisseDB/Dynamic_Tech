@@ -65,12 +65,14 @@
             let mes_finPeriodo = parseInt(String(fecha_final).substring(5,7 ));
 
 
+            fecha_final = fecha_final.toString();
+            console.log("String fecha" + fecha_final);
             // const dateString = fecha_final.toLocaleString();
             // const enDateString = fecha_final.toLocaleString("es-US");
 
 
             const nombreMesFinal= NombreMes(mes_finPeriodo);
-            const nombreMesInicio= NombreMes(mes_inicioPeriodo);
+            const nombreMesInicio= NombreMes(mes_inicioPeriodo);    
 
 
             console.log("random");  
@@ -84,8 +86,8 @@
 
 
             if (fecha_inicial != '' && fecha_final != '') {
-                document.getElementById("inicioFecha").disabled = true;
-                document.getElementById("finFecha").disabled = true;
+                document.getElementById("inicioFecha").setAttribute("readonly", "readonly");
+                document.getElementById("finFecha").setAttribute("readonly", "readonly");
 
 
                 let respuesta = '<h2 id="principal">Periodo de evaluación ' + nombre_periodo + ' generado </h1>';
