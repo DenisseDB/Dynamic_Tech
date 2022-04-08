@@ -36,7 +36,7 @@
                         </div>
                     </div>
                 </div>
-    </body>
+     </body>
     <script>
 
 
@@ -65,7 +65,6 @@
             let mes_finPeriodo = parseInt(String(fecha_final).substring(5,7 ));
 
 
-
             // const dateString = fecha_final.toLocaleString();
             // const enDateString = fecha_final.toLocaleString("es-US");
 
@@ -73,6 +72,8 @@
             const nombreMesFinal= NombreMes(mes_finPeriodo);
             const nombreMesInicio= NombreMes(mes_inicioPeriodo);
 
+
+            console.log("random");  
             console.log("mes final " + nombreMesFinal);
             console.log("mes inicio " + nombreMesInicio);
             console.log(anio_periodo);
@@ -81,7 +82,6 @@
 
             nombre_periodo =  nombreMesInicio + ' - ' + nombreMesFinal ;
 
- 
 
             if (fecha_inicial != '' && fecha_final != '') {
                 document.getElementById("inicioFecha").disabled = true;
@@ -120,7 +120,7 @@
 
 
         function NombreMes (mes) {
-            console.log('Nombre de mes para ' + mes);
+            console.log('Nombre de mes para ' + mes + 'prueba');
 
             let meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
             nombreMes = meses[mes];

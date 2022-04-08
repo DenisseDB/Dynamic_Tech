@@ -9,7 +9,8 @@ const csrfProtection = csrf();
 
 // pasamos a las rutas
 const rutas_users = require('./routes/user.routes');
-const rutas_feed = require('./routes/feedback.routes');
+
+
 const rutas_createPeriodo = require('./routes/createPeriodo.routes');
 
 
@@ -39,7 +40,7 @@ app.use(session({
 
 
 //Para login
-app.use('/', rutas_feed);
+
 app.use('/users', rutas_users);
 app.use('/feedback', rutas_createPeriodo);
 

@@ -15,7 +15,7 @@ exports.generarPeriodo = (request, response, next) => {
         .then(([rows, fielData]) => {
             response.render('ingresarPeriodos', {
                 periodo: rows
-           });
+            });
         }).catch((error) => {
             console.log(error);
         });
@@ -36,7 +36,7 @@ exports.generarPeriodoPost = (request, response, next) => {
 
     let nombre_periodo = nombreMesInicio + ' ' + nombreMesFinal;
 
-
+    
 
     const periodoEvaluacion = new periodoEvaluacion(nombre_periodo, request.body.fecha_inicial, request.body.fecha_inicial, anio_periodo);
     periodoEvaluacion.savePeriodo()
