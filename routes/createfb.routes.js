@@ -10,7 +10,8 @@ const modify_fb = require('../controllers/modifycontroller');
 router.get('/generarFormato', isAuth, checkRoleAuth([2]), create_fb.generarFormato);
 router.get('/buscarFormato/:nivel/:dim', isAuth, checkRoleAuth([2]), create_fb.buscarFormato);
 
-router.get('/modificarFormato', isAuth, checkRoleAuth([2]), modify_fb.modificarFormato_Cuestionario);
+router.get('/modificarFormato', isAuth, checkRoleAuth([2]), modify_fb.modificarFormato);
+router.post('/modificarFormato', modify_fb.modificarFormato_post);
 
 router.get('/', isAuth, checkRoleAuth([2]), create_fb.root);
 
