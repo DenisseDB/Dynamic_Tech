@@ -21,7 +21,9 @@ exports.login = (request, response, next) => {
             // Info. del usuario sesionado
             request.session.isLoggedIn = true;
             request.session.idEmpleado = rows[0].idEmpleado;
-            request.session.nombre = rows[0].nombre;
+            request.session.nombreSesion = rows[0].nombre ;
+            request.session.apellidoPSesion = rows[0].apellidoP  ;
+
             request.session.correo = rows[0].correo;
             request.session.idRol = rows[0].idRol;
 

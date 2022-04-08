@@ -35,6 +35,8 @@ exports.solicitudesFeedback = async (request, response, next) => {
                     fecha: date,
                     fecha_i : inicio,
                     fecha_f : final,
+                    nombreSesion: request.session.nombreSesion,
+                    apellidoPSesion: request.session.apellidoPSesion,
                     notificacion : nsuccess ? nsuccess : ''
                 }
             );
@@ -109,7 +111,10 @@ exports.cuestionario =  (request, response, next) => {
 
                     preguntasC : preguntasCraft,
                     preguntasP : preguntasPeople,
-                    preguntasB : preguntasBusiness
+                    preguntasB : preguntasBusiness,
+
+                    nombreSesion: request.session.nombreSesion,
+                    apellidoPSesion: request.session.apellidoPSesion,
                 })
             }).catch(error => {
                 console.log(error);
@@ -191,6 +196,8 @@ exports.misMentorados = (request, response, next) => {
                 nombre: request.session.nombre, // sacar su nombre
                 correo: request.session.correo,  // correo del usurio que esta en header
                 rol: request.session.idRol, // obtener rol del usario
+                nombreSesion: request.session.nombreSesion,
+                apellidoPSesion: request.session.apellidoPSesion,
             }
 
         );
@@ -206,6 +213,9 @@ exports.home = (request, response, next) => {
         request.session.privilegiosPermitidos = rows,
      
         response.render('index', { // mandamos su informacion al sidenav
+            
+            nombreSesion: request.session.nombreSesion,
+            apellidoPSesion: request.session.apellidoPSesion,
             correo: request.session.correo ? request.session.correo : '',
             rolesA: rows,
             rol: request.session.idRol ? request.session.idRol : '',

@@ -31,6 +31,8 @@ exports.agregarEmpleados = (request, response, next) => {
                                         dimEmpleado: dimEmpleado,
                                         notificacion : nsuccess ? nsuccess : '',
                                         success: success,
+                                        nombreSesion: request.session.nombreSesion,
+                                        apellidoPSesion: request.session.apellidoPSesion,
 
                                     })
 
@@ -108,6 +110,8 @@ exports.modificarEmpleado = (request, response, next) => {
                     empleado : rows,
                     equipos: equipos,
                     roles : roles,
+                    nombreSesion: request.session.nombreSesion,
+                    apellidoPSesion: request.session.apellidoPSesion,
             
             
                 });
