@@ -92,8 +92,8 @@
                         </div>
                         <div class="col-sm-4">
                             <br>
-                            <a data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#modalLoginForm"
-                                class="btn btn-primary" id="button5">Nueva Pregunta</a>
+                            <a class="btn btn-primary" id="button5" role="button">Nueva
+                                Pregunta</a>
                         </div>
                     </div>
 
@@ -106,7 +106,7 @@
                     </div>
             </div>
             </form>
-            <!--Nuevo-->
+            <!--Nuevo>
             <form id="form2" class="was-validated">
                 <div id="modalLoginForm" class="modal" tabindex="-1">
                     <div class="modal-dialog">
@@ -142,7 +142,7 @@
                     </div>
                 </div>
             </form>
-            <!--Nuevo-->
+            <Nuevo!-->
         </div>
     </div>
     </div>
@@ -179,6 +179,12 @@
                 document.getElementById("button1").style.visibility = "hidden";
                 accion_asincrona('pregunta0');
                 console.log('t');
+
+                var url = "/feedback/crearPregunta/" + nivel + "/" + dimension;
+                console.log(url);
+                var element = document.getElementById("button5");
+                element.setAttribute("href", url);
+                console.log(document.getElementById("button5"));
             }
 
         }
@@ -247,6 +253,7 @@
             document.getElementById("button4").style.visibility = "hidden";
             accion_asincrona('pregunta2');
         }
+
 
         /*myModal = new bootstrap.Modal(document.getElementById('modalLoginForm'));
 

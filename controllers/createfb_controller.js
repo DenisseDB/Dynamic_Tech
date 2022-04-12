@@ -55,25 +55,26 @@ exports.generarFormato_post = (request, response, next) => {
     //});
 };
 
-exports.generarFormato_post = (request, response, next) => {
+exports.crearPregunta = (request, response, next) => {
+    response.render('crearPregunta', {
+        referer: request.headers.referer,
+        nivelP: request.params.nivel,
+        dimP: request.params.dim
+    });
+};
 
-    //console.log("Controlador:");
-    //console.log(request.body);
-    let preguntas = [request.body.pregunta0, request.body.pregunta1];
-    const formatoEvaluacion = new FormatoEvaluacion(request.body.nombreCuestionario, request.body.inputDimension, request.body.inputNivel, preguntas);
-    formatoEvaluacion.saveCuestionario()
+exports.crearPregunta_post = (request, response, next) => {
+    console.log(request.body.textoPregunta);
+    console.log(request.body.nivelPr);
+    console.log(request.body.dimPr);
+    console.log(request.body.inputTipo);
+    const pregunta = new Pregunta(request.body.textoPregunta, request.body.nivelPr, request.body.dimPr, request.body.inputTipo);
+    pregunta.savePregunta()
         .then(() => {
-            formatoEvaluacion.savePreguntasCuestionario()
-                .then(() => {
-                    response.render('formatosEvaluacion');
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+            response.redirect(request.body.referer);
         })
         .catch(err => {
             console.log(err);
         });
-    //response.render('generarFormatos', {
-    //});
+    //response.redirect('/feedback/generarFormato');
 };
