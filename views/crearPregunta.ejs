@@ -58,7 +58,46 @@
         document.getElementById("buttonC").onclick = () => {
             history.go(-1);
         };
-        document.getElementById("buttonP").onsubmit = () => {
-            history.state;
+
+        document.getElementById("form1").onsubmit = async () => {
+            event.preventDefault();
+            console.log('holis');
+            await accion_asincrona();
+            history.go(-1);
+            //console.log('holis');
+            //return true;
+        };
+
+        const accion_asincrona = () => {
+            console.log('a');
+
+            const nivel = document.getElementById('nivelPr').value;
+            const dimension = document.getElementById('dimPr').value;
+            const textoPregunta = document.getElementById('textoPregunta').value;
+            const tipo = document.getElementById('inputTipo').value;
+
+
+            const data = {
+                nivelPr: nivel,
+                dimPr: dimension,
+                textoPregunta: textoPregunta,
+                inputTipo: tipo
+            }
+
+            console.log(data);
+
+            fetch('/feedback/crearPregunta', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+            }).then((response) => {
+                return response.json();
+            }).then((data) => {
+                console.log('Success:', data);
+            }).catch((error) => {
+                console.log('Error:', error);
+            })
         };
     </script>

@@ -64,17 +64,18 @@ exports.crearPregunta = (request, response, next) => {
 };
 
 exports.crearPregunta_post = (request, response, next) => {
+    /*console.log('ab');
     console.log(request.body.textoPregunta);
     console.log(request.body.nivelPr);
     console.log(request.body.dimPr);
-    console.log(request.body.inputTipo);
+    console.log(request.body.inputTipo);*/
+
     const pregunta = new Pregunta(request.body.textoPregunta, request.body.nivelPr, request.body.dimPr, request.body.inputTipo);
     pregunta.savePregunta()
         .then(() => {
-            response.redirect(request.body.referer);
+            console.log('guardar pregunta');
         })
         .catch(err => {
             console.log(err);
         });
-    //response.redirect('/feedback/generarFormato');
 };
