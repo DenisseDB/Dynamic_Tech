@@ -6,21 +6,23 @@
             <div class="container px-8">
                 <div class="row justify-content-md-center">
                     <div class="col-sm-7">
-                        <form id="formPeriodo" class="was-validated">
+                        <form id="formPeriodo" class="was-validated" action="/feedback/ingresarPeriodos" method="POST">
                             <div class="row justify-content-md-center">
 
                                 <div class="col-sm-6">
                                     <div class="input-group mb-3">
-                                        <label class="input-group-text" for="inputFechaInicio">Fecha Inicio</label> <br>
-                                        <br> <input type="date" id="inicioFecha" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                                        <label class="input-group-text" for="inicioFecha">Fecha Inicio</label> <br>
+                                        <br> <input type="date" id="inicioFecha" name="inicioFecha" required
+                                            pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
                                         </label>
                                     </div>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <div class="input-group mb-3">
-                                        <label class="input-group-text" for="inputFechaFinal">Fecha Fin</label> <br>
-                                        <br> <input type="date" id="finFecha" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                                        <label class="input-group-text" for="finFecha">Fecha Fin</label> <br>
+                                        <br> <input type="date" id="finFecha" name="finFecha" required
+                                            pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
                                         </label>
                                     </div>
                                     <br>
@@ -36,7 +38,7 @@
                         </div>
                     </div>
                 </div>
-     </body>
+    </body>
     <script>
 
 
@@ -47,22 +49,22 @@
 
 
         document.getElementById("myForm").style.display = "none";
-        document.getElementById("formPeriodo").onsubmit = () => {
+        /*document.getElementById("formPeriodo").onsubmit = () => {
             console.log("Submit boton");
             return false;
-        }
+        }*/
 
-    
+
         document.getElementById("button1").onclick = () => {
 
 
             let fecha_inicial = document.getElementById("inicioFecha").value;
             let fecha_final = document.getElementById("finFecha").value;
 
-    
-            let anio_periodo = parseInt(String(fecha_final).substring(0,4 ));
-            let mes_inicioPeriodo = parseInt(String(fecha_inicial).substring(5,7 ));
-            let mes_finPeriodo = parseInt(String(fecha_final).substring(5,7 ));
+
+            let anio_periodo = parseInt(String(fecha_final).substring(0, 4));
+            let mes_inicioPeriodo = parseInt(String(fecha_inicial).substring(5, 7));
+            let mes_finPeriodo = parseInt(String(fecha_final).substring(5, 7));
 
 
             fecha_final = fecha_final.toString();
@@ -71,18 +73,18 @@
             // const enDateString = fecha_final.toLocaleString("es-US");
 
 
-            const nombreMesFinal= NombreMes(mes_finPeriodo);
-            const nombreMesInicio= NombreMes(mes_inicioPeriodo);    
+            const nombreMesFinal = NombreMes(mes_finPeriodo);
+            const nombreMesInicio = NombreMes(mes_inicioPeriodo);
 
 
-            console.log("random");  
+            console.log("random");
             console.log("mes final " + nombreMesFinal);
             console.log("mes inicio " + nombreMesInicio);
             console.log(anio_periodo);
             console.log(mes_finPeriodo);
             console.log(mes_inicioPeriodo);
 
-            nombre_periodo =  nombreMesInicio + ' - ' + nombreMesFinal ;
+            nombre_periodo = nombreMesInicio + ' - ' + nombreMesFinal;
 
 
             if (fecha_inicial != '' && fecha_final != '') {
@@ -95,11 +97,11 @@
 
                 document.getElementById("button1").style.visibility = "hidden";
                 document.getElementById("myForm").style.display = "block";
-                document.getElementById("button1").style.visibility = "hidden"; 
-              //  accion_asincrona();
+                document.getElementById("button1").style.visibility = "hidden";
+                //  accion_asincrona();
                 console.log('Si hay fechas');
 
-                
+
             }
 
         }
@@ -113,19 +115,19 @@
 
         }
         document.getElementById("finFecha").onchange = () => {
-                let fecha_final = document.getElementById("finFecha").value;
-                console.log(fecha_final);
+            let fecha_final = document.getElementById("finFecha").value;
+            console.log(fecha_final);
 
         }
 
 
 
 
-        function NombreMes (mes) {
-            console.log('Nombre de mes para ' + mes + 'prueba');
+        function NombreMes(mes) {
+            console.log('Nombre de mes para ' + mes + ' prueba');
 
             let meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-            nombreMes = meses[mes];
+            nombreMes = meses[mes - 1];
             return nombreMes;
         }
 
