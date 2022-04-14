@@ -8,7 +8,7 @@ exports.root = (request, response, next) => {
     request.session.info = '';
 
     response.render('formatosEvaluacion', {
-        info: info,
+        info: '',
     });
 };
 
@@ -29,7 +29,7 @@ exports.buscarFormato = (request, response, next) => {
 
 exports.generarFormato = (request, response, next) => {
     Dimension.fetchAll()
-        .then(([rows, fielData]) => {
+        .then(([rows, fieldData]) => {
             response.render('generarFormatos', {
                 dimensiones: rows
             });

@@ -27,15 +27,26 @@
                         <%=info%>
                     </p>
                 </div>
+                <input id="myinfo" type="hidden" name="myinfo" value="<%=info%>"" >
             </div>
         </div>
-        <script>
+        <script async>
+            /*window.addEventListener(" load", function (event) { var
+                    toastLiveExample=document.getElementById('liveToast'); var toast=new
+                    bootstrap.Toast(toastLiveExample); console.log('<%=info%>');
+
+                if ('<%=info%>' != '') {
+                    toast.show();
+                    console.log('hey');
+                    document.getElementById('myinfo').value = '';
+                    }
+
+                    });*/
+
             window.addEventListener("load", function (event) {
                 var toastLiveExample = document.getElementById('liveToast');
                 var toast = new bootstrap.Toast(toastLiveExample);
-
                 console.log('<%=info%>');
-
                 if ('<%=info%>' != '') {
                     toast.show();
                     console.log('hey');
