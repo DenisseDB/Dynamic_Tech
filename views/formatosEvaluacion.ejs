@@ -1,17 +1,46 @@
 <%- include('includes/sidenavsup.ejs') %>
+
     <body>
         <!--div class="container px-4"-->
-            <h2 id="principal">Formatos de Evaluación</h1>
-            <br>
-            <h3>Consultar formatos de evaluación</h2>
-            <a class="btn btn-outline-secondary" href="/feedback/generarFormato" role="button">Consultar</a>
-            <br><br>
-            <h3>Generar formatos de evaluación</h2>
-            <a class="btn btn-outline-secondary" href="/feedback/generarFormato" role="button">Generar</a>
-            <br><br>
-            <h3>Modificar formatos de evaluación</h2>
-            <a class="btn btn-outline-secondary" href="/feedback/generarFormato" role="button">Modificar</a>
-            <br><br>
-    <!--/div-->
+        <h2 id="principal">Formatos de Evaluación</h2>
+        <br>
+        <h3>Consultar formatos de evaluación </h3>
+        </h2>
+        <a class="btn btn-outline-secondary" href="/feedback/generarFormato" role="button">Consultar</a>
+        <br><br>
+        <h3>Generar formatos de evaluación</h3>
+        <a class="btn btn-outline-secondary" href="/feedback/generarFormato" role="button">Generar</a>
+        <br><br>
+        <h3>Modificar formatos de evaluación</h3>
+        <a class="btn btn-outline-secondary" href="/feedback/generarFormato" role="button">Modificar</a>
+        <br><br>
+        <!--/div-->
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <img src="..." class="rounded me-2" alt="...">
+                    <strong class="me-auto">Estado de Registro de Cuestionario</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    <p>
+                        <%=info%>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <script>
+            window.addEventListener("load", function (event) {
+                var toastLiveExample = document.getElementById('liveToast');
+                var toast = new bootstrap.Toast(toastLiveExample);
+
+                console.log('<%=info%>');
+
+                if ('<%=info%>' != '') {
+                    toast.show();
+                    console.log('hey');
+                }
+            });
+        </script>
     </body>
-<%- include('includes/foot.ejs') %></br>
+    <%- include('includes/foot.ejs') %></br>

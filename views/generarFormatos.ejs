@@ -213,7 +213,7 @@
                 }*/
                 for (let d of data) {
                     respuesta += '<option value="' + d.idPregunta + '"';
-                    if (document.getElementById("pregunta0").value == d.idPregunta || document.getElementById("pregunta1").value == d.idPregunta) {
+                    if (document.getElementById("pregunta0").value == d.idPregunta || document.getElementById("pregunta1").value == d.idPregunta || document.getElementById("pregunta2").value == d.idPregunta) {
                         respuesta += ' disabled';
                     }
                     respuesta += '>' + d.pregunta + '</option>';
@@ -229,9 +229,7 @@
 
 
         document.getElementById("pregunta0").onchange = () => {
-            if (document.getElementById("inputDimension").value == 1) {
-                document.getElementById("button3").style.display = "block";
-            }
+            document.getElementById("button3").style.display = "block";
         }
 
         document.getElementById("button3").onclick = () => {
@@ -254,6 +252,11 @@
             accion_asincrona('pregunta2');
         }
 
+        document.getElementById("button5").onclick = () => {
+            var toastLiveExample = document.getElementById('liveToast');
+            var toast = new bootstrap.Toast(toastLiveExample);
+            toast.show();
+        }
 
         /*myModal = new bootstrap.Modal(document.getElementById('modalLoginForm'));
 

@@ -11,7 +11,7 @@ const csrfProtection = csrf();
 const rutas_users = require('./routes/user.routes');
 const rutas_feed = require('./routes/feedback.routes');
 const rutas_createfb = require('./routes/createfb.routes');
-
+//const bootstrap = global.bootstrap = require('https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js');
 
 const path = require('path');
 
@@ -20,12 +20,12 @@ app.set('views', 'views');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(cookieParser());
 app.use(session({
-    secret: 'Hola Zebrands', 
+    secret: 'Hola Zebrands',
     resave: false, //La sesión no se guardará en cada petición, sino sólo se guardará si algo cambió 
     saveUninitialized: false, //Asegura que no se guarde una sesión para una petición que no lo necesita
 }));

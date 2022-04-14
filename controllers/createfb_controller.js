@@ -3,7 +3,13 @@ const Dimension = require('../models/dimension');
 const Pregunta = require('../models/pregunta');
 
 exports.root = (request, response, next) => {
-    response.render('formatosEvaluacion');
+
+    const info = request.session.info ? request.session.info : '';
+    request.session.info = '';
+
+    response.render('formatosEvaluacion', {
+        info: info,
+    });
 };
 
 exports.buscarFormato = (request, response, next) => {
@@ -36,13 +42,16 @@ exports.generarFormato_post = (request, response, next) => {
 
     //console.log("Controlador:");
     //console.log(request.body);
-    let preguntas = [request.body.pregunta0, request.body.pregunta1];
+    request.session.info = 'El cuestionario "' + request.body.nombreCuestionario + '" fue registrado con éxito';
+    let preguntas = [request.body.pregunta0, request.body.pregunta1, request.body.pregunta2];
     const formatoEvaluacion = new FormatoEvaluacion(request.body.nombreCuestionario, request.body.inputDimension, request.body.inputNivel, preguntas);
     formatoEvaluacion.saveCuestionario()
         .then(() => {
             formatoEvaluacion.savePreguntasCuestionario()
                 .then(() => {
-                    response.render('formatosEvaluacion');
+                    response.render('formatosEvaluacion', {
+                        info: request.session.info
+                    });
                 })
                 .catch(err => {
                     console.log(err);
