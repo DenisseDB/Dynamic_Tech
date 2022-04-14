@@ -18,14 +18,13 @@
 <!-- Final de la nav-->
 <%- include('includes/sidenavFin.ejs') %>
 
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <body>
   <h2>Solicitudes de Feedback- <i><%= periodo[0].NombrePeriodo %></i></h2><br>
     <div class="row">
         <!--------------------------------------  Mis solicitudes ---------------------------------------------->
         <div class="col-sm-6">
           <div class="card">
-            <h5 class="card-header"><i class="large material-icons">search</i>  Mis Solicitudes</h5>
+            <h5 class="card-header"><i class="bi bi-search"></i>  Mis Solicitudes</h5>
             <div class="card-body">
                 <ul class="list-group">
                       <% if (solicitudes.length > 0) { %>
@@ -41,9 +40,9 @@
                           <tr>
                             <td style="width:30px;"><%= solicitud.nombre %> <%= solicitud.apellidoP %></td>      
                             <% if (solicitud.estatus == 1) { %>
-                              <td style="width:20px;"><i class="large material-icons">check</i></td>
+                              <td style="width:20px;"><i class="bi bi-check-lg" style="font-size: 30px;"></i></td>
                             <% } else { %>
-                              <td style="width:20px;"><i class="large material-icons">access_time</i></td>
+                              <td style="width:20px;"><i class="bi bi-clock" style="font-size: 30px;"></i></td>
                             <% } %>                                      
                           </tr>
                         <% } %> 
@@ -95,7 +94,7 @@
         <!--------------------------------------  A evaluar ---------------------------------------------->
         <div class="col-sm-6">
           <div class="card">
-            <h5 class="card-header"><i class="large material-icons">library_books</i>  A evaluar</h5>
+            <h5 class="card-header"><i class="bi bi-book" ></i>  A evaluar</h5>
             <div class="card-body">
                 <ul class="list-group">
                   <% if (evaluaciones.length > 0) { %>
@@ -115,10 +114,10 @@
                           <td><%= evaluacion.nombre %> <%= evaluacion.apellidoP %></td>
       
                           <% if (evaluacion.estatus == 1) { %>
-                            <td><i class="large material-icons">check</i></td>
+                            <td><i class="bi bi-check-lg" style="font-size: 30px;"></i></td>
                             <td><button type="button" class="btn btn-dark" disabled>Responder</button></td>
                           <% } else { %> 
-                            <td><i class="large material-icons">access_time</i></td>                    
+                            <td><i class="bi bi-clock" style="font-size: 30px;"></i></td>                    
                             <td><a href="/responderFeedback/<%= evaluacion.idEvaluado %>/<%= periodo[0].idPeriodo %>" class="btn btn-dark">Responder</a></td>
                           <% } %> 
                           </tr>
