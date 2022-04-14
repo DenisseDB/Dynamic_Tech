@@ -24,7 +24,7 @@
     <div class="container">
         <div class="accordion" id="accordionExample">
             <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne">
+                <h2 class="accordion-header" id="headingOne" >
                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         <h5><i class="large material-icons">person_add</i> Agregar Empleado</h5>
@@ -197,7 +197,7 @@
                                 </div>
                             </div>
 
-                             <a href="/empleados"><button type="submit" class="btn btn-primary"  id="liveToastBtn">Agregar</button></a>
+                             <a href="/empleados"><button type="submit" class="btn btn-darkbtn btn-dark"  id="liveToastBtn">Agregar</button></a>
                         </form>
                         
                         
@@ -287,8 +287,8 @@
                         <% } %>
 
 
-                        <td><a href="/empleados/<%= empleado.idEmpleado %>" class="btn btn-primary">Modificar</a></td>
-                        <td><button type="button" class="btn btn-ms btn-primary">Eliminar</button></td>
+                        <td><a href="/empleados/<%= empleado.idEmpleado %>" class="btn btn-dark">Modificar</a></td>
+                        <td><a href="/empleados/eliminar/<%= empleado.idEmpleado %>" class="btn btn-secondary">Eliminar</a></td>
       
       
                         <!-- <button type="button" class="btn btn-lg btn-primary" disabled>Responder</button> -->

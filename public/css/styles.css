@@ -19,3 +19,7 @@ footer {
     right:1em;
     z-index: 1000;
   }
+
+ * {
+    font-family:'Times New Roman', Times, serif;
+  }

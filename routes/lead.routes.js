@@ -5,6 +5,9 @@ const router = express.Router();
 
 const leadController = require('../controllers/chapterLead_controller');
 
+
+router.get('/empleados/eliminar/:idEmpleado',isAuth, checkRoleAuth([1]), leadController.eliminarEmpleado);
+router.post('/empleados/eliminar/:idEmpleado',isAuth, checkRoleAuth([1]), leadController.eliminarEmpleado);
 router.get('/empleados/:idEmpleado',isAuth, checkRoleAuth([1]), leadController.modificarEmpleado);
 router.post('/empleados/:idEmpleado',isAuth, checkRoleAuth([1]), leadController.modificarEmpleado);
 router.get('/empleados',isAuth, checkRoleAuth([1]), leadController.agregarEmpleados);

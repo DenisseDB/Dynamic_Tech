@@ -193,7 +193,7 @@ exports.misMentorados = (request, response, next) => {
                 rol: request.session.idRol ? request.session.idRol : '',
                 // TODO ESTO SE ENVIA A MISMENTORADOS.EJS
                 mentorados: rows, // llevar los mentorados
-                nombre: request.session.nombre, // sacar su nombre
+                nombre: request.session.nombreSesion, // sacar su nombre
                 correo: request.session.correo,  // correo del usurio que esta en header
                 rol: request.session.idRol, // obtener rol del usario
                 nombreSesion: request.session.nombreSesion,

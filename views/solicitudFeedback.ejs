@@ -116,10 +116,10 @@
       
                           <% if (evaluacion.estatus == 1) { %>
                             <td><i class="large material-icons">check</i></td>
-                            <td><button type="button" class="btn btn-ms btn-primary" disabled>Responder</button></td>
+                            <td><button type="button" class="btn btn-dark" disabled>Responder</button></td>
                           <% } else { %> 
                             <td><i class="large material-icons">access_time</i></td>                    
-                            <td><a href="/responderFeedback/<%= evaluacion.idEvaluado %>/<%= periodo[0].idPeriodo %>" class="btn btn-primary">Responder</a></td>
+                            <td><a href="/responderFeedback/<%= evaluacion.idEvaluado %>/<%= periodo[0].idPeriodo %>" class="btn btn-dark">Responder</a></td>
                           <% } %> 
                           </tr>
                         <% } %>

@@ -29,7 +29,7 @@ exports.agregarEmpleados = (request, response, next) => {
                                         equipos: equipos,
                                         miembros: miembros,
                                         dimEmpleado: dimEmpleado,
-                                        notificacion : nsuccess ? nsuccess : '',
+                                        notificacion: nsuccess ? nsuccess : '',
                                         success: success,
                                         nombreSesion: request.session.nombreSesion,
                                         apellidoPSesion: request.session.apellidoPSesion,
@@ -67,78 +67,85 @@ exports.guardarEmpleado = (request, response, next) => {
     console.log(request.file.filename);
 
     //Falta que si no hay imagen, también jale 
-    if (request.file.filename =! ""){
-       
+    if (request.file.filename = ! "") {
+
         file = request.file.filename;
-    }else{
+    } else {
 
         request.file.filename = ""
         file = request.file.filename;
     }
 
-    var empleado = new Lead (request.body.nombre,request.body.apellidoP,request.body.apellidoM,
-        request.body.email,request.body.password,request.body.equipo, file, request.body.rol,
-        request.body.nivelCraft,request.body.nivelPeople,request.body.nivelBusiness);
+    var empleado = new Lead(request.body.nombre, request.body.apellidoP, request.body.apellidoM,
+        request.body.email, request.body.password, request.body.equipo, file, request.body.rol,
+        request.body.nivelCraft, request.body.nivelPeople, request.body.nivelBusiness);
 
-        empleado.save().then(() => {
-            request.session.empleadoSuccess = true;
-            response.redirect('/empleados'); 
-        }).catch(err => console.log(err));
+    empleado.save().then(() => {
+        request.session.empleadoSuccess = true;
+        response.redirect('/empleados');
+    }).catch(err => console.log(err));
 
-    
 
-    
+
+
 
 };
 
 exports.modificarEmpleado = (request, response, next) => {
 
     Lead.fetchEmpleado(request.params.idEmpleado)
-    .then(([rows,fielData]) => {
+        .then(([rows, fielData]) => {
 
-        Lead.fecthEquipos(request.params.idEmpleado)
-        .then(([equipos,fielData]) => {
+            Lead.fecthEquipos(request.params.idEmpleado)
+                .then(([equipos, fielData]) => {
 
-            Lead.fecthRoles(request.params.idEmpleado)
-            .then(([roles,fielData]) => {
-        
-                response.render('modificarEmpleado', { 
+                    Lead.fecthRoles(request.params.idEmpleado)
+                        .then(([roles, fielData]) => {
 
-                    correo: request.session.correo ? request.session.correo : '',
-                    rolesA: request.session.privilegiosPermitidos,
-                    rol: request.session.idRol ? request.session.idRol : '',
-                    empleado : rows,
-                    equipos: equipos,
-                    roles : roles,
-                    nombreSesion: request.session.nombreSesion,
-                    apellidoPSesion: request.session.apellidoPSesion,
-            
-            
+                            response.render('modificarEmpleado', {
+
+                                correo: request.session.correo ? request.session.correo : '',
+                                rolesA: request.session.privilegiosPermitidos,
+                                rol: request.session.idRol ? request.session.idRol : '',
+                                empleado: rows,
+                                equipos: equipos,
+                                roles: roles,
+                                nombreSesion: request.session.nombreSesion,
+                                apellidoPSesion: request.session.apellidoPSesion,
+
+
+                            });
+
+
+
+
+                        }).catch((error) => {
+                            console.log(error);
+                        });
+
+
+
+
+
+                }).catch((error) => {
+                    console.log(error);
                 });
 
 
-                
-                
-            }).catch((error) => {
-                console.log(error);
-            });
-        
-    
-         
-            
-            
+
+
         }).catch((error) => {
             console.log(error);
         });
-    
-     
-        
-        
-    }).catch((error) => {
-        console.log(error);
-    });
 
-  
+
+
+
+};
+
+exports.eliminarEmpleado = (request, response, next) => {
+
+
 
 
 };
