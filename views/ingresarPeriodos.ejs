@@ -16,6 +16,9 @@
                                             pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
                                         </label>
                                     </div>
+                                    <br>
+
+                                    <a href="/users/tops" class="btn btn-primary "> Cancelar </a>
                                 </div>
 
                                 <div class="col-sm-6">
@@ -29,8 +32,9 @@
                                     <div class="row justify-content-md-end">
                                         <div class="col-sm-4 align-self-end">
                                             <button class="btn btn-primary" type="submit"
-                                                id="button1">Registrar</button>
+                                                id="buttonRegistrar">Registrar</button>
                                         </div>
+
                                     </div>
 
                         </form>
@@ -49,13 +53,9 @@
 
 
         document.getElementById("myForm").style.display = "none";
-        /*document.getElementById("formPeriodo").onsubmit = () => {
-            console.log("Submit boton");
-            return false;
-        }*/
 
 
-        document.getElementById("button1").onclick = () => {
+        document.getElementById("buttonRegistrar").onclick = () => {
 
 
             let fecha_inicial = document.getElementById("inicioFecha").value;
@@ -69,9 +69,7 @@
 
             fecha_final = fecha_final.toString();
             console.log("String fecha" + fecha_final);
-            // const dateString = fecha_final.toLocaleString();
-            // const enDateString = fecha_final.toLocaleString("es-US");
-
+ 
 
             const nombreMesFinal = NombreMes(mes_finPeriodo);
             const nombreMesInicio = NombreMes(mes_inicioPeriodo);
@@ -95,10 +93,10 @@
                 let respuesta = alert('Periodo de evaluación ' + nombre_periodo + ' generado.');
                 document.getElementById('myForm').innerHTML = respuesta;
 
-                document.getElementById("button1").style.visibility = "hidden";
+                document.getElementById("buttonRegistrar").style.visibility = "hidden";
                 document.getElementById("myForm").style.display = "block";
-                document.getElementById("button1").style.visibility = "hidden";
-                //  accion_asincrona();
+                document.getElementById("buttonRegistrar").style.visibility = "hidden";
+
                 console.log('Si hay fechas');
 
 

@@ -43,7 +43,7 @@ exports.generarPeriodoPost = (request, response, next) => {
     const nombreMesFinal = NombreMes(mes_finPeriodo);
     const nombreMesInicio = NombreMes(mes_inicioPeriodo);
 
-    let nombre_periodo = nombreMesInicio + ' ' + nombreMesFinal;
+    let nombre_periodo = nombreMesInicio + '-' + nombreMesFinal;
 
     //fecha_inicio = (request.body.fecha_inicial).toString();
     //fecha_fin = (request.body.fecha_final).toString();
