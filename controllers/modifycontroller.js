@@ -1,8 +1,6 @@
 const formatoEvaluacion = require('../models/formatoEvaluacion');
-
-// const Dimension = require('../models/dimension');
-// const Pregunta = require('../models/pregunta');
-
+const Pregunta = require('../models/pregunta'); // Se importa la clase pregunta para hacer una busqueda por 
+                                               // preguntas dependiendo el nivel y la dimension
 const Cuestionario = require('../models/Cuestionario');
 
 const {
@@ -13,37 +11,6 @@ exports.root = (request, response, next) => {
    response.render('formatosEvaluacion');
 };
 
-
-exports.modificarFormato2 = (request, response, next) => {
-
-   Cuestionario.fetchDimension()
-      .then(([dimension, fielData]) => {
-
-         Cuestionario.fetchCuestionario(request.params.idDimension)
-            .then(([cuesti, fielData]) => {
-
-               Cuestionario.fetchPreguta_Cuestionario(request.params.idCuestionario)
-                  .then(([pregunta, fielData]) => {
-                     response.render('modificarFormato', {
-
-                        dimensiones: dimension,
-                        preguntas: pregunta,
-                        cuestionarios: cuesti,
-
-                     }).catch((error) => {
-                        console.log(error);
-                     });
-
-                  }).catch((error) => {
-                     console.log(error);
-                  });
-
-            }).catch((error) => {
-               console.log(error);
-            });
-
-      });
-};
 
 exports.modificarFormato = (request, response, next) => {
 
@@ -85,6 +52,46 @@ exports.modificarFormato_post = (request, response, next) => {
    //response.render('generarFormatos', {
    //});
 };
+
+
+
+exports.buscarCuestionario= (request, response, next)=> {
+   console.log(request.params.nivel);
+   console.log(request.params.dim);
+   console.log('buscar_cuestionario');
+   Cuestionario.findCuestionario(request.params.nivel, request.params.dim)
+      .then(([rows, fieldData]) => {
+         console.log(rows);
+         response.status(200).json(rows);
+      })
+      .catch(err => {
+         console.log(err);
+      });
+};
+
+
+exports.buscarPregunta= (request, response, next)=> {
+   console.log(request.params.nivel);
+   console.log(request.params.dim);
+   console.log('buscar_Pregunta');
+   Cuestionario.findQuestions(request.params.nivel, request.params.dim)
+      .then(([rows, fieldData]) => {
+         console.log(rows);
+         response.status(200).json(rows);
+      })
+      .catch(err => {
+         console.log(err);
+      });
+};
+
+
+
+
+
+
+
+
+
 
 // exports.modificarFormato = (request, response, next) => {
 //    Dimension.fetchAll()

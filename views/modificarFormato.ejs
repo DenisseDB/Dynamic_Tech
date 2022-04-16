@@ -9,18 +9,8 @@
 
                <form id="form1" class="was-validated">
 
-                  <!-- <div class="input-group has-validation mb-3">
-                     <span class="input-group-text" id="basic-addon1">Nombre del Cuestionario</span>
-
-
-                     <input type="text" class="form-control" id="nombreCuestionario" placeholder="Cuestionario1"
-                        aria-describedby="basic-addon1" required>
-                     <div class="invalid-feedback"> Ingrese el nombre del cuestionario a modificar</div> -->
 
                   <!-- !-----------------------------------------Apartado de Dimension en la vista   !----------------------------------------- -->
-
-                  <!-- -------------------Forms donde se despliegan los elementos de la base de datos------------------- -->
-
 
                   <div class="row justify-content-md-center">
                      <div class="col-sm-6">
@@ -39,6 +29,7 @@
                         </div>
                      </div>
 
+                     <!-- ----------------------------------------------------------------------------- -->
 
                      <div class="col-sm-6">
                         <div class="input-group mb-3">
@@ -60,7 +51,43 @@
                   <div class="row justify-content-md-end">
                      <div class="col-sm-2 align-self-end">
 
-                        <a href="#" class="btn btn-primary" id="Continuar">Continuar</a>
+                        <a href="#" class="btn btn-primary" id="Continuar1">Continuar</a>
+                     </div>
+                  </div>
+                  <!-- ----------------------------------------------------------------------------- -->
+
+
+                  <div class="row justify-content-md-center">
+                     <div id="inputCuestionario_Modifi" class=" col-sm-10">
+                        <div class="input-group mb-3">
+                           <label class="input-group-text" for="nombreCuestionario">Nombre del cuestionario</label>
+                           <select class="form-select" id="nombreCuestionario" required aria-label="select example">
+                           </select>
+                           <div class="invalid-feedback">Selecciona un cuestionario existente </div>
+                        </div>
+                        <div class="row justify-content-md-end">
+                           <div class="col-sm-2 align-self-end">
+                              <a class="btn btn-primary" id="Continuar2" role="button">Siguiente </a>
+                           </div>
+                        </div>
+                     </div>
+                     <br>
+                     <br>
+                     <!-- ----------------------------------------------------------------------------- -->
+
+
+                     <div id="Pregunta_Cuestionario" class="col-sm-12">
+                        <hr>
+                        <div class="input-group mb-3">
+                           <label class="input-group-text" for="Pregunta_Cuest">Pregunta del
+                              cuestionario</label>
+                           <select class="form-select" id="Pregunta_Cuest" required aria-label="select example">
+
+
+                           </select>
+
+                           <div class="invalid-feedback">Selecciona una pregunta existente </div>
+                        </div>
                      </div>
                   </div>
 
@@ -94,6 +121,9 @@
       // ---------------------------Funciones de AJAX---------------------------
 
       document.getElementById("Enviar").style.display = "none";
+      document.getElementById("inputCuestionario_Modifi").style.display = "none";
+      document.getElementById("Pregunta_Cuestionario").style.display = "none";
+
       // document.getElementById("pregunta_nueva").style.display = "none";
       // document.getElementById("pregunta1").disabled = true;
 
@@ -103,10 +133,11 @@
 
 
 
-      document.getElementById("Continuar").onclick = () => {
+      document.getElementById("Continuar1").onclick = () => {
          // let nombre = document.getElementById("nombreCuestionario").value;
          let dimension = document.getElementById("inputDimension").value;
          let nivel = document.getElementById("inputNivel").value;
+
          console.log("nivel: ", nivel);
          console.log("dimension: ", dimension);
 
@@ -116,40 +147,112 @@
             console.log("hola");
             // document.getElementById("pregunta_nueva").style.display = "block";
             document.getElementById("Enviar").style.display = "block";
+            document.getElementById("inputCuestionario_Modifi").style.display = "block";
+            // document.getElementById("Pregunta_Cuestionario").style.display = "block";
             // document.getElementById("nombreCuestionario").setAttribute("readonly", "readonly");
             document.getElementById("inputDimension").setAttribute("readonly", "readonly");
             document.getElementById("inputNivel").setAttribute("readonly", "readonly");
-            document.getElementById("Continuar").style.visibility = "hidden";
-            // accion_asincrona('pregunta0');
+            document.getElementById("Continuar1").style.visibility = "hidden";
+            //! Eliminar ratos de funcion
+            // document.getElementById("Enviar").style.visibility = "visible";
+            despliega_cuestionario('nombreCuestionario'); //! Se depliegan todos los cuestionarios dependiendo el nivel y dimension
             console.log('t');
          }
 
       }
 
-      const accion_asincrona = (id) => {
+      document.getElementById("Continuar2").onclick = () => {
+         let dimension = document.getElementById("inputDimension").value;
+         let nivel = document.getElementById("inputNivel").value;
+         let cuestionario = document.getElementById("nombreCuestionario").value;
+
+         console.log("nivel: ", nivel);
+         console.log("dimension: ", dimension);
+         console.log("cuestionario: ", cuestionario);
+
+
+
+         if (dimension != '' && nivel != '') {
+            console.log("hola");
+            document.getElementById("Enviar").style.display = "block";
+
+            document.getElementById("Pregunta_Cuestionario").style.display = "block";
+            document.getElementById("inputDimension").setAttribute("readonly", "readonly");
+            document.getElementById("inputNivel").setAttribute("readonly", "readonly");
+            document.getElementById("inputCuestionario_Modifi").setAttribute("readonly", "readonly");
+            document.getElementById("Continuar1").style.visibility = "hidden";
+
+            //! Se hace una eliminación de los botones 
+            document.getElementById("Enviar").style.visibility = "visible";
+            despliega_preguntas('Pregunta_Cuest');
+            console.log('t');
+         }
+
+      }
+
+      const despliega_cuestionario = (id) => {
          const nivel = document.getElementById('inputNivel').value;
          const dimension = document.getElementById('inputDimension').value;
-         console.log(nivel);
+         console.log("despliega nivel", nivel);
+         console.log("despliega dimension", dimension);
+         console.log("despliega nivel", nivel);
 
-         fetch('/feedback/buscarFormato/' + nivel + '/' + dimension, {
+         fetch('/feedback/buscarCuestionario/' + nivel + '/' + dimension, {
             method: 'GET',
             headers: {
                'Content-Type': 'application/json',
-               //'csrf-token': csrf
             }
          }).then(result => {
             return result.json();
          }).then(data => {
 
-            console.log(data);
+
             let respuesta = '';
-            respuesta += '<option value ="" disabled selected> Selecciona una pregunta</option>';
+            respuesta += '<option value ="" disabled selected> Seleccione el nombre del cuestionario a modificar </option>';
+
+            for (let d of data) {
+               respuesta += '<option value="' + d.nombre + '">' + d.nombre + '</option>';
+            }
+
+            document.getElementById('nombreCuestionario').innerHTML = respuesta;
+            document.getElementById(id).innerHTML = respuesta;
+
+         }).catch(err => {
+            console.log(err);
+
+         });
+      };
+
+
+
+      const despliega_preguntas = (id) => {
+         const nivel = document.getElementById('inputNivel').value;
+         const dimension = document.getElementById('inputDimension').value;
+         console.log(nivel);
+
+         fetch('/feedback/buscarPregunta/' + nivel + '/' + dimension, {
+            method: 'GET',
+            headers: {
+               'Content-Type': 'application/json',
+            }
+         }).then(result => {
+            return result.json();
+         }).then(data => {
+
+            let respuesta = '';
+            respuesta += '<option value ="" disabled selected> Seleccione la pregunta del cuestionario a modificar </option>';
 
             for (let d of data) {
                respuesta += '<option value="' + d.idPregunta + '">' + d.pregunta + '</option>';
             }
-
-            document.getElementById('pregunta0').innerHTML = respuesta;
+            // for (let d of data) {
+            //    respuesta += '<option value="' + d.idPregunta + '"';
+            //    if (document.getElementById("pregunta0").value == d.idPregunta || document.getElementById("pregunta1").value == d.idPregunta || document.getElementById("pregunta2").value == d.idPregunta) {
+            //       respuesta += ' disabled';
+            //    }
+            //    respuesta += '>' + d.pregunta + '</option>';
+            // }
+            document.getElementById('Pregunta_Cuest').innerHTML = respuesta;
             document.getElementById(id).innerHTML = respuesta;
 
          }).catch(err => {
