@@ -6,10 +6,13 @@ module.exports = class {
 
    // Despliega todas las dimensiones disponibles 
    static fetchDimension() {
-      return db.execute('SELECT * FROM Dimension ORDER BY idDimension ASC');
+      return db.execute('SELECT dimension.nombre FROM cuestionario NATURAL join preguntacuestionario NATURAL join pregunta INNER JOIN dimension on dimension.idDimension = pregunta.idDimension order by dimension.idDimension ASC');
    }
 
    // Toma de la base de datos los nombres de los cuestionarios, recibe como parametro la dimension que quieres mostrar
+   static fetchCuestionario(idDimension) {
+      return db.execute('SELECT * FROM cuestionario NATURAL join preguntacuestionario NATURAL join pregunta INNER JOIN dimension on dimension.idDimension = pregunta.idDimension WHERE dimension.idDimension = ?;', [idDimension]);
+   }
 
    // Toma de la base de datos las preguntas del cuestionario, recibe como parametro el id del cuestionario a obtener las preguntas 
    static fetchPreguta_Cuestionario(id_cuestionario) {
@@ -27,6 +30,8 @@ module.exports = class {
       return db.execute('SELECT DISTINCT(nombre) FROM cuestionario NATURAL join preguntacuestionario NATURAL join pregunta  WHERE idDimension = ? and pregunta.nivelP = ?;',
          [idDimension,nivelP]);
    }
+
+
 
 
 

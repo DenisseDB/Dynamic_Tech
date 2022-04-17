@@ -9,108 +9,110 @@
 
                <form id="form1" class="was-validated">
 
+                  <form id="form1" class="was-validated">
 
-                  <!-- !-----------------------------------------Apartado de Dimension en la vista   !----------------------------------------- -->
+                     <!-- !-----------------------------------------Apartado de Dimension en la vista   !----------------------------------------- -->
 
-                  <div class="row justify-content-md-center">
-                     <div class="col-sm-6">
-                        <div class="input-group mb-3">
-                           <label class="input-group-text" for="inputDimension">Dimensión</label>
 
-                           <select class="form-select" id="inputDimension" required aria-label="select example">
-                              <option value="" disabled selected>Selecciona una dimensión</option>
-                              <% for (let dimension of dimensiones) { %>
-                                 <option value="<%= dimension.idDimension %>">
-                                    <%= dimension.nombre %>
-                                 </option>
-                                 <% } %>
-                           </select>
-                           <div class="invalid-feedback">Selecciona una dimensión</div>
+                     <div class="row justify-content-md-center">
+                        <div class="col-sm-6">
+                           <div class="input-group mb-3">
+                              <label class="input-group-text" for="inputDimension">Dimensión</label>
+
+                              <select class="form-select" id="inputDimension" required aria-label="select example">
+                                 <option value="" disabled selected>Selecciona una dimensión</option>
+                                 <% for (let dimension of dimensiones) { %>
+                                    <option value="<%= dimension.idDimension %>">
+                                       <%= dimension.nombre %>
+                                    </option>
+                                    <% } %>
+                              </select>
+                              <div class="invalid-feedback">Selecciona una dimensión</div>
+                           </div>
                         </div>
-                     </div>
 
-                     <!-- ----------------------------------------------------------------------------- -->
+                        <!-- ----------------------------------------------------------------------------- -->
 
-                     <div class="col-sm-6">
-                        <div class="input-group mb-3">
-                           <label class="input-group-text" for="inputNivel">Nivel</label>
-                           <select class="form-select" id="inputNivel" required aria-label="select example">
-                              <option value="" disabled selected>Selecciona un nivel</option>
-                              <option value="1">1 </option>
-                              <option value="2">2 </option>
-                              <option value="3">3 </option>
-                              <option value="4">4 </option>
-                              <option value="5">5 </option>
-                           </select>
-                           <div class="invalid-feedback">Selecciona un nivel</div>
-                        </div>
-                     </div>
-                  </div>
-                  <br>
-
-                  <div class="row justify-content-md-end">
-                     <div class="col-sm-2 align-self-end">
-
-                        <a href="#" class="btn btn-primary" id="Continuar1">Continuar</a>
-                     </div>
-                  </div>
-                  <!-- ----------------------------------------------------------------------------- -->
-
-
-                  <div class="row justify-content-md-center">
-                     <div id="inputCuestionario_Modifi" class=" col-sm-10">
-                        <div class="input-group mb-3">
-                           <label class="input-group-text" for="nombreCuestionario">Nombre del cuestionario</label>
-                           <select class="form-select" id="nombreCuestionario" required aria-label="select example">
-                           </select>
-                           <div class="invalid-feedback">Selecciona un cuestionario existente </div>
-                        </div>
-                        <div class="row justify-content-md-end">
-                           <div class="col-sm-2 align-self-end">
-                              <a class="btn btn-primary" id="Continuar2" role="button">Siguiente </a>
+                        <div class="col-sm-6">
+                           <div class="input-group mb-3">
+                              <label class="input-group-text" for="inputNivel">Nivel</label>
+                              <select class="form-select" id="inputNivel" required aria-label="select example">
+                                 <option value="" disabled selected>Selecciona un nivel</option>
+                                 <option value="1">1 </option>
+                                 <option value="2">2 </option>
+                                 <option value="3">3 </option>
+                                 <option value="4">4 </option>
+                                 <option value="5">5 </option>
+                              </select>
+                              <div class="invalid-feedback">Selecciona un nivel</div>
                            </div>
                         </div>
                      </div>
                      <br>
-                     <br>
+
+                     <div class="row justify-content-md-end">
+                        <div class="col-sm-2 align-self-end">
+
+                           <a href="#" class="btn btn-primary" id="Continuar1">Continuar</a>
+                        </div>
+                     </div>
                      <!-- ----------------------------------------------------------------------------- -->
 
 
-                     <div id="Pregunta_Cuestionario" class="col-sm-12">
-                        <hr>
-                        <div class="input-group mb-3">
-                           <label class="input-group-text" for="Pregunta_Cuest">Pregunta del
-                              cuestionario</label>
-                           <select class="form-select" id="Pregunta_Cuest" required aria-label="select example">
+                     <div class="row justify-content-md-center">
+                        <div id="inputCuestionario_Modifi" class=" col-sm-10">
+                           <div class="input-group mb-3">
+                              <label class="input-group-text" for="nombreCuestionario">Nombre del cuestionario</label>
+                              <select class="form-select" id="nombreCuestionario" required aria-label="select example">
+                              </select>
+                              <div class="invalid-feedback">Selecciona un cuestionario existente </div>
+                           </div>
+                           <div class="row justify-content-md-end">
+                              <div class="col-sm-2 align-self-end">
+                                 <a class="btn btn-primary" id="Continuar2" role="button">Siguiente </a>
+                              </div>
+                           </div>
+                        </div>
+                        <br>
+                        <br>
+                        <!-- ----------------------------------------------------------------------------- -->
 
 
-                           </select>
+                        <div id="Pregunta_Cuestionario" class="col-sm-12">
+                           <hr>
+                           <div class="input-group mb-3">
+                              <label class="input-group-text" for="Pregunta_Cuest">Pregunta del
+                                 cuestionario</label>
+                              <select class="form-select" id="Pregunta_Cuest" required aria-label="select example">
 
-                           <div class="invalid-feedback">Selecciona una pregunta existente </div>
+
+                              </select>
+
+                              <div class="invalid-feedback">Selecciona una pregunta existente </div>
+                           </div>
                         </div>
                      </div>
-                  </div>
 
 
 
 
-                  <!-- !-----------------------------------------Apartado de Dimension en la vista   !----------------------------------------- -->
+                     <!-- !-----------------------------------------Apartado de Dimension en la vista   !----------------------------------------- -->
 
 
-                  <br>
+                     <br>
 
 
-                  <div class="d-flex flex-row-reverse">
-                     <div class="p-2">
-                        <input class="btn btn-primary" type="submit" id="Enviar" value="Enviar">
+                     <div class="d-flex flex-row-reverse">
+                        <div class="p-2">
+                           <input class="btn btn-primary" type="submit" id="Enviar" value="Enviar">
+                        </div>
                      </div>
-                  </div>
 
 
 
 
-                  <div class="form" id="myForm">
-                  </div>
+                     <div class="form" id="myForm">
+                     </div>
             </div>
          </div>
    </body>
@@ -137,6 +139,8 @@
          // let nombre = document.getElementById("nombreCuestionario").value;
          let dimension = document.getElementById("inputDimension").value;
          let nivel = document.getElementById("inputNivel").value;
+         console.log("nivel: ", nivel);
+         console.log("dimension: ", dimension);
 
          console.log("nivel: ", nivel);
          console.log("dimension: ", dimension);

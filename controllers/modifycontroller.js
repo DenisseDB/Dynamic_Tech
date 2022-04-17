@@ -12,6 +12,37 @@ exports.root = (request, response, next) => {
 };
 
 
+exports.modificarFormato2 = (request, response, next) => {
+
+   Cuestionario.fetchDimension()
+      .then(([dimension, fielData]) => {
+
+         Cuestionario.fetchCuestionario(request.params.idDimension)
+            .then(([cuesti, fielData]) => {
+
+               Cuestionario.fetchPreguta_Cuestionario(request.params.idCuestionario)
+                  .then(([pregunta, fielData]) => {
+                     response.render('modificarFormato', {
+
+                        dimensiones: dimension,
+                        preguntas: pregunta,
+                        cuestionarios: cuesti,
+
+                     }).catch((error) => {
+                        console.log(error);
+                     });
+
+                  }).catch((error) => {
+                     console.log(error);
+                  });
+
+            }).catch((error) => {
+               console.log(error);
+            });
+
+      });
+};
+
 exports.modificarFormato = (request, response, next) => {
 
    Cuestionario.fetchDimension()
