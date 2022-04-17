@@ -42,7 +42,7 @@ app.use(session({
 //Para login
 
 app.use('/users', rutas_users);
-app.use('/feedback', rutas_createPeriodo);
+app.use('/Periodo', rutas_createPeriodo);
 
 
 //Middleware página principal
