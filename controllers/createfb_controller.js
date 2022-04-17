@@ -1,10 +1,6 @@
 const FormatoEvaluacion = require('../models/formatoEvaluacion');
 const Dimension = require('../models/dimension');
 const Pregunta = require('../models/pregunta');
-<<<<<<< HEAD
-//const { route } = require('../routes/createfb.routes');
-=======
->>>>>>> Aris
 
 exports.root = (request, response, next) => {
 

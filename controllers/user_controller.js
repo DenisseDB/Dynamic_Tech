@@ -39,20 +39,17 @@ exports.login = (request, response, next) => {
                 return response.redirect('/users/login');
             }
 
-            // Info. del usuario sesionado
+            // Revisión del save() usuario
+            //const user = new User(rows[0].nombre,
+            //   rows[0].correo, rows[0].idEmpleado, rows[0].idRol);
+
             request.session.isLoggedIn = true;
             request.session.idEmpleado = rows[0].idEmpleado;
             request.session.nombre = rows[0].nombre;
             request.session.correo = rows[0].correo;
             request.session.idRol = rows[0].idRol;
 
-            // Nivel en cada dimensión del sesionado
-            request.session.craft = rows[0].nivelE;
-            request.session.people = rows[1].nivelE;
-            request.session.business = rows[2].nivelE;
-
-            // Redirección al HOME
-            return response.redirect('../home');
+            return response.redirect('./tops/');
 
         }).catch((error) => {
             console.log(error);
@@ -83,6 +80,24 @@ exports.logout = (request, response, next) => {
     request.session.destroy(() => {
         response.redirect('/users/login'); //Este código se ejecuta cuando la sesión se elimina.
     });
+};
+
+exports.misMentorados = (request, response, next) => {
+    User.fecthMentorados(request.session.idEmpleado)
+        .then(([rows, fielData]) => {
+            response.render('misMentorados',
+                {
+                    // TODO ESTO SE ENVIA A MISMENTORADOS.EJS
+                    mentorados: rows, // llevar los mentorados
+                    nombre: request.session.nombre, // sacar su nombre
+                    correo: request.session.correo,  // correo del usurio que esta en header
+                    rol: request.session.idRol, // obtener rol del usario
+                }
+
+            );
+        }).catch((error) => {
+            console.log(error);
+        });
 };
 
 exports.root = (request, response, next) => {
