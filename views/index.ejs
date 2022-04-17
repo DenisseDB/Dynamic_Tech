@@ -11,14 +11,12 @@
     <br><br>
     <% } %>
 
-      <button type="button" class="btn btn-primary" id="b1">Gráficas</button>
-      <div id="chart-container" style="position: relative; height:30vh; width:50vw"> // Para cambiar tamanio
+      <div id="chart-container" style="position: relative; height:30vh; width:50vw">
+        <!--//Para cambiar tamanio-->
         <canvas id="mycanvas"></canvas>
       </div>
 
       <script>
-        console.log(document.getElementById("idE").value);
-        console.log("abc1");
 
         const graficas = () => {
 
@@ -39,11 +37,118 @@
 
             console.log(data);
 
-            //! Se definen las listas de los valores a depslegar 
-            var dimension = [];
+            //! Se definen las listas de los valores a desplegar 
+            var nivel_craft = [];
+            var nivel_business = [];
+            var nivel_people = [];
+            var fechas = [];
+            var fechas2 = [];
+
+            for (var i in data) {
+              if (data[i].idDimension == 1) {
+                nivel_craft.push(data[i].nivelE.toFixed(1));
+              }
+              else if (data[i].idDimension == 2) {
+                nivel_people.push(data[i].nivelE.toFixed(1));
+              }
+              else if (data[i].idDimension == 3) {
+                nivel_business.push(data[i].nivelE.toFixed(1));
+              }
+
+              if (!(fechas2.includes(data[i].fecha))) {
+
+                fechas2.push(data[i].fecha);
+                let d = data[i].fecha.split("T")[0];
+                fechas.push(d);
+              }
+            }
+
+            console.log(nivel_craft);
+            console.log(nivel_business);
+            console.log(nivel_people);
+            console.log(fechas);
+
+            var chartdata = {
+              labels: fechas,
+              datasets: [
+                {
+                  label: 'Craft',
+                  backgroundColor: // Color de las barras en la grafica
+                    'rgba(255, 99, 132, 0.2)',
+
+                  borderColor: // Color del borde de las barras en la grafica  
+                    'rgb(255, 99, 132)',
+
+                  hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+                  hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                  data: nivel_craft,
+                },
+                {
+                  label: 'People & Mindsets',
+                  backgroundColor: // Color de las barras en la grafica
+                    'rgba(255, 159, 64, 0.2)',
+
+                  borderColor: // Color del borde de las barras en la grafica  
+                    'rgb(255, 159, 64)',
+
+                  hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+                  hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                  data: nivel_people,
+                },
+                {
+                  label: 'Commercial & customer',
+                  backgroundColor: // Color de las barras en la grafica
+                    'rgba(255, 205, 86, 0.2)',
+
+                  borderColor: // Color del borde de las barras en la grafica  
+                    'rgb(255, 205, 86)',
+
+                  hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+                  hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                  data: nivel_business,
+                }
+              ]
+            };
+
+            var ctx = document.getElementById("mycanvas");
+
+            var barGraph = new Chart(ctx, {
+              type: 'line',
+              data: chartdata,
+              options: {
+                responsive: true,
+                interaction: {
+                  mode: 'index',
+                  intersect: false,
+                },
+                stacked: true,
+                plugins: {
+                  title: {
+                    display: true,
+                    text: 'Niveles de Empleado'
+                  }
+                },
+                scales: {
+                  y: {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    /*ticks: {
+                      min: 0,
+                      max: 5
+                    }*/
+                  },
+                }
+              },
+            })
+
+            /*var dimension = [];
             var nivel = [];
 
             for (var i in data) {
+              if (data[i].idDimension == 1) {
+                nivel_craft.push(data[i].nivelE)
+              }
               dimension.push(data[i].nombre);
               nivel.push(data[i].nivelE.toFixed(1));
             }
@@ -76,9 +181,9 @@
             var ctx = document.getElementById("mycanvas");
 
             var barGraph = new Chart(ctx, {
-              type: 'bar', // Se define el tipo de grafica
+              type: 'line', // Se define el tipo de grafica
               data: chartdata
-            });
+            });*/
 
             /*for (let d of data) {
             }*/
@@ -89,7 +194,9 @@
           });
         };
 
-        document.getElementById("b1").onclick = graficas;
+        window.onload = function () {
+          graficas();
+        };
       </script>
 
       <!-- javascript -->
