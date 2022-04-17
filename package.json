@@ -23,12 +23,18 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.2",
+<<<<<<< HEAD
+=======
+    "bootstrap-icons": "^1.8.1",
+    "chart.js": "^3.7.1",
+>>>>>>> Aris
     "cookie-parser": "^1.4.6",
     "csurf": "^1.11.0",
     "ejs": "^3.1.6",
     "express": "^4.17.3",
     "express-session": "^1.17.2",
-    "mysql2": "^2.3.3"
+    "mysql2": "^2.3.3",
+    "plotly": "^1.0.6"
   },
   "bugs": {
     "url": "https://github.com/DenisseDB/Dynamic_Tech/issues"

@@ -8,6 +8,27 @@ exports.get_login = (request, response, next) => {
     });
 };
 
+// ROLES AUTORIZADOS PARA TOPS
+exports.tops = (request, response, next) => {
+    let roles = [1, 2]; // roles autorizados
+    response.render('index', { // mandamos su informacion al sidenav
+        correo: request.session.correo ? request.session.correo : '',
+        rol: request.session.idRol ? request.session.idRol : '',
+        roles_autorizados: roles,
+        idEmpleado: request.session.idEmpleado ? request.session.idEmpleado : '',
+    });
+};
+
+exports.tops_id = (request, response, next) => {
+    User.fetchDimensiones(request.session.idEmpleado)
+        .then(([rows, fieldData]) => {
+            //console.log(rows);
+            response.status(200).json(rows);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
 
 exports.login = (request, response, next) => {
     User.findOne(request.body.correo)
