@@ -46,10 +46,19 @@
                             </div>
                         </div>
                     </div>
-                    <br>
-                    <div class="row justify-content-md-end">
-                        <div class="col-sm-2 align-self-end">
+                    <!--br-->
+                    <div id="buttons" class="d-flex flex-row-reverse">
+                        <div class="p-2">
                             <a href="#" class="btn btn-primary" id="button1">Continuar</a>
+                        </div>
+                        <div id="cancel" class="p-2">
+                            <a class="btn btn-secondary" href="/feedback"> Cancelar </a>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row-reverse">
+                        <div class="p-2">
+                            <a class="btn btn-primary" id="button5" role="button">Crear
+                                Pregunta</a>
                         </div>
                     </div>
                     <div id="pregunta_nueva">
@@ -90,11 +99,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <!--div class="col-sm-4">
                             <br>
-                            <a class="btn btn-primary" id="button5" role="button">Nueva
+                            <a class="btn btn-primary" id="button5" role="button">Crear
                                 Pregunta</a>
-                        </div>
+                        </div-->
                     </div>
 
                     <div class="d-flex flex-row-reverse">
@@ -103,198 +112,235 @@
                             <br>
                             <input class="btn btn-primary" type="submit" id="button2" value="Enviar">
                         </div>
+                        <div class="p-2">
+                            <br>
+                            <br>
+                            <a id="cancel2" class="btn btn-secondary" href="/feedback"> Cancelar </a>
+                        </div>
                     </div>
             </div>
             </form>
+
+            <!--div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <img src="..." class="rounded me-2" alt="...">
+                        <strong class="me-auto">Estado de Registro de Pregunta</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                        <p>
+                        </p>
+                    </div>
+                </div>
+            </div-->
             <!--Nuevo>
-            <form id="form2" class="was-validated">
-                <div id="modalLoginForm" class="modal" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Crear Nueva Pregunta</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div id=" mod" class="modal-body mx-3">
-                                    <div class="md-form mb-5">
-                                        <label for="preguntaC"> Ingresa la nueva pregunta </label>
-                                        <input type="text" id="preguntaC" class="form-control validate" required>
-                                    </div>
-                                    <div class="input-group md-form mb-3">
-                                        <label class="input-group-text" for="inputTipo">Tipo de Pregunta</label>
-                                        <select class="form-select" name="inputTipo" id="inputTipo" required>
-                                            <option value="" disabled selected>Selecciona un tipo</option>
-                                            <option value="1"> Númerica </option>
-                                            <option value="2"> Texto </option>
-                                        </select>
-                                    </div>
+            <form id=" form2" class="was-validated">
+                    <div id="modalLoginForm" class="modal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Crear Nueva Pregunta</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cancelar</button>
-                                    <input type="submit" class="btn btn-primary" id="buttonC" name="buttonC"
-                                        value="Crear">
+                                <div class="modal-body">
+                                    <div id=" mod" class="modal-body mx-3">
+                                        <div class="md-form mb-5">
+                                            <label for="preguntaC"> Ingresa la nueva pregunta </label>
+                                            <input type="text" id="preguntaC" class="form-control validate" required>
+                                        </div>
+                                        <div class="input-group md-form mb-3">
+                                            <label class="input-group-text" for="inputTipo">Tipo de Pregunta</label>
+                                            <select class="form-select" name="inputTipo" id="inputTipo" required>
+                                                <option value="" disabled selected>Selecciona un tipo</option>
+                                                <option value="1"> Númerica </option>
+                                                <option value="2"> Texto </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancelar</button>
+                                        <input type="submit" class="btn btn-primary" id="buttonC" name="buttonC"
+                                            value="Crear">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </form>
+                    <Nuevo!-->
+                        
                 </div>
-            </form>
-            <Nuevo!-->
+            </div>
         </div>
-    </div>
-    </div>
 
-    <script>
+        <script>
 
-        document.getElementById("button2").style.display = "none";
-        document.getElementById("pregunta_nueva").style.display = "none";
+            document.getElementById("cancel2").style.visibility = "hidden";
 
-        document.getElementById("button3").style.display = "none";
-        document.getElementById("pregunta_nueva2").style.display = "none";
+            document.getElementById("button2").style.display = "none";
+            document.getElementById("pregunta_nueva").style.display = "none";
 
-        document.getElementById("button4").style.display = "none";
-        document.getElementById("pregunta_nueva3").style.display = "none";
+            document.getElementById("button3").style.display = "none";
+            document.getElementById("pregunta_nueva2").style.display = "none";
 
-        document.getElementById("button5").style.display = "none";
+            document.getElementById("button4").style.display = "none";
+            document.getElementById("pregunta_nueva3").style.display = "none";
 
-        document.getElementById("pregunta1").disabled = true;
-        document.getElementById("pregunta2").disabled = true;
+            document.getElementById("button5").style.display = "none";
 
-        document.getElementById("button1").onclick = () => {
-            let nombre = document.getElementById("nombreCuestionario").value;
-            let dimension = document.getElementById("inputDimension").value;
-            let nivel = document.getElementById("inputNivel").value;
+            document.getElementById("pregunta1").disabled = true;
+            document.getElementById("pregunta2").disabled = true;
 
-            if (nombre != '' && dimension != '' && nivel != '') {
-                console.log("hola");
-                document.getElementById("pregunta_nueva").style.display = "block";
-                document.getElementById("button2").style.display = "block";
-                document.getElementById("button5").style.display = "block";
-                document.getElementById("nombreCuestionario").setAttribute("readonly", "readonly");
-                document.getElementById("inputDimension").setAttribute("readonly", "readonly");
-                document.getElementById("inputNivel").setAttribute("readonly", "readonly");
-                document.getElementById("button1").style.visibility = "hidden";
-                accion_asincrona('pregunta0');
-                console.log('t');
+            document.getElementById("button1").onclick = () => {
+                let nombre = document.getElementById("nombreCuestionario").value;
+                let dimension = document.getElementById("inputDimension").value;
+                let nivel = document.getElementById("inputNivel").value;
 
-                var url = "/feedback/crearPregunta/" + nivel + "/" + dimension;
-                console.log(url);
-                var element = document.getElementById("button5");
-                element.setAttribute("href", url);
-                console.log(document.getElementById("button5"));
+                if (nombre != '' && dimension != '' && nivel != '') {
+                    console.log("hola");
+                    document.getElementById("pregunta_nueva").style.display = "block";
+                    document.getElementById("button2").style.display = "block";
+                    document.getElementById("button5").style.display = "block";
+                    document.getElementById("nombreCuestionario").setAttribute("readonly", "readonly");
+                    document.getElementById("inputDimension").setAttribute("readonly", "readonly");
+                    document.getElementById("inputNivel").setAttribute("readonly", "readonly");
+                    document.getElementById("buttons").style.visibility = "hidden";
+                    //document.getElementById("button1").style.visibility = "hidden";
+                    //document.getElementById("cancel").style.visibility = "hidden";
+                    document.getElementById("cancel2").style.visibility = "visible";
+
+                    accion_asincrona('pregunta0');
+                    console.log('t');
+
+                    var url = "/feedback/crearPregunta/" + nivel + "/" + dimension;
+                    console.log(url);
+                    var element = document.getElementById("button5");
+                    element.setAttribute("href", url);
+                    console.log(document.getElementById("button5"));
+                }
+
             }
 
-        }
+            const accion_asincrona = (id) => {
+                const nivel = document.getElementById('inputNivel').value;
+                const dimension = document.getElementById('inputDimension').value;
+                console.log(nivel);
 
-        const accion_asincrona = (id) => {
-            const nivel = document.getElementById('inputNivel').value;
-            const dimension = document.getElementById('inputDimension').value;
-            console.log(nivel);
-
-            fetch('/feedback/buscarFormato/' + nivel + '/' + dimension, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    //'csrf-token': csrf
-                }
-            }).then(result => {
-                return result.json();
-            }).then(data => {
-
-                //console.log(data);
-                let respuesta = '';
-                respuesta += '<option value ="" disabled selected> Selecciona una pregunta</option>';
-
-                /*for (let d of data) {
-                    respuesta += '<option value="' + d.idPregunta + '">' + d.pregunta + '</option>';
-                }*/
-                for (let d of data) {
-                    respuesta += '<option value="' + d.idPregunta + '"';
-                    if (document.getElementById("pregunta0").value == d.idPregunta || document.getElementById("pregunta1").value == d.idPregunta || document.getElementById("pregunta2").value == d.idPregunta) {
-                        respuesta += ' disabled';
+                fetch('/feedback/buscarFormato/' + nivel + '/' + dimension, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        //'csrf-token': csrf
                     }
-                    respuesta += '>' + d.pregunta + '</option>';
-                }
-                //document.getElementById('pregunta0').innerHTML = respuesta;
-                document.getElementById(id).innerHTML = respuesta;
+                }).then(result => {
+                    return result.json();
+                }).then(data => {
 
-            }).catch(err => {
-                console.log(err);
+                    //console.log(data);
+                    let respuesta = '';
+                    respuesta += '<option value ="" disabled selected> Selecciona una pregunta</option>';
 
-            });
-        };
+                    /*for (let d of data) {
+                        respuesta += '<option value="' + d.idPregunta + '">' + d.pregunta + '</option>';
+                    }*/
+                    for (let d of data) {
+                        respuesta += '<option value="' + d.idPregunta + '"';
+                        if (document.getElementById("pregunta0").value == d.idPregunta || document.getElementById("pregunta1").value == d.idPregunta || document.getElementById("pregunta2").value == d.idPregunta) {
+                            respuesta += ' disabled';
+                        }
+                        respuesta += '>' + d.pregunta + '</option>';
+                    }
+                    //document.getElementById('pregunta0').innerHTML = respuesta;
+                    document.getElementById(id).innerHTML = respuesta;
+
+                }).catch(err => {
+                    console.log(err);
+
+                });
+            };
 
 
-        document.getElementById("pregunta0").onchange = () => {
-            document.getElementById("button3").style.display = "block";
-        }
-
-        document.getElementById("button3").onclick = () => {
-            document.getElementById("pregunta_nueva2").style.display = "block";
-            document.getElementById("pregunta1").disabled = false;
-            document.getElementById("pregunta0").setAttribute("readonly", "readonly");
-            document.getElementById("button3").style.visibility = "hidden";
-            accion_asincrona('pregunta1');
-        }
-
-        document.getElementById("pregunta1").onchange = () => {
-            document.getElementById("button4").style.display = "block";
-        }
-
-        document.getElementById("button4").onclick = () => {
-            document.getElementById("pregunta_nueva3").style.display = "block";
-            document.getElementById("pregunta2").disabled = false;
-            document.getElementById("pregunta1").setAttribute("readonly", "readonly");
-            document.getElementById("button4").style.visibility = "hidden";
-            accion_asincrona('pregunta2');
-        }
-
-        /*document.getElementById("button5").onclick = () => {
-            var toastLiveExample = document.getElementById('liveToast');
-            var toast = new bootstrap.Toast(toastLiveExample);
-            toast.show();
-        }*/
-
-        /*myModal = new bootstrap.Modal(document.getElementById('modalLoginForm'));
-
-        document.getElementById("form2").addEventListener("submit", function (event) {
-            console.log('Abc');
-            event.preventDefault();
-            myModal.toggle();
-        });*/
-
-        /*document.getElementById("form2").onsubmit = () => {
-
-        }*/
-
-        /*document.getElementById("buttonC").onclick = () => {
-            console.log('Abc2');
-        }*/
-
-        /*document.getElementById("buttonC").onclick = () => {
-            let pregunta = document.getElementById("preguntaC").value;
-            let tipo = document.getElementById("inputTipo").value;
-
-            if (pregunta != '' && tipo != '') {
-                document.getElementById("modalLoginForm").style.visibility = "hidden";
-                console.log('modal');
+            document.getElementById("pregunta0").onchange = () => {
+                document.getElementById("button3").style.display = "block";
             }
-        }*/
 
+            document.getElementById("button3").onclick = () => {
+                document.getElementById("pregunta_nueva2").style.display = "block";
+                document.getElementById("pregunta1").disabled = false;
+                document.getElementById("pregunta0").setAttribute("readonly", "readonly");
+                document.getElementById("button3").style.visibility = "hidden";
+                accion_asincrona('pregunta1');
+            }
+
+            document.getElementById("pregunta1").onchange = () => {
+                document.getElementById("button4").style.display = "block";
+            }
+
+            document.getElementById("button4").onclick = () => {
+                document.getElementById("pregunta_nueva3").style.display = "block";
+                document.getElementById("pregunta2").disabled = false;
+                document.getElementById("pregunta1").setAttribute("readonly", "readonly");
+                document.getElementById("button4").style.visibility = "hidden";
+                accion_asincrona('pregunta2');
+            }
+
+            /*document.getElementById("button5").onclick = () => {
+                var toastLiveExample = document.getElementById('liveToast');
+                var toast = new bootstrap.Toast(toastLiveExample);
+                toast.show();
+            }*/
+
+            /*myModal = new bootstrap.Modal(document.getElementById('modalLoginForm'));
+    
+            document.getElementById("form2").addEventListener("submit", function (event) {
+                console.log('Abc');
+                event.preventDefault();
+                myModal.toggle();
+            });*/
+
+            /*document.getElementById("form2").onsubmit = () => {
+    
+            }*/
+
+            /*document.getElementById("buttonC").onclick = () => {
+                console.log('Abc2');
+            }*/
+
+            /*document.getElementById("buttonC").onclick = () => {
+                let pregunta = document.getElementById("preguntaC").value;
+                let tipo = document.getElementById("inputTipo").value;
+    
+                if (pregunta != '' && tipo != '') {
+                    document.getElementById("modalLoginForm").style.visibility = "hidden";
+                    console.log('modal');
+                }
+            }*/
+
+            /*window.addEventListener("pageshow", function (event) {
+
+                var toastLiveExample = document.getElementById('liveToast');
+                var toast = new bootstrap.Toast(toastLiveExample);
+
+                if (document.cookie != 0) {
+                    toast.show();
+                    console.log('hey2');
+                    document.cookie.replace = 0;
+                }
+            });*/
 
         //console.log("mod " + document.getElementById("inputNivel").value);
         //document.getElementById("mod").innerHTML += "Nivel: " + document.getElementById("inputNivel").value;
 
-    </script>
+        </script>
 
-    <style>
-        select[readonly] {
-            /*Simular campo inativo - Sugestão @GabrielRodrigues*/
-            pointer-events: none;
-            touch-action: none;
-        }
-    </style>
-    <%- include('includes/foot.ejs') %>
+        <style>
+            select[readonly] {
+                /*Simular campo inativo - Sugestão @GabrielRodrigues*/
+                pointer-events: none;
+                touch-action: none;
+            }
+        </style>
+        <%- include('includes/foot.ejs') %>

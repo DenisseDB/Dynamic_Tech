@@ -12,7 +12,7 @@ module.exports = class Pregunta {
     }
 
     savePregunta() {
-        return db.execute('INSERT INTO Pregunta(pregunta, nivelP, idDimension, tipo) VALUES(?,?,?,?); ',
+        return db.execute('INSERT INTO Pregunta(pregunta, nivelP, idDimension, tipo) VALUES(?,?,?,?);',
             [this.tPregunta, this.nivelP, this.dimP, this.tipo]);
     }
 

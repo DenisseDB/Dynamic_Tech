@@ -37,17 +37,20 @@
                         <option value="1"> Númerica </option>
                         <option value="2"> Texto </option>
                     </select>
+                    <div id="QuestionInput" class="invalid-feedback">
+                        Selecciona un tipo
+                    </div>
                 </div>
             </div>
             <br>
+            </form>
 
             <div class="row justify-content-md-end">
                 <div class="col-sm-5">
-                    <button type="submit" class="btn btn-primary" id="buttonP">Crear</button>
+                    <input type="submit" class="btn btn-primary" id="buttonP" value="Crear">
                     <button class="btn btn-secondary" id="buttonC">Cancelar</button>
                 </div>
             </div>
-            </form>
         </div>
     </div>
     </div>
@@ -58,13 +61,12 @@
             history.go(-1);
         };
 
-        document.getElementById("form1").onsubmit = async () => {
-            event.preventDefault();
-            console.log('holis');
-            await accion_asincrona();
-            history.go(-1);
-            //console.log('holis');
-            //return true;
+        document.getElementById("buttonP").onclick = async () => {
+            if (document.getElementById('textoPregunta').value != '' && document.getElementById('inputTipo').value != '') {
+                await event.preventDefault();
+                await (accion_asincrona());
+                history.go(-1);
+            }
         };
 
         const accion_asincrona = () => {

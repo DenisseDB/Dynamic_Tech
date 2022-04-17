@@ -28,10 +28,14 @@ exports.buscarFormato = (request, response, next) => {
 }
 
 exports.generarFormato = (request, response, next) => {
+
+    //request.session.pr = 0;
+
     Dimension.fetchAll()
         .then(([rows, fieldData]) => {
             response.render('generarFormatos', {
-                dimensiones: rows
+                dimensiones: rows,
+                //pr: request.session.pr
             });
         }).catch((error) => {
             console.log(error);
@@ -83,6 +87,7 @@ exports.crearPregunta_post = (request, response, next) => {
     pregunta.savePregunta()
         .then(() => {
             console.log('guardar pregunta');
+            response.status(304);
         })
         .catch(err => {
             console.log(err);
