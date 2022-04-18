@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 module.exports = class User {
 
     //Constructor de la clase. Sirve para crear un nuevo objeto, y en él se definen las propiedades del modelo
-    constructor(nuevo_nombre,nuevo_aP, nuevo_aM, nuevo_correo, nuevo_password,nuevo_idEquipo) {
+    constructor(nuevo_nombre, nuevo_aP, nuevo_aM, nuevo_correo, nuevo_password, nuevo_idEquipo) {
         this.nombre = nuevo_nombre;
         this.apellidoP = nuevo_aP;
         this.apellidoM = nuevo_aM;
@@ -16,14 +16,14 @@ module.exports = class User {
     // //Este método servirá para guardar de manera persistente el nuevo objeto. 
     save() {
         return bcrypt.hash(this.constrasena, 12)
-            .then((password_cifrado)=>{
+            .then((password_cifrado) => {
                 return db.execute(
                     'INSERT INTO empleado(nombre,apellidoP,apellidoM,correo,contrasena,idEquipo) VALUES(?,?,?,?,?,?)',
                     [this.nombre, this.apellidoP, this.apellidoM,
-                        this.correo, password_cifrado,this.idEquipo]);
-            }).catch((error)=>{
+                    this.correo, password_cifrado, this.idEquipo]);
+            }).catch((error) => {
                 console.log(error);
-            }); 
+            });
     }
 
     //El primer rol es ver mentorados
@@ -42,16 +42,28 @@ module.exports = class User {
     static findOne(correo) {
         //return db.execute('SELECT nombre,correo,E.idEmpleado,idRol FROM empleado E, rolEmpleado RE WHERE E.idEmpleado = RE.idEmpleado AND correo=?',
         //    [correo]);
-        
         return db.execute('SELECT E.idEmpleado, nombre,apellidoP, apellidoM, correo, idRol, idDimension, nivelE, DE.fecha FROM empleado E, rolempleado RE, dimempleado DE WHERE E.idEmpleado = RE.idEmpleado AND E.idEmpleado = DE.idEmpleado AND correo = ? ORDER BY idDimension ASC;',
-        [correo]);  
+            [correo]);
     }
 
-        //Para obtener los privilegios que tenga un usuario sesionado
-        static fecthPrivilegios(idEmpleadoRol) {
-            return db.execute('SELECT idPrivilegio FROM rolprivilegio where idRol = ?;',
-                [idEmpleadoRol]);
-    
-        }
+    //Para obtener los privilegios que tenga un usuario sesionado
+    static fecthPrivilegios(idEmpleadoRol) {
+        return db.execute('SELECT idPrivilegio FROM rolprivilegio where idRol = ?;',
+            [idEmpleadoRol]);
+
+    }
+
+    static fetchDimensiones(idEmpleado) {
+        return db.execute('SELECT D.idDimension, nivelE, fecha FROM dimEmpleado DE, Dimension D WHERE DE.idDimension = D.idDimension AND idEmpleado=? ORDER BY nombre, fecha',
+            [idEmpleado]);
+
+    }
+
+    /*static fetchDimensiones(idEmpleado) {
+        return db.execute('SELECT nombre, nivelE FROM dimEmpleado DE, Dimension D WHERE DE.idDimension = D.idDimension AND idEmpleado=?',
+            [idEmpleado]);
+
+    }*/
 
 }
+

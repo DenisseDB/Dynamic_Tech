@@ -5,11 +5,12 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const csrf = require('csurf');
 const csrfProtection = csrf();
+
 const multer = require('multer');
 const rutas_users = require('./routes/user.routes'); // Usuario por autenticarse.
 const rutas_feed = require('./routes/feedback.routes'); // Usuario sesionado.
 const rutas_lead = require('./routes/lead.routes'); // Usuario sesionado.
-
+const rutas_createfb = require('./routes/createfb.routes'); // Usuario sesionado.
 
 path = require('path');
 const app = express();
@@ -23,7 +24,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Paquetes Node.js.
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.use(cookieParser());
 
 ///fileStorage: Es nuestra constante de configuración para manejar el almacenamiento
@@ -42,10 +45,10 @@ const fileStorage = multer.diskStorage({
 //usamos single porque es un sólo archivo el que vamos a subir, 
 //pero hay diferentes opciones si se quieren subir varios archivos. 
 //'archivo' es el nombre del input tipo file de la forma
-app.use(multer({ storage: fileStorage }).single('fotoPerfil')); 
+app.use(multer({ storage: fileStorage }).single('fotoPerfil'));
 
 app.use(session({
-    secret: 'Hola Zebrands', 
+    secret: 'Hola Zebrands',
     resave: false, //La sesión no se guardará en cada petición, sino sólo se guardará si algo cambió 
     saveUninitialized: false, //Asegura que no se guarde una sesión para una petición que no lo necesita
 }));
@@ -55,6 +58,7 @@ app.use('/', rutas_feed);
 app.use('/', rutas_lead);
 
 app.use('/users', rutas_users);
+app.use('/feedback', rutas_createfb);
 
 app.use((request, response, next) => {
     response.redirect('/users');
