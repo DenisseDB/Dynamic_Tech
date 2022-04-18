@@ -48,4 +48,8 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+*.vscode
 
+VIEJO_modificarFormato.ejs
+borrame_despues.html
+views/nuevoGenerarFormato.ejs

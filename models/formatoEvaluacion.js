@@ -8,7 +8,7 @@ module.exports = class formatoEvaluacion {
         this.nombre = nuevo_nombre;
         this.nivel = nuevo_nivel;
         this.dimension = nueva_dimension;
-        this.pregunta = nueva_pregunta
+        this.pregunta = nueva_pregunta;
     }
 
     // //Este método servirá para guardar de manera persistente el nuevo objeto. 
@@ -44,5 +44,5 @@ module.exports = class formatoEvaluacion {
 
         return db.execute(query, arr);
     }
-}
+};
 

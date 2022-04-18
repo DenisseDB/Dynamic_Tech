@@ -139,7 +139,7 @@ exports.salvarRespuestas = async (request, response, next) => {
     let bus = request.session.preguntasBusiness;
 
     //Para obtener cuantas preguntas fueron
-    var total = craft.length + people.length + bus.length
+    var total = craft.length + people.length + bus.length;
 
     //Para obtener los ids de cada pregunta
     /* Recorro cada cuestinario para obtener sus ids preguntas y los guardo en 
@@ -156,7 +156,7 @@ exports.salvarRespuestas = async (request, response, next) => {
         idP.push(bus[i].idPregunta);
     }
 
-    console.log(idP)
+    console.log(idP);
     //Para obtener las respuestas del body
     /* Recorro cada radio button del body para obtener sus respuesta y la guardo en 
         un array
@@ -166,7 +166,7 @@ exports.salvarRespuestas = async (request, response, next) => {
         respuestas.push(request.body[i]);
     }
 
-    console.log(respuestas)
+    console.log(respuestas);
 
     try {
         //Ciclo for para realizar insert de preguntas y respuestas
@@ -177,7 +177,7 @@ exports.salvarRespuestas = async (request, response, next) => {
         response.redirect('/solicitudes');
 
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 
 
