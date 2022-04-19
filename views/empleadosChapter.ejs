@@ -1,432 +1,411 @@
 <!-- Partes que siempre aparecen en el navbar -->
 <%- include('includes/sidenavsup.ejs') %>
 
-    <!-- Para que aparezca Mis Mentorados -->
-    <% for (i=0; i < rolesA.length; i++) { %>
-        <% if (rolesA[i].idPrivilegio==1) { %>
-            <%- include('includes/sideMentorados.ejs') %>
-                <% } %>
-                    <% } %>
+<!-- Para que aparezca Mis Mentorados -->
+<% for (i = 0; i < rolesA.length; i++) {  %>
+  <% if (rolesA[i].idPrivilegio == 1) { %> 
+  <%- include('includes/sideMentorados.ejs') %>
+  <% } %>
+<% } %>
 
-                        <!-- Para que aparezca Empleados del chapter -->
-                        <% for (i=0; i < rolesA.length; i++) { %>
-                            <% if (rolesA[i].idPrivilegio==2) { %>
-                                <%- include('includes/sideAgregarE.ejs') %>
-                                    <% } %>
-                                        <% } %>
+<!-- Para que aparezca Empleados del chapter -->
+<% for (i = 0; i < rolesA.length; i++) {  %>
+  <% if (rolesA[i].idPrivilegio == 2) { %> 
+  <%- include('includes/sideAgregarE.ejs') %>
+  <% } %>
+<% } %>
 
-                                            <!-- Final de la nav-->
-                                            <%- include('includes/sidenavFin.ejs') %>
-
-                                                <body>
-                                                    <h1 id="principal">Empleados de chapter</h1>
-                                                    <br>
-                                                    <div class="container">
-                                                        <div class="accordion" id="accordionExample">
-                                                            <div class="accordion-item">
-                                                                <h2 class="accordion-header" id="headingOne">
-                                                                    <button class="accordion-button" type="button"
-                                                                        data-bs-toggle="collapse"
-                                                                        data-bs-target="#collapseOne"
-                                                                        aria-expanded="true"
-                                                                        aria-controls="collapseOne">
-                                                                        <h5><i class="bi bi-person-plus-fill"></i>
-                                                                            Agregar Empelado</h5>
-                                                                    </button>
-                                                                </h2>
-                                                                <div id="collapseOne"
-                                                                    class="accordion-collapse collapse show"
-                                                                    aria-labelledby="headingOne"
-                                                                    data-bs-parent="#accordionExample">
-                                                                    <div class="accordion-body">
-                                                                        <form id="agregarEmpleado" method="POST"
-                                                                            enctype="multipart/form-data">
-                                                                            <div class="row">
-                                                                                <div class="col">
-                                                                                    <!--Nombre input -->
-                                                                                    <div class="form-floating mb-3">
-                                                                                        <input type="text"
-                                                                                            class="form-control"
-                                                                                            id="nombre" name="nombre"
-                                                                                            placeholder="Juan" required>
-                                                                                        <label
-                                                                                            for="nombre">Nombre</label>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <!-- Apellido paterno input -->
-                                                                                <div class="col">
-                                                                                    <div class="form-floating mb-3">
-                                                                                        <input type="text"
-                                                                                            class="form-control"
-                                                                                            id="apellidoP"
-                                                                                            name="apellidoP"
-                                                                                            placeholder="Ramírez"
-                                                                                            required>
-                                                                                        <label for="apellidoP">Apellido
-                                                                                            Paterno</label>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col">
-                                                                                    <!-- Apellido Materno input -->
-                                                                                    <div class="form-floating mb-3">
-                                                                                        <input type="text"
-                                                                                            class="form-control"
-                                                                                            id="apellidoM"
-                                                                                            name="apellidoM"
-                                                                                            placeholder="del Valle">
-                                                                                        <label for="apellidoM">Apellido
-                                                                                            Materno (opcional)</label>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <hr />
+<!-- Final de la nav-->
+<%- include('includes/sidenavFin.ejs') %>
 
 
-                                                                                <div class="col">
-                                                                                    <!-- Email inputt -->
-                                                                                    <div class="form-floating mb-3">
-                                                                                        <input type="email"
-                                                                                            class="form-control"
-                                                                                            id="email" name="email"
-                                                                                            placeholder="name@example.com"
-                                                                                            required>
-                                                                                        <label for="email">Email
-                                                                                            address</label>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col">
-                                                                                    <!-- Contraseña -->
-                                                                                    <div class="form-floating">
-                                                                                        <input type="password"
-                                                                                            class="form-control"
-                                                                                            id="password"
-                                                                                            name="password"
-                                                                                            placeholder="Password"
-                                                                                            required>
-                                                                                        <label
-                                                                                            for="password">Contraseña</label>
-                                                                                    </div>
-                                                                                </div>
+<body>
+    <h1 id="principal">Empleados de chapter</h1>
+    <br>
+    <div class="container">
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne" >
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <h5><i class="bi bi-person-plus-fill"></i> Agregar Empelado</h5>
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <form id = "agregarEmpleado" method="POST" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col">
+                                    <!--Nombre input -->
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="nombre" name = "nombre" placeholder="Juan"
+                                            required>
+                                        <label for="nombre">Nombre</label>
+                                    </div>
+                                </div>
+                                <!-- Apellido paterno input -->
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="apellidoP" name="apellidoP" placeholder="Ramírez"
+                                            required>
+                                        <label for="apellidoP">Apellido Paterno</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <!-- Apellido Materno input -->
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="apellidoM" name="apellidoM"  placeholder="del Valle">
+                                        <label for="apellidoM">Apellido Materno (opcional)</label>
+                                    </div>
+                                </div>
 
-                                                                                <hr />
+                                <hr />
 
-                                                                                <!-- Para los niveles de cada dimensión -->
-                                                                                <div class="col">
-                                                                                    <!-- Nivel craft -->
-                                                                                    <div class="form-floating">
-                                                                                        <input class="form-control"
-                                                                                            list="opcionesNivelCraft"
-                                                                                            id="nivelCraft"
-                                                                                            name="nivelCraft"
-                                                                                            placeholder="Type to search...">
-                                                                                        <datalist
-                                                                                            id="opcionesNivelCraft">
-                                                                                            <option value="1.1">
-                                                                                            <option value="1.2">
-                                                                                            <option value="1.3">
-                                                                                            <option value="2.1">
-                                                                                            <option value="2.2">
-                                                                                            <option value="2.3">
-                                                                                            <option value="3.1">
-                                                                                            <option value="3.2">
-                                                                                            <option value="3.3">
-                                                                                            <option value="4.1">
-                                                                                            <option value="4.2">
-                                                                                            <option value="4.3">
-                                                                                            <option value="5.1">
-                                                                                            <option value="5.2">
-                                                                                            <option value="5.3">
-                                                                                        </datalist>
-                                                                                        <label for="nivelCraft"
-                                                                                            class="form-label">Nivel
-                                                                                            craft</label>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col">
+                                
+                                    <div class="col">
+                                        <!-- Email inputt -->
+                                        <div class="form-floating mb-3">
+                                            <input type="email" class="form-control" id="email" name="email"
+                                                placeholder="name@example.com" required>
+                                            <label for="email">Email address</label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <!-- Contraseña -->
+                                        <div class="form-floating">
+                                            <input type="password" class="form-control" id="password" name="password"
+                                                placeholder="Password" required>
+                                            <label for="password">Contraseña</label>
+                                        </div>
+                                    </div>
 
-                                                                                    <!-- Nivel de people -->
-                                                                                    <div class="form-floating">
-                                                                                        <input class="form-control"
-                                                                                            list="opcionesNivelPeople"
-                                                                                            id="nivelPeople"
-                                                                                            name="nivelPeople"
-                                                                                            placeholder="Type to search...">
-                                                                                        <datalist
-                                                                                            id="opcionesNivelPeople">
-                                                                                            <option value="1.1">
-                                                                                            <option value="1.2">
-                                                                                            <option value="1.3">
-                                                                                            <option value="2.1">
-                                                                                            <option value="2.2">
-                                                                                            <option value="2.3">
-                                                                                            <option value="3.1">
-                                                                                            <option value="3.2">
-                                                                                            <option value="3.3">
-                                                                                            <option value="4.1">
-                                                                                            <option value="4.2">
-                                                                                            <option value="4.3">
-                                                                                            <option value="5.1">
-                                                                                            <option value="5.2">
-                                                                                            <option value="5.3">
-                                                                                        </datalist>
-                                                                                        <label for="nivelPeople"
-                                                                                            class="form-label">Nivel
-                                                                                            People</label>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col">
-                                                                                    <!-- Nivel de Business -->
-                                                                                    <div class="form-floating">
-                                                                                        <input class="form-control"
-                                                                                            list="opcionesNivelBusiness"
-                                                                                            id="nivelBusiness"
-                                                                                            name="nivelBusiness"
-                                                                                            placeholder="Type to search...">
-                                                                                        <datalist
-                                                                                            id="opcionesNivelBusiness">
-                                                                                            <option value="1.1">
-                                                                                            <option value="1.2">
-                                                                                            <option value="1.3">
-                                                                                            <option value="2.1">
-                                                                                            <option value="2.2">
-                                                                                            <option value="2.3">
-                                                                                            <option value="3.1">
-                                                                                            <option value="3.2">
-                                                                                            <option value="3.3">
-                                                                                            <option value="4.1">
-                                                                                            <option value="4.2">
-                                                                                            <option value="4.3">
-                                                                                            <option value="5.1">
-                                                                                            <option value="5.2">
-                                                                                            <option value="5.3">
-                                                                                        </datalist>
-                                                                                        <label for="nivelBusiness"
-                                                                                            class="form-label">Nivel
-                                                                                            craft</label>
-                                                                                        <br>
-                                                                                    </div>
+                                <hr />
 
-                                                                                </div>
+                                <!-- Para los niveles de cada dimensión -->
+                                <div class="col">
+                                    <!-- Nivel craft -->
+                                    <div class="form-floating">
+                                        <input class="form-control" list="opcionesNivelCraft" id="nivelCraft" name="nivelCraft" placeholder="Type to search...">
+                                        <datalist id="opcionesNivelCraft">
+                                            <option value="1.1">
+                                                <option value="1.2">
+                                                <option value="1.3">
+                                                <option value="2.1">
+                                                <option value="2.2">
+                                                <option value="2.3">
+                                                <option value="3.1">
+                                                <option value="3.2">
+                                                <option value="3.3">
+                                                <option value="4.1">
+                                                <option value="4.2">
+                                                <option value="4.3">
+                                                <option value="5.1">
+                                                <option value="5.2">
+                                                <option value="5.3">
+                                        </datalist>
+                                        <label for="nivelCraft" class="form-label">Nivel craft</label>
+                                    </div>
+                                </div>
+                                <div class="col">
 
-                                                                                <hr />
+                                    <!-- Nivel de people -->
+                                    <div class="form-floating">
+                                        <input class="form-control" list="opcionesNivelPeople" id="nivelPeople" name="nivelPeople" placeholder="Type to search...">
+                                        <datalist id="opcionesNivelPeople">
+                                            <option value="1.1">
+                                                <option value="1.2">
+                                                <option value="1.3">
+                                                <option value="2.1">
+                                                <option value="2.2">
+                                                <option value="2.3">
+                                                <option value="3.1">
+                                                <option value="3.2">
+                                                <option value="3.3">
+                                                <option value="4.1">
+                                                <option value="4.2">
+                                                <option value="4.3">
+                                                <option value="5.1">
+                                                <option value="5.2">
+                                                <option value="5.3">
+                                        </datalist>
+                                        <label for="nivelPeople" class="form-label">Nivel People</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <!-- Nivel de Business -->
+                                    <div class="form-floating">
+                                        <input class="form-control" list="opcionesNivelBusiness" id="nivelBusiness" name="nivelBusiness" placeholder="Type to search...">
+                                        <datalist id="opcionesNivelBusiness">
+                                            <option value="1.1">
+                                                <option value="1.2">
+                                                <option value="1.3">
+                                                <option value="2.1">
+                                                <option value="2.2">
+                                                <option value="2.3">
+                                                <option value="3.1">
+                                                <option value="3.2">
+                                                <option value="3.3">
+                                                <option value="4.1">
+                                                <option value="4.2">
+                                                <option value="4.3">
+                                                <option value="5.1">
+                                                <option value="5.2">
+                                                <option value="5.3">
+                                        </datalist>
+                                        <label for="nivelBusiness" class="form-label">Nivel craft</label>
+                                        <br>
+                                    </div>
 
-                                                                                <div class="col">
-                                                                                    <!-- Rol -->
-                                                                                    <div class="form-floating">
-                                                                                        <select class="form-select"
-                                                                                            id="rol" name="rol"
-                                                                                            aria-label="Floating label select example"
-                                                                                            required>
-                                                                                            <option selected>Elije un
-                                                                                                rol de empleado</option>
-                                                                                            <% for (let rolOpcion of
-                                                                                                roles) { %>
-                                                                                                <option
-                                                                                                    value="<%= rolOpcion.idRol %>">
-                                                                                                    <%= rolOpcion.descripcion
-                                                                                                        %>
-                                                                                                </option>
-                                                                                                <% } %>
-                                                                                        </select>
-                                                                                        <label for="rol">Rol</label>
-                                                                                    </div>
-                                                                                </div>
+                                </div>
 
-                                                                                <div class="col">
-                                                                                    <!-- Equipo -->
-                                                                                    <div class="form-floating">
-                                                                                        <select class="form-select"
-                                                                                            id="equipo" name="equipo"
-                                                                                            aria-label="Floating label select example"
-                                                                                            required>
-                                                                                            <option selected>Elige un
-                                                                                                equipo de trabajo
-                                                                                            </option>
-                                                                                            <% for (let equipoOpcion of
-                                                                                                equipos) { %>
-                                                                                                <option
-                                                                                                    value="<%= equipoOpcion.idEquipo %>">
-                                                                                                    <%= equipoOpcion.nombre
-                                                                                                        %>
-                                                                                                </option>
-                                                                                                <% } %>
-                                                                                        </select>
-                                                                                        <label
-                                                                                            for="equipo">Equipo</label>
-                                                                                    </div>
-                                                                                </div>
+                                <hr />
 
-                                                                                <div class="col">
-                                                                                    <!-- Foto de perfil input -->
-                                                                                    <div class="form-outline">
-                                                                                        <label for="fotoPerfil"
-                                                                                            class="form-label">Seleciona
-                                                                                            una foto de perfil</label>
-                                                                                        <input class="form-control"
-                                                                                            type="file" id="fotoPerfil"
-                                                                                            name="fotoPerfil">
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
+                                <div class="col">
+                                    <!-- Rol -->
+                                    <div class="form-floating">
+                                        <select class="form-select" id="rol" name="rol"
+                                            aria-label="Floating label select example"required>
+                                            <option selected>Elije un rol de empleado</option>
+                                            <% for (let  rolOpcion of  roles) { %>
+                                                <option value="<%= rolOpcion.idRol %>"><%= rolOpcion.descripcion %></option>
+                                              <% } %>
+                                        </select>
+                                        <label for="rol">Rol</label>
+                                    </div>
+                                </div>
 
-                                                                            <a href="/empleados"><button type="submit"
-                                                                                    class="btn btn-darkbtn btn-dark"
-                                                                                    id="liveToastBtn">Agregar</button></a>
-                                                                        </form>
+                                <div class="col">
+                                    <!-- Equipo -->
+                                    <div class="form-floating">
+                                        <select class="form-select" id="equipo" name="equipo"
+                                            aria-label="Floating label select example" required>
+                                            <option selected>Elige un equipo de trabajo</option>
+                                            <% for (let  equipoOpcion of  equipos) { %>
+                                                <option value="<%= equipoOpcion.idEquipo %>"><%= equipoOpcion.nombre %></option>
+                                              <% } %>
+                                        </select>
+                                        <label for="equipo">Equipo</label>
+                                    </div>
+                                </div>
 
+                                <div class="col">
+                                    <!-- Foto de perfil input -->
+                                    <div class="form-outline">
+                                        <label for="fotoPerfil" class="form-label">Seleciona una foto de perfil</label>
+                                        <input class="form-control" type="file" id="fotoPerfil" name="fotoPerfil">
+                                    </div>
+                                </div>
+                            </div>
 
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                             <a href="/empleados"><button type="submit" class="btn btn-darkbtn btn-dark"  id="liveToastBtn">Agregar</button></a>
+                        </form>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
 
-
-                                                        <div class="position-fixed bottom-0 end-0 p-3"
-                                                            style="z-index: 11">
-                                                            <div class="toast align-items-center text-white bg-secondary border-0"
-                                                                id="liveToastSuccess" class="toast" role="alert"
-                                                                aria-live="assertive" aria-atomic="true">
-                                                                <div class="toast-header">
-                                                                    <i class="bi bi-person-plus-fill"></i>
-                                                                    <strong class="me-auto"> Agregar Empleado</strong>
-                                                                    <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="toast"
-                                                                        aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="toast-body">
-                                                                    Se ha agregado correctamente al nuevo empleado.
-                                                                </div>
-                                                            </div>
-                                                        </div>
+      
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div class="toast align-items-center text-white bg-secondary border-0" id="liveToastSuccess" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+        <i class="bi bi-person-plus-fill"></i>
+      <strong class="me-auto">  Agregar Empleado</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Se ha agregado correctamente al nuevo empleado.
+    </div>
+  </div>
+</div>
 
 
-                                                        <script>
-                                                            window.addEventListener("load", function (event) {
+<script>
+     window.addEventListener("load", function(event) {
 
-                                                                if (success == true) {
-                                                                    new bootstrap.Toast(document.getElementById('liveToastSuccess')).show();
-                                                                }
+    <% if (success == true) { %>
+                new bootstrap.Toast(document.getElementById('liveToastSuccess')).show();
+    <% } %>
 
-                                                            });
-                                                        </script>
+    });
+</script>
 
-                                                        <br><br>
+        <br><br>
 
-                                                        <!--Para tabla de chapter members-->
-                                                        <div class="col-sm-12">
-                                                            <div class="card">
-                                                                <h5 class="card-header"><i
-                                                                        class="bi bi-person-fill"></i> Miembros del
-                                                                    chapter</h5>
-                                                                <div class="card-body">
-                                                                    <!--Para tabla con boostrap-->
-                                                                    <table class="table">
-                                                                        <thead class="thead-dark">
-                                                                            <tr>
-                                                                                <th scope="col"></th>
-                                                                                <th scope="col">Nombre</th>
-                                                                                <th scope="col">Correo</th>
-                                                                                <th scope="col">Nivel Craft</th>
-                                                                                <th scope="col">Nivel People</th>
-                                                                                <th scope="col">Nivel Busisness</th>
-                                                                                <th scope="col"></th>
-                                                                                <th scope="col"></th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <% for (let empleado of miembros) { %>
-                                                                                    <td> <img
-                                                                                            src="https://github.com/mdo.png"
-                                                                                            alt="hugenerd" width="60"
-                                                                                            height="60"
-                                                                                            class="rounded-circle"></td>
-                                                                                    <td>
-                                                                                        <%= empleado.nombre %>
-                                                                                            <%= empleado.apellidoP %>
-                                                                                                <%= empleado.apellidoM
-                                                                                                    %>
-                                                                                    </td>
+        <!--Para tabla de chapter members-->
 
-                                                                                    <td>
-                                                                                        <%= empleado.correo %>
-                                                                                    </td>
+        <div class="row">
+            <div class="col">
+            </div>
+            <div class="col">
+            <label for="buscar"><b>Filtrar empleados: </b> </label>
+              <input type="text" name="buscar" id="buscar" placeholder="Buscar empleado">
+            <br><br>
+            </div>
+        </div>
+        
+        <div class="row" id="buscarEmpleado">
+          <div class="col-sm-12">
+            <div class="card">
+              <h5 class="card-header"><i class="bi bi-person-fill"></i> Miembros del chapter</h5>
+              <div class="card-body">
+                <!--Para tabla con boostrap-->
+                <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Correo</th>
+                      <th scope="col">Nivel Craft</th>
+                      <th scope="col">Nivel People</th>
+                      <th scope="col">Nivel  Busisness</th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <% for (let empleado of miembros) { %>
+                        <td> <img src="https://github.com/mdo.png" alt="hugenerd" width="60" height="60"
+                            class="rounded-circle"></td>
+                        <td>
+                          <%= empleado.nombre %>
+                            <%= empleado.apellidoP %>
+                              <%= empleado.apellidoM %>
+                        </td>
+                        
+                        <td><%= empleado.correo %></td>
+                        
+                        <!--Para craft-->
+                        <% for (let dim of dimEmpleado) { %>
+                            <% if ( (empleado.idEmpleado == dim.idEmpleado) && (dim.idDimension == 1)) { %>
+                            <td><%= dim.nivelE.toFixed(1) %></td>
+                            <% } %>
+                        <% } %>
 
-                                                                                    <!--Para craft-->
-                                                                                    <% for (let dim of dimEmpleado) { %>
-                                                                                        <% if (
-                                                                                            (empleado.idEmpleado==dim.idEmpleado)
-                                                                                            && (dim.idDimension==1)) {
-                                                                                            %>
-                                                                                            <td>
-                                                                                                <%= dim.nivelE.toFixed(1)
-                                                                                                    %>
-                                                                                            </td>
-                                                                                            <% } %>
-                                                                                                <% } %>
+                        <!--Para people-->
+                        <% for (let dim of dimEmpleado) { %>
+                            <% if ( (empleado.idEmpleado == dim.idEmpleado) && (dim.idDimension == 2)) { %>
+                            <td><%= dim.nivelE.toFixed(1) %></td>
+                            <% } %>
+                        <% } %>
 
-                                                                                                    <!--Para people-->
-                                                                                                    <% for (let dim of
-                                                                                                        dimEmpleado) {
-                                                                                                        %>
-                                                                                                        <% if (
-                                                                                                            (empleado.idEmpleado==dim.idEmpleado)
-                                                                                                            &&
-                                                                                                            (dim.idDimension==2))
-                                                                                                            { %>
-                                                                                                            <td>
-                                                                                                                <%= dim.nivelE.toFixed(1)
-                                                                                                                    %>
-                                                                                                            </td>
-                                                                                                            <% } %>
-                                                                                                                <% } %>
-
-                                                                                                                    <!--Para business-->
-                                                                                                                    <% for
-                                                                                                                        (let
-                                                                                                                        dim
-                                                                                                                        of
-                                                                                                                        dimEmpleado)
-                                                                                                                        {
-                                                                                                                        %>
-                                                                                                                        <% if
-                                                                                                                            (
-                                                                                                                            (empleado.idEmpleado==dim.idEmpleado)
-                                                                                                                            &&
-                                                                                                                            (dim.idDimension==3))
-                                                                                                                            {
-                                                                                                                            %>
-                                                                                                                            <td>
-                                                                                                                                <%= dim.nivelE.toFixed(1)
-                                                                                                                                    %>
-                                                                                                                            </td>
-                                                                                                                            <% }
-                                                                                                                                %>
-                                                                                                                                <% }
-                                                                                                                                    %>
+                        <!--Para business-->
+                        <% for (let dim of dimEmpleado) { %>
+                            <% if ( (empleado.idEmpleado == dim.idEmpleado) && (dim.idDimension == 3)) { %>
+                            <td><%= dim.nivelE.toFixed(1) %></td>
+                            <% } %>
+                        <% } %>
 
 
-                                                                                                                                    <td><a href="/empleados/<%= empleado.idEmpleado %>"
-                                                                                                                                            class="btn btn-dark">Modificar</a>
-                                                                                                                                    </td>
-                                                                                                                                    <td><a href="/empleados/eliminar/<%= empleado.idEmpleado %>"
-                                                                                                                                            class="btn btn-secondary">Eliminar</a>
-                                                                                                                                    </td>
+                        <td><a href="/empleados/<%= empleado.idEmpleado %>" class="btn btn-dark">Modificar</a></td>
+                        <td><a href="/empleados/eliminar/<%= empleado.idEmpleado %>" class="btn btn-secondary">Eliminar</a></td>
+      
+      
+                    </tr>
+                    <%} %>
+      
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
 
 
-                                                                                                                                    <!-- <button type="button" class="btn btn-lg btn-primary" disabled>Responder</button> -->
+        <script>
+            const accion_asincrona = () => {
+              const valor_busqueda = document.getElementById('buscar').value;
+              console.log(valor_busqueda);
 
-                                                                            </tr>
-                                                                            <%} %>
+              //El token de protección CSRF
+              //const csrf = document.getElementById('_csrf').value;
 
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+              //función que manda la petición asíncrona
+              fetch('empleados/buscarEmpleado/'+valor_busqueda, {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                  //'csrf-token': csrf
+                }
+                //body: JSON.stringify(data)
+              }).then(result => {
+                console.log(result)
+                return result.json(); //Regresa otra promesa
+              //No jala la data
+              }).then(data => {
+                //Modificamos el DOM de nuestra página de acuerdo a los datos de la segunda promesa
+                console.log(data);
+                var respuesta = '';
 
 
-                                                </body>
+                //AJAX para filtrar empleados
+                respuesta += '<div class="col-sm-12">' + '<div class="card">' +
+              '<h5 class="card-header"><i class="bi bi-person-fill"></i> Miembros del chapter</h5>' +
+              '<div class="card-body"><table class="table"><thead class="thead-dark"><tr>'+
+                '<th scope="col"></th><th scope="col">Nombre</th><th scope="col">Correo</th>' +
+                '<th scope="col">Nivel Craft</th><th scope="col">Nivel People</th>' +
+                '<th scope="col">Nivel  Busisness</th><th scope="col"></th><th scope="col">' +
+                '</th></tr></thead><tbody><tr>';
+                
+                for (let empleado = 0; empleado < data.length; empleado = empleado +3){
+                respuesta +=  '<td> <img src="https://github.com/mdo.png" alt="hugenerd" width="60" height="60" class="rounded-circle"></td>' +
+                        '<td>' + data[empleado].nombre + ' ' + data[empleado].apellidoP + ' '; 
+                            if (data[empleado].apellidoM ==''  || data[empleado].apellidoM == null ){
+                                
+                            } else{
+                                respuesta += data[empleado].apellidoM
+                            }
+                        respuesta += '</td><td>' + data[empleado].correo + '</td>';
+                
+                
+
+                for (let dim of data) {
+                  if ( (data[empleado].idEmpleado == dim.idEmpleado) && (dim.idDimension == 1)) {
+                    respuesta += '<td>' + dim.nivelE.toFixed(1) + '</td>';
+                 }
+                }
+                  
+                  for (let dim of data) { 
+                        if ( (data[empleado].idEmpleado == dim.idEmpleado) && (dim.idDimension == 2)) { 
+                            respuesta += '<td>' + dim.nivelE.toFixed(1) + '</td>';
+                         } 
+                  }
+
+                
+                  for (let dim of data) { 
+                        if ( (data[empleado].idEmpleado == dim.idEmpleado) && (dim.idDimension == 3)) { 
+                            respuesta += '<td>' + dim.nivelE.toFixed(1) + '</td>';
+                         } 
+                  }
+
+               respuesta += '<td><a href="/empleados/' + data[empleado].idEmpleado +'" class ="btn btn-dark">Modificar</a></td>' +
+                    '<td><a href="/empleados/eliminar/' + data[empleado].idEmpleado +'" class ="btn btn-secondary">Eliminar</a></td></tr>'
+                }
+
+                respuesta += '</tbody></table></div></div></div>';
+
+    
+
+                document.getElementById('buscarEmpleado').innerHTML = respuesta;
+
+                //De aquí sale el error
+              }).catch(err => {
+                console.log(err);
+              });
+            };
+
+            document.getElementById('buscar').onkeyup = accion_asincrona;
+          </script>
 
 
-                                                <%- include('includes/foot.ejs') %>
+
+
+</body>
+
+
+<%- include('includes/foot.ejs') %>
+
+  

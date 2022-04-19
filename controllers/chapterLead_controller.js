@@ -21,7 +21,8 @@ exports.agregarEmpleados = (request, response, next) => {
                             Lead.fecthDimEmpleado()
                                 .then(([dimEmpleado, fieldData]) => {
                                     const success = request.session.empleadoSuccess ? request.session.empleadoSuccess : false;
-                                    request.session.empleadoSuccess = false;
+                                    request.session.empleadoSuccess = false;                                   
+
                                     response.render('empleadosChapter', {
                                         rolesA: request.session.privilegiosPermitidos,
                                         rol: request.session.idRol ? request.session.idRol : '',
@@ -66,18 +67,9 @@ exports.guardarEmpleado = (request, response, next) => {
     var file;
     console.log(request.file.filename);
 
-    //Falta que si no hay imagen, también jale 
-    if (request.file.filename = ! "") {
-
-        file = request.file.filename;
-    } else {
-
-        request.file.filename = ""
-        file = request.file.filename;
-    }
 
     var empleado = new Lead(request.body.nombre, request.body.apellidoP, request.body.apellidoM,
-        request.body.email, request.body.password, request.body.equipo, file, request.body.rol,
+        request.body.email, request.body.password, request.body.equipo, request.file.filename, request.body.rol,
         request.body.nivelCraft, request.body.nivelPeople, request.body.nivelBusiness);
 
     empleado.save().then(() => {
@@ -150,3 +142,22 @@ exports.eliminarEmpleado = (request, response, next) => {
 
 };
 
+exports.buscarEmpleado = (request, response, next) => {
+    console.log(request.params.valor);
+
+    Lead.fecthDimEmpleado()
+    .then(([dimEmpleado, fieldData]) => {
+    Lead.fetch(request.params.valor)
+        .then(([rows, fieldData]) => {
+            //console.log(rows);
+            response.status(200).json(rows);
+        })
+    
+        .catch(err => {
+            console.log(err);
+        }); 
+    })
+    .catch(err => {
+        console.log(err);
+    });
+}

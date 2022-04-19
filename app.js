@@ -22,7 +22,8 @@ app.set('views', 'views');
 
 // Archivos estáticos (public).
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(express.static(path.join(__dirname, 'uploads')));
+//app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Paquetes Node.js.
 app.use(bodyParser.urlencoded({ extended: false }));

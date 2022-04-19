@@ -20,7 +20,7 @@
 
 <style>
   .container { 
-  width: 50%;
+  width: 70%;
 }
 </style>
 <body>
@@ -29,19 +29,16 @@
     <br><br>
     <div class="col-sm-12">
       <div class="card">
-        <h5 class="card-header"><i class="large material-icons">person</i> Datos de <%= empleado[0].nombre %>
-            <%= empleado[0].apellidoP %>
-              <%= empleado[0].apellidoM %>
-        </h5>
+        <h5 class="card-header"><i class="bi bi-person-fill"></i> Datos de <%= empleado[0].nombre %> <%= empleado[0].apellidoP %> <%= empleado[0].apellidoM %></h5>
         <div class="card-body" >
           <!--Para tabla con boostrap-->
           <table class="table">
             <tbody>
+              <form id = "modificarEmpleado" method="post">
               <tr>
                 <!-- Foto de perfil-->
                 <th scope="row">Foto de perfil: </th>
-                <td> <img src="https://github.com/mdo.png" alt="hugenerd" width="60" height="60" class="rounded-circle">
-                  <!-- <td> <img src="<%= empleado[0].fotoPerfil%>" alt="hugenerd" width="60" height="60" class="rounded-circle"> -->
+                <td> <img class="rounded-circle" src="/<%= empleado[0].fotoPerfil %>" alt="hugenerd" width="60" height="60" class="rounded-circle">
                 </td>
               </tr>
 
@@ -49,17 +46,32 @@
                 <!-- Nombre -->
                 <th scope="row">Nombre: </th>
                 <td>
-                  <%= empleado[0].nombre %>
-                    <%= empleado[0].apellidoP %>
-                      <%= empleado[0].apellidoM %>
+                  <input type="text" name="nombre" id="nombre" value="<%= empleado[0].nombre %>"  autocomplete="off" class="form-control"/>
                 </td>
+              </tr>
+
+              <tr>
+                <!-- Apellido Paterno -->
+                <th scope="row">Apellido Paterno: </th>
+                <td>
+                  <input type="text" name="apellidoP" id="apellidoP" value="<%= empleado[0].apellidoP %>"  autocomplete="off" class="form-control"/></td>
+                </td>
+              </tr>
+
+              <tr>
+                <!-- Apellido Materno -->
+                <th scope="row">Apellido Materno: </th>
+                <td>
+                  <input type="text" name="apellidoM" id="apellidoM" value="<%= empleado[0].apellidoM %>"  autocomplete="off" class="form-control"/></td>
+                </td>
+              
               </tr>
 
               <!-- Correo-->
               <tr>
                 <th scope="row">Correo: </th>
                 <td>
-                  <%= empleado[0].correo %>
+                  <input type="text" name="correo" id="correo" value="<%= empleado[0].correo %>"  autocomplete="off" class="form-control"/></td>
                 </td>
               </tr>
 
@@ -67,9 +79,9 @@
               <tr>
                 <th scope="row">Contraseña: </th>
                 <td>
-                  <%= empleado[0].contrasena %>
-
+                  <input type="text" name="contrasena" id="contrasena" value="<%= empleado[0].contrasena %>"  autocomplete="off" class="form-control"/></td>
                 </td>
+                
               </tr>
 
               <!-- Rol-->
@@ -78,7 +90,18 @@
                   <% if ( rol.idRol==empleado[0].idRol) { %>
                     <th scope="row">Rol: </th>
                     <td>
-                      <%= rol.descripcion %>
+
+                      <select class="form-select" id="rol" name="rol" aria-label="Floating label select example" required>
+                        <option selected>
+                          <%= rol.descripcion %>
+                        </option>
+                        <% for (let rolOpcion of roles) { %>
+                          <option value="<%= rolOpcion.idRol %>">
+                            <%= rolOpcion.descripcion %>
+                          </option>
+                          <% } %>
+                      </select>
+                      
 
                     </td>
                     <% } %>
@@ -91,7 +114,18 @@
                       <% if ( equipo.idEquipo==empleado[0].idEquipo) { %>
                         <th scope="row">Equipo: </th>
                         <td>
-                          <%= equipo.nombre %>
+
+                          <select class="form-select" id="equipo" name="equipo" aria-label="Floating label select example" required>
+                            <option selected>
+                              <%= equipo.nombre %>
+                            </option>
+                            <% for (let equipoOpcion of equipos) { %>
+                              <option value="<%= equipoOpcion.idEquipo %>">
+                                <%= equipoOpcion.nombre %>
+                              </option>
+                              <% } %>
+                          </select>
+                          
 
                         </td>
                         <% } %>
@@ -106,8 +140,29 @@
                           <% if ( datosE.idDimension==1) { %>
                             <th scope="row">Nivel Craft: </th>
                             <td>
-                              <%= datosE.nivelE.toFixed(1) %>
+                                                  
+                                <select class="form-select" id="nivelCraft" name="nivelCraft"
+                                    aria-label="Floating label select example"required>
+                                    <option selected><%= datosE.nivelE.toFixed(1) %></option>
+                                      <option value="1.1">1.1</option>
+                                      <option value="1.2">1.2</option>
+                                      <option value="1.3">1.3</option>
+                                      <option value="2.1">2.1</option>
+                                      <option value="2.2">2.2</option>
+                                      <option value="2.3">2.3</option>
+                                      <option value="3.1">3.1</option>
+                                      <option value="3.2">3.2</option>
+                                      <option value="3.3">3.3</option>
+                                      <option value="4.1">4.1</option>
+                                      <option value="4.2">4.2</option>
+                                      <option value="4.3">4.3</option>
+                                      <option value="5.1">5.1</option>
+                                      <option value="5.2">5.2</option>
+                                      <option value="5.3">5.3</option>
+                                </select>
+                          
                             </td>
+                           
                             <% } %>
                         </tr>
 
@@ -116,8 +171,27 @@
                           <% if ( datosE.idDimension==2) { %>
                             <th scope="row">Nivel People: </th>
                             <td>
-                              <%= datosE.nivelE.toFixed(1) %>
+                              <select class="form-select" id="nivelPeople" name="nivelPeople"
+                                    aria-label="Floating label select example"required>
+                                    <option selected><%= datosE.nivelE.toFixed(1) %></option>
+                                      <option value="1.1">1.1</option>
+                                      <option value="1.2">1.2</option>
+                                      <option value="1.3">1.3</option>
+                                      <option value="2.1">2.1</option>
+                                      <option value="2.2">2.2</option>
+                                      <option value="2.3">2.3</option>
+                                      <option value="3.1">3.1</option>
+                                      <option value="3.2">3.2</option>
+                                      <option value="3.3">3.3</option>
+                                      <option value="4.1">4.1</option>
+                                      <option value="4.2">4.2</option>
+                                      <option value="4.3">4.3</option>
+                                      <option value="5.1">5.1</option>
+                                      <option value="5.2">5.2</option>
+                                      <option value="5.3">5.3</option>
+                                </select>
                             </td>
+                           
                             <% } %>
                         </tr>
 
@@ -126,12 +200,33 @@
                           <% if ( datosE.idDimension==3) { %>
                             <th scope="row">Nivel Business: </th>
                             <td>
-                              <%= datosE.nivelE.toFixed(1) %>
+                              <select class="form-select" id="nivelPeople" name="nivelPeople"
+                              aria-label="Floating label select example"required>
+                              <option selected><%= datosE.nivelE.toFixed(1) %></option>
+                                <option value="1.1">1.1</option>
+                                <option value="1.2">1.2</option>
+                                <option value="1.3">1.3</option>
+                                <option value="2.1">2.1</option>
+                                <option value="2.2">2.2</option>
+                                <option value="2.3">2.3</option>
+                                <option value="3.1">3.1</option>
+                                <option value="3.2">3.2</option>
+                                <option value="3.3">3.3</option>
+                                <option value="4.1">4.1</option>
+                                <option value="4.2">4.2</option>
+                                <option value="4.3">4.3</option>
+                                <option value="5.1">5.1</option>
+                                <option value="5.2">5.2</option>
+                                <option value="5.3">5.3</option>
+                          </select>
                             </td>
+
                             <% } %>
 
                         </tr>
                         <%} %>
+
+                    
 
 
 
@@ -140,12 +235,20 @@
 
           <a href="/empleados" class="btn btn-primary">Atrás</a>
           <a href="/empleados" class="btn btn-primary">Eliminar Empleado</a>
+          <input type="submit" value="Guardar cambios" class="btn btn-dark"/>
+
+        </form>
+         
+           
+          
 
         </div>
       </div>
     </div>
+   
   </div>
+  
 
 </body>
-
 <%- include('includes/foot.ejs') %>
+
