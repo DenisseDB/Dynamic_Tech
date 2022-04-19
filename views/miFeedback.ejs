@@ -60,7 +60,6 @@
                         <% if (retro.idPeriodo == periodos[0].idPeriodo) { %>
                       <tr>
                         <form action="/miFeedback" method="POST">
-                          <!-- <input id="IdSesion" name="IdSesion" type="hidden" value="<%= idSesionado %>"> -->
                           <input id="IdPed" name="IdPed" type="hidden" value="<%= retro.idPeriodo %>">
                           <input id="IdEval" name="IdEval" type="hidden" value="<%= retro.idEvaluador %>">
                           <input id="IdCraft" name="IdCraft" type="hidden" value="<%= retro.idCuestionarioCraft %>">

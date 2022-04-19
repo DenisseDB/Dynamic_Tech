@@ -13,10 +13,17 @@ footer {
     background-color: #bb3131;
   } */
 
+body {
+  font-family: 'Times New Roman', Times, serif;
+}
 
 h4 {
   color: #B33030;
   font-weight: bold;
+  font-size: large;
+}
+
+h6 {
   font-size: medium;
 }
 

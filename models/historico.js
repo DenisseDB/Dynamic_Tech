@@ -26,4 +26,17 @@ module.exports = class Historial{
                 return 0;
             });    
     }
+
+    // Método. Preguntas y respuesta del cuestionario.
+    static fecthFeedDetallado(idCuestionario, idEvaluado, idEvaluador, idPeriodo) {
+        return db.execute('SELECT PC.idPregunta, idTipo, pregunta, respuesta FROM preguntacuestionario PC, pregunta P, respondesolicita R WHERE idCuestionario = ? AND PC.idPregunta = P.idPregunta AND idEvaluado = ? AND idEvaluador = ? and idPeriodo = ? and PC.idPregunta = R.idPregunta ORDER BY fechaInclusion DESC;', 
+        [idCuestionario, idEvaluado, idEvaluador, idPeriodo])
+            .then(([rows, fielData]) => {
+                return rows;
+            })
+            .catch((error) => {
+                console.log(error);
+                return 0;
+            });    
+    }
 }

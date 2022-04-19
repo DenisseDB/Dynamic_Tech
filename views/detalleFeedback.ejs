@@ -24,9 +24,79 @@
         <hr class="style17">
         <h3><strong>Recolección de Feedback</strong></h3>
         <h4>People & Business</h4>
+        <% for (let pregunta of craft) { %>
+          <h6><%= pregunta.pregunta %></h6>
 
+            <% if (pregunta.idTipo == 1) { %>
+              <% if (pregunta.respuesta == 1) { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled" id="<%= pregunta.idPregunta %>" checked disabled/>
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 1 </label>
+                </div>
+              <% } else { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled" id="<%= pregunta.idPregunta %>" disabled />
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 1 </label>
+                </div>
+              <% } %>
 
+              <% if (pregunta.respuesta == 2) { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled" id="<%= pregunta.idPregunta %>" checked disabled/>
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 2 </label>
+                </div>
+              <% } else { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled" id="<%= pregunta.idPregunta %>" disabled />
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 2 </label>
+                </div>
+              <% } %>
 
+              <% if (pregunta.respuesta == 3) { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled" id="<%= pregunta.idPregunta %>" checked disabled/>
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 3 </label>
+                </div>
+              <% } else { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled" id="<%= pregunta.idPregunta %>" disabled />
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 3 </label>
+                </div>
+              <% } %>
+
+              <% if (pregunta.respuesta == 4) { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled" id="<%= pregunta.idPregunta %>" checked disabled/>
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 4 </label>
+                </div>
+              <% } else { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled" id="<%= pregunta.idPregunta %>" disabled />
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 4 </label>
+                </div>
+              <% } %>
+
+              <% if (pregunta.respuesta == 5) { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled" id="<%= pregunta.idPregunta %>" checked disabled/>
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 5 </label>
+                </div>
+              <% } else { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled" id="<%= pregunta.idPregunta %>" disabled />
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 5 </label>
+                </div>
+              <% } %>
+              
+            <% } else { %>
+              <div class="form-floating">
+                <textarea disabled class="form-control" id="floatingTextarea" style="height: auto; width: 800px; background-color:#F5F5F5;"></textarea>
+                <label for="floatingTextarea"><%= pregunta.respuesta %></label>
+              </div>
+            <% } %>
+            <br><br>
+        <% } %>
+      
         <h4>Commercial & Costume</h4>
 
 

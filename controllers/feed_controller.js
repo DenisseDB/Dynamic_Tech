@@ -100,9 +100,24 @@ exports.miFeedback =  async (request, response, next) => {
 };
 
 exports.detalleFeedback =  async (request, response, next) => {
+    let evaluador = request.body.IdEval;
+    let periodo = request.body.IdPed;
+    let evaluado = request.session.idEmpleado;
+
+    const pCraft = await Historial.fecthFeedDetallado(request.body.IdCraft, evaluado, evaluador, periodo); // Retro del Cuestionario Craft.
+    const pPeople = await Historial.fecthFeedDetallado(request.body.IdPeople, evaluado, evaluador, periodo); // Retro del Cuestionario People.
+    const pBusiness = await Historial.fecthFeedDetallado(request.body.IdCommercial, evaluado, evaluador, periodo); // Retro del Cuestionario Business.
+
+    console.log(pCraft);
+    console.log(pPeople);
+    console.log(pBusiness);
+
     response.render('detalleFeedback.ejs',
     {
-        rolesA :  request.session.privilegiosPermitidos
+        rolesA :  request.session.privilegiosPermitidos,
+        craft : pCraft,
+        people : pPeople,
+        business : pBusiness
     });
 };
 

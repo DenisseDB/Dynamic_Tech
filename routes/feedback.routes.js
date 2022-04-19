@@ -12,7 +12,6 @@ router.get('/mentorados', isAuth, checkRoleAuth([1,2]), feedController.misMentor
 router.get('/miFeedback', isAuth, feedController.miFeedback); // FEEDBACK - Mi Feedback
 router.post('/miFeedback', isAuth, feedController.detalleFeedback);
 
-
 router.get('/responderFeedback/:idEvaluado/:idPeriodo', isAuth,feedController.cuestionario) // CUESTIONARIO - Formulario de feedback
 router.post('/responderFeedback/:idEvaluado/:idPeriodo', isAuth,feedController.salvarRespuestas)
 
