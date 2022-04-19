@@ -53,13 +53,13 @@ module.exports = class ChapterLead {
 
      //Para obtener todos los miebros del chapter
      static fecthDimEmpleado() {
-        return db.execute ('SELECT * from dimempleado;');
+        return db.execute ('SELECT * from dimempleado_actual;');
 
     }
 
     static fetchEmpleado(idEmpleado){
         return db.execute
-        ('SELECT e.idEmpleado,nombre,apellidoP,apellidoM,correo,contrasena,idEquipo,fotoPerfil,idRol, idDimension,nivelE from empleado e, rolempleado re,dimempleado di WHERE e.idEmpleado = re.idEmpleado AND e.idEmpleado = di.idEmpleado and e.idEmpleado = ?;',
+        ('SELECT e.idEmpleado,nombre,apellidoP,apellidoM,correo,contrasena,idEquipo,fotoPerfil,idRol, idDimension,nivelE from empleado e, rolempleado re,dimempleado_actual di WHERE e.idEmpleado = re.idEmpleado AND e.idEmpleado = di.idEmpleado and e.idEmpleado = ?;',
         [idEmpleado]);
    
     }
