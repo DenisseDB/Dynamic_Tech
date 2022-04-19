@@ -16,16 +16,21 @@ module.exports = class {
       return db.execute('SELECT pregunta FROM cuestionario NATURAL join preguntacuestionario NATURAL join pregunta INNER JOIN dimension on dimension.idDimension = pregunta.idDimension where idCuestionario = ?;', [id_cuestionario]);
    }
 
-   // ! Metodo que ayuda a recuperar los datos de los niveles y las dimensiones
+   // !Metodo que ayuda a recuperar los datos de los niveles y las dimensiones
 
-   static findQuestions(nivelP, dimP) {
+   static findQuestions2(nivelP, dimP) {
+      return db.execute('SELECT * FROM Pregunta WHERE nivelP=? AND idDimension=?',
+         [nivelP, dimP]);
+   }
+   
+   static findQuestions(nivelP, dimP,Cuestionario) {
       return db.execute('SELECT * FROM Pregunta WHERE nivelP=? AND idDimension=?',
          [nivelP, dimP]);
    }
 
-   static findCuestionario(idDimension,nivelP) {
-      return db.execute('SELECT DISTINCT(nombre) FROM cuestionario NATURAL join preguntacuestionario NATURAL join pregunta  WHERE idDimension = ? and pregunta.nivelP = ?;',
-         [idDimension,nivelP]);
+   static findCuestionario(nivelP,idDimension) {
+      return db.execute('SELECT DISTINCT(nombre) FROM cuestionario NATURAL join preguntacuestionario NATURAL join pregunta  WHERE pregunta.nivelP = ? AND pregunta.idDimension = ? ORDER by nombre;',
+         [nivelP, idDimension]);
    }
 
 

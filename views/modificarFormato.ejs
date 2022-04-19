@@ -166,9 +166,7 @@
                let nivel = document.getElementById("inputNivel").value;
                let cuestionario = document.getElementById("nombreCuestionario").value;
 
-               console.log("nivel: ", nivel);
-               console.log("dimension: ", dimension);
-               console.log("cuestionario: ", cuestionario);
+               console.log("Se oprime boton continuar2");
 
 
 
@@ -193,9 +191,9 @@
             const despliega_cuestionario = (id) => {
                const nivel = document.getElementById('inputNivel').value;
                const dimension = document.getElementById('inputDimension').value;
-               console.log("despliega nivel", nivel);
-               console.log("despliega dimension", dimension);
-               console.log("despliega nivel", nivel);
+               console.log("despliega_cuestionarios---> Dimension", dimension);
+               console.log("despliega_cuestionarios---> Nivel", nivel);
+
 
                fetch('/feedback/buscarCuestionario/' + nivel + '/' + dimension, {
                   method: 'GET',
@@ -228,7 +226,11 @@
             const despliega_preguntas = (id) => {
                const nivel = document.getElementById('inputNivel').value;
                const dimension = document.getElementById('inputDimension').value;
-               console.log(nivel);
+               const cuestionario = document.getElementById('nombreCuestionario').value;
+
+               console.log("despliega_preguntas---> Cuestionario", cuestionario);
+               console.log("despliega_preguntas---> Dimension", dimension);
+               console.log("despliega_preguntas---> Nivel", nivel);
 
                fetch('/feedback/buscarPregunta/' + nivel + '/' + dimension, {
                   method: 'GET',
