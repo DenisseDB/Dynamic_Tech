@@ -14,7 +14,8 @@ footer {
   } */
 
   body {
-    font-family:'Times New Roman', Times, serif !important;
+    /* font-family:'Times New Roman', Times, serif !important; */
+    font-family: Arial, Helvetica, sans-serif !important;
   }
 
   .alert-float {

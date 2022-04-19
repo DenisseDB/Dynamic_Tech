@@ -67,18 +67,9 @@ exports.guardarEmpleado = (request, response, next) => {
     var file;
     console.log(request.file.filename);
 
-    //Falta que si no hay imagen, también jale 
-    if (request.file.filename = ! "") {
-
-        file = request.file.filename;
-    } else {
-
-        request.file.filename = ""
-        file = request.file.filename;
-    }
 
     var empleado = new Lead(request.body.nombre, request.body.apellidoP, request.body.apellidoM,
-        request.body.email, request.body.password, request.body.equipo, file, request.body.rol,
+        request.body.email, request.body.password, request.body.equipo, request.file.filename, request.body.rol,
         request.body.nivelCraft, request.body.nivelPeople, request.body.nivelBusiness);
 
     empleado.save().then(() => {
