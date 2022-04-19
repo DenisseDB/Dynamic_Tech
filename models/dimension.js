@@ -9,6 +9,6 @@ module.exports = class Dimension {
    }
 
    static fetchAll() {
-      return db.execute('SELECT * FROM Dimension ORDER BY idDimension ASC');
+      return db.execute('SELECT * FROM dimension ORDER BY idDimension ASC');
    }
 };

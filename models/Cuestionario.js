@@ -2,11 +2,11 @@ const db = require('../util/database');
 
 
 module.exports = class {
-   constructor() {}
+   constructor() { }
 
    // Despliega todas las dimensiones disponibles 
    static fetchDimension() {
-      return db.execute('SELECT * FROM Dimension ORDER BY idDimension ASC');
+      return db.execute('SELECT * FROM dimension ORDER BY idDimension ASC');
    }
 
    // Toma de la base de datos los nombres de los cuestionarios, recibe como parametro la dimension que quieres mostrar
@@ -19,13 +19,13 @@ module.exports = class {
    // ! Metodo que ayuda a recuperar los datos de los niveles y las dimensiones
 
    static findQuestions(nivelP, dimP) {
-      return db.execute('SELECT * FROM Pregunta WHERE nivelP=? AND idDimension=?',
+      return db.execute('SELECT * FROM pregunta WHERE nivelP=? AND idDimension=?',
          [nivelP, dimP]);
    }
 
-   static findCuestionario(idDimension,nivelP) {
+   static findCuestionario(idDimension, nivelP) {
       return db.execute('SELECT DISTINCT(nombre) FROM cuestionario NATURAL join preguntacuestionario NATURAL join pregunta  WHERE idDimension = ? and pregunta.nivelP = ?;',
-         [idDimension,nivelP]);
+         [idDimension, nivelP]);
    }
 
 

@@ -12,13 +12,13 @@ module.exports = class Pregunta {
     }
 
     savePregunta() {
-        return db.execute('INSERT INTO Pregunta(pregunta, nivelP, idDimension, tipo) VALUES(?,?,?,?);',
+        return db.execute('INSERT INTO pregunta(pregunta, nivelP, idDimension, idTipo) VALUES(?,?,?,?);',
             [this.tPregunta, this.nivelP, this.dimP, this.tipo]);
     }
 
-   static findQuestions(nivelP, dimP) {
-      return db.execute('SELECT * FROM Pregunta WHERE nivelP=? AND idDimension=?',
-         [nivelP, dimP]);
-   }
+    static findQuestions(nivelP, dimP) {
+        return db.execute('SELECT * FROM pregunta WHERE nivelP=? AND idDimension=?',
+            [nivelP, dimP]);
+    }
 
 };
