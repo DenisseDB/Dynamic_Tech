@@ -234,7 +234,19 @@
         <br><br>
 
         <!--Para tabla de chapter members-->
-        <div class="col-sm-12">
+
+        <div class="row">
+            <div class="col">
+            </div>
+            <div class="col">
+            <label for="buscar"><b>Filtrar empleados: </b> </label>
+              <input type="text" name="buscar" id="buscar" placeholder="Buscar empleado">
+            <br><br>
+            </div>
+        </div>
+        
+        <div class="row" id="buscarEmpleado">
+          <div class="col-sm-12">
             <div class="card">
               <h5 class="card-header"><i class="bi bi-person-fill"></i> Miembros del chapter</h5>
               <div class="card-body">
@@ -291,8 +303,6 @@
                         <td><a href="/empleados/eliminar/<%= empleado.idEmpleado %>" class="btn btn-secondary">Eliminar</a></td>
       
       
-                        <!-- <button type="button" class="btn btn-lg btn-primary" disabled>Responder</button> -->
-      
                     </tr>
                     <%} %>
       
@@ -301,6 +311,95 @@
               </div>
             </div>
           </div>
+        </div>
+
+
+        <script>
+            const accion_asincrona = () => {
+              const valor_busqueda = document.getElementById('buscar').value;
+              console.log(valor_busqueda);
+
+              //El token de protección CSRF
+              //const csrf = document.getElementById('_csrf').value;
+
+              //función que manda la petición asíncrona
+              fetch('empleados/buscarEmpleado/'+valor_busqueda, {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                  //'csrf-token': csrf
+                }
+                //body: JSON.stringify(data)
+              }).then(result => {
+                console.log(result)
+                return result.json(); //Regresa otra promesa
+              //No jala la data
+              }).then(data => {
+                //Modificamos el DOM de nuestra página de acuerdo a los datos de la segunda promesa
+                console.log(data);
+                var respuesta = '';
+
+
+                //AJAX para filtrar empleados
+                respuesta += '<div class="col-sm-12">' + '<div class="card">' +
+              '<h5 class="card-header"><i class="bi bi-person-fill"></i> Miembros del chapter</h5>' +
+              '<div class="card-body"><table class="table"><thead class="thead-dark"><tr>'+
+                '<th scope="col"></th><th scope="col">Nombre</th><th scope="col">Correo</th>' +
+                '<th scope="col">Nivel Craft</th><th scope="col">Nivel People</th>' +
+                '<th scope="col">Nivel  Busisness</th><th scope="col"></th><th scope="col">' +
+                '</th></tr></thead><tbody><tr>';
+                
+                for (let empleado = 0; empleado < data.length; empleado = empleado +3){
+                respuesta +=  '<td> <img src="https://github.com/mdo.png" alt="hugenerd" width="60" height="60" class="rounded-circle"></td>' +
+                        '<td>' + data[empleado].nombre + ' ' + data[empleado].apellidoP + ' '; 
+                            if (data[empleado].apellidoM ==''  || data[empleado].apellidoM == null ){
+                                
+                            } else{
+                                respuesta += data[empleado].apellidoM
+                            }
+                        respuesta += '</td><td>' + data[empleado].correo + '</td>';
+                
+                
+
+                for (let dim of data) {
+                  if ( (data[empleado].idEmpleado == dim.idEmpleado) && (dim.idDimension == 1)) {
+                    respuesta += '<td>' + dim.nivelE.toFixed(1) + '</td>';
+                 }
+                }
+                  
+                  for (let dim of data) { 
+                        if ( (data[empleado].idEmpleado == dim.idEmpleado) && (dim.idDimension == 2)) { 
+                            respuesta += '<td>' + dim.nivelE.toFixed(1) + '</td>';
+                         } 
+                  }
+
+                
+                  for (let dim of data) { 
+                        if ( (data[empleado].idEmpleado == dim.idEmpleado) && (dim.idDimension == 3)) { 
+                            respuesta += '<td>' + dim.nivelE.toFixed(1) + '</td>';
+                         } 
+                  }
+
+               respuesta += '<td><a href="/empleados/' + data[empleado].idEmpleado +'" class ="btn btn-dark">Modificar</a></td>' +
+                    '<td><a href="/empleados/eliminar/' + data[empleado].idEmpleado +'" class ="btn btn-secondary">Eliminar</a></td></tr>'
+                }
+
+                respuesta += '</tbody></table></div></div></div>';
+
+    
+
+                document.getElementById('buscarEmpleado').innerHTML = respuesta;
+
+                //De aquí sale el error
+              }).catch(err => {
+                console.log(err);
+              });
+            };
+
+            document.getElementById('buscar').onkeyup = accion_asincrona;
+          </script>
+
+
 
 
 </body>

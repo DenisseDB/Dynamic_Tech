@@ -13,6 +13,10 @@ footer {
     background-color: #bb3131;
   } */
 
+  body {
+    font-family:'Times New Roman', Times, serif !important;
+  }
+
   .alert-float {
     position: fixed;
     bottom:0;
@@ -20,6 +24,3 @@ footer {
     z-index: 1000;
   }
 
- * {
-    font-family:'Times New Roman', Times, serif;
-  }

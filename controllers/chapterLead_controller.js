@@ -21,7 +21,8 @@ exports.agregarEmpleados = (request, response, next) => {
                             Lead.fecthDimEmpleado()
                                 .then(([dimEmpleado, fieldData]) => {
                                     const success = request.session.empleadoSuccess ? request.session.empleadoSuccess : false;
-                                    request.session.empleadoSuccess = false;
+                                    request.session.empleadoSuccess = false;                                   
+
                                     response.render('empleadosChapter', {
                                         rolesA: request.session.privilegiosPermitidos,
                                         rol: request.session.idRol ? request.session.idRol : '',
@@ -150,3 +151,22 @@ exports.eliminarEmpleado = (request, response, next) => {
 
 };
 
+exports.buscarEmpleado = (request, response, next) => {
+    console.log(request.params.valor);
+
+    Lead.fecthDimEmpleado()
+    .then(([dimEmpleado, fieldData]) => {
+    Lead.fetch(request.params.valor)
+        .then(([rows, fieldData]) => {
+            //console.log(rows);
+            response.status(200).json(rows);
+        })
+    
+        .catch(err => {
+            console.log(err);
+        }); 
+    })
+    .catch(err => {
+        console.log(err);
+    });
+}

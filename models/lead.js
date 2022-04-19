@@ -62,6 +62,11 @@ module.exports = class ChapterLead {
         ('SELECT e.idEmpleado,nombre,apellidoP,apellidoM,correo,contrasena,idEquipo,fotoPerfil,idRol, idDimension,nivelE from empleado e, rolempleado re,dimempleado di WHERE e.idEmpleado = re.idEmpleado AND e.idEmpleado = di.idEmpleado and e.idEmpleado = ?;',
         [idEmpleado]);
    
+        
+    }
+
+    static fetch(valor) {
+        return db.execute('SELECT e.idEmpleado,nombre,apellidoP,apellidoM,correo,contrasena,idEquipo,fotoPerfil,idRol, idDimension,nivelE from empleado e, rolempleado re,dimempleado di WHERE e.idEmpleado = re.idEmpleado AND e.idEmpleado = di.idEmpleado AND (nombre LIKE ? OR apellidoP LIKE ?)', ['%'+valor+'%', '%'+valor+'%']);
     }
 
 
