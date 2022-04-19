@@ -1,129 +1,123 @@
 <%- include('includes/sidenavsup.ejs') %>
-<%- include('includes/sidenavFin.ejs') %>
+    <%- include('includes/sidenavFin.ejs') %>
 
-    <h2 id="principal">Generar Formatos de Evaluación</h2>
-    <br><br>
-    <div class="container px-8">
-        <div class="row justify-content-md-center">
-            <div class="col-sm-7">
-                <form id="form1" name="form1" class="was-validated" action="/feedback/generarFormato" method="POST">
-
-                    <div class="input-group has-validation mb-3">
-                        <span class="input-group-text" id="basic-addon1">Nombre del Cuestionario</span>
-                        <input type="text" class="form-control" name="nombreCuestionario" id="nombreCuestionario"
-                            placeholder="Cuestionario1" aria-describedby="invalidNameHelp" required>
-                        <div id="invalidNameHelp" class="invalid-feedback">
-                            Es necesario ingresar el nombre del cuestionario para continuar
-                        </div>
-                    </div>
-                    <br>
-
-                    <div class="row justify-content-md-center">
-                        <div class="col-sm-6">
-                            <div class="input-group mb-3">
-                                <label class="input-group-text" for="inputDimension">Dimensión</label>
-                                <select class="form-select" name="inputDimension" id="inputDimension" required>
-                                    <option value="" disabled selected>Selecciona una dimensión</option>
-                                    <% for (let dimension of dimensiones) { %>
-                                        <option value="<%= dimension.idDimension %>">
-                                            <%= dimension.nombre %>
-                                        </option>
-                                        <% } %>
-                                </select>
-                                <div class="invalid-feedback">Selecciona una dimensión</div>
+        <h2 id="principal">Generar Formatos de Evaluación</h2>
+        <br><br>
+        <div class="container px-8">
+            <div class="row justify-content-md-center">
+                <div class="col-sm-7">
+                    <form id="form1" name="form1" class="was-validated" action="/feedback/generarFormato" method="POST">
+                        <div class="input-group has-validation mb-3">
+                            <span class="input-group-text" id="basic-addon1">Nombre del Cuestionario</span>
+                            <input type="text" class="form-control" name="nombreCuestionario" id="nombreCuestionario"
+                                placeholder="Cuestionario1" aria-describedby="invalidNameHelp" required>
+                            <div id="invalidNameHelp" class="invalid-feedback">
+                                Es necesario ingresar el nombre del cuestionario para continuar
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="input-group mb-3">
-                                <label class="input-group-text" for="inputNivel">Nivel</label>
-                                <select class="form-select" name="inputNivel" id="inputNivel" required>
-                                    <option value="" disabled selected>Selecciona un nivel</option>
-                                    <option value="1">1 </option>
-                                    <option value="2">2 </option>
-                                    <option value="3">3 </option>
-                                    <option value="4">4 </option>
-                                    <option value="5">5 </option>
-                                </select>
-                                <div class="invalid-feedback">Selecciona un nivel</div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--br-->
-                    <div id="buttons" class="d-flex flex-row-reverse">
-                        <div class="p-2">
-                            <a href="#" class="btn btn-primary" id="button1">Continuar</a>
-                        </div>
-                        <div id="cancel" class="p-2">
-                            <a class="btn btn-secondary" href="/feedback"> Cancelar </a>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row-reverse">
-                        <div class="p-2">
-                            <a class="btn btn-primary" id="button5" role="button">Crear
-                                Pregunta</a>
-                        </div>
-                    </div>
-                    <div id="pregunta_nueva">
-                        <div class="row justify-content-md-start">
-                            <div class="col-sm-8">
+                        <br>
+
+                        <div class="row justify-content-md-center">
+                            <div class="col-sm-6">
                                 <div class="input-group mb-3">
-                                    <label class="input-group-text" for="pregunta0">Pregunta</label>
-                                    <select class="form-select" id="pregunta0" name="pregunta0" required>
+                                    <label class="input-group-text" for="inputDimension">Dimensión</label>
+                                    <select class="form-select" name="inputDimension" id="inputDimension" required>
+                                        <option value="" disabled selected>Selecciona una dimensión</option>
+                                        <% for (let dimension of dimensiones) { %>
+                                            <option value="<%= dimension.idDimension %>">
+                                                <%= dimension.nombre %>
+                                            </option>
+                                            <% } %>
                                     </select>
-                                    <div class="invalid-feedback">Selecciona una pregunta</div>
+                                    <div class="invalid-feedback">Selecciona una dimensión</div>
                                 </div>
-                                <div class="d-flex flex-row-reverse">
-                                    <div class="p-2">
-                                        <button class="btn btn-primary" id="button3">Agregar Pregunta</button>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="inputNivel">Nivel</label>
+                                    <select class="form-select" name="inputNivel" id="inputNivel" required>
+                                        <option value="" disabled selected>Selecciona un nivel</option>
+                                        <option value="1">1 </option>
+                                        <option value="2">2 </option>
+                                        <option value="3">3 </option>
+                                        <option value="4">4 </option>
+                                        <option value="5">5 </option>
+                                    </select>
+                                    <div class="invalid-feedback">Selecciona un nivel</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--br-->
+                        <div id="buttons" class="d-flex flex-row-reverse">
+                            <div class="p-2">
+                                <a href="#" class="btn btn-primary" id="button1">Continuar</a>
+                            </div>
+                            <div id="cancel" class="p-2">
+                                <a class="btn btn-secondary" href="/feedback"> Cancelar </a>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row-reverse">
+                            <div class="p-2">
+                                <a class="btn btn-primary" id="button5" role="button">Crear
+                                    Pregunta</a>
+                            </div>
+                        </div>
+                        <div id="pregunta_nueva">
+                            <div class="row justify-content-md-start">
+                                <div class="col-sm-8">
+                                    <div class="input-group mb-3">
+                                        <label class="input-group-text" for="pregunta0">Pregunta</label>
+                                        <select class="form-select" id="pregunta0" name="pregunta0" required>
+                                        </select>
+                                        <div class="invalid-feedback">Selecciona una pregunta</div>
+                                    </div>
+                                    <div class="d-flex flex-row-reverse">
+                                        <div class="p-2">
+                                            <button class="btn btn-primary" id="button3">Agregar Pregunta</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="pregunta_nueva2" class="col-sm-8">
+                                    <div class="input-group mb-3">
+                                        <label class="input-group-text" for="pregunta1">Pregunta</label>
+                                        <select class="form-select" id="pregunta1" name="pregunta1" required>
+                                        </select>
+                                        <div class="invalid-feedback">Selecciona una pregunta</div>
+                                    </div>
+                                    <div class="d-flex flex-row-reverse">
+                                        <div class="p-2">
+                                            <button class="btn btn-primary" id="button4">Agregar Pregunta</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="pregunta_nueva3" class="col-sm-8">
+                                    <div class="input-group mb-3">
+                                        <label class="input-group-text" for="pregunta1">Pregunta</label>
+                                        <select class="form-select" id="pregunta2" name="pregunta2" required>
+                                        </select>
+                                        <div class="invalid-feedback">Selecciona una pregunta</div>
                                     </div>
                                 </div>
                             </div>
-                            <div id="pregunta_nueva2" class="col-sm-8">
-                                <div class="input-group mb-3">
-                                    <label class="input-group-text" for="pregunta1">Pregunta</label>
-                                    <select class="form-select" id="pregunta1" name="pregunta1" required>
-                                    </select>
-                                    <div class="invalid-feedback">Selecciona una pregunta</div>
-                                </div>
-                                <div class="d-flex flex-row-reverse">
-                                    <div class="p-2">
-                                        <button class="btn btn-primary" id="button4">Agregar Pregunta</button>
-                                    </div>
-                                </div>
+                        </div>
+
+                        <div class="d-flex flex-row-reverse">
+                            <div class="p-2">
+                                <br>
+                                <br>
+                                <input class="btn btn-primary" type="submit" id="button2" value="Enviar">
                             </div>
-                            <br>
-                            <div id="pregunta_nueva3" class="col-sm-8">
-                                <div class="input-group mb-3">
-                                    <label class="input-group-text" for="pregunta1">Pregunta</label>
-                                    <select class="form-select" id="pregunta2" name="pregunta2" required>
-                                    </select>
-                                    <div class="invalid-feedback">Selecciona una pregunta</div>
-                                </div>
+                            <div class="p-2">
+                                <br>
+                                <br>
+                                <a id="cancel2" class="btn btn-secondary" href="/feedback"> Cancelar </a>
                             </div>
                         </div>
-                        <!--div class="col-sm-4">
-                            <br>
-                            <a class="btn btn-primary" id="button5" role="button">Crear
-                                Pregunta</a>
-                        </div-->
-                    </div>
+                </div>
+                </form>
 
-                    <div class="d-flex flex-row-reverse">
-                        <div class="p-2">
-                            <br>
-                            <br>
-                            <input class="btn btn-primary" type="submit" id="button2" value="Enviar">
-                        </div>
-                        <div class="p-2">
-                            <br>
-                            <br>
-                            <a id="cancel2" class="btn btn-secondary" href="/feedback"> Cancelar </a>
-                        </div>
-                    </div>
-            </div>
-            </form>
-
-            <!--div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                <!--div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                 <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                     <div class="toast-header">
                         <img src="..." class="rounded me-2" alt="...">
@@ -136,7 +130,7 @@
                     </div>
                 </div>
             </div-->
-            <!--Nuevo>
+                <!--Nuevo>
             <form id=" form2" class="was-validated">
                     <div id="modalLoginForm" class="modal" tabindex="-1">
                         <div class="modal-dialog">
@@ -173,12 +167,48 @@
                     </div>
                     </form>
                     <Nuevo!-->
-                        
-                </div>
+
             </div>
         </div>
+        </div>
 
-        <script>
+        <script async>
+
+            window.onload = async function () {
+
+                if ('<%=nombreC%>' != "" && '<%=dimC%>' != "" && '<%=nivelC%>' != "") {
+                    console.log('hola');
+                    document.getElementById("nombreCuestionario").value = '<%=nombreC%>';
+                    document.getElementById("inputDimension").value = '<%=dimC%>';
+                    document.getElementById("inputNivel").value = '<%=nivelC%>';
+
+                    await document.getElementById("button1").click();
+                    if ('<%=pregunta0_p%>' != ""){
+                        /*document.getElementById("pregunta0").value = '<%=pregunta0_p%>';
+                        document.getElementById("pregunta0").selectedIndex = '<%=pregunta0_p%>';*/
+
+                        //console.log('Value p0: ' + '<%=pregunta0_p%>');
+                        //document.getElementById("pregunta0").selectpicker('refresh');
+                        //document.getElementById("pregunta0").value = '<%=pregunta0_p%>';
+                        //document.getElementById("pregunta0").value = '<%=pregunta0_p%>';
+                        
+                        //document.getElementById("").
+                        //console.log(document.getElementById("pregunta0"));
+                        //console.log('Vakue ' + document.getElementById("pregunta0").value);
+
+                        document.getElementById("button3").click();
+
+                        if ('<%=pregunta1_p%>' != "") {
+                            document.getElementById("pregunta1").value = '<%=pregunta1_p%>';
+                            document.getElementById("button4").click();
+
+                            if ('<%=pregunta2_p%>' != "") {
+                                document.getElementById("pregunta2").value = '<%=pregunta2_p%>';
+                            }
+                        }
+                    }
+                }
+            }
 
             document.getElementById("cancel2").style.visibility = "hidden";
 
@@ -196,7 +226,7 @@
             document.getElementById("pregunta1").disabled = true;
             document.getElementById("pregunta2").disabled = true;
 
-            document.getElementById("button1").onclick = () => {
+            document.getElementById("button1").onclick = async () => {
                 let nombre = document.getElementById("nombreCuestionario").value;
                 let dimension = document.getElementById("inputDimension").value;
                 let nivel = document.getElementById("inputNivel").value;
@@ -210,14 +240,18 @@
                     document.getElementById("inputDimension").setAttribute("readonly", "readonly");
                     document.getElementById("inputNivel").setAttribute("readonly", "readonly");
                     document.getElementById("buttons").style.visibility = "hidden";
-                    //document.getElementById("button1").style.visibility = "hidden";
-                    //document.getElementById("cancel").style.visibility = "hidden";
                     document.getElementById("cancel2").style.visibility = "visible";
 
-                    accion_asincrona('pregunta0');
+                    await accion_asincrona('pregunta0');
                     console.log('t');
 
-                    var url = "/feedback/crearPregunta/" + nivel + "/" + dimension;
+                    /*var url = "/feedback/crearPregunta/" + nivel + "/" + dimension;
+                     console.log(url);
+                     var element = document.getElementById("button5");
+                     element.setAttribute("href", url);
+                     console.log(document.getElementById("button5"));*/
+
+                    var url = "/feedback/crearPregunta/" + nombre + '/' + nivel + "/" + dimension;
                     console.log(url);
                     var element = document.getElementById("button5");
                     element.setAttribute("href", url);
@@ -226,12 +260,12 @@
 
             }
 
-            const accion_asincrona = (id) => {
+            const accion_asincrona = async (id) => {
                 const nivel = document.getElementById('inputNivel').value;
                 const dimension = document.getElementById('inputDimension').value;
                 console.log(nivel);
 
-                fetch('/feedback/buscarFormato/' + nivel + '/' + dimension, {
+                await fetch('/feedback/buscarFormato/' + nivel + '/' + dimension, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -241,13 +275,9 @@
                     return result.json();
                 }).then(data => {
 
-                    //console.log(data);
                     let respuesta = '';
                     respuesta += '<option value ="" disabled selected> Selecciona una pregunta</option>';
 
-                    /*for (let d of data) {
-                        respuesta += '<option value="' + d.idPregunta + '">' + d.pregunta + '</option>';
-                    }*/
                     for (let d of data) {
                         respuesta += '<option value="' + d.idPregunta + '"';
                         if (document.getElementById("pregunta0").value == d.idPregunta || document.getElementById("pregunta1").value == d.idPregunta || document.getElementById("pregunta2").value == d.idPregunta) {
@@ -255,8 +285,8 @@
                         }
                         respuesta += '>' + d.pregunta + '</option>';
                     }
-                    //document.getElementById('pregunta0').innerHTML = respuesta;
                     document.getElementById(id).innerHTML = respuesta;
+                    
 
                 }).catch(err => {
                     console.log(err);
@@ -267,18 +297,44 @@
 
             document.getElementById("pregunta0").onchange = () => {
                 document.getElementById("button3").style.display = "block";
+
+                if ('<%=pregunta0_p%>' != "") {
+                    document.getElementById("pregunta0").value = '<%=pregunta0_p%>';
+                }
+
+                let nombre = document.getElementById("nombreCuestionario").value;
+                let dimension = document.getElementById("inputDimension").value;
+                let nivel = document.getElementById("inputNivel").value;
+                let pregunta0 = document.getElementById("pregunta0").value;
+
+                var url = "/feedback/crearPregunta/" + nombre + '/' + nivel + "/" + dimension + "/" + pregunta0;
+                console.log(url);
+                var element = document.getElementById("button5");
+                element.setAttribute("href", url);
+                console.log(document.getElementById("button5"));
             }
 
             document.getElementById("button3").onclick = () => {
                 document.getElementById("pregunta_nueva2").style.display = "block";
                 document.getElementById("pregunta1").disabled = false;
-                document.getElementById("pregunta0").setAttribute("readonly", "readonly");
                 document.getElementById("button3").style.visibility = "hidden";
                 accion_asincrona('pregunta1');
             }
 
             document.getElementById("pregunta1").onchange = () => {
                 document.getElementById("button4").style.display = "block";
+
+                let nombre = document.getElementById("nombreCuestionario").value;
+                let dimension = document.getElementById("inputDimension").value;
+                let nivel = document.getElementById("inputNivel").value;
+                let pregunta0 = document.getElementById("pregunta0").value;
+                let pregunta1 = document.getElementById("pregunta1").value;
+
+                var url = "/feedback/crearPregunta/" + nombre + '/' + nivel + "/" + dimension + "/" + pregunta0 + "/" + pregunta1;
+                console.log(url);
+                var element = document.getElementById("button5");
+                element.setAttribute("href", url);
+                console.log(document.getElementById("button5"));
             }
 
             document.getElementById("button4").onclick = () => {
@@ -289,52 +345,20 @@
                 accion_asincrona('pregunta2');
             }
 
-            /*document.getElementById("button5").onclick = () => {
-                var toastLiveExample = document.getElementById('liveToast');
-                var toast = new bootstrap.Toast(toastLiveExample);
-                toast.show();
-            }*/
+            document.getElementById("pregunta2").onchange = () => {
+                let nombre = document.getElementById("nombreCuestionario").value;
+                let dimension = document.getElementById("inputDimension").value;
+                let nivel = document.getElementById("inputNivel").value;
+                let pregunta0 = document.getElementById("pregunta0").value;
+                let pregunta1 = document.getElementById("pregunta1").value;
+                let pregunta2 = document.getElementById("pregunta2").value;
 
-            /*myModal = new bootstrap.Modal(document.getElementById('modalLoginForm'));
-    
-            document.getElementById("form2").addEventListener("submit", function (event) {
-                console.log('Abc');
-                event.preventDefault();
-                myModal.toggle();
-            });*/
-
-            /*document.getElementById("form2").onsubmit = () => {
-    
-            }*/
-
-            /*document.getElementById("buttonC").onclick = () => {
-                console.log('Abc2');
-            }*/
-
-            /*document.getElementById("buttonC").onclick = () => {
-                let pregunta = document.getElementById("preguntaC").value;
-                let tipo = document.getElementById("inputTipo").value;
-    
-                if (pregunta != '' && tipo != '') {
-                    document.getElementById("modalLoginForm").style.visibility = "hidden";
-                    console.log('modal');
-                }
-            }*/
-
-            /*window.addEventListener("pageshow", function (event) {
-
-                var toastLiveExample = document.getElementById('liveToast');
-                var toast = new bootstrap.Toast(toastLiveExample);
-
-                if (document.cookie != 0) {
-                    toast.show();
-                    console.log('hey2');
-                    document.cookie.replace = 0;
-                }
-            });*/
-
-        //console.log("mod " + document.getElementById("inputNivel").value);
-        //document.getElementById("mod").innerHTML += "Nivel: " + document.getElementById("inputNivel").value;
+                var url = "/feedback/crearPregunta/" + nombre + '/' + nivel + "/" + dimension + "/" + pregunta0 + "/" + pregunta1 + "/" + pregunta2;
+                console.log(url);
+                var element = document.getElementById("button5");
+                element.setAttribute("href", url);
+                console.log(document.getElementById("button5"));
+            }
 
         </script>
 

@@ -6,19 +6,22 @@ const router = express.Router();
 const createfb = require('../controllers/createfb_controller');
 const modify_fb = require('../controllers/modifycontroller');
 
-router.get('/generarFormato', isAuth, checkRoleAuth([2]), createfb.generarFormato);
+router.get('/generarFormato', isAuth, checkRoleAuth([1]), createfb.generarFormato);
 router.post('/generarFormato', createfb.generarFormato_post);
-router.get('/crearPregunta/:nivel/:dim', checkRoleAuth([2]), createfb.crearPregunta);
+router.get('/crearPregunta/:nombre/:nivel/:dim', checkRoleAuth([1]), createfb.crearPregunta1);
+router.get('/crearPregunta/:nombre/:nivel/:dim/:pregunta0', checkRoleAuth([1]), createfb.crearPregunta2);
+router.get('/crearPregunta/:nombre/:nivel/:dim/:pregunta0/:pregunta1', checkRoleAuth([1]), createfb.crearPregunta3);
+router.get('/crearPregunta/:nivel/:dim/:pregunta0/:pregunta1/:pregunta2', checkRoleAuth([1]), createfb.crearPregunta4);
 router.post('/crearPregunta', createfb.crearPregunta_post);
-router.get('/buscarFormato/:nivel/:dim', isAuth, checkRoleAuth([2]), createfb.buscarFormato);
-router.get('/', isAuth, checkRoleAuth([2]), createfb.root);
+router.get('/buscarFormato/:nivel/:dim', isAuth, checkRoleAuth([1]), createfb.buscarFormato);
+router.get('/', isAuth, checkRoleAuth([1]), createfb.root);
 
 
 
-router.get('/modificarFormato', isAuth, checkRoleAuth([2]), modify_fb.modificarFormato);
-router.post('/modificarFormato', modify_fb.modificarFormato_post);
-router.get('/buscarCuestionario/:nivel/:dim', isAuth, checkRoleAuth([2]), modify_fb.buscarCuestionario);
-router.get('/buscarPregunta/:nivel/:dim', isAuth, checkRoleAuth([2]), modify_fb.buscarPregunta);
+router.get('/modificarFormato', isAuth, checkRoleAuth([1]), createfb.modificarFormato);
+router.post('/modificarFormato', createfb.modificarFormato_post);
+router.get('/buscarCuestionario/:nivel/:dim', isAuth, checkRoleAuth([1]), createfb.buscarCuestionario);
+router.get('/buscarPregunta/:nivel/:dim', isAuth, checkRoleAuth([1]), createfb.buscarPregunta);
 
 
 

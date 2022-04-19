@@ -36,7 +36,7 @@ module.exports = class User {
         return db.execute('SELECT nombre, apellidoP, apellidoM FROM empleado E, asignacionempleado AE WHERE E.idEmpleado = AE.idMentorado AND AE.idMentor = ?',
             [idEmpleado]);
 
-   }
+    }
 
     //Este método servirá para devolver los objetos del almacenamiento persistente.
     static findOne(correo) {
@@ -54,7 +54,7 @@ module.exports = class User {
     }
 
     static fetchDimensiones(idEmpleado) {
-        return db.execute('SELECT D.idDimension, nivelE, fecha FROM dimEmpleado DE, Dimension D WHERE DE.idDimension = D.idDimension AND idEmpleado=? ORDER BY nombre, fecha',
+        return db.execute('SELECT D.idDimension, nivelE, fecha FROM dimempleado DE, dimension D WHERE DE.idDimension = D.idDimension AND idEmpleado=? ORDER BY nombre, fecha',
             [idEmpleado]);
 
     }

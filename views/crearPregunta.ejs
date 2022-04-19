@@ -6,8 +6,11 @@
             <div class="row justify-content-md-center">
                 <div class="col-sm-7">
                     <form id="form1" name="form1" class="was-validated" action="/feedback/crearPregunta" method="POST">
-                        <input type="hidden" name="referer" value="<%=referer%>"" >
-                    <div class=" row justify-content-md-start">
+                        <input type="hidden" name="nombreC" value="<%=nombreC%>">
+                        <input type="hidden" name="pregunta0" value="<%=pregunta0%>">
+                        <input type="hidden" name="pregunta1" value="<%=pregunta1%>">
+                        <input type="hidden" name="pregunta2" value="<%=pregunta2%>">
+                    <div class="row justify-content-md-start">
                         <div class="col-sm-5">
                             <label>Nivel</label>
                             <input type="text" name="nivelPr" id="nivelPr" aria-describedby="invalidNameHelp"
@@ -43,14 +46,14 @@
                             Selecciona un tipo
                         </div>
                     </div>
+                    <input type="submit" class="btn btn-primary" id="buttonP" value="Crear">
+                    <button class="btn btn-secondary" id="buttonC">Cancelar</button>
                 </div>
                 <br>
                 </form>
 
                 <div class="row justify-content-md-end">
                     <div class="col-sm-5">
-                        <input type="submit" class="btn btn-primary" id="buttonP" value="Crear">
-                        <button class="btn btn-secondary" id="buttonC">Cancelar</button>
                     </div>
                 </div>
             </div>
@@ -58,7 +61,7 @@
         </div>
 
         <script>
-            console.log(document.getElementById("nivelPr").value);
+            /*console.log(document.getElementById("nivelPr").value);
             document.getElementById("buttonC").onclick = () => {
                 history.go(-1);
             };
@@ -67,7 +70,6 @@
                 if (document.getElementById('textoPregunta').value != '' && document.getElementById('inputTipo').value != '') {
                     await event.preventDefault();
                     await (accion_asincrona());
-                    history.go(-1);
                 }
             };
 
@@ -102,5 +104,5 @@
                 }).catch((error) => {
                     console.log('Error:', error);
                 })
-            };
+            };*/
         </script>

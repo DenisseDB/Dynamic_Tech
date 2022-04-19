@@ -1,11 +1,9 @@
-const formatoEvaluacion = require('../models/formatoEvaluacion');
+/*const formatoEvaluacion = require('../models/formatoEvaluacion');
 const Pregunta = require('../models/pregunta'); // Se importa la clase pregunta para hacer una busqueda por 
 // preguntas dependiendo el nivel y la dimension
 const Cuestionario = require('../models/Cuestionario');
 
-const {
-   route
-} = require('../routes/createfb.routes');
+const route = require('../routes/createfb.routes');
 
 exports.root = (request, response, next) => {
    response.render('formatosEvaluacion');
@@ -124,4 +122,4 @@ exports.funcion_prueba = (request, response, next) => {
 
 
 
-// };
+// };*/
