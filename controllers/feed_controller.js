@@ -108,10 +108,6 @@ exports.detalleFeedback =  async (request, response, next) => {
     const pPeople = await Historial.fecthFeedDetallado(request.body.IdPeople, evaluado, evaluador, periodo); // Retro del Cuestionario People.
     const pBusiness = await Historial.fecthFeedDetallado(request.body.IdCommercial, evaluado, evaluador, periodo); // Retro del Cuestionario Business.
 
-    console.log(pCraft);
-    console.log(pPeople);
-    console.log(pBusiness);
-
     response.render('detalleFeedback.ejs',
     {
         rolesA :  request.session.privilegiosPermitidos,

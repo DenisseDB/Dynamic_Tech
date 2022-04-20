@@ -23,6 +23,12 @@ h4 {
   font-size: large;
 }
 
+h5 {
+  font-weight: bold;
+  font-style: italic;
+  font-size: medium;
+}
+
 h6 {
   font-size: medium;
 }
@@ -39,7 +45,11 @@ td, th {
 }
 
 .space {
-  padding: 1.5em 1em 1em 2em;
+  padding: 1.5em 8em 1.5em 3em;
+}
+
+.space2 {
+  padding: 0 0 1em 0;
 }
 
 hr.style17 {
@@ -64,4 +74,8 @@ hr.style17:after {
 .accordion-button:focus {
   box-shadow: none;
   border-color: rgba(0,0,0,.125);
+}
+
+.div-right{
+  text-align: rigth;
 }
