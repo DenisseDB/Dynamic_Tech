@@ -33,6 +33,7 @@ exports.agregarEmpleados = (request, response, next) => {
                                         success: success,
                                         nombreSesion: request.session.nombreSesion,
                                         apellidoPSesion: request.session.apellidoPSesion,
+                                        foto: request.session.foto,
 
                                     })
 
@@ -103,6 +104,7 @@ exports.modificarEmpleado = (request, response, next) => {
                                 roles: roles,
                                 nombreSesion: request.session.nombreSesion,
                                 apellidoPSesion: request.session.apellidoPSesion,
+                                foto: request.session.foto,
 
 
                             });

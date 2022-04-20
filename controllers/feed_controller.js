@@ -37,6 +37,7 @@ exports.solicitudesFeedback = async (request, response, next) => {
                     fecha_f: final,
                     nombreSesion: request.session.nombreSesion,
                     apellidoPSesion: request.session.apellidoPSesion,
+                    foto: request.session.foto,
                     notificacion: nsuccess ? nsuccess : ''
                 }
             );
@@ -115,6 +116,7 @@ exports.cuestionario = (request, response, next) => {
 
                                 nombreSesion: request.session.nombreSesion,
                                 apellidoPSesion: request.session.apellidoPSesion,
+                                foto: request.session.foto,
                             })
                         }).catch(error => {
                             console.log(error);
@@ -198,6 +200,7 @@ exports.misMentorados = (request, response, next) => {
                     rol: request.session.idRol, // obtener rol del usario
                     nombreSesion: request.session.nombreSesion,
                     apellidoPSesion: request.session.apellidoPSesion,
+                    foto: request.session.foto,
                 }
 
             );
@@ -214,6 +217,7 @@ exports.home = (request, response, next) => {
 
                 response.render('index', { // mandamos su informacion al sidenav
 
+                    foto: request.session.foto,
                     nombreSesion: request.session.nombreSesion,
                     apellidoPSesion: request.session.apellidoPSesion,
                     correo: request.session.correo ? request.session.correo : '',

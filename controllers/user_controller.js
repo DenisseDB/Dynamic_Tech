@@ -16,6 +16,7 @@ exports.tops = (request, response, next) => {
         rol: request.session.idRol ? request.session.idRol : '',
         roles_autorizados: roles,
         idEmpleado: request.session.idEmpleado ? request.session.idEmpleado : '',
+        
     });
 };
 
@@ -45,6 +46,9 @@ exports.login = (request, response, next) => {
             request.session.idEmpleado = rows[0].idEmpleado;
             request.session.nombreSesion = rows[0].nombre;
             request.session.apellidoPSesion = rows[0].apellidoP;
+            console.log(rows[0].fotoPerfil)
+            request.session.foto = rows[0].fotoPerfil;
+
 
             request.session.correo = rows[0].correo;
             request.session.idRol = rows[0].idRol;
@@ -74,7 +78,7 @@ exports.get_signup = (request, response, next) => {
 exports.post_signup = (request, response, next) => {
    const user =
       new User(request.body.nombre, request.body.apellidoP, request.body.apellidoM,
-         request.body.correo, request.body.contrasena, request.body.idEquipo);
+         request.body.correo, request.body.contrasena, request.body.idEquipo,request.body.foto);
    user.save()
       .then(() => {
          response.redirect('/users/login');

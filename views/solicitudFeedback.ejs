@@ -110,7 +110,7 @@
                       <tbody>
                         <% for (let evaluacion of evaluaciones) { %>
                           <tr>
-                          <td> <img src="https://github.com/mdo.png" alt="hugenerd" width="60" height="60" class="rounded-circle"></td>
+                          <td> <img src="<%= evaluacion.fotoPerfil %> " alt="hugenerd" width="60" height="60" class="rounded-circle"></td>
                           <td><%= evaluacion.nombre %> <%= evaluacion.apellidoP %></td>
       
                           <% if (evaluacion.estatus == 1) { %>

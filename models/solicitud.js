@@ -68,7 +68,7 @@ module.exports = class Solicitud{
 
     // Método. Solicitudes hechas al sesionado. - A evaluar
     static fecthEvaluaciones(idSesionado) {
-        return db.execute('SELECT nombre, apellidoP, R.idEvaluado, estatus, NombrePeriodo, P.idPeriodo, fecha_inicial, fecha_final FROM empleado E, retroalimentacion R, periodo P WHERE E.idEmpleado = R.idEvaluado AND P.idPeriodo = R.idPeriodo AND R.idEvaluador = ? AND P.idPeriodo in (SELECT MAX(idPeriodo) FROM periodo) order by estatus;',
+        return db.execute('SELECT nombre, apellidoP, R.idEvaluado,fotoPerfil, estatus, NombrePeriodo, P.idPeriodo, fecha_inicial, fecha_final FROM empleado E, retroalimentacion R, periodo P WHERE E.idEmpleado = R.idEvaluado AND P.idPeriodo = R.idPeriodo AND R.idEvaluador = ? AND P.idPeriodo in (SELECT MAX(idPeriodo) FROM periodo) order by estatus;',
             [idSesionado])
                 .then(([rows, fielData]) => {
                     return rows;
