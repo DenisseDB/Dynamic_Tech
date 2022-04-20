@@ -90,44 +90,44 @@ exports.nuevaSolicitud = async (request, response, next) => {
 
 
 exports.cuestionario = (request, response, next) => {
-    //Tomo las preguntas del cuestionario de Craft asignardo
-    Feed.fecthCuestionarioCraft(request.session.idEmpleado, request.params.idEvaluado, request.params.idPeriodo)
-        .then(([preguntasCraft, fieldData]) => {
-            request.session.preguntasCraft = preguntasCraft;
+   //Tomo las preguntas del cuestionario de Craft asignardo
+   Feed.fecthCuestionarioCraft(request.session.idEmpleado,request.params.idEvaluado,request.params.idPeriodo)
+   .then(([preguntasCraft, fieldData]) => {
+       request.session.preguntasCraft = preguntasCraft;
+       console.log(  preguntasCraft[0] );
+       console.log( "Nombre: " +  preguntasCraft[0].nombre);
 
-            //Tomo las preguntas del cuestionario de People
-            Feed.fecthCuestionarioPeople(request.session.idEmpleado, request.params.idEvaluado, request.params.idPeriodo)
-                .then(([preguntasPeople, fieldData]) => {
-                    request.session.preguntasPeople = preguntasPeople;
+        //Tomo las preguntas del cuestionario de People
+       Feed.fecthCuestionarioPeople(request.session.idEmpleado,request.params.idEvaluado,request.params.idPeriodo)
+       .then(([preguntasPeople,fieldData]) =>{
+           request.session.preguntasPeople = preguntasPeople;
 
-                    //Tomo las preguntas del cuestionario de Business asignardo
-                    Feed.fecthCuestionarioBusiness(request.session.idEmpleado, request.params.idEvaluado, request.params.idPeriodo)
-                        .then(([preguntasBusiness, fieldData]) => {
-                            request.session.preguntasBusiness = preguntasBusiness;
+            //Tomo las preguntas del cuestionario de Business asignardo
+           Feed.fecthCuestionarioBusiness(request.session.idEmpleado,request.params.idEvaluado,request.params.idPeriodo)
+           .then(([preguntasBusiness,fieldData]) =>{
+               request.session.preguntasBusiness = preguntasBusiness;
 
-                            response.render('llenarCuestionario', {
+               response.render('llenarCuestionario', {
+                rolesA: request.session.privilegiosPermitidos,
+                rol: request.session.idRol ? request.session.idRol : '',
 
-                                rolesA: request.session.privilegiosPermitidos,
-                                rol: request.session.idRol ? request.session.idRol : '',
+                preguntasC: preguntasCraft,
+                preguntasP: preguntasPeople,
+                preguntasB: preguntasBusiness,
 
-                                preguntasC: preguntasCraft,
-                                preguntasP: preguntasPeople,
-                                preguntasB: preguntasBusiness,
-
-                                nombreSesion: request.session.nombreSesion,
-                                apellidoPSesion: request.session.apellidoPSesion,
-                                foto: request.session.foto,
-                            })
-                        }).catch(error => {
-                            console.log(error);
-                        });
-                }).catch(error => {
-                    console.log(error);
-                });
-
-        })
-        .catch(error => console.log(error));
-
+                nombreSesion: request.session.nombreSesion,
+                apellidoPSesion: request.session.apellidoPSesion,
+                foto: request.session.foto,
+               })
+           }).catch(error => {
+               console.log(error);
+           });
+       }).catch(error =>{
+           console.log(error);
+       });
+      
+   })
+   .catch(error => console.log(error)); 
 };
 
 exports.salvarRespuestas = async (request, response, next) => {
@@ -141,48 +141,51 @@ exports.salvarRespuestas = async (request, response, next) => {
     let bus = request.session.preguntasBusiness;
 
     //Para obtener cuantas preguntas fueron
-    var total = craft.length + people.length + bus.length;
+    var total = craft.length + people.length + bus.length
 
     //Para obtener los ids de cada pregunta
     /* Recorro cada cuestinario para obtener sus ids preguntas y los guardo en 
         un array
     */
     var idP = [];
-    for (i = 0; i < craft.length; i++) {
+    for (i = 0; i < craft.length; i++ ) {
         idP.push(craft[i].idPregunta);
     }
-    for (i = 0; i < people.length; i++) {
+    for (i = 0; i < people.length; i++ ) {
         idP.push(people[i].idPregunta);
     }
-    for (i = 0; i < bus.length; i++) {
+    for (i = 0; i < bus.length; i++ ) {
         idP.push(bus[i].idPregunta);
     }
-
-    console.log(idP);
+ 
+    console.log(idP)
     //Para obtener las respuestas del body
     /* Recorro cada radio button del body para obtener sus respuesta y la guardo en 
         un array
     */
     var respuestas = [];
-    for (i = 1; i <= total; i++) {
+    for (i = 1; i <= total; i++ ) {
         respuestas.push(request.body[i]);
     }
 
-    console.log(respuestas);
+    console.log(respuestas)
 
     try {
         //Ciclo for para realizar insert de preguntas y respuestas
-        for (i = 0; i < total; i++) {
-            let res = new Feed(request.params.idEvaluado, request.session.idEmpleado, idP[i], request.params.idPeriodo, respuestas[i])
+        for (i = 0; i < total; i++ ) {
+            let res = new Feed (request.params.idEvaluado, request.session.idEmpleado, idP[i],request.params.idPeriodo, respuestas[i])
             await res.save();
         }
-        response.redirect('/solicitudes');
+       response.redirect('/solicitudes');
 
-    } catch (error) {
-        console.log(error);
+    } catch(error) {
+        console.log(error)
     }
+    
+    
+    
 
-
+   
 
 };
 

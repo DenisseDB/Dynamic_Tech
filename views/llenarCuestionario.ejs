@@ -18,196 +18,162 @@
                       <!-- Final de la nav-->
                       <%- include('includes/sidenavFin.ejs') %>
 
-                        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-
-                        <h2> Cuestionario para Feedback de <%= preguntasC[0].nombre %>
-                            <%= preguntasC[0].apellidoP %>
-                              <%= preguntasC[0].apellidoM %>
-                        </h2><br>
-
-                        <div class='container'>
-                          <form id='FormularioGeneral' method="POST">
-                            <div class="card">
-                              <h5 class="card-header">Preguntas de Craft</h5>
-                              <div class="card-body">
-
-                                <% for (let pregunta of preguntasC) { %>
-                                  <h5 id="<%= pregunta.idPregunta %>">
-                                    <%= pregunta.pregunta %>
-                                  </h5>
-                                  <% if (pregunta.idTipo==1) { %>
-                                    <div class="form-check form-check-inline">
-                                      <input class="form-check-input" type="radio" name="<%= nombre  %>"
-                                        id="<%= pregunta.idPregunta %>" value="1" required>
-                                      <label class="form-check-label" for="<%= pregunta.idPregunta %>">1</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                      <input class="form-check-input" type="radio" name="<%= nombre  %>"
-                                        id="<%= pregunta.idPregunta %>" value="2">
-                                      <label class="form-check-label" for="<%= pregunta.idPregunta %>">2</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                      <input class="form-check-input" type="radio" name="<%= nombre  %>"
-                                        id="<%= pregunta.idPregunta %>" value="3">
-                                      <label class="form-check-label" for="<%= pregunta.idPregunta %>">3</label>
-                                    </div>
-
-                                    <div class="form-check form-check-inline">
-                                      <input class="form-check-input" type="radio" name="<%= nombre  %>"
-                                        id="<%= pregunta.idPregunta %>" value="4">
-                                      <label class="form-check-label" for="<%= pregunta.idPregunta %>">4</label>
-                                    </div>
-
-                                    <div class="form-check form-check-inline">
-                                      <input class="form-check-input" type="radio" name="<%= nombre  %>"
-                                        id="<%= pregunta.idPregunta %>" value="5">
-                                      <label class="form-check-label" for="<%= pregunta.idPregunta %>">5</label>
-                                    </div>
-                                    <% } else { %>
-                                      <div class="mb-3">
-                                        <textarea class="form-control" name="<%= nombre  %>"
-                                          id="<%= pregunta.idPregunta %>" rows="3"></textarea>
-                                      </div>
-                                      <% } %>
-
-                                        <% for (let pregunta of preguntasC) { %>
-                                          <h5 id="<%= pregunta.idPregunta %>">
-                                            <%= pregunta.pregunta %>
-                                          </h5>
-                                          <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="<%= nombre  %>"
-                                              id="<%= pregunta.idPregunta %>" value="1" required>
-                                            <label class="form-check-label" for="<%= pregunta.idPregunta %>">1</label>
-                                          </div>
-                                          <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="<%= nombre  %>"
-                                              id="<%= pregunta.idPregunta %>" value="2">
-                                            <label class="form-check-label" for="<%= pregunta.idPregunta %>">2</label>
-                                          </div>
-                                          <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="<%= nombre  %>"
-                                              id="<%= pregunta.idPregunta %>" value="3">
-                                            <label class="form-check-label" for="<%= pregunta.idPregunta %>">3</label>
-                                          </div>
-
-                                          <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="<%= nombre  %>"
-                                              id="<%= pregunta.idPregunta %>" value="4">
-                                            <label class="form-check-label" for="<%= pregunta.idPregunta %>">4</label>
-                                          </div>
-
-                                          <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="<%= nombre  %>"
-                                              id="<%= pregunta.idPregunta %>" value="5">
-                                            <label class="form-check-label" for="<%= pregunta.idPregunta %>">5</label>
-                                          </div>
-
-                                          <% nombre ++ %>
-                                            <br><br>
-                                            <% } %>
-                              </div>
-                            </div>
-                            <br>
-
-                            <div class="card">
-                              <h5 class="card-header">Preguntas de People</h5>
-                              <div class="card-body">
-
-                                <% for (let pregunta of preguntasP) { %>
-                                  <h5 id="<%= pregunta.idPregunta %>">
-                                    <%= pregunta.pregunta %>
-                                  </h5>
-                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="<%= nombre  %>"
-                                      id="<%= pregunta.idPregunta %> " value="1" required>
-                                    <label class="form-check-label" for="<%= pregunta.idPregunta %>">1</label>
+                      <h2> Cuestionario para Feedback de <%= preguntasC[0].nombre %>
+                        <%= preguntasC[0].apellidoP %>
+                          <%= preguntasC[0].apellidoM %>
+                    </h2><br>
+                
+                    <div class='container'>
+                      <form id = 'FormularioGeneral' method="POST">
+                        <div class="card">
+                          <h5 class="card-header">Preguntas de Craft</h5>
+                          <div class="card-body">
+                            
+                            <% var nombre = 1 %>
+                
+                              <% for (let pregunta of preguntasC) { %>
+                                <h5 id = "<%= pregunta.idPregunta %>">
+                                  <%= pregunta.pregunta %>
+                                </h5>
+                                <% if (pregunta.idTipo == 1) { %>
+                                <div class="form-check form-check-inline">
+                                 <input class="form-check-input" type="radio" name="<%= nombre  %>" id="<%= pregunta.idPregunta %>"
+                                  value="1" required>
+                                  <label class="form-check-label" for="<%= pregunta.idPregunta %>">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" name="<%= nombre  %>" id="<%= pregunta.idPregunta %>"
+                                    value="2">
+                                  <label class="form-check-label" for="<%= pregunta.idPregunta %>">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" name="<%= nombre  %>" id="<%= pregunta.idPregunta %>"
+                                    value="3">
+                                  <label class="form-check-label" for="<%= pregunta.idPregunta %>">3</label>
+                                </div>
+                             
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" name="<%= nombre  %>" id="<%= pregunta.idPregunta %>"
+                                    value="4">
+                                  <label class="form-check-label" for= "<%= pregunta.idPregunta %>">4</label>
+                                </div>
+                           
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" name="<%= nombre  %>" id="<%= pregunta.idPregunta %>"
+                                    value="5">
+                                  <label class="form-check-label" for="<%= pregunta.idPregunta %>">5</label>
+                                </div>
+                                <% } else { %>
+                                  <div class="mb-3">
+                                    <textarea class="form-control" name="<%= nombre  %>" id="<%= pregunta.idPregunta %>" rows="3"></textarea>
                                   </div>
-                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="<%= nombre  %>"
-                                      id="<%= pregunta.idPregunta %>" value="2">
-                                    <label class="form-check-label" for="<%= pregunta.idPregunta %>">2</label>
-                                  </div>
-                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="<%= nombre  %>"
-                                      id="<%= pregunta.idPregunta %>" value="3">
-                                    <label class="form-check-label" for="<%= pregunta.idPregunta %>">3</label>
-                                  </div>
-
-                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="<%= nombre  %>"
-                                      id="<%= pregunta.idPregunta %>" value="4">
-                                    <label class="form-check-label" for="<%= pregunta.idPregunta %>">4</label>
-                                  </div>
-
-                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="<%= nombre  %>"
-                                      id="<%= pregunta.idPregunta %>" value="5">
-                                    <label class="form-check-label" for="<%= pregunta.idPregunta %>">5</label>
-                                  </div>
-
-                                  <% nombre ++ %>
-                                    <br><br>
-                                    <% } %>
-                              </div>
-                            </div>
-                            <br>
-
-                            <div class="card">
-                              <h5 class="card-header">Preguntas de Business</h5>
-                              <div class="card-body">
-
-                                <% for (let pregunta of preguntasB) { %>
-                                  <h5 id="<%= pregunta.idPregunta %>">
-                                    <%= pregunta.pregunta %>
-                                  </h5>
-                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="<%= nombre  %>"
-                                      id="<%= pregunta.idPregunta %>" value="1" required>
-                                    <label class="form-check-label" for="<%= pregunta.idPregunta %>">1</label>
-                                  </div>
-                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="<%= nombre  %>"
-                                      id="<%= pregunta.idPregunta %>" value="2">
-                                    <label class="form-check-label" for="<%= pregunta.idPregunta %>">2</label>
-                                  </div>
-                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="<%= nombre  %>"
-                                      id="<%= pregunta.idPregunta %>" value="3">
-                                    <label class="form-check-label" for="<%= pregunta.idPregunta %>">3</label>
-                                  </div>
-
-                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="<%= nombre  %>"
-                                      id="<%= pregunta.idPregunta %>" value="4">
-                                    <label class="form-check-label" for="<%= pregunta.idPregunta %>">4</label>
-                                  </div>
-
-                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="<%= nombre  %>"
-                                      id="<%= pregunta.idPregunta %>" value="5">
-                                    <label class="form-check-label" for="<%= pregunta.idPregunta %>">5</label>
-                                  </div>
-
-                                  <% nombre ++ %>
-                                    <br><br>
-                                    <% } %>
-                              </div>
-                            </div>
-                            <br>
-
-                            <script>
-                              function alertaCancelado() {
-                                alert("Las respuestas no serán guardadas")
-                              } 
-                            </script>
-
-                            <a href="/solicitudes"><button type="button" onclick="alertaCancelado();"
-                                class="btn btn-secondary">Cancelar</button></a>
-                            <a href="/solicitudes"><input type="submit" class="btn btn-dark" value="Enviar"></a>
-
-                          </form>
-
+                                <% }  %>
+                                <% nombre ++  %>
+                                <br><br>
+                                <% } %>
+                          </div>
                         </div>
-
-                        <%- include('includes/foot.ejs') %>
+                        <br>
+                
+                        <div class="card">
+                          <h5 class="card-header">Preguntas de People</h5>
+                          <div class="card-body">
+                
+                            <% for (let pregunta of preguntasP) { %>
+                              <h5 id = "<%= pregunta.idPregunta %>">
+                                <%= pregunta.pregunta %>
+                              </h5>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="<%= nombre  %>" id="<%= pregunta.idPregunta %> "
+                                  value="1" required>
+                                <label class="form-check-label" for="<%= pregunta.idPregunta %>">1</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="<%= nombre  %>" id="<%= pregunta.idPregunta %>"
+                                  value="2">
+                                <label class="form-check-label" for="<%= pregunta.idPregunta %>">2</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="<%= nombre  %>" id="<%= pregunta.idPregunta %>"
+                                  value="3">
+                                <label class="form-check-label" for="<%= pregunta.idPregunta %>">3</label>
+                              </div>
+                           
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="<%= nombre  %>" id="<%= pregunta.idPregunta %>"
+                                  value="4">
+                                <label class="form-check-label" for= "<%= pregunta.idPregunta %>">4</label>
+                              </div>
+                         
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="<%= nombre  %>" id="<%= pregunta.idPregunta %>"
+                                  value="5">
+                                <label class="form-check-label" for="<%= pregunta.idPregunta %>">5</label>
+                              </div>
+                              <% nombre ++ %>
+                              <br><br>
+                              <% } %>
+                          </div>
+                        </div>
+                        <br>
+                
+                        <div class="card">
+                          <h5 class="card-header">Preguntas de Business</h5>
+                          <div class="card-body">
+                
+                            <% for (let pregunta of preguntasB) { %>
+                              <h5 id = "<%= pregunta.idPregunta %>">
+                                <%= pregunta.pregunta %>
+                              </h5>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="<%= nombre  %>" id="<%= pregunta.idPregunta %>"
+                                  value="1" required>
+                                <label class="form-check-label" for="<%= pregunta.idPregunta %>">1</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="<%= nombre  %>" id="<%= pregunta.idPregunta %>"
+                                  value="2">
+                                <label class="form-check-label" for="<%= pregunta.idPregunta %>">2</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="<%= nombre  %>" id="<%= pregunta.idPregunta %>"
+                                  value="3">
+                                <label class="form-check-label" for="<%= pregunta.idPregunta %>">3</label>
+                              </div>
+                           
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="<%= nombre  %>" id="<%= pregunta.idPregunta %>"
+                                  value="4">
+                                <label class="form-check-label" for= "<%= pregunta.idPregunta %>">4</label>
+                              </div>
+                         
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="<%= nombre  %>" id="<%= pregunta.idPregunta %>"
+                                  value="5">
+                                <label class="form-check-label" for="<%= pregunta.idPregunta %>">5</label>
+                              </div>
+                              <% nombre ++  %>
+                              <br><br>
+                              <% } %>
+                          </div>
+                        </div>
+                        <br>
+                
+                        <script>
+                          function alertaCancelado() {  
+                              alert("Las respuestas no serán guardadas")
+                          } 
+                      </script>
+                
+                        <a href="/solicitudes"><button type="button" onclick="alertaCancelado();" class="btn btn-outline-secondary">Cancelar</button></a>
+                        <a href="/solicitudes"><input type="submit" class="btn btn-primary" value="Enviar"></a>
+                
+                      </form>
+                
+                    </div>
+                
+                
+                
+                  </body>
+                
+                <%- include('includes/foot.ejs') %>
