@@ -13,6 +13,7 @@ exports.root = (request, response, next) => {
         nombreSesion: request.session.nombreSesion,
         apellidoPSesion: request.session.apellidoPSesion,
         foto: request.session.foto,
+        rolesA: request.session.privilegiosPermitidos,
     });
 };
 
