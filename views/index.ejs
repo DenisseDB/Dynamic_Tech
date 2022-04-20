@@ -27,12 +27,18 @@
                               <input id="idE" value="<% idEmpleado %>" type="hidden">
                               <div id="chart-container" style="position: relative; height:30vh; width:40vw">
                                 <!--//Para cambiar tamanio-->
-                                <canvas id="mycanvas"></canvas>
+                                <div class="card">
+                                  <h5 class="card-header">Rendimiento por periodo</h5>
+                                  <div class="card-body">
+                                    <canvas id="mycanvas"></canvas>
+                                  </div>
+                                </div>
+
                               </div>
                             </div>
                             <div class="col-md-5">
                               <div class="card">
-                                <h5 class="card-header">Mis Dimensiones</h5>
+                                <h5 class="card-header">Nivel</h5>
                                 <div class="card-body">
                                   <ul class="list-group">
                                     <table class="table">
@@ -103,8 +109,8 @@
 
                           div[role="progressbar"] {
                             --size: 6rem;
-                            --fg: #369;
-                            --bg: #def;
+                            --fg: rgb(237, 110, 133);
+                            --bg: rgb(249, 233, 229);
                             --pgPercentage: var(--value);
                             animation: growProgressBar 3s 1 forwards;
                             width: var(--size);
