@@ -45,7 +45,7 @@ td, th {
 }
 
 .space {
-  padding: 1.5em 8em 1.5em 3em;
+  padding: 0.5em 3em 1.5em 3em;
 }
 
 .space2 {
@@ -76,6 +76,19 @@ hr.style17:after {
   border-color: rgba(0,0,0,.125);
 }
 
-.div-right{
-  text-align: rigth;
+.bwhite {
+  background-color: white;
+}
+
+.bwhite a {
+  color:#0047AB;
+  text-decoration: none;
+}
+
+.content-center {
+  height: 40px;
+}
+
+.content-center h3, p{
+  line-height: 40px;
 }

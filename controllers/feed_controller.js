@@ -99,21 +99,30 @@ exports.miFeedback =  async (request, response, next) => {
     });
 };
 
+//(SELECT nombre, apellidoP, NombrePeriodo, anio, idCuestionarioCraft, nivelP, idDimension FROM retroalimentacion R, empleado E, periodo P, preguntacuestionario PC, pregunta PR WHERE R.idEvaluador = E.idEmpleado AND R.idPeriodo = P.idPeriodo AND R.idCuestionarioCraft = PC.idCuestionario AND PC.idPregunta = PR.idPregunta AND idEvaluado = 2 AND idEvaluador = 1 AND R.idPeriodo = 13 AND PC.idPregunta = (SELECT idPregunta FROM preguntacuestionario WHERE idCuestionario = 2 LIMIT 1);)
+
 exports.detalleFeedback =  async (request, response, next) => {
     let evaluador = request.body.IdEval;
     let periodo = request.body.IdPed;
     let evaluado = request.session.idEmpleado;
+    let idcraft = request.body.IdCraft;
+    let idPeople = request.body.IdPeople;
+    let idCommercial = request.body.IdCommercial;
 
-    const pCraft = await Historial.fecthFeedDetallado(request.body.IdCraft, evaluado, evaluador, periodo); // Retro del Cuestionario Craft.
-    const pPeople = await Historial.fecthFeedDetallado(request.body.IdPeople, evaluado, evaluador, periodo); // Retro del Cuestionario People.
-    const pBusiness = await Historial.fecthFeedDetallado(request.body.IdCommercial, evaluado, evaluador, periodo); // Retro del Cuestionario Business.
+    const rCraft = await Historial.fecthFeedDetallado(idcraft, evaluado, evaluador, periodo); // Retro del Cuestionario Craft.
+    const rPeople = await Historial.fecthFeedDetallado(idPeople, evaluado, evaluador, periodo); // Retro del Cuestionario People.
+    const rBusiness = await Historial.fecthFeedDetallado(idCommercial, evaluado, evaluador, periodo); // Retro del Cuestionario Business.
+    const sol = await Historial.fecthSolicitud(evaluado, evaluador, periodo); // Detalle del Periodo y Evaluador.
+    const lvl = await Historial.fecthNiveles(idcraft, idPeople, idCommercial); // Detalle de los niveles al momento de la solicitud.
 
     response.render('detalleFeedback.ejs',
     {
         rolesA :  request.session.privilegiosPermitidos,
-        craft : pCraft,
-        people : pPeople,
-        business : pBusiness
+        craft : rCraft,
+        people : rPeople,
+        business : rBusiness,
+        solicitud : sol,
+        niveles : lvl
     });
 };
 

@@ -20,11 +20,18 @@
 
 <body>
   <div class="space">
-        <h5>Mi Feedback > (Nombre Periodo) > Retroalimentación de (Nombre Evaluador)</h5>
-        <hr class="style17">
-        <h3><strong>Recolección de Feedback</strong></h3>
+        <div class="sticky-top bwhite">
+          <br>
+          <h5><a href="./miFeedback">Mi Feedback</a> - Retroalimentación (<%= solicitud[0].NombrePeriodo %> <%= solicitud[0].anio %>) - <%= solicitud[0].nombre %> <%= solicitud[0].apellidoP %></h5>
+          <hr class="style17">
+        </div>
+        
+        <div class="row content-center">
+          <div class="col-auto"><h3><strong>Recolección de Feedback</strong></h3></div>
+          <div class="col-auto"><p><i>Respondida por: <%= solicitud[0].nombre %> <%= solicitud[0].apellidoP %></i></p></div>
+        </div><br>
 
-        <h4>People & Business - Nivel</h4>
+        <h4>People & Business - Nivel <%= niveles[1].nivelP %></h4>
         <% for (let pregunta of people) { %>
           <div class="space2">
             <h6><%= pregunta.pregunta %></h6>
@@ -99,7 +106,7 @@
           </div>
         <% } %>
       
-        <h4>Commercial & Costumer - Nivel</h4>
+        <h4>Commercial & Costumer - Nivel <%= niveles[2].nivelP %></h4>
         <% for (let pregunta of business) { %>
           <div class="space2">
             <h6><%= pregunta.pregunta %></h6>
@@ -174,7 +181,7 @@
           </div>
         <% } %>
 
-        <h4>Craft - Nivel</h4>
+        <h4>Craft - Nivel <%= niveles[0].nivelP %></h4>
         <% for (let pregunta of craft) { %>
           <div class="space2">
             <h6><%= pregunta.pregunta %></h6>
