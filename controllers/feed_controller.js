@@ -103,7 +103,11 @@ exports.miFeedback =  async (request, response, next) => {
         retroalimentaciones : sr,
         nombreSesion: request.session.nombreSesion,
         apellidoPSesion: request.session.apellidoPSesion,
-        foto: request.session.foto 
+        foto: request.session.foto,
+        idEmpleado: request.session.idEmpleado ? request.session.idEmpleado : '',
+        nivel_craftpg: request.session.craft ? request.session.craft : '',
+        nivel_peoplepg: request.session.people ? request.session.people : '',
+        nivel_businesspg: request.session.business ? request.session.business : '',
     });
 };
 
