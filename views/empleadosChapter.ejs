@@ -291,8 +291,15 @@
 
 
                         <td><a href="/empleados/<%= empleado.idEmpleado %>" class="btn btn-dark">Modificar</a></td>
-                        <td><a href="/empleados/eliminar/<%= empleado.idEmpleado %>" class="btn btn-secondary">Eliminar</a></td>
-      
+                      
+                        <td>
+
+                       
+                          <form action="/empleados/eliminar/<%= empleado.idEmpleado %>" method="POST">
+                            <button onclick="seguroEliminar();" class="btn btn-secondary">Eliminar</button>
+                        </form>
+
+                      </td>
       
                     </tr>
                     <%} %>
@@ -303,6 +310,33 @@
             </div>
           </div>
         </div>
+
+      <script>
+        function checker(){
+            if(window.confirm("¿Desea eliminar al empleado?")){
+              document.getElementById("formEliminar").submit();
+            } else {
+              return;
+            }
+          }
+
+          function submitForm() {
+             return confirm('¿Realmente quieres eliminar al empleado?');
+          }
+
+          function seguroEliminar(){
+              //Ingresamos un mensaje
+              var mensaje = confirm("¿Desea eliminar al empleado?");
+            //Verificamos si el usuario acepto el mensaje
+            if (mensaje) {
+            alert("Se eliminará al empleado");
+            }
+            //Verificamos si el usuario denegó el mensaje
+            else {
+            alert("No se eliminará el empleado");
+            }
+          }
+      </script>
 
 
         <script>

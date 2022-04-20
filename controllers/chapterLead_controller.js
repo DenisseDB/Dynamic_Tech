@@ -138,8 +138,16 @@ exports.modificarEmpleado = (request, response, next) => {
 
 exports.eliminarEmpleado = (request, response, next) => {
 
+    console.log(request.params.idEmpleado);
 
+    Lead.eliminarEmpleado(request.params.idEmpleado)
+           .then(([rows,fieldData]) =>{ 
 
+               response.redirect('/empleados');
+
+           }).catch(error => {
+               console.log(error);
+           });
 
 };
 

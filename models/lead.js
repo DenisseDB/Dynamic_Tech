@@ -47,7 +47,7 @@ module.exports = class ChapterLead {
 
      //Para obtener todos los miebros del chapter
      static fecthMiembrosChapter() {
-        return db.execute ('SELECT * from empleado;');
+        return db.execute ('SELECT * from empleado where activo = 1;');
 
     }
 
@@ -67,6 +67,11 @@ module.exports = class ChapterLead {
 
     static fetch(valor) {
         return db.execute('SELECT e.idEmpleado,nombre,apellidoP,apellidoM,correo,contrasena,idEquipo,fotoPerfil,idRol, idDimension,nivelE from empleado e, rolempleado re,dimempleado di WHERE e.idEmpleado = re.idEmpleado AND e.idEmpleado = di.idEmpleado AND (nombre LIKE ? OR apellidoP LIKE ?)', ['%'+valor+'%', '%'+valor+'%']);
+    }
+
+
+    static eliminarEmpleado(idEmpleado) {
+        return db.execute('UPDATE empleado SET activo = 0 WHERE idEmpleado= ?;', [idEmpleado]);
     }
 
 
