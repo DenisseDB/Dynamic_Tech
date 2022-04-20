@@ -17,7 +17,6 @@ exports.agregarEmpleados = (request, response, next) => {
                 .then(([equipos, fieldData]) => {
                     Lead.fecthMiembrosChapter()
                         .then(([miembros, fieldData]) => {
-
                             Lead.fecthDimEmpleado()
                                 .then(([dimEmpleado, fieldData]) => {
                                     const success = request.session.empleadoSuccess ? request.session.empleadoSuccess : false;
