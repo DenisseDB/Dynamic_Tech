@@ -9,7 +9,8 @@ module.exports = class formatoEvaluacion {
         this.nivel = nuevo_nivel;
         this.dimension = nueva_dimension;
         this.pregunta = nueva_pregunta;
-    }
+   }
+   
 
     // //Este método servirá para guardar de manera persistente el nuevo objeto. 
     saveCuestionario() {
