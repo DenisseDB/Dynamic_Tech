@@ -1,19 +1,105 @@
-<%- include('includes/head.ejs') %>
+<!-- Partes que siempre aparecen en el navbar -->
+<%- include('includes/sidenavsup.ejs') %>
 
-<body>
-    <h1 id="principal">Mis Mentorados</h1>
-    <h2><%= nombre %>, estos son tus mentorados:</h2>
-    <br><br>
-    <ul>
-        <% for (let mentorado in mentorados) { %>
-        <li><% mentorado.nombre></li>
-        <% }>
-    </ul>
-   
-    <br><br>
-    <a href="/musica"><button type="button" class="btn btn-secondary">Regresar a los TOPS de audio visuales</button></a>
-    </div>
-    <br>
-    </body>
+  <!-- Para que aparezca Mis Mentorados -->
+  <% for (i=0; i < rolesA.length; i++) { %>
+    <% if (rolesA[i].idPrivilegio==1) { %>
+      <%- include('includes/sideMentorados.ejs') %>
+        <% } %>
+          <% } %>
 
-<%- include('includes/foot.ejs') %>
+            <!-- Para que aparezca Empleados del chapter -->
+            <% for (i=0; i < rolesA.length; i++) { %>
+              <% if (rolesA[i].idPrivilegio==2) { %>
+                <%- include('includes/sideAgregarE.ejs') %>
+                  <% } %>
+                    <% } %>
+
+                      <!-- Final de la nav-->
+                      <%- include('includes/sidenavFin.ejs') %>
+
+                        <body>
+                          <h1 id="principal">Mis Mentorados</h1>
+                          <br>
+                          <h2>
+                            <%= nombre %>, estos son tus mentorados:
+                          </h2>
+                          <br><br>
+                          <div class="container">
+                            <div class="col-sm-12">
+                              <div class="card">
+                                <h5 class="card-header"><i class="bi bi-people-fill"></i> Mentorados</h5>
+                                <div class="card-body">
+                                  <!--Para tabla con boostrap-->
+                                  <table class="table">
+                                    <thead class="thead-dark">
+                                      <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Craft</th>
+                                        <th scope="col">People</th>
+                                        <th scope="col">Busisness</th>
+                                        <th scope="col">Retroalimentación</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <% var mentorados_id=[] %>
+                                        <% var mentorados_nombre=[] %>
+                                        <% var mentorados_apellido=[] %>
+                                        <% var mentorados_niveles=[] %>
+                                        <% for (let mentorado of mentorados) { %>
+                                          <% if (!((mentorados_id).includes(mentorado.idMentorado))) {%>
+                                            <% mentorados_id.push(mentorado.idMentorado) %>
+                                            <% mentorados_nombre.push(mentorado.nombre) %>
+                                            <% mentorados_apellido.push(mentorado.apellidoP)%>
+                                            <% mentorados_niveles.push(Array.from(mentorado.nivelE))%>
+                                          <% } %>
+                                          <% if ((mentorados_niveles)[(mentorados_nombre).length - 1].length <= 3) { %>
+                                            <% mentorados_niveles[(mentorados_niveles).length - 1].push(mentorado.nivelE) %>
+                                          <% } %>
+                                        <% } %>
+                                          <% console.log(mentorados_nombre); %>
+                                          <% console.log(mentorados_niveles); %>
+
+                                      <% for (let mentorados of mentorados_nombre) { %>
+                                          <%console.log(mentorados);%>
+                                        <td> <img src="https://github.com/mdo.png"
+                                          alt="hugenerd" width="60" height="60"
+                                          class="rounded-circle"></td>
+                                        <td>
+                                          <%= mentorados %>
+                                        </td>
+                                      <td><img
+                                          src="https://www.visme.co/wp-content/themes/visme/images/graph-maker-header-4.jpg"
+                                          alt="hugenerd" width="100" height="60"></td>
+                                      <td><img
+                                          src="https://www.visme.co/wp-content/themes/visme/images/graph-maker-header-4.jpg"
+                                          alt="hugenerd" width="100" height="60"></td>
+                                      <td><img
+                                          src="https://www.visme.co/wp-content/themes/visme/images/graph-maker-header-4.jpg"
+                                          alt="hugenerd" width="100" height="60"></td>
+                                      <td><button type="button"
+                                          class="btn btn-dark">Detalle</button></td>
+                                                                <!-- <button type="button" class="btn btn-lg btn-primary" disabled>Responder</button> -->
+
+                                      </tr>
+                                      <% } %>
+                                        <td></td>
+                                        <td><b>Promedio por dimensión</b></td>
+                                        <td><b>3.1</b></td>
+                                        <td><b>4.2</b></td>
+                                        <td><b>2.3</b></td>
+
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
+                        </body>
+
+
+                        <%- include('includes/foot.ejs') %>

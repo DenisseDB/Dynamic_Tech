@@ -1,0 +1,108 @@
+<%- include('includes/sidenavsup.ejs') %>
+    <%- include('includes/sidenavFin.ejs') %>
+        <h2 id="principal">Crear pregunta</h2>
+        <br><br>
+        <div class="container px-8">
+            <div class="row justify-content-md-center">
+                <div class="col-sm-7">
+                    <form id="form1" name="form1" class="was-validated" action="/feedback/crearPregunta" method="POST">
+                        <input type="hidden" name="nombreC" value="<%=nombreC%>">
+                        <input type="hidden" name="pregunta0" value="<%=pregunta0%>">
+                        <input type="hidden" name="pregunta1" value="<%=pregunta1%>">
+                        <input type="hidden" name="pregunta2" value="<%=pregunta2%>">
+                    <div class="row justify-content-md-start">
+                        <div class="col-sm-5">
+                            <label>Nivel</label>
+                            <input type="text" name="nivelPr" id="nivelPr" aria-describedby="invalidNameHelp"
+                                value="<%=nivelP%>" placeholder="<%=nivelP%>" readonly>
+                        </div>
+                        <div class="col-sm-7">
+                            <label>Dimension</label>
+                            <input type="text" name="dimPr" id="dimPr" aria-describedby="invalidNameHelp"
+                                value="<%=dimP%>" placeholder="<%=dimP%>" readonly>
+                        </div>
+                </div>
+
+                <br>
+                <div class="input-group has-validation mb-3">
+                    <label class="input-group-text" id="basic-addon1">Pregunta</label>
+                    <textarea class="form-control" name="textoPregunta" id="textoPregunta"
+                        placeholder="Ingrese su pregunta" aria-describedby="QuestionInput" rows="4" cols="50"
+                        required></textarea>
+                    <div id="QuestionInput" class="invalid-feedback">
+                        Es necesario ingresar una pregunta
+                    </div>
+                </div>
+
+                <div class="col-sm-5">
+                    <div class="input-group md-form mb-3">
+                        <label class="input-group-text" for="inputTipo">Tipo de Pregunta</label>
+                        <select class="form-select" name="inputTipo" id="inputTipo" required>
+                            <option value="" disabled selected>Selecciona un tipo</option>
+                            <option value="1"> Númerica </option>
+                            <option value="2"> Texto </option>
+                        </select>
+                        <div id="QuestionInput" class="invalid-feedback">
+                            Selecciona un tipo
+                        </div>
+                    </div>
+                    <input type="submit" class="btn btn-primary" id="buttonP" value="Crear">
+                    <button class="btn btn-secondary" id="buttonC">Cancelar</button>
+                </div>
+                <br>
+                </form>
+
+                <div class="row justify-content-md-end">
+                    <div class="col-sm-5">
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <script>
+            /*console.log(document.getElementById("nivelPr").value);
+            document.getElementById("buttonC").onclick = () => {
+                history.go(-1);
+            };
+
+            document.getElementById("buttonP").onclick = async () => {
+                if (document.getElementById('textoPregunta').value != '' && document.getElementById('inputTipo').value != '') {
+                    await event.preventDefault();
+                    await (accion_asincrona());
+                }
+            };
+
+            const accion_asincrona = () => {
+                console.log('a');
+
+                const nivel = document.getElementById('nivelPr').value;
+                const dimension = document.getElementById('dimPr').value;
+                const textoPregunta = document.getElementById('textoPregunta').value;
+                const tipo = document.getElementById('inputTipo').value;
+
+
+                const data = {
+                    nivelPr: nivel,
+                    dimPr: dimension,
+                    textoPregunta: textoPregunta,
+                    inputTipo: tipo
+                }
+
+                console.log(data);
+
+                fetch('/feedback/crearPregunta', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data),
+                }).then((response) => {
+                    return response.json();
+                }).then((data) => {
+                    console.log('Success:', data);
+                }).catch((error) => {
+                    console.log('Error:', error);
+                })
+            };*/
+        </script>
