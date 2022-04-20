@@ -37,7 +37,7 @@ module.exports = class Solicitud{
 
     // Método. Selección de compañero(s) (evaluadores) para solicitud.
     static fecthEmpleados(idSesionado) {
-        return db.execute('SELECT idEmpleado, nombre, apellidoP FROM empleado WHERE idEmpleado <> ? AND idEmpleado NOT IN (SELECT idEvaluador FROM retroalimentacion WHERE idEvaluado = ? AND idPeriodo = (SELECT MAX(idPeriodo) FROM periodo));', 
+        return db.execute('SELECT idEmpleado, nombre, apellidoP FROM empleado WHERE idEmpleado <> ? AND idEmpleado NOT IN (SELECT idEvaluador FROM retroalimentacion WHERE idEvaluado = ? AND idPeriodo = (SELECT MAX(idPeriodo) FROM periodo)) AND activo = 1;', 
             [idSesionado, idSesionado]);
     }
     
