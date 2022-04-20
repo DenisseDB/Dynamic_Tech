@@ -51,7 +51,7 @@
                                       </thead>
                                       <tbody>
                                         <tr>
-                                          <td style="margin:auto">
+                                          <td>
                                             <div role="progressbar" id="pg1" data-content="" aria-valuenow="40"
                                               aria-valuemin="0" aria-valuemax="100" value="2" style="--value:40;">
                                             </div>
@@ -139,10 +139,7 @@
 
                           const graficas = () => {
 
-                            console.log("a");
-
                             const new_id = document.getElementById("idE");
-                            console.log(new_id);
 
                             fetch('/users/tops/' + new_id, {
                               method: 'GET',
@@ -153,8 +150,6 @@
                             }).then(result => {
                               return result.json();
                             }).then(data => {
-
-                              console.log(data);
 
                               //! Se definen las listas de los valores a desplegar 
                               var nivel_craft = [];
@@ -181,11 +176,6 @@
                                   fechas.push(d);
                                 }
                               }
-
-                              console.log(nivel_craft);
-                              console.log(nivel_business);
-                              console.log(nivel_people);
-                              console.log(fechas);
 
                               var chartdata = {
                                 labels: fechas,
