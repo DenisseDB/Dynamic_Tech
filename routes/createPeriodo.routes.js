@@ -6,10 +6,10 @@ const router = express.Router();
 const crearPeriodo= require('../controllers/crearPeriodo_controller');
 const { route } = require('express/lib/application');
 
-router.get('/ingresarPeriodos', isAuth, checkRoleAuth([2]), crearPeriodo.generarPeriodo);
+router.get('/ingresarPeriodos', isAuth, checkRoleAuth([1]), crearPeriodo.generarPeriodo);
 router.post('/ingresarPeriodos', crearPeriodo.generarPeriodoPost);
 
-router.get('/', isAuth, checkRoleAuth([2]), crearPeriodo.root);
+router.get('/', isAuth, checkRoleAuth([1]), crearPeriodo.root);
 
 
 module.exports = router;    

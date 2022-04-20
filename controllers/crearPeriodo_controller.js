@@ -12,6 +12,7 @@ exports.root = (request, response, next) => {
         info: '',
         nombreSesion: request.session.nombreSesion,
         apellidoPSesion: request.session.apellidoPSesion,
+        foto: request.session.foto,
     });
 };
 
@@ -25,6 +26,7 @@ exports.generarPeriodo = (request, response, next) => {
                 periodo: rows,
                 nombreSesion: request.session.nombreSesion,
                 apellidoPSesion: request.session.apellidoPSesion,
+                foto: request.session.foto,
             });
         }).catch((error) => {
             console.log(error);
