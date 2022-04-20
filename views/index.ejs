@@ -251,66 +251,39 @@
                                 },
                               })
 
-                              let var1 = 2.1
+                              /*let var1 = 2.1
                               let var2 = var1 * 100 / 5;
                               document.getElementById('pg1').setAttribute("style", "--value:" + var2 + ";");
-                              document.getElementById('pg1').setAttribute("data-content", "" + var1 + "");
-
-
-                              /*var dimension = [];
-                              var nivel = [];
-                  
-                              for (var i in data) {
-                                if (data[i].idDimension == 1) {
-                                  nivel_craft.push(data[i].nivelE)
-                                }
-                                dimension.push(data[i].nombre);
-                                nivel.push(data[i].nivelE.toFixed(1));
-                              }
-                  
-                              console.log(dimension);
-                              console.log(nivel);
-                  
-                              var chartdata = {
-                                labels: dimension,
-                                datasets: [
-                                  {
-                                    label: 'Nivel de dimensión',
-                                    backgroundColor: // Color de las barras en la grafica
-                                      ['rgba(255, 99, 132, 0.2)',
-                                        'rgba(255, 159, 64, 0.2)',
-                                        'rgba(255, 205, 86, 0.2)'],
-                  
-                                    borderColor: // Color del borde de las barras en la grafica  
-                                      ['rgb(255, 99, 132)',
-                                        'rgb(255, 159, 64)',
-                                        'rgb(255, 205, 86)'],
-                  
-                                    hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
-                                    hoverBorderColor: 'rgba(200, 200, 200, 1)',
-                                    data: nivel
-                                  }
-                                ]
-                              };
-                  
-                              var ctx = document.getElementById("mycanvas");
-                  
-                              var barGraph = new Chart(ctx, {
-                                type: 'line', // Se define el tipo de grafica
-                                data: chartdata
-                              });*/
-
-                              /*for (let d of data) {
-                              }*/
-
+                              document.getElementById('pg1').setAttribute("data-content", "" + var1 + "");*/
                             }).catch(err => {
                               console.log(err);
 
                             });
                           };
 
+
+
                           window.onload = function () {
                             graficas();
+
+                            let niv_c = parseFloat('<%=nivel_craftpg%>').toFixed(1);
+                            console.log(niv_c);
+                            let niv_c2 = niv_c * 100 / 5;
+                            console.log(niv_c2);
+                            document.getElementById('pg1').setAttribute("style", "--value:" + niv_c2 + ";");
+                            document.getElementById('pg1').setAttribute("data-content", "" + niv_c + "");
+
+                            let niv_p = parseFloat('<%=nivel_peoplepg%>').toFixed(1);
+                            let niv_p2 = niv_p * 100 / 5;
+                            console.log(niv_p);
+                            document.getElementById('pg2').setAttribute("style", "--value:" + niv_p2 + ";");
+                            document.getElementById('pg2').setAttribute("data-content", "" + niv_p + "");
+
+                            let niv_b = parseFloat('<%=nivel_businesspg%>').toFixed(1);
+                            let niv_b2 = niv_b * 100 / 5;
+                            console.log(niv_b);
+                            document.getElementById('pg3').setAttribute("style", "--value:" + niv_b2 + ";");
+                            document.getElementById('pg3').setAttribute("data-content", "" + niv_b + "");
                           };
 
 

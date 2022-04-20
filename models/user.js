@@ -42,7 +42,7 @@ module.exports = class User {
     static findOne(correo) {
         //return db.execute('SELECT nombre,correo,E.idEmpleado,idRol FROM empleado E, rolEmpleado RE WHERE E.idEmpleado = RE.idEmpleado AND correo=?',
         //    [correo]);
-        return db.execute('SELECT E.idEmpleado, nombre,apellidoP, apellidoM, correo, idRol, idDimension, nivelE, DE.fecha FROM empleado E, rolempleado RE, dimempleado DE WHERE E.idEmpleado = RE.idEmpleado AND E.idEmpleado = DE.idEmpleado AND correo = ? ORDER BY idDimension ASC;',
+        return db.execute('SELECT E.idEmpleado, nombre,apellidoP, apellidoM, correo, idRol, idDimension, nivelE, DE.fecha FROM empleado E, rolempleado RE, dimempleado_actual DE WHERE E.idEmpleado = RE.idEmpleado AND E.idEmpleado = DE.idEmpleado AND correo = ? ORDER BY idDimension ASC;',
             [correo]);
     }
 

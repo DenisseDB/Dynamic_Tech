@@ -220,6 +220,10 @@ exports.home = (request, response, next) => {
                     rolesA: rows,
                     rol: request.session.idRol ? request.session.idRol : '',
                     idEmpleado: request.session.idEmpleado ? request.session.idEmpleado : '',
+                    nivel_craftpg: request.session.craft ? request.session.craft : '',
+                    nivel_peoplepg: request.session.people ? request.session.people : '',
+                    nivel_businesspg: request.session.business ? request.session.business : '',
+
                 });
 
         }).catch((error) => {
