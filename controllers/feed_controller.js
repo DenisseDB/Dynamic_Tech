@@ -1,10 +1,11 @@
 const User = require('../models/user');
 const Feed = require('../models/contestaFeed');
 const Solicitud = require('../models/solicitud');
+const Historial = require('../models/historico');
 const res = require('express/lib/response');
 
 exports.solicitudesFeedback = async (request, response, next) => {
-    const pd = await Solicitud.fecthPeriodo(); // Periodo de evaluación.
+    const pd = await Solicitud.fecthLastPeriodo(); // Último periodo de evaluación.
     const eval = await Solicitud.fecthEvaluaciones(request.session.idEmpleado); // A evaluar.
     const sol = await Solicitud.fecthSolicitudes(request.session.idEmpleado); // Mis Solicitudes.
     request.session.solicitudes = sol.length; // N. Solicitudes.
@@ -17,11 +18,13 @@ exports.solicitudesFeedback = async (request, response, next) => {
     const date = new Date(d.toDateString());
 
     let inicio = pd[0].fecha_inicial;
-    inicio = new Date(inicio.toDateString());
+    inicio =  new Date(inicio.toDateString());
 
     let final = pd[0].fecha_final;
     final = new Date(final.toDateString());
 
+    const pa = (inicio <= date) && (final >= date);
+ 
     Solicitud.fecthEmpleados(request.session.idEmpleado)
         .then(([emp, fielData]) => {
 
@@ -32,7 +35,7 @@ exports.solicitudesFeedback = async (request, response, next) => {
                     evaluaciones: eval,
                     solicitudes: sol,
                     empleados: emp,
-                    fecha: date,
+                    fecha: pa,
                     fecha_i: inicio,
                     fecha_f: final,
                     nombreSesion: request.session.nombreSesion,
@@ -86,6 +89,50 @@ exports.nuevaSolicitud = async (request, response, next) => {
     }
 
     response.redirect('/solicitudes');
+};
+
+exports.miFeedback =  async (request, response, next) => {
+    const pds = await Historial.fecthAllPeriodo(); // Periodos de evaluación.
+    const sr = await Historial.fecthFeedHistorico(request.session.idEmpleado); // Histórico de solicitudes respondidas.
+
+    response.render('miFeedback.ejs',
+    {
+        idSesionado: request.session.idEmpleado,
+        rolesA :  request.session.privilegiosPermitidos,
+        periodos : pds,
+        retroalimentaciones : sr,
+        nombreSesion: request.session.nombreSesion,
+        apellidoPSesion: request.session.apellidoPSesion,
+        foto: request.session.foto 
+    });
+};
+
+exports.detalleFeedback =  async (request, response, next) => {
+    let evaluador = request.body.IdEval;
+    let periodo = request.body.IdPed;
+    let evaluado = request.session.idEmpleado;
+    let idcraft = request.body.IdCraft;
+    let idPeople = request.body.IdPeople;
+    let idCommercial = request.body.IdCommercial;
+
+    const rCraft = await Historial.fecthFeedDetallado(idcraft, evaluado, evaluador, periodo); // Retro del Cuestionario Craft.
+    const rPeople = await Historial.fecthFeedDetallado(idPeople, evaluado, evaluador, periodo); // Retro del Cuestionario People.
+    const rBusiness = await Historial.fecthFeedDetallado(idCommercial, evaluado, evaluador, periodo); // Retro del Cuestionario Business.
+    const sol = await Historial.fecthSolicitud(evaluado, evaluador, periodo); // Detalle del Periodo y Evaluador.
+    const lvl = await Historial.fecthNiveles(idcraft, idPeople, idCommercial); // Detalle de los niveles al momento de la solicitud.
+
+    response.render('detalleFeedback.ejs',
+    {
+        rolesA :  request.session.privilegiosPermitidos,
+        craft : rCraft,
+        people : rPeople,
+        business : rBusiness,
+        solicitud : sol,
+        niveles : lvl,
+        nombreSesion: request.session.nombreSesion,
+        apellidoPSesion: request.session.apellidoPSesion,
+        foto: request.session.foto 
+    });
 };
 
 
@@ -181,12 +228,6 @@ exports.salvarRespuestas = async (request, response, next) => {
     } catch(error) {
         console.log(error)
     }
-    
-    
-    
-
-   
-
 };
 
 exports.misMentorados = (request, response, next) => {
