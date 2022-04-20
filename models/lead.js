@@ -73,8 +73,4 @@ module.exports = class ChapterLead {
         return db.execute('UPDATE empleado SET activo = 0 WHERE idEmpleado= ?;', [idEmpleado]);
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> a1ee5010c1e8872e99a9203154ea74e38d0fa7aa
 }
