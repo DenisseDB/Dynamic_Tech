@@ -77,6 +77,7 @@ exports.generarPeriodoPost = (request, response, next) => {
                 info: request.session.info,
                 nombreSesion: request.session.nombreSesion,
                 apellidoPSesion: request.session.apellidoPSesion,
+                foto: request.session.foto,
             });
             console.log('Periodos');
             
