@@ -33,7 +33,11 @@ module.exports = class User {
     }
 
     static fecthMentorados(idEmpleado) {
-        return db.execute('SELECT nombre, apellidoP, apellidoM FROM empleado E, asignacionempleado AE WHERE E.idEmpleado = AE.idMentorado AND AE.idMentor = ?',
+        //return db.execute('SELECT nombre, apellidoP, apellidoM FROM empleado E, asignacionempleado AE WHERE E.idEmpleado = AE.idMentorado AND AE.idMentor = ?',
+        //    [idEmpleado]);
+        //SELECT idMentorado, nombre, apellidoP, apellidoM, nivelE FROM empleado E, asignacionempleado AE, dimempleado_actual DA WHERE E.idEmpleado = AE.idMentorado AND DA.idEmpleado = AE.idMentorado AND AE.idMentor = 1
+
+        return db.execute('SELECT idMentorado, nombre, apellidoP, apellidoM, nivelE FROM empleado E, asignacionempleado AE, dimempleado_actual DA WHERE E.idEmpleado = AE.idMentorado AND DA.idEmpleado = AE.idMentorado AND AE.idMentor = ?',
             [idEmpleado]);
 
     }
