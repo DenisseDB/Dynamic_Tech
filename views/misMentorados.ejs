@@ -44,30 +44,47 @@
                                     </thead>
                                     <tbody>
                                       <tr>
+                                        <% var mentorados_id=[] %>
+                                        <% var mentorados_nombre=[] %>
+                                        <% var mentorados_apellido=[] %>
+                                        <% var mentorados_niveles=[] %>
                                         <% for (let mentorado of mentorados) { %>
-                                          <td> <img src="https://github.com/mdo.png" alt="hugenerd" width="60"
-                                              height="60" class="rounded-circle"></td>
-                                          <td>
-                                            <%= mentorado.nombre %>
-                                              <%= mentorado.apellidoP %>
-                                                <%= mentorado.apellidoM %>
-                                          </td>
-                                          <td><img
-                                              src="https://www.visme.co/wp-content/themes/visme/images/graph-maker-header-4.jpg"
-                                              alt="hugenerd" width="100" height="60"></td>
-                                          <td><img
-                                              src="https://www.visme.co/wp-content/themes/visme/images/graph-maker-header-4.jpg"
-                                              alt="hugenerd" width="100" height="60"></td>
-                                          <td><img
-                                              src="https://www.visme.co/wp-content/themes/visme/images/graph-maker-header-4.jpg"
-                                              alt="hugenerd" width="100" height="60"></td>
-                                          <td><button type="button" class="btn btn-dark">Detalle</button></td>
+                                          <% if (!((mentorados_id).includes(mentorado.idMentorado))) {%>
+                                            <% mentorados_id.push(mentorado.idMentorado) %>
+                                            <% mentorados_nombre.push(mentorado.nombre) %>
+                                            <% mentorados_apellido.push(mentorado.apellidoP)%>
+                                            <% mentorados_niveles.push(Array.from(mentorado.nivelE))%>
+                                          <% } %>
+                                          <% if ((mentorados_niveles)[(mentorados_nombre).length - 1].length <= 3) { %>
+                                            <% mentorados_niveles[(mentorados_niveles).length - 1].push(mentorado.nivelE) %>
+                                          <% } %>
+                                        <% } %>
+                                          <% console.log(mentorados_nombre); %>
+                                          <% console.log(mentorados_niveles); %>
 
-
-                                          <!-- <button type="button" class="btn btn-lg btn-primary" disabled>Responder</button> -->
+                                      <% for (let mentorados of mentorados_nombre) { %>
+                                          <%console.log(mentorados);%>
+                                        <td> <img src="https://github.com/mdo.png"
+                                          alt="hugenerd" width="60" height="60"
+                                          class="rounded-circle"></td>
+                                        <td>
+                                          <%= mentorados %>
+                                        </td>
+                                      <td><img
+                                          src="https://www.visme.co/wp-content/themes/visme/images/graph-maker-header-4.jpg"
+                                          alt="hugenerd" width="100" height="60"></td>
+                                      <td><img
+                                          src="https://www.visme.co/wp-content/themes/visme/images/graph-maker-header-4.jpg"
+                                          alt="hugenerd" width="100" height="60"></td>
+                                      <td><img
+                                          src="https://www.visme.co/wp-content/themes/visme/images/graph-maker-header-4.jpg"
+                                          alt="hugenerd" width="100" height="60"></td>
+                                      <td><button type="button"
+                                          class="btn btn-dark">Detalle</button></td>
+                                                                <!-- <button type="button" class="btn btn-lg btn-primary" disabled>Responder</button> -->
 
                                       </tr>
-                                      <%} %>
+                                      <% } %>
                                         <td></td>
                                         <td><b>Promedio por dimensión</b></td>
                                         <td><b>3.1</b></td>

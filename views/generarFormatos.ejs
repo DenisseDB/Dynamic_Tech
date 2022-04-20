@@ -179,28 +179,20 @@
         </div>
 
         <script>
-
             document.getElementById("cancel2").style.visibility = "hidden";
-
             document.getElementById("button2").style.display = "none";
             document.getElementById("pregunta_nueva").style.display = "none";
-
             document.getElementById("button3").style.display = "none";
             document.getElementById("pregunta_nueva2").style.display = "none";
-
             document.getElementById("button4").style.display = "none";
             document.getElementById("pregunta_nueva3").style.display = "none";
-
             document.getElementById("button5").style.display = "none";
-
             document.getElementById("pregunta1").disabled = true;
             document.getElementById("pregunta2").disabled = true;
-
             document.getElementById("button1").onclick = () => {
                 let nombre = document.getElementById("nombreCuestionario").value;
                 let dimension = document.getElementById("inputDimension").value;
                 let nivel = document.getElementById("inputNivel").value;
-
                 if (nombre != '' && dimension != '' && nivel != '') {
                     console.log("hola");
                     document.getElementById("pregunta_nueva").style.display = "block";
@@ -213,24 +205,19 @@
                     //document.getElementById("button1").style.visibility = "hidden";
                     //document.getElementById("cancel").style.visibility = "hidden";
                     document.getElementById("cancel2").style.visibility = "visible";
-
                     accion_asincrona('pregunta0');
                     console.log('t');
-
                     var url = "/feedback/crearPregunta/" + nivel + "/" + dimension;
                     console.log(url);
                     var element = document.getElementById("button5");
                     element.setAttribute("href", url);
                     console.log(document.getElementById("button5"));
                 }
-
             }
-
             const accion_asincrona = (id) => {
                 const nivel = document.getElementById('inputNivel').value;
                 const dimension = document.getElementById('inputDimension').value;
                 console.log(nivel);
-
                 fetch('/feedback/buscarFormato/' + nivel + '/' + dimension, {
                     method: 'GET',
                     headers: {
@@ -240,11 +227,9 @@
                 }).then(result => {
                     return result.json();
                 }).then(data => {
-
                     //console.log(data);
                     let respuesta = '';
                     respuesta += '<option value ="" disabled selected> Selecciona una pregunta</option>';
-
                     /*for (let d of data) {
                         respuesta += '<option value="' + d.idPregunta + '">' + d.pregunta + '</option>';
                     }*/
@@ -257,18 +242,13 @@
                     }
                     //document.getElementById('pregunta0').innerHTML = respuesta;
                     document.getElementById(id).innerHTML = respuesta;
-
                 }).catch(err => {
                     console.log(err);
-
                 });
             };
-
-
             document.getElementById("pregunta0").onchange = () => {
                 document.getElementById("button3").style.display = "block";
             }
-
             document.getElementById("button3").onclick = () => {
                 document.getElementById("pregunta_nueva2").style.display = "block";
                 document.getElementById("pregunta1").disabled = false;
@@ -276,11 +256,9 @@
                 document.getElementById("button3").style.visibility = "hidden";
                 accion_asincrona('pregunta1');
             }
-
             document.getElementById("pregunta1").onchange = () => {
                 document.getElementById("button4").style.display = "block";
             }
-
             document.getElementById("button4").onclick = () => {
                 document.getElementById("pregunta_nueva3").style.display = "block";
                 document.getElementById("pregunta2").disabled = false;
@@ -288,13 +266,11 @@
                 document.getElementById("button4").style.visibility = "hidden";
                 accion_asincrona('pregunta2');
             }
-
             /*document.getElementById("button5").onclick = () => {
                 var toastLiveExample = document.getElementById('liveToast');
                 var toast = new bootstrap.Toast(toastLiveExample);
                 toast.show();
             }*/
-
             /*myModal = new bootstrap.Modal(document.getElementById('modalLoginForm'));
     
             document.getElementById("form2").addEventListener("submit", function (event) {
@@ -302,15 +278,12 @@
                 event.preventDefault();
                 myModal.toggle();
             });*/
-
             /*document.getElementById("form2").onsubmit = () => {
     
             }*/
-
             /*document.getElementById("buttonC").onclick = () => {
                 console.log('Abc2');
             }*/
-
             /*document.getElementById("buttonC").onclick = () => {
                 let pregunta = document.getElementById("preguntaC").value;
                 let tipo = document.getElementById("inputTipo").value;
@@ -320,22 +293,17 @@
                     console.log('modal');
                 }
             }*/
-
             /*window.addEventListener("pageshow", function (event) {
-
                 var toastLiveExample = document.getElementById('liveToast');
                 var toast = new bootstrap.Toast(toastLiveExample);
-
                 if (document.cookie != 0) {
                     toast.show();
                     console.log('hey2');
                     document.cookie.replace = 0;
                 }
             });*/
-
         //console.log("mod " + document.getElementById("inputNivel").value);
         //document.getElementById("mod").innerHTML += "Nivel: " + document.getElementById("inputNivel").value;
-
         </script>
 
         <style>
@@ -346,3 +314,4 @@
             }
         </style>
         <%- include('includes/foot.ejs') %>
+
