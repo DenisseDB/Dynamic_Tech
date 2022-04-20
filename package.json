@@ -32,7 +32,8 @@
     "express": "^4.17.3",
     "express-session": "^1.17.2",
     "mysql2": "^2.3.3",
-    "plotly": "^1.0.6"
+    "plotly": "^1.0.6",
+    "progressbar.js": "^1.1.0"
   },
   "bugs": {
     "url": "https://github.com/DenisseDB/Dynamic_Tech/issues"

@@ -13,12 +13,12 @@ module.exports = class formatoEvaluacion {
 
     // //Este método servirá para guardar de manera persistente el nuevo objeto. 
     saveCuestionario() {
-        return db.execute('INSERT INTO Cuestionario(nombre, fecha) VALUES(?, CURRENT_DATE()); ',
+        return db.execute('INSERT INTO cuestionario(nombre, fecha) VALUES(?, CURRENT_DATE()); ',
             [this.nombre]);
     }
 
     savePreguntasCuestionario() {
-        let query = 'INSERT INTO preguntaCuestionario VALUES';
+        let query = 'INSERT INTO preguntacuestionario VALUES';
         let arr = [];
 
         console.log(this.pregunta[0]);
