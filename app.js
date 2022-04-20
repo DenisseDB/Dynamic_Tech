@@ -59,12 +59,12 @@ app.use('/', rutas_feed);
 app.use('/', rutas_lead);
 
 app.use('/users', rutas_users);
-app.use('/feedback',rutas_createfb);
+app.use('/feedback', rutas_createfb);
 app.use('/Periodo', rutas_createPeriodo);
 
 app.use((request, response, next) => {
-   response.redirect('/users');
-   next();
+    response.redirect('/users');
+    next();
 });
 
 app.listen(3000);
