@@ -1,0 +1,87 @@
+<!------------------- Navbar -------------------->
+<%- include('includes/sidenavsup.ejs') %>
+
+<!-- Para que aparezca Mis Mentorados -->
+<% for (i = 0; i < rolesA.length; i++) {  %>
+  <% if (rolesA[i].idPrivilegio == 1) { %> 
+  <%- include('includes/sideMentorados.ejs') %>
+  <% } %>
+<% } %>
+
+<!-- Para que aparezca Empleados del chapter -->
+<% for (i = 0; i < rolesA.length; i++) {  %>
+  <% if (rolesA[i].idPrivilegio == 2) { %> 
+  <%- include('includes/sideAgregarE.ejs') %>
+  <% } %>
+<% } %>
+
+<!---------------- Fin Navbar -------------------->
+<%- include('includes/sidenavFin.ejs') %>
+
+    <div class="space">
+        <h2><strong>Mi Feedback</strong></h2>
+        <hr class="style17">
+
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Periodo
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <% for (let periodo of periodos) { %>
+            <li><a class="dropdown-item" href="#"><%= periodo.NombrePeriodo %> <%= periodo.anio %></a></li>
+            <% } %>
+          </ul>
+        </div> <br>
+
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Retroalimentación -&nbsp;<strong><%= periodos[0].NombrePeriodo %> <%= periodos[0].anio %></strong>
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <ul class="list-group">
+                  <% if (retroalimentaciones.length > 0) { %>
+                  <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col" style="width:20%">Nombre</th>
+                        <th scope="col" style="width:20%">Craft</th>
+                        <th scope="col" style="width:20%">People & Business</th>
+                        <th scope="col" style="width:20%">Commercial & Costume</th>
+                        <th scope="col" style="width:20%">Retroalimentación</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% for (let retro of retroalimentaciones) { %>
+                        <% if (retro.idPeriodo == periodos[0].idPeriodo) { %>
+                      <tr>
+                        <form action="/miFeedback" method="POST">
+                          <input id="IdPed" name="IdPed" type="hidden" value="<%= retro.idPeriodo %>">
+                          <input id="IdEval" name="IdEval" type="hidden" value="<%= retro.idEvaluador %>">
+                          <input id="IdCraft" name="IdCraft" type="hidden" value="<%= retro.idCuestionarioCraft %>">
+                          <input id="IdPeople" name="IdPeople" type="hidden" value="<%= retro.idCuestionarioPeople %>">
+                          <input id="IdCommercial" name="IdCommercial" type="hidden" value="<%= retro.idCuestionarioBusiness %>">
+
+                          <td style="text-align: left;"><img src="https://emser.es/wp-content/uploads/2016/08/usuario-sin-foto.png" width="40px">&nbsp;&nbsp;<%= retro.nombre %> <%= retro.apellidoP %></td>
+                          <td>/4/</td>
+                          <td>/4/</td>
+                          <td>/4/</td>
+                          <td><button type="submit" class="btn btn-dark">Detalle</button></td>
+                        </form>
+                      </tr>
+                        <% } %>
+                      <% } %> 
+                    </tbody>
+                  </table>
+                  <% } %> 
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+<%- include('includes/foot.ejs') %>
