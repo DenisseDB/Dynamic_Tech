@@ -23,7 +23,7 @@
                           <h1 id="principal">Mi feedback</h1>
                           <br>
                           <div class="row d-flex justify-content-between">
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                               <input id="idE" value="<% idEmpleado %>" type="hidden">
                               <div id="chart-container" style="position: relative; height:30vh; width:40vw">
                                 <!--//Para cambiar tamanio-->
@@ -31,52 +31,55 @@
                               </div>
                             </div>
                             <div class="col-md-5">
-                              <div class="row d-flex justify-content-center">
-                                <div class="card">
-                                  <h5 class="card-header">Mis Dimensiones</h5>
-                                  <div class="card-body">
-                                    <ul class="list-group">
-                                      <table class="table">
-                                        <thead class="thead-dark">
-                                          <tr>
-                                            <th style="text-align:center" scope="col">Craft</th>
-                                            <th style="text-align:center" scope="col">People</th>
-                                            <th style="text-align:center" scope="col">Business</th>
-                                          </tr>
-                                          <tr>
-                                            <td>
-                                              <div role="progressbar" id="pg1" data-content="" aria-valuenow="40"
-                                                aria-valuemin="0" aria-valuemax="100" value="2" style="--value:40;">
-                                              </div>
-                                            </td>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                    </ul>
-                                  </div>
+                              <div class="card">
+                                <h5 class="card-header">Mis Dimensiones</h5>
+                                <div class="card-body">
+                                  <ul class="list-group">
+                                    <table class="table">
+                                      <thead class="thead-dark">
+                                        <tr>
+                                          <th style="text-align:center" scope="col">Craft</th>
+                                          <th style="text-align:center" scope="col">People</th>
+                                          <th style="text-align:center" scope="col">Business</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr>
+                                          <td style="margin:auto">
+                                            <div role="progressbar" id="pg1" data-content="" aria-valuenow="40"
+                                              aria-valuemin="0" aria-valuemax="100" value="2" style="--value:40;">
+                                            </div>
+                                          </td>
+                                          <td>
+                                            <div role="progressbar" id="pg2" data-content="3" aria-valuenow="40"
+                                              aria-valuemin="0" aria-valuemax="100" value="2" style="--value:60;">
+                                            </div>
+                                          </td>
+                                          <td>
+                                            <div role="progressbar" id="pg3" data-content="1" aria-valuenow="40"
+                                              aria-valuemin="0" aria-valuemax="100" value="2" style="--value:20;">
+                                            </div>
+                                          </td>
+                                        </tr>
+                                        </tr>
+                                      </tbody>
+                                  </ul>
                                 </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
-                                <div class="col-md-2">
+                        <!--div class="col-md-2">
                                   <div role="progressbar" id="pg1" data-content="" aria-valuenow="40" aria-valuemin="0"
-                                    aria-valuemax="100" value="2" style="--value:40;--val:2">
+                                    aria-valuemax="100" value="2" style="--value:40;">
                                   </div>
                                 </div>
                                 <div class="col-md-2">
                                   <div role="progressbar" id="pg2" data-content="2" aria-valuenow="40" aria-valuemin="0"
                                     aria-valuemax="100" value="2" style="--value:40;">
                                   </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <progress value="1" max="5">1</progress>
-                        </div>
+                                </div!-->
 
 
                         <style>
@@ -108,6 +111,7 @@
                             height: var(--size);
                             border-radius: 50%;
                             display: grid;
+                            margin: auto;
                             place-items: center;
                             background:
                               radial-gradient(closest-side, white 80%, transparent 0 99.9%, white 0),
@@ -247,8 +251,8 @@
                                 },
                               })
 
-                              let var1 = 2
-                              let var2 = 2 * 100 / 5;
+                              let var1 = 2.1
+                              let var2 = var1 * 100 / 5;
                               document.getElementById('pg1').setAttribute("style", "--value:" + var2 + ";");
                               document.getElementById('pg1').setAttribute("data-content", "" + var1 + "");
 
