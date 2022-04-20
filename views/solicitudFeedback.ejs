@@ -71,7 +71,7 @@
                     <input id="periodo" name="periodo" type="hidden" value="<%= periodo[0].idPeriodo %>">
                     <div class="row">
                       <div class="col-auto">
-                        <select  id="nombre" name="nombre" class="selectpicker" multiple data-live-search="true" title="Selecciona a un compañero">
+                        <select  id="nombre" name="nombre" class="selectpicker" multiple data-live-search="true" title="Selecciona a uno o varios compañeros">
                           <% for (let empleado of empleados) { %>
                             <option><%= empleado.nombre %> <%= empleado.apellidoP %></option>
                           <% } %>
