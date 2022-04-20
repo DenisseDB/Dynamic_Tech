@@ -18,7 +18,7 @@
                       <!-- Final de la nav-->
                       <%- include('includes/sidenavFin.ejs') %>
 
-                        <body>
+                      
                           <h2>Solicitudes de Feedback- <i>
                               <%= periodo[0].NombrePeriodo %>
                             </i></h2><br>
@@ -94,8 +94,8 @@
                                                   <% } %>
                                               </select>
                                             </div>
-                                            <div class="col-auto">
-                                              <button type="submit" class="btn btn-dark">Enviar</button>
+                                            <div class="col-auto" id="enviar">
+                                              <button type="submit" id="button1" class="btn btn-dark">Enviar</button>
                                             </div>
                                             <div class="col-auto">
                                               <a href="./solicitudes" id="cancel" name="cancel"
@@ -203,6 +203,19 @@
                               </div>
                               <% } %>
 
-                        </body>
+                              <script>
+                                document.getElementById("button1").onclick = () => {
+                                  document.getElementById("button1").hidden = true;
+                                  document.getElementById("cancel").hidden = true;
+                                }
+                              </script>
+
+                              <style>
+                                select[readonly] {
+                                    /*Simular campo inativo - Sugestão @GabrielRodrigues*/
+                                    pointer-events: none;
+                                    touch-action: none;
+                                }
+                              </style>
 
                         <%- include('includes/foot.ejs') %>

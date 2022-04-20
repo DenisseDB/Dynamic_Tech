@@ -58,8 +58,6 @@ exports.login = (request, response, next) => {
          request.session.people = rows[1].nivelE;
          request.session.business = rows[2].nivelE;
 
-         console.log(request.session.craft);
-
          // Redirección al HOME
          return response.redirect('../home');
 
