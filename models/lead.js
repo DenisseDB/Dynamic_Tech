@@ -68,7 +68,6 @@ module.exports = class ChapterLead {
         return db.execute('SELECT e.idEmpleado,nombre,apellidoP,apellidoM,correo,contrasena,idEquipo,fotoPerfil,idRol, idDimension,nivelE from empleado e, rolempleado re,dimempleado_actual di WHERE e.idEmpleado = re.idEmpleado AND e.idEmpleado = di.idEmpleado AND activo = 1 AND (nombre LIKE ? OR apellidoP LIKE ? OR apellidoM LIKE ?)', ['%'+valor+'%', '%'+valor+'%','%'+valor+'%']);
     }
 
-
     static eliminarEmpleado(idEmpleado) {
         return db.execute('UPDATE empleado SET activo = 0 WHERE idEmpleado= ?;', [idEmpleado]);
     }
