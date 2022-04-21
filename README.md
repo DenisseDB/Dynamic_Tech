@@ -15,7 +15,7 @@ http://localhost:3000/users/login
 
 2. Chapter assistant: nicolasRdz@gmail.com Constaseña: 123 (Empleado con más funcionalidades que un empleado normal)
 
-3. Chapter member: gabrielHuitron@gmail.com  Constaseña: 123(Empleado normal)
+3. Chapter member: gabrielHuitron@gmail.com  Constaseña: 123 (Empleado normal)
 
 ## Cosas que pueden realizar
 
