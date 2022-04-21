@@ -13,6 +13,7 @@ exports.root = (request, response, next) => {
         nombreSesion: request.session.nombreSesion,
         apellidoPSesion: request.session.apellidoPSesion,
         foto: request.session.foto,
+        rolesA: request.session.privilegiosPermitidos,
     });
 };
 
@@ -48,6 +49,7 @@ exports.generarFormato = (request, response, next) => {
                 pregunta0_p: "",
                 pregunta1_p: "",
                 pregunta2_p: "",
+                rolesA: request.session.privilegiosPermitidos,
                 //pr: request.session.pr
             });
         }).catch((error) => {
@@ -71,6 +73,7 @@ exports.generarFormato_post = (request, response, next) => {
                         nombreSesion: request.session.nombreSesion,
                         apellidoPSesion: request.session.apellidoPSesion,
                         foto: request.session.foto,
+                        rolesA: request.session.privilegiosPermitidos,
                     });
                 })
                 .catch(err => {
@@ -95,6 +98,7 @@ exports.crearPregunta1 = (request, response, next) => {
         nombreSesion: request.session.nombreSesion,
         apellidoPSesion: request.session.apellidoPSesion,
         foto: request.session.foto,
+        rolesA: request.session.privilegiosPermitidos,
     });
 };
 
@@ -109,6 +113,7 @@ exports.crearPregunta2 = (request, response, next) => {
         nombreSesion: request.session.nombreSesion,
         apellidoPSesion: request.session.apellidoPSesion,
         foto: request.session.foto,
+        rolesA: request.session.privilegiosPermitidos,
     });
 };
 
@@ -123,6 +128,7 @@ exports.crearPregunta3 = (request, response, next) => {
         nombreSesion: request.session.nombreSesion,
         apellidoPSesion: request.session.apellidoPSesion,
         foto: request.session.foto,
+        rolesA: request.session.privilegiosPermitidos,
     });
 };
 
@@ -137,6 +143,7 @@ exports.crearPregunta4 = (request, response, next) => {
         nombreSesion: request.session.nombreSesion,
         apellidoPSesion: request.session.apellidoPSesion,
         foto: request.session.foto,
+        rolesA: request.session.privilegiosPermitidos,
     });
 };
 exports.crearPregunta_post = (request, response, next) => {
@@ -162,6 +169,7 @@ exports.crearPregunta_post = (request, response, next) => {
                         pregunta1_p: request.body.pregunta1,
                         pregunta2_p: request.body.pregunta2,
                         foto: request.session.foto,
+                        rolesA: request.session.privilegiosPermitidos,
                     });
                 }).catch((error) => {
                     console.log(error);
@@ -182,6 +190,7 @@ exports.modificarFormato = (request, response, next) => {
                 nombreSesion: request.session.nombreSesion,
                 apellidoPSesion: request.session.apellidoPSesion,
                 foto: request.session.foto,
+                rolesA: request.session.privilegiosPermitidos,
             });
         }).catch((error) => {
             console.log(error);

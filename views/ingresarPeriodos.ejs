@@ -1,55 +1,69 @@
 <%- include('includes/sidenavsup.ejs') %>
-<%- include('includes/sidenavFin.ejs') %>
 
-        <h2 id="principal">Generar periodos de Evaluación</h1>
-            <br><br>
-            <div class="container px-8">
+    <!-- Para que aparezca Mis Mentorados -->
+    <% for (i=0; i < rolesA.length; i++) { %>
+        <% if (rolesA[i].idPrivilegio==1) { %>
+            <%- include('includes/sideMentorados.ejs') %>
+                <% } %>
+                    <% } %>
+
+                        <!-- Para que aparezca Empleados del chapter -->
+                        <% for (i=0; i < rolesA.length; i++) { %>
+                            <% if (rolesA[i].idPrivilegio==2) { %>
+                                <%- include('includes/sideAgregarE.ejs') %>
+                                    <% } %>
+                                        <% } %>
+
+                                            <%- include('includes/sidenavFin.ejs') %>
+
+<h2 id="principal">Generar periodos de Evaluación</h2>
+<br><br>
+<div class="container px-8">
+    <div class="row justify-content-md-center">
+        <div class="col-sm-7">
+            <form id="formPeriodo" class="was-validated" action="/Periodo/ingresarPeriodos" method="POST">
                 <div class="row justify-content-md-center">
-                    <div class="col-sm-7">
-                        <form id="formPeriodo" class="was-validated" action="/Periodo/ingresarPeriodos" method="POST">
-                            <div class="row justify-content-md-center">
 
-                                <div class="col-sm-6">
-                                    <div class="input-group mb-3">
-                                        <label class="input-group-text" for="inicioFecha">Fecha Inicio</label> <br>
-                                        <br> <input type="date" id="inicioFecha" name="inicioFecha" required
-                                            pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
-                                        </label>
-                                    </div>
-                                    <br>
+                    <div class="col-sm-6">
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inicioFecha">Fecha Inicio</label> <br>
+                            <br> <input type="date" id="inicioFecha" name="inicioFecha" required
+                                pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                            </label>
+                        </div>
+                        <br>
 
-                                    <a href="/home" class="btn btn-primary "> Cancelar </a>
-                                </div>
+                        <a href="/home" class="btn btn-primary "> Cancelar </a>
+                    </div>
 
-                                <div class="col-sm-6">
-                                    <div class="input-group mb-3">
-                                        <label class="input-group-text" for="finFecha">Fecha Fin</label> <br>
-                                        <br> <input type="date" id="finFecha" name="finFecha" required
-                                            pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
-                                        </label>
-                                    </div>
-                                    <br>
-                                    <div class="row justify-content-md-end">
-                                        <div class="col-sm-4 align-self-end">
-                                            <button class="btn btn-primary" type="submit"
-                                                id="buttonRegistrar">Registrar</button>
-                                        </div>
-
-                                    </div>
-
-                        </form>
-                        <div class="form" id="myForm">
+                    <div class="col-sm-6">
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="finFecha">Fecha Fin</label> <br>
+                            <br> <input type="date" id="finFecha" name="finFecha" required
+                                pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                            </label>
+                        </div>
+                        <br>
+                        <div class="row justify-content-md-end">
+                            <div class="col-sm-4 align-self-end">
+                                <button class="btn btn-primary" type="submit" id="buttonRegistrar">Registrar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-    
 
-    </br> </br> </br> </br> </br> </br>
+            </form>
+            <div class="form" id="myForm">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</br> </br> </br> </br> </br> </br>
+
     <script>
-
-
-
-
 
         let nivelp;
 
@@ -134,4 +148,5 @@
 
 
     </script>
- 
+
+<%- include('includes/foot.ejs') %>
