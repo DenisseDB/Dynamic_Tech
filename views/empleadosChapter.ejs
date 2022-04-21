@@ -300,7 +300,7 @@
                                   <% var people = dim.nivelE %>
                                   <% var people2 = dim.nivelE * 100 / 5 %>
                                   <div role="progressbar" id="pg2" data-content="<%= people.toFixed(1) %>" aria-valuenow="40" aria-valuemin="0"
-                                    aria-valuemax="100" value="2" style="--value:<%= people2 %>;">
+                                    aria-valuemax="100" value="2" style="--value:<%= people2 %>; --fg: rgb(91, 57, 107); --bg: rgb(238, 229, 249);">
                                   <!--%= dim.nivelE.toFixed(1) %-->
                                 </td>
                                 <% } %>
@@ -313,7 +313,7 @@
                                           <% var business = dim.nivelE %>
                                           <% var business2 = dim.nivelE * 100 / 5 %>
                                           <div role="progressbar" id="pg2" data-content="<%= business.toFixed(1) %>" aria-valuenow="40" aria-valuemin="0"
-                                          aria-valuemax="100" value="2" style="--value:<%= business2 %>;">
+                                          aria-valuemax="100" value="2" style="--value:<%= business2 %>; --fg: rgb(39, 94, 179); --bg: rgb(229, 237, 249);">
                                           <!--%= dim.nivelE.toFixed(1) %-->
                                         </td>
                                         <% } %>
@@ -479,6 +479,7 @@
         conic-gradient(var(--fg) calc(var(--pgPercentage) * 1%), var(--bg) 0);
       font-family: Helvetica, Arial, sans-serif;
       font-size: calc(var(--size) / 3.2);
+      font-weight: bold;
       color: var(--fg);
     }
   
