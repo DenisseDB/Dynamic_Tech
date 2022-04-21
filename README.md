@@ -10,13 +10,12 @@ Tras ejecutar los comandos NPM, acceder a:
 http://localhost:3000/users/login
 
 ## Usuarios prueba
-La contraseña para cualquiera de estos usuarios es: 123
 
-1. Chapter lead: bernardoLeing@gmail.com (Administrador)
+1. Chapter lead: bernardoLeing@gmail.com Contraseña: 123 (Administrador)
 
-2. Chapter assistant: nicolasRdz@gmail.com (Empleado con más funcionalidades que un empleado normal)
+2. Chapter assistant: nicolasRdz@gmail.com Contraseña: 123 (Empleado con más funcionalidades que un empleado normal)
 
-3. Chapter member: gabrielHuitron@gmail.com (Empleado normal)
+3. Chapter member: gabrielHuitron@gmail.com Contraseña: 123 (Empleado normal)
 
 ## Cosas que pueden realizar
 
