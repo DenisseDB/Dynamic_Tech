@@ -5,6 +5,10 @@ Para correr la aplicación es necesario correr en la Terminal (powershell):
 1. Instalar dependecias: npm install
 2. Correr el programa: npm start
 
+## Página principal
+Tras ejecutar los comandos NPM, poner en el navegador de Chrome:
+http://localhost:3000/users/login
+
 ## Usuarios prueba
 
 1. Chapter lead: bernardoLeing@gmail.com (Administrador)
