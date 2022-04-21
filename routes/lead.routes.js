@@ -11,7 +11,7 @@ router.get('/empleados/buscarEmpleado/:valor', isAuth,checkRoleAuth([1]), leadCo
 router.post('/empleados/eliminar/:idEmpleado',isAuth, checkRoleAuth([1]), leadController.eliminarEmpleado);
 
 router.get('/empleados/:idEmpleado',isAuth, checkRoleAuth([1]), leadController.modificarEmpleado);
-router.post('/empleados/:idEmpleado',isAuth, checkRoleAuth([1]), leadController.modificarEmpleado);
+router.post('/empleados/:idEmpleado',isAuth, checkRoleAuth([1]), leadController.empleadoModificado);
 
 router.get('/empleados',isAuth, checkRoleAuth([1]), leadController.agregarEmpleados);
 router.post('/empleados',isAuth, checkRoleAuth([1]), leadController.guardarEmpleado);
