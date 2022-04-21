@@ -232,7 +232,7 @@
                console.log("despliega_preguntas---> Dimension", dimension);
                console.log("despliega_preguntas---> Nivel", nivel);
 
-               fetch('/feedback/buscarPregunta/' + nivel + '/' + dimension, {
+               fetch('/feedback/buscarPregunta/' + nivel + '/' + dimension + '/' + cuestionario, {
                   method: 'GET',
                   headers: {
                      'Content-Type': 'application/json',
