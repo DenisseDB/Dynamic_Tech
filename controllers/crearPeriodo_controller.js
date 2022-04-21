@@ -13,6 +13,7 @@ exports.root = (request, response, next) => {
         nombreSesion: request.session.nombreSesion,
         apellidoPSesion: request.session.apellidoPSesion,
         foto: request.session.foto,
+        rolesA: request.session.privilegiosPermitidos,
     });
 };
 
@@ -27,6 +28,7 @@ exports.generarPeriodo = (request, response, next) => {
                 nombreSesion: request.session.nombreSesion,
                 apellidoPSesion: request.session.apellidoPSesion,
                 foto: request.session.foto,
+                rolesA: request.session.privilegiosPermitidos,
             });
         }).catch((error) => {
             console.log(error);
@@ -78,6 +80,7 @@ exports.generarPeriodoPost = (request, response, next) => {
                 nombreSesion: request.session.nombreSesion,
                 apellidoPSesion: request.session.apellidoPSesion,
                 foto: request.session.foto,
+                rolesA: request.session.privilegiosPermitidos,
             });
             console.log('Periodos');
             

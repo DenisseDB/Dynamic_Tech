@@ -3,14 +3,14 @@
 <!-- Para que aparezca Mis Mentorados -->
 <% for (i=0; i < rolesA.length; i++) { %>
 <% if (rolesA[i].idPrivilegio==1) { %>
-<%- include('includes/sideMentorados.ejs') %>
+  <%- include('includes/sideMentorados.ejs') %>
 <% } %>
 <% } %>
 
 <!-- Para que aparezca Empleados del chapter -->
 <% for (i=0; i < rolesA.length; i++) { %>
 <% if (rolesA[i].idPrivilegio==2) { %>
-<%- include('includes/sideAgregarE.ejs') %>
+  <%- include('includes/sideAgregarE.ejs') %>
 <% } %>
 <% } %>
 
