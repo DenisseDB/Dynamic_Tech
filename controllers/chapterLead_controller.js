@@ -136,6 +136,12 @@ exports.modificarEmpleado = (request, response, next) => {
 
 };
 
+exports.empleadoModificado = (request, response, next) => {
+
+    console.log(request.body);
+
+};
+
 exports.eliminarEmpleado = (request, response, next) => {
 
     console.log(request.params.idEmpleado);
