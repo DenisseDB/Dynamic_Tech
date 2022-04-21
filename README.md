@@ -1,5 +1,10 @@
 # Dynamic_Tech
 
+## Comandos NPM
+Para correr la aplicación es necesario correr en la Terminal (powershell):
+1. Instalar dependecias: npm install
+2. Correr el programa: npm start
+
 ## Usuarios prueba
 
 1. Chapter lead: bernardoLeing@gmail.com (Administrador)
