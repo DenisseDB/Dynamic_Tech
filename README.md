@@ -12,7 +12,7 @@ http://localhost:3000/users/login
 ## Usuarios prueba
 *Constaseña: 123*
 
-1. Chapter lead: bernardoLeing@gmail.com (Administrador)
+1. Chapter lead: bernardoLaing@gmail.com (Administrador)
 
 2. Chapter assistant: nicolasRdz@gmail.com (Empleado con más funcionalidades que un empleado normal)
 
