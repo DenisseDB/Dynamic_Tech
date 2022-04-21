@@ -1,31 +1,4 @@
 <%- include('includes/sidenavsup.ejs') %>
-<!-- Partes que siempre aparecen en el navbar -->
-<%- include('includes/sidenavsup.ejs') %>
-  <!-- Para que aparezca Mis Mentorados -->
-  <% for (i=0; i < rolesA.length; i++) { %>
-    <% if (rolesA[i].idPrivilegio==1) { %>
-      <%- include('includes/sideMentorados.ejs') %>
-        <% } %>
-          <% } %>
-            <!-- Para que aparezca Periodo -->
-            <% for (i=0; i < rolesA.length; i++) { %>
-              <% if (rolesA[i].idPrivilegio==1) { %>
-                <%- include('includes/sidePeriodo.ejs') %>
-                  <% } %>
-                    <% } %>
-            
-                      <!-- Para que aparezca Empleados del chapter -->
-                      <% for (i=0; i < rolesA.length; i++) { %>
-                        <% if (rolesA[i].idPrivilegio==2) { %>
-                          <%- include('includes/sideAgregarE.ejs') %>
-                            <% } %>
-                              <% } %>
-
-
-
-                      <!-- Final de la nav-->
-                      <%- include('includes/sidenavFin.ejs') %>
-
 <%- include('includes/sidenavFin.ejs') %>
 
 
