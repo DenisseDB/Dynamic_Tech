@@ -34,7 +34,7 @@
         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
           data-bs-parent="#accordionExample">
           <div class="accordion-body">
-            <form id="agregarEmpleado" method="POST" enctype="multipart/form-data">
+            <form id="agregarEmpleado" method="POST" enctype="multipart/form-data"  onsubmit="return submitEmpleado(this);">
               <div class="row">
                 <div class="col">
                   <!--Nombre input -->
@@ -155,7 +155,7 @@
                       <option value="5.2">
                       <option value="5.3">
                     </datalist>
-                    <label for="nivelBusiness" class="form-label">Nivel craft</label>
+                    <label for="nivelBusiness" class="form-label">Nivel Business</label>
                     <br>
                   </div>
 
@@ -203,8 +203,8 @@
                 </div>
               </div>
 
-              <a href="/empleados"><button type="submit" class="btn btn-darkbtn btn-dark"
-                  id="liveToastBtn">Agregar</button></a>
+              <button value="submit" class="btn btn-darkbtn btn-dark">Agregar</button>
+                            
             </form>
 
 
@@ -336,6 +336,10 @@
 
     function submitForm() {
       return confirm('¿Realmente quieres eliminar al empleado?');
+    }
+
+    function submitEmpleado() {
+      return alert('Se agregó al empleado correctamente');
     }
 
   </script>
