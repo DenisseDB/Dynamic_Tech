@@ -6,7 +6,7 @@ Para correr la aplicación es necesario correr en la Terminal (powershell):
 2. Correr el programa: npm start
 
 ## Página principal
-Tras ejecutar los comandos NPM, poner en el navegador de Chrome:
+Tras ejecutar los comandos NPM, acceder a:
 http://localhost:3000/users/login
 
 ## Usuarios prueba
