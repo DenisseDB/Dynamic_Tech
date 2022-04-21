@@ -139,6 +139,8 @@ exports.modificarEmpleado = (request, response, next) => {
 exports.empleadoModificado = (request, response, next) => {
 
     console.log(request.body);
+    console.log(request.body.nombre);
+    console.log(request.params.idEmpleado)
 
 };
 
