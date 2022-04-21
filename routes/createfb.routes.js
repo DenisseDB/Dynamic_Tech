@@ -26,5 +26,4 @@ router.get('/buscarPregunta/:nivel/:dim', isAuth, checkRoleAuth([1]), createfb.b
 
 
 
-
-module.exports = router;
+module.exports = router; 

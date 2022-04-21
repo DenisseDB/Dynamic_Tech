@@ -10,8 +10,8 @@ const multer = require('multer');
 const rutas_users = require('./routes/user.routes'); // Usuario por autenticarse.
 const rutas_feed = require('./routes/feedback.routes'); // Usuario sesionado.
 const rutas_lead = require('./routes/lead.routes'); // Usuario sesionado.
-const rutas_createfb = require('./routes/createfb.routes'); // Usuario sesionado.
-const rutas_createPeriodo = require('./routes/createPeriodo.routes');
+const rutas_createfb = require('./routes/createfb.routes'); // Rutas para poder crear/generar/modificar cuestionarios.
+const rutas_createPeriodo = require('./routes/createPeriodo.routes'); 
 
 path = require('path');
 const app = express();
