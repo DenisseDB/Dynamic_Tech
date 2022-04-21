@@ -21,10 +21,9 @@ router.get('/', isAuth, checkRoleAuth([1]), createfb.root);
 router.get('/modificarFormato', isAuth, checkRoleAuth([1]), createfb.modificarFormato);
 router.post('/modificarFormato', createfb.modificarFormato_post);
 router.get('/buscarCuestionario/:nivel/:dim', isAuth, checkRoleAuth([1]), createfb.buscarCuestionario);
-router.get('/buscarPregunta/:nivel/:dim', isAuth, checkRoleAuth([1]), createfb.buscarPregunta);
+router.get('/buscarPregunta/:nivel/:dim/:cuest', isAuth, checkRoleAuth([1]), createfb.buscarPregunta);
 
 
 
 
-
-module.exports = router;
+module.exports = router; 

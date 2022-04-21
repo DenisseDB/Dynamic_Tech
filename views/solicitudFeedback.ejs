@@ -18,10 +18,12 @@
                       <!-- Final de la nav-->
                       <%- include('includes/sidenavFin.ejs') %>
 
-                      
-                          <h2>Solicitudes de Feedback- <i>
+                      <div class="container px-13">
+                        <div class="space2">
+                          <h2><strong>Solicitudes de Feedback- <i>
                               <%= periodo[0].NombrePeriodo %>
-                            </i></h2><br>
+                            </i></strong></h2>
+                          <hr class="style17">
                           <div class="row">
                             <!--------------------------------------  Mis solicitudes ---------------------------------------------->
                             <div class="col-sm-6">
@@ -85,7 +87,7 @@
                                           <div class="row">
                                             <div class="col-auto">
                                               <select id="nombre" name="nombre" class="selectpicker" multiple
-                                                data-live-search="true" title="Selecciona a uno o varios compañeros">
+                                                data-live-search="true" title="Selecciona uno o varios compañeros">
                                                 <% for (let empleado of empleados) { %>
                                                   <option>
                                                     <%= empleado.nombre %>
@@ -202,6 +204,8 @@
                                 </div>
                               </div>
                               <% } %>
+                        </div>
+                      </div>
 
                               <script>
                                 document.getElementById("button1").onclick = () => {

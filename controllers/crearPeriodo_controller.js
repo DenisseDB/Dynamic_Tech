@@ -37,7 +37,7 @@ exports.generarPeriodo = (request, response, next) => {
 
 exports.generarPeriodoPost = (request, response, next) => {
 
-    console.log("Si se genera el post");
+    //console.log("Si se genera el post");
 
     function NombreMes(mes) {
         console.log('debuggeando');
@@ -64,11 +64,11 @@ exports.generarPeriodoPost = (request, response, next) => {
 
     //console.log('wolis');
 
-    console.log("debuggeando2");
-    console.log(nombre_periodo);
-    console.log(request.body.inicioFecha);
-    console.log(request.body.finFecha);
-    console.log(anio_periodo);
+    // console.log("debuggeando2");
+    // console.log(nombre_periodo);
+    // console.log(request.body.inicioFecha);
+    // console.log(request.body.finFecha);
+    // console.log(anio_periodo);
 
     const periodoEvaluacion = new PeriodoEvaluacion(nombre_periodo, request.body.inicioFecha, request.body.finFecha, anio_periodo);
 
@@ -89,6 +89,5 @@ exports.generarPeriodoPost = (request, response, next) => {
             console.log(err);
         });
 
-    console.log("Post creado");
 };
 
