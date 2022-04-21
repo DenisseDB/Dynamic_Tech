@@ -10,7 +10,7 @@ Tras ejecutar los comandos NPM, acceder a:
 http://localhost:3000/users/login
 
 ## Usuarios prueba
-La contraseña para cualquiera de los usuarios es: 123
+Constaseña: 123
 
 1. Chapter lead: bernardoLeing@gmail.com (Administrador)
 
