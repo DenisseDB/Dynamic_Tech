@@ -405,20 +405,42 @@
 
           for (let dim of data) {
             if ((data[empleado].idEmpleado == dim.idEmpleado) && (dim.idDimension == 1)) {
-              respuesta += '<td>' + dim.nivelE.toFixed(1) + '</td>';
+
+
+               var craft = dim.nivelE; 
+               var craft2 = dim.nivelE * 100 / 5;
+
+             respuesta += '<td style="text-align:center; width:33%"><div role="progressbar" id="pg1" data-content="'+
+               craft.toFixed(1) +'" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" value="2" style="--value:'
+               + craft2 + ';"></td>';
             }
           }
 
           for (let dim of data) {
             if ((data[empleado].idEmpleado == dim.idEmpleado) && (dim.idDimension == 2)) {
-              respuesta += '<td>' + dim.nivelE.toFixed(1) + '</td>';
+
+              var people = dim.nivelE;
+              var people2 = dim.nivelE * 100 / 5;
+              
+              respuesta += '<td style="text-align:center"><div role="progressbar" id="pg2" data-content="' +
+                people.toFixed(1) + '" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" value="2" style="--value:' +
+                people2 +'; --fg: rgb(91, 57, 107); --bg: rgb(238, 229, 249);"></td>';
+
             }
           }
 
 
           for (let dim of data) {
             if ((data[empleado].idEmpleado == dim.idEmpleado) && (dim.idDimension == 3)) {
-              respuesta += '<td>' + dim.nivelE.toFixed(1) + '</td>';
+
+              var business = dim.nivelE; 
+              var business2 = dim.nivelE * 100 / 5;
+              
+              
+              respuesta += '<td style="text-align:center"><div role="progressbar" id="pg2" data-content="'+
+                 business.toFixed(1) +'" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" value="2" style="--value:' +
+                 business2 + '; --fg: rgb(39, 94, 179); --bg: rgb(229, 237, 249);"></td>';
+ 
             }
           }
 

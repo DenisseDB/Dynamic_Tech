@@ -184,7 +184,7 @@ exports.cuestionario = (request, response, next) => {
 exports.salvarRespuestas = async (request, response, next) => {
 
     console.log("Salvar respuestas");
-    console.log(request.body);
+    //console.log(request.body);
 
     //Para facilitar el manejo de las preguntas
     let craft = request.session.preguntasCraft;
