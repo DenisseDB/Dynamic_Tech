@@ -20,6 +20,10 @@ module.exports = class PeriodoEvaluacion {
             [this.nombre, this.fechaInicial, this.fechaFinal, this.anio]);
     }
 
+    // verificarFechas(){
+        
+    // }
+
 }
 
 

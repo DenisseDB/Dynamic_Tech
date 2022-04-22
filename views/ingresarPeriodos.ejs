@@ -1,6 +1,6 @@
 <%- include('includes/sidenavsup.ejs') %>
-
-    <!-- Para que aparezca Mis Mentorados -->
+<!-- 
+    Para que aparezca Mis Mentorados -->
     <% for (i=0; i < rolesA.length; i++) { %>
         <% if (rolesA[i].idPrivilegio==1) { %>
             <%- include('includes/sideMentorados.ejs') %>
@@ -71,17 +71,26 @@
 
         let nivelp;
 
-
-        document.getElementById("myForm").style.display = "none";
-
-
+       // document.getElementById("myForm").style.display = "none";
         document.getElementById("buttonRegistrar").onclick = () => {
 
+            //GENERAR LA FECHA ACTUAL 
+
+            let hoy = new Date();
+            let dd = hoy.getDate();
+            let mm = hoy.getMonth()+1;
+            let yyyy = hoy.getFullYear();
+
+            hoy = yyyy+'/'+mm+'/'+dd; //FECHA DEL DÍA ACTUAL
+            console.log(hoy);
+
+          /////////////////////////////////
 
             let fecha_inicial = document.getElementById("inicioFecha").value;
             let fecha_final = document.getElementById("finFecha").value;
 
 
+            //SEPARAR FECHAS
             let anio_periodo = parseInt(String(fecha_final).substring(0, 4));
             let mes_inicioPeriodo = parseInt(String(fecha_inicial).substring(5, 7));
             let mes_finPeriodo = parseInt(String(fecha_final).substring(5, 7));
@@ -90,7 +99,7 @@
             fecha_final = fecha_final.toString();
             console.log("String fecha" + fecha_final);
  
-
+            //ASIGNARLE NOMBRE AL MES 
             const nombreMesFinal = NombreMes(mes_finPeriodo);
             const nombreMesInicio = NombreMes(mes_inicioPeriodo);
 
@@ -105,20 +114,32 @@
             nombre_periodo = nombreMesInicio + ' - ' + nombreMesFinal;
 
 
+
             if (fecha_inicial != '' && fecha_final != '') {
-                document.getElementById("inicioFecha").setAttribute("readonly", "readonly");
-                document.getElementById("finFecha").setAttribute("readonly", "readonly");
+
+                if (fecha_inicial >= fecha_final || fecha_inicial < hoy || fecha_final < hoy ){
+                    let respuesta = alert('Verifique sus fechas');  
+                    location.reload(); 
+                    return false;
+                }
+
+                else{
+
+                    document.getElementById("inicioFecha").setAttribute("readonly", "readonly");
+                    document.getElementById("finFecha").setAttribute("readonly", "readonly");
 
 
-                let respuesta = alert('Periodo de evaluación ' + nombre_periodo + ' generado.');
-                document.getElementById('myForm').innerHTML = respuesta;
+                    let PeriodoAlerta = 'Periodo de evaluación ' + nombre_periodo + ' generado.';
+                    let respuesta = ' <div class="alert alert-success" role="alert"> ' + PeriodoAlerta + '  </div> ';
+                    document.getElementById('formPeriodo').innerHTML = respuesta;
+                    return true;
+                    
+                    // document.getElementById("buttonRegistrar").style.visibility = "hidden";
+                    // document.getElementById("myForm").style.display = "block";
+                    //  document.getElementById("buttonRegistrar").style.visibility = "hidden";
 
-               // document.getElementById("buttonRegistrar").style.visibility = "hidden";
-               // document.getElementById("myForm").style.display = "block";
-              //  document.getElementById("buttonRegistrar").style.visibility = "hidden";
-
-                console.log('Si hay fechas');
-
+                    // console.log('Si hay fechas');
+                }
 
             }
 
@@ -129,7 +150,7 @@
 
         document.getElementById("inicioFecha").onchange = () => {
             let fecha_inicial = document.getElementById("inicioFecha").value;
-           // console.log(fecha_inicial);
+          // console.log(fecha_inicial);
 
         }
         document.getElementById("finFecha").onchange = () => {

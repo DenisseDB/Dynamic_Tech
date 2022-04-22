@@ -40,10 +40,10 @@ exports.generarPeriodoPost = (request, response, next) => {
     //console.log("Si se genera el post");
 
     function NombreMes(mes) {
-        console.log('debuggeando');
-        console.log(request.body.inicioFecha);
-        console.log(anio_periodo);
-        console.log('Nombre de mes para ' + mes + ' prueba');
+       // console.log('debuggeando');
+        // console.log(request.body.inicioFecha);
+        // console.log(anio_periodo);
+        // console.log('Nombre de mes para ' + mes + ' prueba');
 
         let meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
         nombreMes = meses[mes - 1];
