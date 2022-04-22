@@ -93,29 +93,30 @@ exports.nuevaSolicitud = async (request, response, next) => {
 
 exports.miFeedback =  async (request, response, next) => {
     const pds = await Historial.fetchAllPeriodo(); // Periodos de evaluación.
-    const sr = await Historial.fetchFeedHistorico(request.session.idEmpleado); // Histórico de solicitudes respondidas.
+    const hs = await Historial.fetchFeedHistorico(request.session.idEmpleado); // Histórico de solicitudes respondidas.
     let dsI = []; let dsG = [];
-    let avgCr = 0; let avgPe = 0; let avgCm = 0;
 
-    for await (let x of sr) {
-        let resultados = await Historial.fetchDesempenio(x.idCuestionarioCraft, x.idCuestionarioPeople, x.idCuestionarioBusiness,
+    for await (let x of hs) {
+        let especifico = await Historial.fetchDesempenioE(x.idCuestionarioCraft, x.idCuestionarioPeople, x.idCuestionarioBusiness,
             request.session.idEmpleado, x.idEvaluador, x.idPeriodo);
-        dsI.push(resultados);
+        dsI.push(especifico);
     }
 
-    let periodo = dsI[0][0].idPeriodo;
+    for await (let p of pds) {
+        let general = await Historial.fetchDesempenioG(request.session.idEmpleado, p.idPeriodo);
+        dsG.push(general);
+    }
 
-    console.log(dsI);
-
-
+    console.log(dsG);
     
     response.render('miFeedback.ejs',
     {
         idSesionado: request.session.idEmpleado,
         rolesA :  request.session.privilegiosPermitidos,
         periodos : pds,
-        retroalimentaciones : sr,
-        desempenio : dsI,
+        retroalimentaciones : hs,
+        desempenioE : dsI,
+        desempenioG : dsG,
         nombreSesion: request.session.nombreSesion,
         apellidoPSesion: request.session.apellidoPSesion,
         foto: request.session.foto,

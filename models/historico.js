@@ -66,10 +66,23 @@ module.exports = class Historial{
             });    
     }
 
-    // Método. Desempeño según feedback de compañero.
-    static fetchDesempenio(iCraft, iPeople, iCommercial, idEvaluado, idEvaluador, idPeriodo) {
+    // Método. Desempeño según feedback de compañero en un periodo.
+    static fetchDesempenioE(iCraft, iPeople, iCommercial, idEvaluado, idEvaluador, idPeriodo) {
         return db.execute("SELECT idDimension, idPeriodo, AVG(respuesta) as 'promedio' FROM preguntacuestionario PC, pregunta P, respondesolicita R WHERE (idCuestionario = ? OR idCuestionario = ? OR idCuestionario = ?) AND PC.idPregunta = P.idPregunta AND idEvaluado = ? AND idEvaluador = ? and idPeriodo = ? and PC.idPregunta = R.idPregunta AND idTipo = 1 GROUP BY idCuestionario ORDER BY idDimension ASC;",
         [iCraft, iPeople, iCommercial, idEvaluado, idEvaluador, idPeriodo])
+            .then(([rows, fielData]) => {
+                return rows;
+            })
+            .catch((error) => {
+                console.log(error);
+                return 0;
+            });    
+    }
+
+    // Método. Desempeño según feedback de compañero en un periodo.
+    static fetchDesempenioG(idEvaluado, idPeriodo) {
+        return db.execute("SELECT idDimension, AVG(respuesta) as 'promedio' FROM preguntacuestionario PC, pregunta P, respondesolicita R WHERE PC.idPregunta = P.idPregunta AND idEvaluado = ? AND idPeriodo = ? and PC.idPregunta = R.idPregunta AND idTipo = 1 GROUP BY idCuestionario ORDER BY idDimension ASC;",
+        [idEvaluado, idPeriodo])
             .then(([rows, fielData]) => {
                 return rows;
             })
