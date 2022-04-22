@@ -16,12 +16,12 @@
 
 <body>
 
-   <nav class="navbar navbar-dark bg-dark">
+   <nav class="navbar">
       <div class="container-fluid">
          <a class="navbar-brand" href="#">
-            <img src="https://zebrands.mx/wp-content/uploads/2021/07/zebrands.jpg" alt="" width="100" height="80"
-               class="d-inline-block align-text-top">
-            DynamicTech</a>
+            <img src="https://zebrands.mx/wp-content/uploads/2021/07/zebrands.jpg" alt="Zebrands-logo" width="10%" height="10%"
+               class="d-inline-block">
+         </a>
          <% if (correo!='' ) { %>
             <button class="btn btn-outline-secondary btn-lg" type="button"><a href="/users/tops">Volver a pagina
                   principal</a></button>
@@ -30,9 +30,11 @@
             </button>
             <button class="btn btn-outline-secondary btn-lg" type="button"><a href="/users/logout">Salir</a></button>
             <% } %>
-               <span class="navbar-text">
-                  <b>DynamicTech</b><br>Feedback - Zebrands<br>Avance4 Roles
-               </span>
       </div>
    </nav>
+   <style>
+      nav {
+         background-color: rgba(34, 30, 32);
+      }
+   </style>
    <div class="container ">
