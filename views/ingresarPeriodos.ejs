@@ -1,18 +1,18 @@
 <%- include('includes/sidenavsup.ejs') %>
 <!-- 
     Para que aparezca Mis Mentorados -->
-    <% for (i=0; i < rolesA.length; i++) { %>
+    <!-- <% for (i=0; i < rolesA.length; i++) { %>
         <% if (rolesA[i].idPrivilegio==1) { %>
             <%- include('includes/sideMentorados.ejs') %>
                 <% } %>
-                    <% } %>
+                    <% } %> -->
 
                         <!-- Para que aparezca Empleados del chapter -->
-                        <% for (i=0; i < rolesA.length; i++) { %>
+                        <!-- <% for (i=0; i < rolesA.length; i++) { %>
                             <% if (rolesA[i].idPrivilegio==2) { %>
                                 <%- include('includes/sideAgregarE.ejs') %>
                                     <% } %>
-                                        <% } %>
+                                        <% } %> -->
 
                                             <%- include('includes/sidenavFin.ejs') %>
 
@@ -74,17 +74,10 @@
        // document.getElementById("myForm").style.display = "none";
         document.getElementById("buttonRegistrar").onclick = () => {
 
-            //GENERAR LA FECHA ACTUAL 
-
-            let hoy = new Date();
-            let dd = hoy.getDate();
-            let mm = hoy.getMonth()+1;
-            let yyyy = hoy.getFullYear();
-
-            hoy = yyyy+'/'+mm+'/'+dd; //FECHA DEL DÍA ACTUAL
-            console.log(hoy);
 
           /////////////////////////////////
+
+            hoy = fechaActual();
 
             let fecha_inicial = document.getElementById("inicioFecha").value;
             let fecha_final = document.getElementById("finFecha").value;
@@ -117,24 +110,33 @@
 
             if (fecha_inicial != '' && fecha_final != '') {
 
-                if (fecha_inicial >= fecha_final || fecha_inicial < hoy || fecha_final < hoy ){
+
+                if( fecha_inicial < hoy && fecha_final < hoy ) {
+                    console.log('fecha hoy' +  hoy);
+                    let respuesta = alert('No puede crear periodos en el pasado. Verifique sus fechas');  
+                    location.reload(); 
+                    return false;
+                }
+
+
+                else if (fecha_inicial >= fecha_final ){
                     let respuesta = alert('Verifique sus fechas');  
                     location.reload(); 
                     return false;
                 }
 
                 else{
-
+                    
                     document.getElementById("inicioFecha").setAttribute("readonly", "readonly");
                     document.getElementById("finFecha").setAttribute("readonly", "readonly");
 
 
                     let PeriodoAlerta = 'Periodo de evaluación ' + nombre_periodo + ' generado.';
-                    let respuesta = ' <div class="alert alert-success" role="alert"> ' + PeriodoAlerta + '  </div> ';
-                    document.getElementById('formPeriodo').innerHTML = respuesta;
+                    let respuesta = alert(PeriodoAlerta) //' <div class="alert alert-success" role="alert"> ' + PeriodoAlerta + '  </div> ';
+                    //document.getElementById('formPeriodo').innerHTML = +respuesta;
+                   
                     return true;
-                    
-                    // document.getElementById("buttonRegistrar").style.visibility = "hidden";
+                    // document.getElementById("buttonRegistrar").style.visibility = "hidden";  
                     // document.getElementById("myForm").style.display = "block";
                     //  document.getElementById("buttonRegistrar").style.visibility = "hidden";
 
@@ -146,19 +148,19 @@
         }
 
 
-        //VERIFICAR QUE LAS FECHAS SE GUARDEN EN LA CONSOLA CUANDO HAY UN CHANGE 
+        // //VERIFICAR QUE LAS FECHAS SE GUARDEN EN LA CONSOLA CUANDO HAY UN CHANGE 
 
-        document.getElementById("inicioFecha").onchange = () => {
-            let fecha_inicial = document.getElementById("inicioFecha").value;
-          // console.log(fecha_inicial);
+        // document.getElementById("inicioFecha").onchange = () => {
+        //     let fecha_inicial = document.getElementById("inicioFecha").value;
+        //   // console.log(fecha_inicial);
 
-        }
-        document.getElementById("finFecha").onchange = () => {
-            let fecha_final = document.getElementById("finFecha").value;
-         //   console.log(fecha_final);
+        // }
+        // document.getElementById("finFecha").onchange = () => {
+        //     let fecha_final = document.getElementById("finFecha").value;
+        //  //   console.log(fecha_final);
 
-        }
-
+       // }
+        
 
 
 
@@ -170,6 +172,30 @@
             return nombreMes;
         }
 
+        function fechaActual(){
+
+            //GENERAR LA FECHA ACTUAL 
+
+            let hoy = new Date();
+            let dd = hoy.getDate();
+            let mm = hoy.getMonth()+1;
+            let yyyy = hoy.getFullYear();
+
+
+            //formato para generar formato 00 en día y mes
+            if (dd < 10) {
+                dd = '0' + dd;
+            }
+
+            if (mm < 10) {
+                mm = '0' + mm;
+            } 
+
+            hoy = yyyy+'-'+mm+'-'+dd; //FECHA DEL DÍA ACTUAL
+
+            return hoy;
+            console.log(hoy);
+        }
 
 
     </script>

@@ -46,7 +46,7 @@ exports.generarPeriodoPost = (request, response, next) => {
         // console.log('Nombre de mes para ' + mes + ' prueba');
 
         let meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-        nombreMes = meses[mes - 1];
+        let nombreMes = meses[mes - 1];
         return nombreMes;
     }
 
@@ -59,8 +59,8 @@ exports.generarPeriodoPost = (request, response, next) => {
 
     let nombre_periodo = nombreMesInicio + '-' + nombreMesFinal;
 
-    //fecha_inicio = (request.body.fecha_inicial).toString();
-    //fecha_fin = (request.body.fecha_final).toString();
+    // fecha_inicio = (request.body.fecha_inicial).toString();
+    // fecha_fin = (request.body.fecha_final).toString();
 
     //console.log('wolis');
 
