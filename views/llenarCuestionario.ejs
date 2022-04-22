@@ -24,7 +24,7 @@
                     </h2><br>
                 
                     <div class='container'>
-                      <form id = 'FormularioGeneral' method="POST">
+                      <form id = 'FormularioGeneral' method="POST"  onsubmit="return submitForm(this);">
                         <div class="card">
                           <h5 class="card-header">Preguntas de Craft</h5>
                           <div class="card-body">
@@ -159,16 +159,26 @@
                         </div>
                         <br>
                 
-                        <script>
-                          function alertaCancelado() {  
-                              alert("Las respuestas no serán guardadas")
-                          } 
-                      </script>
-                
-                        <a href="/solicitudes"><button type="button" onclick="alertaCancelado();" class="btn btn-outline-secondary">Cancelar</button></a>
-                        <a href="/solicitudes"><input type="submit" class="btn btn-primary" value="Enviar"></a>
+                        <a href="/solicitudes"><button type="button" onclick="alertaCancelado();" class="btn btn-outline-dark">Cancelar</button></a>
+                        <button value="submit" class="btn btn-secondary">Enviar</button>
                 
                       </form>
+
+                      <script>
+                        function alertaCancelado() {  
+                            alert("Las respuestas no serán guardadas")
+                        }
+                        
+                        function submitForm() {
+                            return confirm('¿Está de acuerdo con las respuestas? No se podrán modificar');
+                          }
+
+                          function submitEmpleado() {
+                            return alert('Se agregó al empleado correctamente');
+                          }
+                    </script>
+
+
                 
                     </div>
                 

@@ -34,7 +34,7 @@
         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
           data-bs-parent="#accordionExample">
           <div class="accordion-body">
-            <form id="agregarEmpleado" method="POST" enctype="multipart/form-data">
+            <form id="agregarEmpleado" method="POST" enctype="multipart/form-data"  onsubmit="return submitEmpleado(this);">
               <div class="row">
                 <div class="col">
                   <!--Nombre input -->
@@ -155,7 +155,7 @@
                       <option value="5.2">
                       <option value="5.3">
                     </datalist>
-                    <label for="nivelBusiness" class="form-label">Nivel craft</label>
+                    <label for="nivelBusiness" class="form-label">Nivel Business</label>
                     <br>
                   </div>
 
@@ -203,8 +203,8 @@
                 </div>
               </div>
 
-              <a href="/empleados"><button type="submit" class="btn btn-darkbtn btn-dark"
-                  id="liveToastBtn">Agregar</button></a>
+              <button value="submit" class="btn btn-darkbtn btn-dark">Agregar</button>
+                            
             </form>
 
 
@@ -249,12 +249,12 @@
           <h5 class="card-header"><i class="bi bi-person-fill"></i> Miembros del chapter</h5>
           <div class="card-body">
             <!--Para tabla con boostrap-->
-            <table class="table">
+            <table class="table" style="table-layout: fixed">
               <thead class="thead-dark">
                 <tr>
                   <th scope="col"></th>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Correo</th>
+                  <th style="width:20%;" scope="col">Nombre</th>
+                  <th style="width:20%;" scope="col">Correo</th>
                   <th scope="col">Nivel Craft</th>
                   <th scope="col">Nivel People</th>
                   <th scope="col">Nivel Busisness</th>
@@ -265,7 +265,7 @@
               <tbody>
                 <tr>
                   <% for (let empleado of miembros) { %>
-                    <td>
+                    <td style="text-align:center">
                       <!--img src="<%= empleado.fotoPerfil%>" alt="hugenerd" width="60" height="60"
                               class="rounded-circle"-->
                       <img src="https://github.com/mdo.png" alt="hugenerd" width="60" height="60" class="rounded-circle">
@@ -283,8 +283,12 @@
                     <!--Para craft-->
                     <% for (let dim of dimEmpleado) { %>
                       <% if ( (empleado.idEmpleado==dim.idEmpleado) && (dim.idDimension==1)) { %>
-                        <td>
-                          <%= dim.nivelE.toFixed(1) %>
+                        <td style="text-align:center; width:33%">
+                          <% var craft = dim.nivelE %>
+                          <% var craft2 = dim.nivelE * 100 / 5 %>
+                          <div role="progressbar" id="pg1" data-content="<%= craft.toFixed(1) %>" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+                            value="2" style="--value:<%= craft2 %>;">
+                          <!--%= dim.nivelE.toFixed(1) %-->
                         </td>
                         <% } %>
                           <% } %>
@@ -292,8 +296,12 @@
                             <!--Para people-->
                             <% for (let dim of dimEmpleado) { %>
                               <% if ( (empleado.idEmpleado==dim.idEmpleado) && (dim.idDimension==2)) { %>
-                                <td>
-                                  <%= dim.nivelE.toFixed(1) %>
+                                <td style="text-align:center">
+                                  <% var people = dim.nivelE %>
+                                  <% var people2 = dim.nivelE * 100 / 5 %>
+                                  <div role="progressbar" id="pg2" data-content="<%= people.toFixed(1) %>" aria-valuenow="40" aria-valuemin="0"
+                                    aria-valuemax="100" value="2" style="--value:<%= people2 %>; --fg: rgb(91, 57, 107); --bg: rgb(238, 229, 249);">
+                                  <!--%= dim.nivelE.toFixed(1) %-->
                                 </td>
                                 <% } %>
                                   <% } %>
@@ -301,8 +309,12 @@
                                     <!--Para business-->
                                     <% for (let dim of dimEmpleado) { %>
                                       <% if ( (empleado.idEmpleado==dim.idEmpleado) && (dim.idDimension==3)) { %>
-                                        <td>
-                                          <%= dim.nivelE.toFixed(1) %>
+                                        <td style="text-align:center">
+                                          <% var business = dim.nivelE %>
+                                          <% var business2 = dim.nivelE * 100 / 5 %>
+                                          <div role="progressbar" id="pg2" data-content="<%= business.toFixed(1) %>" aria-valuenow="40" aria-valuemin="0"
+                                          aria-valuemax="100" value="2" style="--value:<%= business2 %>; --fg: rgb(39, 94, 179); --bg: rgb(229, 237, 249);">
+                                          <!--%= dim.nivelE.toFixed(1) %-->
                                         </td>
                                         <% } %>
                                           <% } %>
@@ -317,7 +329,6 @@
                                                 <button value="submit" class="btn btn-secondary">Eliminar</button>
                                               </form>
                                             </td>
-
                 </tr>
                 <%} %>
 
@@ -336,6 +347,10 @@
 
     function submitForm() {
       return confirm('¿Realmente quieres eliminar al empleado?');
+    }
+
+    function submitEmpleado() {
+      return alert('Se agregó al empleado correctamente');
     }
 
   </script>
@@ -428,7 +443,53 @@
     document.getElementById('buscar').onkeyup = accion_asincrona;
   </script>
 
-
+  <style>
+    @keyframes growProgressBar {
+  
+      0%,
+      33% {
+        --pgPercentage: 0;
+      }
+  
+      100% {
+        --pgPercentage: var(--value);
+      }
+    }
+  
+    @property --pgPercentage {
+      syntax: '<number>';
+      inherits: false;
+      initial-value: 0;
+    }
+  
+    div[role="progressbar"] {
+      --size: 3rem;
+      --fg: rgb(237, 110, 133);
+      --bg: rgb(249, 233, 229);
+      --pgPercentage: var(--value);
+      animation: growProgressBar 3s 1 forwards;
+      width: var(--size);
+      height: var(--size);
+      border-radius: 50%;
+      display: grid;
+      margin: auto;
+      place-items: center;
+      background:
+        radial-gradient(closest-side, white 80%, transparent 0 99.9%, white 0),
+        conic-gradient(var(--fg) calc(var(--pgPercentage) * 1%), var(--bg) 0);
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: calc(var(--size) / 3.2);
+      font-weight: bold;
+      color: var(--fg);
+    }
+  
+    div[role="progressbar"]::before {
+      counter-reset: percentage var(--value);
+      content: attr(data-content);
+    }
+  
+    /* demo */
+  </style>
 
 
 

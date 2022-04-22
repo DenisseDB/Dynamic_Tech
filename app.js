@@ -13,6 +13,14 @@ const rutas_lead = require('./routes/lead.routes'); // Usuario sesionado.
 const rutas_createfb = require('./routes/createfb.routes'); // Rutas para poder crear/generar/modificar cuestionarios.
 const rutas_createPeriodo = require('./routes/createPeriodo.routes'); 
 
+
+
+// Libreria que nos permite guardar credenciales en variables de retorno
+// const dotenv = require('dotenv').config({path: './.env'});
+const dotenv = require('dotenv').config();
+const port = process.env.PORT || 3000;
+
+
 path = require('path');
 const app = express();
 
@@ -68,4 +76,6 @@ app.use((request, response, next) => {
     next();
 });
 
-app.listen(3000);
+app.listen(port, () => {
+   console.log('Servidor corriendo en el puerto ', port);
+});

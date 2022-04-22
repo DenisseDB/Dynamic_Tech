@@ -46,7 +46,7 @@ exports.login = (request, response, next) => {
             request.session.idEmpleado = rows[0].idEmpleado;
             request.session.nombreSesion = rows[0].nombre;
             request.session.apellidoPSesion = rows[0].apellidoP;
-            console.log(rows[0].fotoPerfil)
+            console.log(rows[0].fotoPerfil);
             request.session.foto = rows[0].fotoPerfil;
 
 
