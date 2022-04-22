@@ -93,3 +93,8 @@ hr.style17:after {
 .content-center h3, p{
   line-height: 40px;
 }
+
+.bit {
+  font-weight: bold;
+  font-style: italic;
+}
