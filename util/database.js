@@ -3,12 +3,10 @@ const config = require('../config');
 
 
 const pool = mysql.createPool({
-   // connectionLimit : 10,
-   host: config.DB_HOST,
-   user: config.DB_USER,
-   database: config.DB_DATABASE,
-   password: config.DB_PASSWORD,
-   // port:process.env.PORT
+   host: config.HOST,
+   user: config.USER,
+   database: config.DATABASE,
+   password: config.PASSWORD,
 });
 
 // const pool = mysql.createPool({

@@ -53,3 +53,5 @@ VIEJO_modificarFormato.ejs
 borrame_despues.html
 views/nuevoGenerarFormato.ejs
 
+config.js
+.env
