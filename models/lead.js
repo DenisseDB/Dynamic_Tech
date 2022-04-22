@@ -87,8 +87,11 @@ module.exports = class ChapterLead {
         //     });
         // }
 
-        return db.execute('CALL modificarEmpleado (?,?,?,?,?,?,?,?,?,?)', [nombre,apellidoP,apellidoM,correo,
-          contrasena, idEquipo,idEmpleado, idRol, nivelCraft,nivelPeople, nivelBusiness]);
+        // return db.execute('CALL modificarEmpleado (?,?,?,?,?,?,?,?,?,?,?);', [nombre,apellidoP,apellidoM,correo,
+        //   contrasena, idEquipo,idEmpleado, idRol, nivelCraft,nivelPeople, nivelBusiness]);
+
+        return db.execute("CALL modificarEmpleado (?,?,?,?,?,?,?,?,?,?,?);",
+        [nombre,apellidoP,apellidoM,correo,contrasena,idEquipo,idEmpleado, idRol,nivelCraft,nivelPeople, nivelBusiness]);
     }
 
 }
