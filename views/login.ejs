@@ -1,5 +1,5 @@
 <%- include('includes/head.ejs') %>
-    <h1 id="principal">Este sitio es de TOP's</h1>
+    <!--h1 id="principal">Este sitio es de TOP's</h1>
     <br>
     <h2>Para ingresar al sitio, introduce tus datos de acceso:</h2>
     <form action="/users/login" method="POST">
@@ -15,5 +15,68 @@
     <h4>¿Aún no estás registrado?, ¡regístrate para poder ingresar!</h4>
     <a href="/users/signup"><button type="button" class="btn btn-secondary">Sign up</button></a>
     <br><br>
+</div-->
+
+<br>
+<br>
+
+
+<div class="row d-flex justify-content-around">
+    <div class="col-2"></div>
+    <div class="col-5">
+        <div class="container-sm">
+            <div class="card">
+                <br>
+                <h4 style="text-align:center"> Iniciar sesión </h4>
+                <br>
+                <div class="card-body">
+                    <div style="margin:auto;">
+                        <div class='container'>
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-sm-offset-3 col-sm-10 text-center">
+                                    <div class="form-group">
+                                        <form action="/users/login" method="POST">
+                                            <label for="correo" placeholder=".form-control-sm" style="float:left;" for="basic-url" class="form-label"> Correo </label>
+                                            <input type="email" class="form-control" id="correo" name="correo" placeholder="example@email.com">
+                                            <br>
+                                            <label for="contrasena"style="float:left;" for="basic-url" class="form-label"> Contraseña </label>
+                                            <input type="password" id="contrasena" name="contrasena" class="form-control">
+                                            <br>
+                                            <br>
+                                            <div class="d-grid gap-2">
+                                                <input style="background-color: rgba(92, 92, 92)" type="submit" class="btn btn-secondary" value="Iniciar sesión">
+                                            </div>
+                                            <br>
+                                            <br>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-2"></div>
 </div>
-<%- include('includes/foot.ejs') %>
+<style>
+    body{
+        background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KCiA8Zz4KICA8dGl0bGU+TGF5ZXIgMTwvdGl0bGU+CiAgPHJlY3Qgc3Ryb2tlPSIjMDAwIiBpZD0ic3ZnXzEiIGhlaWdodD0iNjQyLjAwMDAyIiB3aWR0aD0iOTMxLjk5OTk4IiB5PSItMTAuNSIgeD0iLTY5IiBmaWxsPSIjMjIxZTIwIi8+CiAgPHBhdGggc3Ryb2tlPSJudWxsIiBpZD0ic3ZnXzUiIGQ9Im0xNTEuNSwzNTMuNWMtMzcuMjkyODIsMCAtNjcuNSwtMjkuMzEyMTUgLTY3LjUsLTY1LjVjMCwtMzYuMTg3ODQgMzAuMjA3MTgsLTY1LjUgNjcuNSwtNjUuNWMzNy4yOTI4MiwwIDY3LjUsMjkuMzEyMTUgNjcuNSw2NS41YzAsMzYuMTg3ODQgLTMwLjIwNzE4LDY1LjUgLTY3LjUsNjUuNXoiIG9wYWNpdHk9InVuZGVmaW5lZCIgZmlsbD0iI2RkNjE1ZCIvPgogIDxwYXRoIHRyYW5zZm9ybT0icm90YXRlKDIuODg4ODUgNjI5LjUgMjI2KSIgc3Ryb2tlPSJudWxsIiBpZD0ic3ZnXzYiIGQ9Im02MjkuNSwyOTEuNWMtMzcuMjkyODIsMCAtNjcuNSwtMjkuMzEyMTYgLTY3LjUsLTY1LjVjMCwtMzYuMTg3ODUgMzAuMjA3MTgsLTY1LjUgNjcuNSwtNjUuNWMzNy4yOTI4MSwwIDY3LjUsMjkuMzEyMTUgNjcuNSw2NS41YzAsMzYuMTg3ODQgLTMwLjIwNzE5LDY1LjUgLTY3LjUsNjUuNXoiIG9wYWNpdHk9InVuZGVmaW5lZCIgZmlsbD0iI2VhYjNiOSIvPgogIDxwYXRoIHN0cm9rZT0ibnVsbCIgaWQ9InN2Z183IiBkPSJtNjcuNSw2MTQuNWMtMzcuMjkyODIsMCAtNjcuNSwtMjkuMzEyMTYgLTY3LjUsLTY1LjVjMCwtMzYuMTg3ODUgMzAuMjA3MTgsLTY1LjUgNjcuNSwtNjUuNWMzNy4yOTI4MSwwIDY3LjUsMjkuMzEyMTUgNjcuNSw2NS41YzAsMzYuMTg3ODQgLTMwLjIwNzE5LDY1LjUgLTY3LjUsNjUuNXoiIG9wYWNpdHk9InVuZGVmaW5lZCIgZmlsbD0iIzViMzk2YiIvPgogIDxwYXRoIHN0cm9rZT0ibnVsbCIgaWQ9InN2Z184IiBkPSJtMTAyLjUsMjkyLjVjLTM3LjI5MjgyLDAgLTY3LjUsLTI5LjMxMjE2IC02Ny41LC02NS41YzAsLTM2LjE4Nzg1IDMwLjIwNzE4LC02NS41IDY3LjUsLTY1LjVjMzcuMjkyODEsMCA2Ny41LDI5LjMxMjE1IDY3LjUsNjUuNWMwLDM2LjE4Nzg0IC0zMC4yMDcxOSw2NS41IC02Ny41LDY1LjV6IiBvcGFjaXR5PSJ1bmRlZmluZWQiIGZpbGw9IiNhOGM2ZGYiLz4KICA8cGF0aCBzdHJva2U9Im51bGwiIGlkPSJzdmdfOSIgZD0ibTgwOC41LDQ2Ni41Yy0zNy4yOTI4MiwwIC02Ny41LC0yOS4zMTIxNiAtNjcuNSwtNjUuNWMwLC0zNi4xODc4NSAzMC4yMDcxOCwtNjUuNSA2Ny41LC02NS41YzM3LjI5MjgxLDAgNjcuNSwyOS4zMTIxNSA2Ny41LDY1LjVjMCwzNi4xODc4NCAtMzAuMjA3MTksNjUuNSAtNjcuNSw2NS41eiIgb3BhY2l0eT0idW5kZWZpbmVkIiBmaWxsPSIjMmE0YjQ1Ii8+CiAgPHBhdGggdHJhbnNmb3JtPSJyb3RhdGUoMi44ODg4NSAzMzEuNSA0MjkpIiBzdHJva2U9Im51bGwiIGlkPSJzdmdfMTAiIGQ9Im0zMzEuNSw0OTQuNWMtMzcuMjkyODIsMCAtNjcuNSwtMjkuMzEyMTYgLTY3LjUsLTY1LjVjMCwtMzYuMTg3ODUgMzAuMjA3MTgsLTY1LjUgNjcuNSwtNjUuNWMzNy4yOTI4MSwwIDY3LjUsMjkuMzEyMTUgNjcuNSw2NS41YzAsMzYuMTg3ODQgLTMwLjIwNzE5LDY1LjUgLTY3LjUsNjUuNXoiIG9wYWNpdHk9InVuZGVmaW5lZCIgZmlsbD0iI2MxYTJjYiIvPgogIDxwYXRoIHRyYW5zZm9ybT0icm90YXRlKDIuODg4ODUgNTY5LjUgNTA1KSIgc3Ryb2tlPSJudWxsIiBpZD0ic3ZnXzExIiBkPSJtNTY5LjUsNTcwLjVjLTM3LjI5MjgyLDAgLTY3LjUsLTI5LjMxMjE2IC02Ny41LC02NS41YzAsLTM2LjE4Nzg1IDMwLjIwNzE4LC02NS41IDY3LjUsLTY1LjVjMzcuMjkyODEsMCA2Ny41LDI5LjMxMjE1IDY3LjUsNjUuNWMwLDM2LjE4Nzg0IC0zMC4yMDcxOSw2NS41IC02Ny41LDY1LjV6IiBvcGFjaXR5PSJ1bmRlZmluZWQiIGZpbGw9IiNmMmRmYWIiLz4KIDwvZz4KPC9zdmc+');
+        background-size:  cover;                      /* <------ */
+        background-repeat: no-repeat;
+        background-position: center center; 
+        margin: 0;
+        width:100%; 
+        height:100%;
+    }
+
+    .circulo{
+   height:150px;
+   width:150px;
+   background:rgba(221, 97, 93);
+   -moz-border-radius:100px;
+   -webkit-border-radius:100px;
+   border-radius:100px;
+}
+</style>
