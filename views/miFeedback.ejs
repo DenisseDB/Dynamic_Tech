@@ -23,6 +23,8 @@
     <h2><strong>Mi Feedback</strong></h2>
         <hr class="style17">
     <br>
+
+    <!-------------------------------------- Gráficos y Niveles ---------------------------------------------->
     <div class="row d-flex justify-content-between">
       <div class="col-md-5">
         <input id="idE" value="<% idEmpleado %>" type="hidden">
@@ -37,7 +39,6 @@
 
         </div>
       </div>
-      b
       <div class="col-md-5">
         <div class="card">
           <h5 class="card-header">Nivel</h5>
@@ -79,13 +80,8 @@
     </div>
   </div>
 
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  
+  <br><br><br><br><br><br>
+    <!--------------------------------------  Histórico de Solicitudes ---------------------------------------------->
     <div class="dropdown">
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
         aria-expanded="false">
@@ -97,39 +93,36 @@
               <%= periodo.NombrePeriodo %>
                 <%= periodo.anio %>
             </a></li>
-          <% } %>
+        <% } %>
       </ul>
-    </div> <br>
+    </div><br>
 
-    <div class="accordion" id="accordionExample">
+    <% let c = 0 %>
+    <% for (let periodo of periodos) { %>
+    <div class="accordion" id="accordionOpen">
       <div class="accordion-item">
-        <h2 class="accordion-header" id="headingOne">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-            aria-expanded="true" aria-controls="collapseOne">
-            Periodo -&nbsp;<strong>
-              <%= periodos[0].NombrePeriodo %>
-                <%= periodos[0].anio %>
-            </strong>
+        <h2 class="accordion-header" id="<%= periodo.idPeriodo %>">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= periodo.idPeriodo %>" aria-expanded="false" aria-controls="collapse<%= periodo.idPeriodo %>">
+            <strong><%= periodo.NombrePeriodo %> <%= periodo.anio %></strong>
           </button>
         </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-          data-bs-parent="#accordionExample">
+        <div id="collapse<%= periodo.idPeriodo %>" class="accordion-collapse collapse" aria-labelledby="<%= periodo.idPeriodo %>">
           <div class="accordion-body">
             <ul class="list-group">
-              <% if (retroalimentaciones.length> 0) { %>
+              <% if ((retroalimentaciones.length> 0) && (retroalimentaciones[c].idPeriodo == periodo.idPeriodo)) { %>
                 <table class="table">
                   <thead class="thead-dark">
                     <tr>
                       <th scope="col" style="width:20%">Nombre</th>
                       <th scope="col" style="width:20%">Craft</th>
-                      <th scope="col" style="width:20%">People & Business</th>
-                      <th scope="col" style="width:20%">Commercial & Costume</th>
+                      <th scope="col" style="width:20%">People & Mindsets</th>
+                      <th scope="col" style="width:20%">Commercial & Costumer</th>
                       <th scope="col" style="width:20%">Retroalimentación</th>
                     </tr>
                   </thead>
                   <tbody>
                     <% for (let retro of retroalimentaciones) { %>
-                      <% if (retro.idPeriodo==periodos[0].idPeriodo) { %>
+                      <% if (retro.idPeriodo == periodo.idPeriodo) { %>
                         <tr>
                           <form action="/miFeedback" method="POST">
                             <input id="IdPed" name="IdPed" type="hidden" value="<%= retro.idPeriodo %>">
@@ -138,27 +131,33 @@
                             <input id="IdPeople" name="IdPeople" type="hidden" value="<%= retro.idCuestionarioPeople %>">
                             <input id="IdCommercial" name="IdCommercial" type="hidden"
                               value="<%= retro.idCuestionarioBusiness %>">
-                            <td style="text-align: left;"><img
-                                src="https://emser.es/wp-content/uploads/2016/08/usuario-sin-foto.png"
-                                width="40px">&nbsp;&nbsp;<%= retro.nombre %>
-                                <%= retro.apellidoP %>
+                            <td style="text-align: center;">
+                              <div class="row content-center">
+                                <div class="col-auto"><img src="https://emser.es/wp-content/uploads/2016/08/usuario-sin-foto.png" width="40px"></div>
+                                <div class="col-auto"><p><%= retro.nombre %> <%= retro.apellidoP %></p></div>
+                              </div>
                             </td>
-                            <td>/4/</td>
-                            <td>/4/</td>
-                            <td>/4/</td>
-                            <td><button type="submit" class="btn btn-dark">Detalle</button></td>
+                            <% let d = desempenio[c]; %>
+                            <td><div class="content-center"><p><%= d[0].promedio %></p></div></td>
+                            <td><div class="content-center"><p><%= d[1].promedio %></p></div></td>
+                            <td><div class="content-center"><p><%= d[2].promedio %></p></div></td>
+                            <td><div class="content-center"><button type="submit" class="btn btn-dark">Detalle</button></div></td>
                           </form>
                         </tr>
-                        <% } %>
-                          <% } %>
+                        <% c++; %>
+                      <% } else { break; }%>
+                    <% } %>
                   </tbody>
                 </table>
-                <% } %>
+              <% } else {%>
+                Sin datos disponibles.
+              <% } %>
             </ul>
           </div>
         </div>
       </div>
-    </div>
+    </div><br>
+    <% } %>
 </div>
 
 
@@ -205,29 +204,7 @@
     counter-reset: percentage var(--value);
     content: attr(data-content);
   }
-
-  /* demo */
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <script>
 
@@ -351,8 +328,6 @@
     });
   };
 
-
-
   window.onload = function () {
     graficas();
 
@@ -372,12 +347,7 @@
     document.getElementById('pg3').setAttribute("data-content", "" + niv_b + "");
   };
 
-
 </script>
-
-
-
-
 
 <!-- javascript -->
 <!--script type="text/javascript" src="js/jquery.min.js"></script-->

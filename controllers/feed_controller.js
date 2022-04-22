@@ -92,22 +92,33 @@ exports.nuevaSolicitud = async (request, response, next) => {
 };
 
 exports.miFeedback =  async (request, response, next) => {
-    const pds = await Historial.fecthAllPeriodo(); // Periodos de evaluación.
-    const sr = await Historial.fecthFeedHistorico(request.session.idEmpleado); // Histórico de solicitudes respondidas.
+    const pds = await Historial.fetchAllPeriodo(); // Periodos de evaluación.
+    const sr = await Historial.fetchFeedHistorico(request.session.idEmpleado); // Histórico de solicitudes respondidas.
+    let ds = [];
 
+    for await (let x of sr) {
+        let resultados = await Historial.fetchDesempenio(x.idCuestionarioCraft, x.idCuestionarioPeople, x.idCuestionarioBusiness,
+            request.session.idEmpleado, x.idEvaluador, x.idPeriodo);
+        
+        ds.push(resultados);
+    }
+
+    
+    
     response.render('miFeedback.ejs',
     {
         idSesionado: request.session.idEmpleado,
         rolesA :  request.session.privilegiosPermitidos,
         periodos : pds,
         retroalimentaciones : sr,
+        desempenio : ds,
         nombreSesion: request.session.nombreSesion,
         apellidoPSesion: request.session.apellidoPSesion,
         foto: request.session.foto,
         idEmpleado: request.session.idEmpleado ? request.session.idEmpleado : '',
         nivel_craftpg: request.session.craft ? request.session.craft : '',
         nivel_peoplepg: request.session.people ? request.session.people : '',
-        nivel_businesspg: request.session.business ? request.session.business : '',
+        nivel_businesspg: request.session.business ? request.session.business : ''
     });
 };
 
@@ -119,11 +130,11 @@ exports.detalleFeedback =  async (request, response, next) => {
     let idPeople = request.body.IdPeople;
     let idCommercial = request.body.IdCommercial;
 
-    const rCraft = await Historial.fecthFeedDetallado(idcraft, evaluado, evaluador, periodo); // Retro del Cuestionario Craft.
-    const rPeople = await Historial.fecthFeedDetallado(idPeople, evaluado, evaluador, periodo); // Retro del Cuestionario People.
-    const rBusiness = await Historial.fecthFeedDetallado(idCommercial, evaluado, evaluador, periodo); // Retro del Cuestionario Business.
-    const sol = await Historial.fecthSolicitud(evaluado, evaluador, periodo); // Detalle del Periodo y Evaluador.
-    const lvl = await Historial.fecthNiveles(idcraft, idPeople, idCommercial); // Detalle de los niveles al momento de la solicitud.
+    const rCraft = await Historial.fetchFeedDetallado(idcraft, evaluado, evaluador, periodo); // Retro del Cuestionario Craft.
+    const rPeople = await Historial.fetchFeedDetallado(idPeople, evaluado, evaluador, periodo); // Retro del Cuestionario People.
+    const rBusiness = await Historial.fetchFeedDetallado(idCommercial, evaluado, evaluador, periodo); // Retro del Cuestionario Business.
+    const sol = await Historial.fetchSolicitud(evaluado, evaluador, periodo); // Detalle del Periodo y Evaluador.
+    const lvl = await Historial.fetchNiveles(idcraft, idPeople, idCommercial); // Detalle de los niveles al momento de la solicitud.
 
     response.render('detalleFeedback.ejs',
     {
