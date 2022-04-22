@@ -16,7 +16,8 @@ const rutas_createPeriodo = require('./routes/createPeriodo.routes');
 
 
 // Libreria que nos permite guardar credenciales en variables de retorno
-const dotenv = require('dotenv').config({path: './.env'});
+// const dotenv = require('dotenv').config({path: './.env'});
+const dotenv = require('dotenv').config();
 const port = process.env.PORT || 3000;
 
 
