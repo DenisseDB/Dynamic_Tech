@@ -141,8 +141,8 @@ exports.cuestionario = (request, response, next) => {
    Feed.fecthCuestionarioCraft(request.session.idEmpleado, request.params.idEvaluado, request.params.idPeriodo)
       .then(([preguntasCraft, fieldData]) => {
          request.session.preguntasCraft = preguntasCraft;
-         console.log(preguntasCraft[0]);
-         console.log("Nombre: " + preguntasCraft[0].nombre);
+         // console.log(preguntasCraft[0]);
+         // console.log("Nombre: " + preguntasCraft[0].nombre);
 
          //Tomo las preguntas del cuestionario de People
          Feed.fecthCuestionarioPeople(request.session.idEmpleado, request.params.idEvaluado, request.params.idPeriodo)
