@@ -21,16 +21,17 @@
                   
 
                 
-                    <div class='container' style=" width: 80%; text-align: justify;">
+                    <div class='container' style=" width: 90%; text-align: justify;">
 
                       <div>
                         <br>
-                        <h3 style="text-align: center; font-size:x-large;"><a href="/solicitudes" style="text-decoration:none; color:rgb(72, 72, 206)"> Solicitudes</a><strong> - Cuestionario de Feedback para <%= preguntasC[0].nombre %>
+                        <h3 style="text-align:justify; font-size:x-large;"><a href="/solicitudes" style="text-decoration:none; color:rgb(72, 72, 206)"> Solicitudes</a><strong> - Cuestionario de Feedback para <%= preguntasC[0].nombre %>
                           <%= preguntasC[0].apellidoP %>
                             <%= preguntasC[0].apellidoM %></strong></h3>
                         <hr class="style17">
                       </div>
 
+                      <div class='container' style=" width: 90%; text-align: justify;">
                       <form id = 'FormularioGeneral' method="POST"  onsubmit="return submitForm(this);">
                         <div class="card">
                           <h4 class="card-header" style="font-size:larger;">Preguntas de Craft</h4>
@@ -182,11 +183,14 @@
                           </div>
                         </div>
                         <br>
-                
-                        <a href="/solicitudes"><button type="button" onclick="alertaCancelado();" class="btn btn-outline-dark">Cancelar</button></a>
-                        <button value="submit" class="btn btn-secondary">Enviar</button>
+                        
+
+                        <hr class="style17">
+                        <a href="/solicitudes"><button type="button" onclick="alertaCancelado();" class="btn btn-outline-dark" style="margin-right: 590px; margin-left: 20px;">Cancelar</button></a>
+                        <button value="submit" class="btn btn-secondary" >Enviar</button>
                 
                       </form>
+                      
 
                       <script>
                         function alertaCancelado() {  
@@ -202,6 +206,7 @@
                           }
                     </script>
 
+                      </div>
 
                 
                     </div>
@@ -209,5 +214,6 @@
                 
                 
                   </body>
+                  
                 
                 <%- include('includes/foot.ejs') %>
