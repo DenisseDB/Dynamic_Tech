@@ -18,10 +18,14 @@
                       <!-- Final de la nav-->
                       <%- include('includes/sidenavFin.ejs') %>
 
-                      <h2> Cuestionario para Feedback de <%= preguntasC[0].nombre %>
-                        <%= preguntasC[0].apellidoP %>
-                          <%= preguntasC[0].apellidoM %>
-                    </h2><br>
+                      <div>
+                        <br>
+                        <h2><strong>>Cuestionario para Feedback de <%= preguntasC[0].nombre %>
+                          <%= preguntasC[0].apellidoP %>
+                            <%= preguntasC[0].apellidoM %></strong></h2>
+                        <hr class="style17">
+                      </div>
+
                 
                     <div class='container'>
                       <form id = 'FormularioGeneral' method="POST"  onsubmit="return submitForm(this);">

@@ -179,55 +179,55 @@ exports.cuestionario = (request, response, next) => {
 
 exports.salvarRespuestas = async (request, response, next) => {
 
-   console.log("Salvar respuestas");
-   console.log(request.body);
+    console.log("Salvar respuestas");
+    //console.log(request.body);
 
-   //Para facilitar el manejo de las preguntas
-   let craft = request.session.preguntasCraft;
-   let people = request.session.preguntasPeople;
-   let bus = request.session.preguntasBusiness;
+    //Para facilitar el manejo de las preguntas
+    let craft = request.session.preguntasCraft;
+    let people = request.session.preguntasPeople;
+    let bus = request.session.preguntasBusiness;
 
-   //Para obtener cuantas preguntas fueron
-   var total = craft.length + people.length + bus.length;
+    //Para obtener cuantas preguntas fueron
+    var total = craft.length + people.length + bus.length
 
-   //Para obtener los ids de cada pregunta
-   /* Recorro cada cuestinario para obtener sus ids preguntas y los guardo en 
-       un array
-   */
-   var idP = [];
-   for (i = 0; i < craft.length; i++) {
-      idP.push(craft[i].idPregunta);
-   }
-   for (i = 0; i < people.length; i++) {
-      idP.push(people[i].idPregunta);
-   }
-   for (i = 0; i < bus.length; i++) {
-      idP.push(bus[i].idPregunta);
-   }
+    //Para obtener los ids de cada pregunta
+    /* Recorro cada cuestinario para obtener sus ids preguntas y los guardo en 
+        un array
+    */
+    var idP = [];
+    for (i = 0; i < craft.length; i++ ) {
+        idP.push(craft[i].idPregunta);
+    }
+    for (i = 0; i < people.length; i++ ) {
+        idP.push(people[i].idPregunta);
+    }
+    for (i = 0; i < bus.length; i++ ) {
+        idP.push(bus[i].idPregunta);
+    }
+ 
+    console.log(idP)
+    //Para obtener las respuestas del body
+    /* Recorro cada radio button del body para obtener sus respuesta y la guardo en 
+        un array
+    */
+    var respuestas = [];
+    for (i = 1; i <= total; i++ ) {
+        respuestas.push(request.body[i]);
+    }
 
-   console.log(idP);
-   //Para obtener las respuestas del body
-   /* Recorro cada radio button del body para obtener sus respuesta y la guardo en 
-       un array
-   */
-   var respuestas = [];
-   for (i = 1; i <= total; i++) {
-      respuestas.push(request.body[i]);
-   }
+    console.log(respuestas)
 
-   console.log(respuestas);
+    try {
+        //Ciclo for para realizar insert de preguntas y respuestas
+        for (i = 0; i < total; i++ ) {
+            let res = new Feed (request.params.idEvaluado, request.session.idEmpleado, idP[i],request.params.idPeriodo, respuestas[i])
+            await res.save();
+        }
+       response.redirect('/solicitudes');
 
-   try {
-      //Ciclo for para realizar insert de preguntas y respuestas
-      for (i = 0; i < total; i++) {
-         let res = new Feed(request.params.idEvaluado, request.session.idEmpleado, idP[i], request.params.idPeriodo, respuestas[i]);
-         await res.save();
-      }
-      response.redirect('/solicitudes');
-
-   } catch (error) {
-      console.log(error);
-   }
+    } catch(error) {
+        console.log(error)
+    }
 };
 
 exports.misMentorados = (request, response, next) => {

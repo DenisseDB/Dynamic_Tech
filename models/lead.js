@@ -73,8 +73,25 @@ module.exports = class ChapterLead {
         return db.execute('UPDATE empleado SET activo = 0 WHERE idEmpleado= ?;', [idEmpleado]);
     }
 
-    static modificarEmpleado(idEmpleado) {
-        return db.execute('UPDATE empleado SET activo = 0 WHERE idEmpleado= ?;', [idEmpleado]);
+    static modificarEmpleado(nombre,apellidoP,apellidoM,correo,contrasena, idEquipo, 
+        idEmpleado, idRol, nivelCraft,nivelPeople, nivelBusiness) {
+        
+        // return bcrypt.hash(contrasena, 12)
+
+        //     .then((password_cifrado) => {
+        //     return db.execute('CALL modificarEmpleado (?,?,?,?,?,?,?,?,?,?)', [nombre,apellidoP,apellidoM,correo,
+        //         password_cifrado, idEquipo,idEmpleado, idRol, nivelCraft,nivelPeople, nivelBusiness]);
+    
+        //     }).catch((error) => {
+        //         console.log(error);
+        //     });
+        // }
+
+        // return db.execute('CALL modificarEmpleado (?,?,?,?,?,?,?,?,?,?,?);', [nombre,apellidoP,apellidoM,correo,
+        //   contrasena, idEquipo,idEmpleado, idRol, nivelCraft,nivelPeople, nivelBusiness]);
+
+        return db.execute("CALL modificarEmpleado (?,?,?,?,?,?,?,?,?,?,?);",
+        [nombre,apellidoP,apellidoM,correo,contrasena,idEquipo,idEmpleado, idRol,nivelCraft,nivelPeople, nivelBusiness]);
     }
 
 }
