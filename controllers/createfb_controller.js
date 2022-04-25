@@ -7,14 +7,19 @@ exports.root = (request, response, next) => {
 
     const info = request.session.info ? request.session.info : '';
     request.session.info = '';
-
-    response.render('formatosEvaluacion', {
-        info: '',
-        nombreSesion: request.session.nombreSesion,
-        apellidoPSesion: request.session.apellidoPSesion,
-        foto: request.session.foto,
-        rolesA: request.session.privilegiosPermitidos,
-    });
+    FormatoEvaluacion.fetchCuestionarios()
+        .then(([rows, fieldData]) => {
+            response.render('formatosEvaluacion', {
+                info: '',
+                nombreSesion: request.session.nombreSesion,
+                apellidoPSesion: request.session.apellidoPSesion,
+                foto: request.session.foto,
+                rolesA: request.session.privilegiosPermitidos,
+                cuestionarios: rows,
+            });
+        }).catch((error) => {
+            console.log(error);
+        });
 };
 
 exports.buscarFormato = (request, response, next) => {
