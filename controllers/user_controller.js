@@ -36,30 +36,62 @@ exports.login = (request, response, next) => {
    User.findOne(request.body.correo)
       .then(([rows, fielData]) => {
 
-         //Si no existe el correo, redirige a la pantalla de login
          if (rows.length < 1) {
             return response.redirect('/users/login');
          }
 
-            // Info. del usuario sesionado
-            request.session.isLoggedIn = true;
-            request.session.idEmpleado = rows[0].idEmpleado;
-            request.session.nombreSesion = rows[0].nombre;
-            request.session.apellidoPSesion = rows[0].apellidoP;
-            console.log(rows[0].fotoPerfil)
-            request.session.foto = rows[0].fotoPerfil;
+         //const user = new User(rows[0].nombre, rows[0].apellidoP, rows[0].correo, rows[0].contrasena, rows[0].fotoPerfil);
+         const user = new User(rows[0].nombre, rows[0].apellidoP, rows[0].correo, rows[0].contrasena);
+                  bcrypt.compare(request.body.contrasena, user.contrasena)
+                           .then(doMatch => {
+                                 if (doMatch) {
+                                    request.session.isLoggedIn = true;
+                                    request.session.idEmpleado = user.idEmpleado;
+                                    request.session.nombreSesion = user.nombre;
+                                    request.session.apellidoPSesion = user.apellidoP;
+                                    request.session.foto = rows[0].fotoPerfil;
 
 
-         request.session.correo = rows[0].correo;
-         request.session.idRol = rows[0].idRol;
+                                    request.session.correo = user.correo;
+                                    request.session.idRol = rows[0].idRol;
 
-         // Nivel en cada dimensión del sesionado
-         request.session.craft = rows[0].nivelE;
-         request.session.people = rows[1].nivelE;
-         request.session.business = rows[2].nivelE;
+                                 // Nivel en cada dimensión del sesionado
+                                    request.session.craft = rows[0].nivelE;
+                                    request.session.people = rows[1].nivelE;
+                                    request.session.business = rows[2].nivelE;
+
+                                    return request.session.save(err => {
+                                       response.redirect('../home');
+                                          });
+                                 }
+                                 response.redirect('/users/login');
+                              }).catch(err => {
+                                 response.redirect('/users/login');
+                                 });
+         //Si no existe el correo, redirige a la pantalla de login
+         // if (rows.length < 1) {
+         //    return response.redirect('/users/login');
+         // }
+
+         //    // Info. del usuario sesionado
+         //    request.session.isLoggedIn = true;
+         //    request.session.idEmpleado = rows[0].idEmpleado;
+         //    request.session.nombreSesion = rows[0].nombre;
+         //    request.session.apellidoPSesion = rows[0].apellidoP;
+         //    console.log(rows[0].fotoPerfil)
+         //    request.session.foto = rows[0].fotoPerfil;
+
+
+         // request.session.correo = rows[0].correo;
+         // request.session.idRol = rows[0].idRol;
+
+         // // Nivel en cada dimensión del sesionado
+         // request.session.craft = rows[0].nivelE;
+         // request.session.people = rows[1].nivelE;
+         // request.session.business = rows[2].nivelE;
 
          // Redirección al HOME
-         return response.redirect('../home');
+         //return response.redirect('../home');
 
       }).catch((error) => {
          console.log(error);

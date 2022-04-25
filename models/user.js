@@ -4,14 +4,15 @@ const bcrypt = require('bcryptjs');
 module.exports = class User {
 
     //Constructor de la clase. Sirve para crear un nuevo objeto, y en él se definen las propiedades del modelo
-    constructor(nuevo_nombre, nuevo_aP, nuevo_aM, nuevo_correo, nuevo_password, nuevo_idEquipo, nueva_foto) {
+    //constructor(nuevo_nombre, nuevo_aP, nuevo_aM, nuevo_correo, nuevo_password, nuevo_idEquipo, nueva_foto) {
+    constructor(nuevo_nombre, nuevo_aP, nuevo_correo, nuevo_password) {
         this.nombre = nuevo_nombre;
         this.apellidoP = nuevo_aP;
-        this.apellidoM = nuevo_aM;
+        //this.apellidoM = nuevo_aM;
         this.correo = nuevo_correo;
         this.contrasena = nuevo_password;
-        this.idEquipo = nuevo_idEquipo;
-        this.fotoPerfil = nueva_foto;
+        //this.idEquipo = nuevo_idEquipo;
+        //this.fotoPerfil = nueva_foto;
     }
 
     // //Este método servirá para guardar de manera persistente el nuevo objeto. 
@@ -47,7 +48,7 @@ module.exports = class User {
     static findOne(correo) {
         //return db.execute('SELECT nombre,correo,E.idEmpleado,idRol FROM empleado E, rolEmpleado RE WHERE E.idEmpleado = RE.idEmpleado AND correo=?',
         //    [correo]);
-        return db.execute('SELECT E.idEmpleado, nombre,apellidoP, apellidoM, correo,fotoPerfil, idRol, idDimension, nivelE, DE.fecha FROM empleado E, rolempleado RE, dimempleado_actual DE WHERE E.idEmpleado = RE.idEmpleado AND E.idEmpleado = DE.idEmpleado AND correo = ? ORDER BY idDimension ASC;',
+        return db.execute('SELECT E.idEmpleado, nombre, apellidoP, apellidoM, correo, contrasena, idEquipo, fotoPerfil, idRol, idDimension, nivelE, DE.fecha FROM empleado E, rolempleado RE, dimempleado_actual DE WHERE E.idEmpleado = RE.idEmpleado AND E.idEmpleado = DE.idEmpleado AND correo = ? ORDER BY idDimension ASC;',
             [correo]);
     }
 
