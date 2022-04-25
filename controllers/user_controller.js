@@ -46,7 +46,7 @@ exports.login = (request, response, next) => {
                            .then(doMatch => {
                                  if (doMatch) {
                                     request.session.isLoggedIn = true;
-                                    request.session.idEmpleado = user.idEmpleado;
+                                    request.session.idEmpleado = rows[0].idEmpleado;
                                     request.session.nombreSesion = user.nombre;
                                     request.session.apellidoPSesion = user.apellidoP;
                                     request.session.foto = rows[0].fotoPerfil;
