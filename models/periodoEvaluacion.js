@@ -16,13 +16,11 @@ module.exports = class PeriodoEvaluacion {
     }
 
     savePeriodo() {
+
         return db.execute('INSERT INTO periodo(NombrePeriodo, fecha_inicial, fecha_final, anio) VALUES (?,?,?,?)',
             [this.nombre, this.fechaInicial, this.fechaFinal, this.anio]);
     }
 
-    // verificarFechas(){
-        
-    // }
 
 }
 

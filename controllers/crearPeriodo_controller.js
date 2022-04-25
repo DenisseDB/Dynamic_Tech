@@ -17,9 +17,6 @@ exports.root = (request, response, next) => {
     });
 };
 
-
-
-
 exports.generarPeriodo = (request, response, next) => {
     PeriodoEvaluacion.fetchAll()
         .then(([rows, fielData]) => {
@@ -37,14 +34,7 @@ exports.generarPeriodo = (request, response, next) => {
 
 exports.generarPeriodoPost = (request, response, next) => {
 
-    //console.log("Si se genera el post");
-
     function NombreMes(mes) {
-       // console.log('debuggeando');
-        // console.log(request.body.inicioFecha);
-        // console.log(anio_periodo);
-        // console.log('Nombre de mes para ' + mes + ' prueba');
-
         let meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
         let nombreMes = meses[mes - 1];
         return nombreMes;
@@ -59,18 +49,10 @@ exports.generarPeriodoPost = (request, response, next) => {
 
     let nombre_periodo = nombreMesInicio + '-' + nombreMesFinal;
 
-    // fecha_inicio = (request.body.fecha_inicial).toString();
-    // fecha_fin = (request.body.fecha_final).toString();
-
-    //console.log('wolis');
-
-    // console.log("debuggeando2");
-    // console.log(nombre_periodo);
-    // console.log(request.body.inicioFecha);
-    // console.log(request.body.finFecha);
-    // console.log(anio_periodo);
-
     const periodoEvaluacion = new PeriodoEvaluacion(nombre_periodo, request.body.inicioFecha, request.body.finFecha, anio_periodo);
+
+
+    
 
     //const periodoEvaluacion = new PeriodoEvaluacion(nombre_periodo, request.body.inicioFecha, request.body.finFecha, Number(anio_periodo));
     periodoEvaluacion.savePeriodo()
@@ -82,8 +64,6 @@ exports.generarPeriodoPost = (request, response, next) => {
                 foto: request.session.foto,
                 rolesA: request.session.privilegiosPermitidos,
             });
-            console.log('Periodos');
-            
         })
         .catch(err => {
             console.log(err);
