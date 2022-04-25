@@ -62,10 +62,10 @@ exports.agregarEmpleados = (request, response, next) => {
 exports.guardarEmpleado = (request, response, next) => {
 
     console.log("Salvar empleado");
-    console.log(request.body);
+    // console.log(request.body);
 
-    var file;
-    console.log(request.file.filename);
+    // var file;
+    // console.log(request.file.filename);
 
 
     var empleado = new Lead(request.body.nombre, request.body.apellidoP, request.body.apellidoM,
@@ -138,9 +138,20 @@ exports.modificarEmpleado = (request, response, next) => {
 
 exports.empleadoModificado = (request, response, next) => {
 
-    console.log(request.body);
-    console.log(request.body.nombre);
-    console.log(request.params.idEmpleado)
+    // console.log(request.body);   
+
+    Lead.modificarEmpleado(request.body.nombre,request.body.apellidoP,
+        request.body.apellidoM,request.body.correo,request.body.contrasena, 
+        request.body.equipo,request.params.idEmpleado, request.body.rol, 
+        request.body.nivelCraft,request.body.nivelPeople, request.body.nivelBusiness)
+                        .then(([rows, fielData]) => {
+
+                            response.redirect('/empleados');
+
+
+                        }).catch((error) => {
+                            console.log(error);
+                        });
 
 };
 
