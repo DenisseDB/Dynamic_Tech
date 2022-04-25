@@ -22,7 +22,7 @@ exports.tops = (request, response, next) => {
 };
 
 exports.tops_id = (request, response, next) => {
-   User.fetchDimensiones(request.session.idEmpleado)
+   User.fetchDimensiones(request.params.id)
       .then(([rows, fieldData]) => {
          //console.log(rows);
          response.status(200).json(rows);

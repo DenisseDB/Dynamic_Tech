@@ -91,9 +91,11 @@
                                           style="--value:<%= nivelB2 %>;  --fg: rgb(39, 94, 179); --bg: rgb(229, 237, 249);">
                                         </div>
                                       </td>
+                                      <% var url = '/miFeedback/' + mentorados_id[i];%>
+                                      <% console.log(url); %>
                                       <td style="text-align:center">
-                                        <button type="button" style="margin:auto"
-                                          class="btn btn-dark">Detalle</button>
+                                        <a href="<%=url%>" type="button" style="margin:auto"
+                                          class="btn btn-dark">Detalle</a>
                                         </td>
                                                                 <!-- <button type="button" class="btn btn-lg btn-primary" disabled>Responder</button> -->
                                       </tr>
@@ -137,7 +139,6 @@
                           </div>
                         </div>
                       </div>
-
                           <style>
                             @keyframes growProgressBar {
                           

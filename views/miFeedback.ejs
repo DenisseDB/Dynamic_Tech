@@ -20,14 +20,19 @@
 <!-- Para las rutas -->
 <div class="container px-13">
   <div class="space2">
-    <h2><strong>Mi Feedback</strong></h2>
+
+    <% if (idEmpleado == idSesionado) { %>
+      <h2><strong>Mi Feedback</strong></h2>
+    <% } else { %>
+      <h2><strong>Feedback de </strong><i><%= nombre_empleado %> <%= apellido_empleado%></i></h2>
+    <% } %>
         <hr class="style17">
     <br>
 
     <!-------------------------------------- Gráficos y Niveles ---------------------------------------------->
     <div class="row d-flex justify-content-between">
       <div class="col-md-5">
-        <input id="idE" value="<% idEmpleado %>" type="hidden">
+        <input id="idE" value="<%=idEmpleado%>" type="hidden">
         <div id="chart-container" style="position: relative; height:30vh; width:40vw">
           <!--//Para cambiar tamanio-->
           <div class="card">
@@ -124,7 +129,12 @@
                     <% for (let retro of retroalimentaciones) { %>
                       <% if (retro.idPeriodo == periodo.idPeriodo) { %>
                         <tr>
-                          <form action="/miFeedback" method="POST">
+                          <% if (idEmpleado==idSesionado) { %>
+                            <form action="/miFeedback" method="POST">
+                          <% } else { %>
+                            <% var url='/miFeedback/' + idEmpleado;%>
+                            <form action="<%=url%>" method="POST">
+                          <% } %>
                             <input id="IdPed" name="IdPed" type="hidden" value="<%= retro.idPeriodo %>">
                             <input id="IdEval" name="IdEval" type="hidden" value="<%= retro.idEvaluador %>">
                             <input id="IdCraft" name="IdCraft" type="hidden" value="<%= retro.idCuestionarioCraft %>">
@@ -265,7 +275,8 @@
 <script>
    const graficas = () => {
 
-      const new_id = document.getElementById("idE");
+      const new_id = document.getElementById("idE").value;
+      console.log(new_id);
 
       fetch('/users/tops/' + new_id, {
          method: 'GET',

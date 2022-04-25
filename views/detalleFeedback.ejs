@@ -22,12 +22,20 @@
   <div class="space">
         <div class="sticky-top bwhite">
           <br>
-          <h5><a href="./miFeedback">Mi Feedback</a> - Retroalimentación (<%= solicitud[0].NombrePeriodo %> <%= solicitud[0].anio %>) - <%= solicitud[0].nombre %> <%= solicitud[0].apellidoP %></h5>
+          <% if (self == '') {%>
+            <h5><a href="./miFeedback">Mi Feedback</a> - Retroalimentación (<%= solicitud[0].NombrePeriodo %> <%= solicitud[0].anio %>) - <%= solicitud[0].nombre %> <%= solicitud[0].apellidoP %></h5>
+          <% } else {%>
+            <h5><a href="#">Feedback de <%= nombre_empleado %> <%= apellido_empleado %></a> - Retroalimentación (<%= solicitud[0].NombrePeriodo %>
+                <%= solicitud[0].anio %>) - <%= solicitud[0].nombre %>
+                    <%= solicitud[0].apellidoP %>
+            </h5>
+          <% } %>
           <hr class="style17">
         </div>
         
         <div class="row content-center">
-          <div class="col-auto"><h3><strong>Recolección de Feedback</strong></h3></div>
+          <div class="col-auto"><h3><strong>Recolección de Feedback de </strong> - <%= nombre_empleado %>
+            <%= apellido_empleado %> </h3></div>
           <div class="col-auto"><p><i>Respondida por: <%= solicitud[0].nombre %> <%= solicitud[0].apellidoP %></i></p></div>
         </div><br>
 
@@ -259,7 +267,13 @@
         <% } %>
       <br>
       <div class="d-flex justify-content-end">
-        <a href="./miFeedback" id="regresar" name="regresar" class="btn btn-dark"> Regresar </a>
+
+        <% if (self == '') {%>
+          <a href="./miFeedback" id="regresar" name="regresar" class="btn btn-dark"> Regresar </a>
+        <% } else{%>
+          <% var url='/miFeedback/' + id_empleado;%>
+          <a href="<%=url%>" id="regresar" name="regresar" class="btn btn-dark"> Regresar </a>
+        <% } %>
       </div>     
   </div>
 </body>
