@@ -4,7 +4,8 @@ const bcrypt = require('bcryptjs');
 exports.get_login = (request, response, next) => {
    response.render('login', {
       correo: request.session.correo ? request.session.correo : '',
-      info: ''
+      info: '',
+      incorrecto: '',
    });
 };
 
@@ -37,7 +38,11 @@ exports.login = (request, response, next) => {
       .then(([rows, fielData]) => {
 
          if (rows.length < 1) {
-            return response.redirect('/users/login');
+            return response.render('login', {
+               correo: request.session.correo ? request.session.correo : '',
+               info: '',
+               incorrecto: 'incorrecto',
+            });
          }
 
          //const user = new User(rows[0].nombre, rows[0].apellidoP, rows[0].correo, rows[0].contrasena, rows[0].fotoPerfil);
@@ -64,7 +69,11 @@ exports.login = (request, response, next) => {
                                        response.redirect('../home');
                                           });
                                  }
-                                 response.redirect('/users/login');
+                              response.render('login', {
+                                 correo: request.session.correo ? request.session.correo : '',
+                                 info: '',
+                                 incorrecto: 'incorrecto',
+                                 });
                               }).catch(err => {
                                  response.redirect('/users/login');
                                  });
