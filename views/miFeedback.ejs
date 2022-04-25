@@ -97,7 +97,7 @@
       </ul>
     </div><br>
 
-    <% let c = 0; let b = 0; %>
+    <% let e = 0; let g = 0; %>
     <% for (let periodo of periodos) { %>
     <div class="accordion" id="accordionOpen">
       <div class="accordion-item">
@@ -109,7 +109,7 @@
         <div id="collapse<%= periodo.idPeriodo %>" class="accordion-collapse collapse" aria-labelledby="<%= periodo.idPeriodo %>">
           <div class="accordion-body">
             <ul class="list-group">
-              <% if ((retroalimentaciones.length> 0) && (retroalimentaciones[c].idPeriodo == periodo.idPeriodo)) { %>
+              <% if ((retroalimentaciones.length> 0) && (retroalimentaciones[e].idPeriodo == periodo.idPeriodo)) { %>
                 <table class="table">
                   <thead class="thead-dark">
                     <tr>
@@ -137,22 +137,21 @@
                                 <div class="col-auto"><p><%= retro.nombre %> <%= retro.apellidoP %></p></div>
                               </div>
                             </td>
-                            <% let d = desempenioE[c]; %>
+                            <% let d = especifico[e]; %>
                             <td><div class="content-center"><p><%= d[0].promedio %></p></div></td>
                             <td><div class="content-center"><p><%= d[1].promedio %></p></div></td>
                             <td><div class="content-center"><p><%= d[2].promedio %></p></div></td>
                             <td><div class="content-center"><button type="submit" class="btn btn-dark">Detalle</button></div></td>
                           </form>
                         </tr>
-                        <% c++; %>
+                        <% e++; %>
                       <% } else { %>
-                        <% let p = desempenioG[b]; %>
                         <td><div class="bit"><p>Promedio por dimensión</p></div></td>
-                        <td><div class="bit"><p><%= p[0].promedio %></p></div></td>
-                        <td><div class="bit"><p><%= p[1].promedio %></p></div></td>
-                        <td><div class="bit"><p><%= p[2].promedio %></p></div></td>
+                        <td><div class="bit"><p><%= general[g].promedio %></p></div></td>
+                        <td><div class="bit"><p><%= general[g+1].promedio %></p></div></td>
+                        <td><div class="bit"><p><%= general[g+2].promedio %></p></div></td>
                         <td><div class="bit"><p>-</p></div></td>                 
-                      <% break; } %>
+                      <% g = g + 3; break; } %>
                     <% } %>
                   </tbody>
                 </table>
@@ -164,10 +163,10 @@
         </div>
       </div>
     </div><br>
-    <% b++; } %>
+    <% } %>
 </div>
 
-<!--------------------------------------  Manejo del Histórico ---------------------------------------------->
+<!--------------------------------------  Manejo del Periodos ---------------------------------------------->
 <!-- <script>
   var hint = document.getElementById('hint');
   var btn = document.getElementById('btn_show');

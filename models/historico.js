@@ -16,7 +16,7 @@ module.exports = class Historial{
 
     // Método. Solicitudes respondidas históricamente.
     static fetchFeedHistorico(idSesionado) {
-        return db.execute('SELECT idEvaluador, nombre, apellidoP, idCuestionarioCraft, idCuestionarioPeople, idCuestionarioBusiness, idPeriodo FROM retroalimentacion R, empleado E WHERE R.idEvaluador = E.idEmpleado AND idEvaluado = ? AND estatus = 1 ORDER BY idPeriodo DESC;', 
+        return db.execute('SELECT idEvaluador, nombre, apellidoP, idCuestionarioCraft, idCuestionarioPeople, idCuestionarioBusiness, idPeriodo FROM retroalimentacion R, empleado E WHERE R.idEvaluador = E.idEmpleado AND idEvaluado = ? AND estatus = 1 ORDER BY idPeriodo DESC, idEvaluador ASC;', 
         [idSesionado])
             .then(([rows, fielData]) => {
                 return rows;
@@ -80,9 +80,9 @@ module.exports = class Historial{
     }
 
     // Método. Desempeño según feedback de compañero en un periodo.
-    static fetchDesempenioG(idEvaluado, idPeriodo) {
-        return db.execute("SELECT idDimension, AVG(respuesta) as 'promedio' FROM preguntacuestionario PC, pregunta P, respondesolicita R WHERE PC.idPregunta = P.idPregunta AND idEvaluado = ? AND idPeriodo = ? and PC.idPregunta = R.idPregunta AND idTipo = 1 GROUP BY idCuestionario ORDER BY idDimension ASC;",
-        [idEvaluado, idPeriodo])
+    static fetchDesempenioG(idEvaluado) {
+        return db.execute("SELECT idPeriodo, idDimension, AVG(respuesta) as 'promedio' FROM preguntacuestionario PC, pregunta P, respondesolicita R WHERE PC.idPregunta = P.idPregunta AND idEvaluado = ? and PC.idPregunta = R.idPregunta AND idTipo = 1 GROUP BY idCuestionario, idPeriodo ORDER BY idPeriodo DESC, idDimension ASC;",
+        [idEvaluado])
             .then(([rows, fielData]) => {
                 return rows;
             })
