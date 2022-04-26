@@ -10,13 +10,13 @@ Tras ejecutar los comandos NPM, acceder a:
 http://localhost:3000/users/login
 
 ## Usuarios prueba
-*Constaseña: 123*
 
-1. Chapter lead: bernardoLaing@gmail.com (Administrador)
 
-2. Chapter assistant: nicolasRdz@gmail.com (Empleado con más funcionalidades que un empleado normal)
+1. Chapter lead: bernardoLaing@gmail.com (Administrador) *Constaseña: 123*
 
-3. Chapter member: gabrielHuitron@gmail.com (Empleado normal)
+2. Chapter assistant: nicolasRdz@gmail.com (Empleado con más funcionalidades que un empleado normal) *Constaseña: 456*
+
+3. Chapter member: gabrielHuitron@gmail.com (Empleado normal) *Constaseña: 789*
 
 ## Cosas que pueden realizar
 
