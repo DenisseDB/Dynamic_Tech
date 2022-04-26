@@ -34,8 +34,15 @@
         </div>
         
         <div class="row content-center">
-          <div class="col-auto"><h3><strong>Recolección de Feedback de </strong> - <%= nombre_empleado %>
-            <%= apellido_empleado %> </h3></div>
+          <% if (self=='' ) {%>
+            <div class="col-auto"><h3><strong> Recolección de Feedback </strong></h3></div>
+          <% } else {%>
+            <div class="col-auto">
+              <h3><strong>Recolección de Feedback de </strong> - <%= nombre_empleado %>
+                  <%= apellido_empleado %>
+              </h3>
+            </div>
+          <% } %>
           <div class="col-auto"><p><i>Respondida por: <%= solicitud[0].nombre %> <%= solicitud[0].apellidoP %></i></p></div>
         </div><br>
 
