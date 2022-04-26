@@ -1,0 +1,59 @@
+<!-- Partes que siempre aparecen en el navbar -->
+<%- include('includes/sidenavsup.ejs') %>
+
+<!-- Para que aparezca Mis Mentorados -->
+<% for (i = 0; i < rolesA.length; i++) {  %>
+  <% if (rolesA[i].idPrivilegio == 1) { %> 
+  <%- include('includes/sideMentorados.ejs') %>
+  <% } %>
+<% } %>
+
+<!-- Para que aparezca Empleados del chapter -->
+<% for (i = 0; i < rolesA.length; i++) {  %>
+  <% if (rolesA[i].idPrivilegio == 2) { %> 
+  <%- include('includes/sideAgregarE.ejs') %>
+  <% } %>
+<% } %>
+
+<!-- Final de la nav-->
+<%- include('includes/sidenavFin.ejs') %>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<body>
+
+<div class="container">
+<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+
+<script>
+var xValues = ["Solicitudes Enviadas", "Solicitudes respondidas"];
+var yValues = [55, 49];
+var barColors = [
+  //"#D4507C",
+  "#E25287",
+  "#3136B2",
+  //"rgb(39, 94, 179)",
+];
+
+new Chart("myChart", {
+  type: "doughnut",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "Feedback periodo -"
+    }
+  }
+});
+</script>
+
+</div>
+
+</body>
+
+<%- include('includes/foot.ejs') %>
