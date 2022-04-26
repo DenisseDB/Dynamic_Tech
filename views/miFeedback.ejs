@@ -82,49 +82,46 @@
 
   <br><br><br><br><br><br>
     <!--------------------------------------  Histórico de Solicitudes ---------------------------------------------->
-    <!-- <div class="btn-group">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false">
-        Periodo
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuClickableOutside">
-        <% for (let periodo of periodos) { %>
-        <li><a class="dropdown-item" href="#"><%= periodo.NombrePeriodo %> <%= periodo.anio %></a></li>
-        <% } %>
-      </ul>
-    </div><br><br> -->
 
-    <% let c = 0; %>
-    <div class="list-group periodo">
+    <% let c = 0; %>    
+    <button class="btn btn-secondary dropdown-toggle mr-4" type="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">Periodo</button>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuClickable" id="mySelect">
+      <!-- Default unchecked -->
       <% for (let periodo of periodos) { %>
+      <a class="dropdown-item">
+        <div class="custom-control custom-checkbox">            
+            <label class="custom-control-label" for="p<%= periodo.idPeriodo %>">
+              <% if (c == 0) { c++; %>
+              <input class="custom-control-label" type="checkbox" id="p<%= periodo.idPeriodo %>" name="p<%= periodo.idPeriodo %>" checked>
+              <% } else {%>
+              <input class="custom-control-label" type="checkbox" id="p<%= periodo.idPeriodo %>" name="p<%= periodo.idPeriodo %>">
+              <% } %>
+              <%= periodo.NombrePeriodo %> <%= periodo.anio %>
+            </label>
+        </div>
+      </a>
 
-        <label class="list-group-item borderless " for="p<%= periodo.idPeriodo %>">
-          <% if (c == 0) { c++; %>
-          <input class="form-check-input me-1 " type="checkbox" value="unchecked" id="p<%= periodo.idPeriodo %>" name="p<%= periodo.idPeriodo %>" checked>
-          <% } else {%>
-          <input class="form-check-input me-1 " type="checkbox" value="unchecked" id="p<%= periodo.idPeriodo %>" name="p<%= periodo.idPeriodo %>">
-          <% } %>
-          <%= periodo.NombrePeriodo %> <%= periodo.anio %>
-        </label>
+      <script>
+        document.getElementById("p<%= periodo.idPeriodo %>").onclick = () => {
+          let x = document.getElementById("accordion<%= periodo.idPeriodo %>");
+          let elm = document.getElementById("p<%= periodo.idPeriodo %>");
 
-        <script>
-          document.getElementById("p<%= periodo.idPeriodo %>").onclick = () => {
-            let x = document.getElementById("accordion<%= periodo.idPeriodo %>");
-            let elm = document.getElementById("p<%= periodo.idPeriodo %>");
-
-            if (elm.checked == false) {
-              x.style.transition = 'height 0.3s linear 300ms, opacity 300ms';
-              x.style.opacity = 0;
-              x.style.height =  '0px';
-            } else {
-              x.style.transition = 'height 0.300ms, opacity 0.5s linear 300ms';
-              x.style.opacity = 1;
-              x.style.height =  '100%';
-            }
+          if (elm.checked == false) {
+            x.style.transition = 'height 0.3s linear 300ms, opacity 300ms';
+            x.style.opacity = 0;
+            x.style.height =  '0px';
+          } else {
+            x.style.transition = 'height 0.300ms, opacity 0.5s linear 300ms';
+            x.style.opacity = 1;
+            x.style.height =  '100%';
           }
-        </script>
+        }
+      </script>
       <% } %>
-    </div><br>
-
+  </div><br><br>
+  
     <% let e = 0; let g = 0; let p = 0;%>
     <% for (let periodo of periodos) { %>
     <% if (p == 0) { p++;%>
@@ -134,7 +131,8 @@
     <% } %>
       <div class="accordion-item">
         <h2 class="accordion-header" id="<%= periodo.idPeriodo %>">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= periodo.idPeriodo %>" aria-expanded="false" aria-controls="collapse<%= periodo.idPeriodo %>">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#collapse<%= periodo.idPeriodo %>" aria-expanded="false" aria-controls="collapse<%= periodo.idPeriodo %>">
             <strong><%= periodo.NombrePeriodo %> <%= periodo.anio %></strong>
           </button>
         </h2>
@@ -201,6 +199,8 @@
 <%- include('includes/foot.ejs') %>
 
 <style>
+  @import "transitions";
+  
    @keyframes growProgressBar {
 
       0%,
@@ -248,6 +248,11 @@
    /* demo */
 </style>
 
+<script>
+    require(['bootstrap-multiselect'], function(purchase){
+    $('#mySelect').multiselect();
+    });
+</script>
 
 <script>
    const graficas = () => {
