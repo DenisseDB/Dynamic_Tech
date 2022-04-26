@@ -25,4 +25,4 @@ const DB_INSTANCIA = {
 
 
 
-module.exports = pool.promise(DB_INSTANCIA);
+module.exports = DB_INSTANCIA.promise();
