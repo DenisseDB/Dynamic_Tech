@@ -97,3 +97,16 @@ hr.style17:after {
 .bit {
   font-weight: bold;
 }
+
+.borderless {
+  border: none;
+}
+
+#pc1 {
+  opacity: 1;
+  transition: opacity 0.5s linear;
+}
+
+#pc1.hide {
+  opacity: 0;
+}
