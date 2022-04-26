@@ -22,6 +22,30 @@ exports.root = (request, response, next) => {
         });
 };
 
+exports.editarCuestionario = (request, response, next) => {
+
+    response.render('EditarCuestionario', {
+        info: '',
+        nombreSesion: request.session.nombreSesion,
+        apellidoPSesion: request.session.apellidoPSesion,
+        foto: request.session.foto,
+        rolesA: request.session.privilegiosPermitidos,
+    });
+};
+
+exports.editarCuestionario_post = (request, response, next) => { };
+
+exports.verCuestionario = (request, response, next) => {
+
+    response.render('verCuestionario', {
+        info: '',
+        nombreSesion: request.session.nombreSesion,
+        apellidoPSesion: request.session.apellidoPSesion,
+        foto: request.session.foto,
+        rolesA: request.session.privilegiosPermitidos,
+    });
+};
+
 exports.buscarFormato = (request, response, next) => {
     //console.log(request.params.nivel);
     //console.log(request.params.dim);
@@ -67,22 +91,21 @@ exports.generarFormato_post = (request, response, next) => {
     //console.log("Controlador:");
     //console.log(request.body);
     request.session.info = 'El cuestionario "' + request.body.nombreCuestionario + '" fue registrado con éxito';
-    let preguntas = [request.body.pregunta0, request.body.pregunta1, request.body.pregunta2];
-    const formatoEvaluacion = new FormatoEvaluacion(request.body.nombreCuestionario, request.body.inputDimension, request.body.inputNivel, preguntas);
+    const formatoEvaluacion = new FormatoEvaluacion(request.body.nombreCuestionario, request.body.inputDimension, request.body.inputNivel);
     formatoEvaluacion.saveCuestionario()
         .then(() => {
-            formatoEvaluacion.savePreguntasCuestionario()
-                .then(() => {
+            FormatoEvaluacion.fetchCuestionarios()
+                .then(([rows, fieldData]) => {
                     response.render('formatosEvaluacion', {
-                        info: request.session.info,
+                        info: '',
                         nombreSesion: request.session.nombreSesion,
                         apellidoPSesion: request.session.apellidoPSesion,
                         foto: request.session.foto,
                         rolesA: request.session.privilegiosPermitidos,
+                        cuestionarios: rows,
                     });
-                })
-                .catch(err => {
-                    console.log(err);
+                }).catch((error) => {
+                    console.log(error);
                 });
         })
         .catch(err => {

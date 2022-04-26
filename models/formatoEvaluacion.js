@@ -4,22 +4,23 @@ const bcrypt = require('bcryptjs');
 module.exports = class formatoEvaluacion {
 
     //Constructor de la clase. Sirve para crear un nuevo objeto, y en él se definen las propiedades del modelo
-    constructor(nuevo_nombre, nueva_dimension, nuevo_nivel, nueva_pregunta = []) {
+    constructor(nuevo_nombre, nueva_dimension, nuevo_nivel) {
         this.nombre = nuevo_nombre;
         this.nivel = nuevo_nivel;
         this.dimension = nueva_dimension;
-        this.pregunta = nueva_pregunta;
     }
 
     static fetchCuestionarios() {
         //return db.execute('SELECT DISTINCT nombre, fecha, idDimension, nivelP FROM cuestionario C, preguntacuestionario PC, pregunta P WHERE C.idCuestionario = PC.idCuestionario AND PC.idPregunta = P.idPregunta; ');
-        return db.execute('SELECT DISTINCT nombre, fecha, idDimension, nivelP FROM cuestionario C, preguntacuestionario PC, pregunta P WHERE C.idCuestionario = PC.idCuestionario AND PC.idPregunta = P.idPregunta ORDER BY idDimension, fecha, nivelP ASC;');
+        //return db.execute('SELECT DISTINCT nombre, fecha, idDimension, nivelP FROM cuestionario C, preguntacuestionario PC, pregunta P WHERE C.idCuestionario = PC.idCuestionario AND PC.idPregunta = P.idPregunta ORDER BY idDimension, fecha, nivelP ASC;');
+        //return db.execute('SELECT DISTINCT nombre, fecha, idDimension, nivelP FROM cuestionario C, preguntacuestionario PC, pregunta P WHERE C.idCuestionario = PC.idCuestionario AND PC.idPregunta = P.idPregunta ORDER BY `P`.`nivelP` ASC, `C`.`fecha` DESC');
+        return db.execute('SELECT DISTINCT nombre, idCuestionario, fecha, idDimension, nivelC FROM cuestionario C ORDER BY idDimension, fecha, nivelC ASC;');
     }
 
     // //Este método servirá para guardar de manera persistente el nuevo objeto. 
     saveCuestionario() {
-        return db.execute('INSERT INTO cuestionario(nombre, fecha) VALUES(?, CURRENT_DATE()); ',
-            [this.nombre]);
+        return db.execute('INSERT INTO cuestionario(nombre, fecha, nivelC, idDimension) VALUES(?, CURRENT_DATE(), ?, ?); ',
+            [this.nombre, this.nivel, this.dimension]);
     }
 
     savePreguntasCuestionario() {

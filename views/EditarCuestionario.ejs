@@ -1,0 +1,25 @@
+<%- include('includes/sidenavsup.ejs') %>
+
+<!-- Para que aparezca Mis Mentorados -->
+<% for (i=0; i < rolesA.length; i++) { %>
+<% if (rolesA[i].idPrivilegio==1) { %>
+   <%- include('includes/sideMentorados.ejs') %>
+<% } %>
+<% } %>
+
+               <!-- Para que aparezca Empleados del chapter -->
+<% for (i=0; i < rolesA.length; i++) { %>
+<% if (rolesA[i].idPrivilegio==2) { %>
+<%- include('includes/sideAgregarE.ejs') %>
+<% } %>
+<% } %>
+
+<%- include('includes/sidenavFin.ejs') %>
+
+<div class="container px-13">
+    <div class="space2">
+        <h2><strong> Editar Cuestionario </strong></h2>
+        <hr class="style17">
+        <br>
+    </div>
+</div>
