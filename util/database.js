@@ -15,4 +15,14 @@ const pool = mysql.createPool({
    password: 'contraseña123.'
 });
 
-module.exports = pool.promise();
+const DB_INSTANCIA = {
+   host: 'localhost',
+   user: 'admin',
+   database: 'dynamictech_bd_feedback2',
+   password: 'dynamic123.',
+   port: 3000
+};
+
+
+
+module.exports = pool.promise(DB_INSTANCIA);
