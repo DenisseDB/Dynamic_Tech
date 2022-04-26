@@ -1,12 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 5.1.3
--- https://www.phpmyadmin.net/
---
--- Host: mysql-dynamictech.alwaysdata.net
--- Generation Time: Apr 26, 2022 at 05:12 PM
--- Server version: 10.6.5-MariaDB
--- PHP Version: 7.4.19
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -25,7 +16,7 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`263275`@`%` PROCEDURE `agregarEmpleado` (IN `U_nombre` VARCHAR(100) CHARSET utf16, IN `U_apellidoP` VARCHAR(100) CHARSET utf16, IN `U_apellidoM` VARCHAR(100) CHARSET utf16, IN `U_correo` VARCHAR(200) CHARSET utf16, IN `U_contraseña` VARCHAR(200) CHARSET utf16, IN `U_idEquipo` INT, IN `U_fotoPerfil` VARCHAR(400) CHARSET utf16, IN `U_idRol` INT, IN `U_nivelCraft` FLOAT, IN `U_nivelPeople` FLOAT, IN `U_nivelBusiness` FLOAT)   BEGIN
+CREATE DEFINER=`admin`@`%` PROCEDURE `agregarEmpleado` (IN `U_nombre` VARCHAR(100) CHARSET utf16, IN `U_apellidoP` VARCHAR(100) CHARSET utf16, IN `U_apellidoM` VARCHAR(100) CHARSET utf16, IN `U_correo` VARCHAR(200) CHARSET utf16, IN `U_contraseña` VARCHAR(200) CHARSET utf16, IN `U_idEquipo` INT, IN `U_fotoPerfil` VARCHAR(400) CHARSET utf16, IN `U_idRol` INT, IN `U_nivelCraft` FLOAT, IN `U_nivelPeople` FLOAT, IN `U_nivelBusiness` FLOAT)   BEGIN
 
 INSERT INTO `empleado` (`idEmpleado`, `nombre`, `apellidoP`, `apellidoM`, `correo`, `contrasena`, `idEquipo`, `fotoPerfil`) VALUES (NULL, U_nombre, U_apellidoP, U_apellidoM, U_correo, U_contraseña, U_idEquipo, U_fotoPerfil);
 
@@ -46,7 +37,7 @@ INSERT INTO dimempleado VALUES
 
 END$$
 
-CREATE DEFINER=`263275`@`%` PROCEDURE `modificarEmpleado` (IN `U_nombre` VARCHAR(100), IN `U_apellidoP` VARCHAR(100), IN `U_apellidoM` VARCHAR(100), IN `U_correo` VARCHAR(400), IN `U_contrasena` VARCHAR(400), IN `U_idEquipo` INT, IN `U_idEmpleado` INT, IN `U_idRol` INT, IN `U_nivelCraft` FLOAT, IN `U_nivelPeople` FLOAT, IN `U_nivelBusiness` FLOAT, IN `U_fotoPerfil` VARCHAR(1000))   BEGIN
+CREATE DEFINER=`admin`@`%` PROCEDURE `modificarEmpleado` (IN `U_nombre` VARCHAR(100), IN `U_apellidoP` VARCHAR(100), IN `U_apellidoM` VARCHAR(100), IN `U_correo` VARCHAR(400), IN `U_contrasena` VARCHAR(400), IN `U_idEquipo` INT, IN `U_idEmpleado` INT, IN `U_idRol` INT, IN `U_nivelCraft` FLOAT, IN `U_nivelPeople` FLOAT, IN `U_nivelBusiness` FLOAT, IN `U_fotoPerfil` VARCHAR(1000))   BEGIN
 
 UPDATE empleado SET nombre = U_nombre, apellidoP = U_apellidoP, apellidoM = U_apellidoM, correo = U_correo, contrasena = U_contrasena,idEquipo = U_idEquipo, fotoPerfil = U_fotoPerfil WHERE idEmpleado = U_idEmpleado;
 
@@ -92,7 +83,7 @@ THEN
 
 END$$
 
-CREATE DEFINER=`263275`@`%` PROCEDURE `registrarFeedback` (IN `U_idEvaluado` INT, IN `U_idEvaluador` INT, IN `U_idPregunta` INT, IN `U_idPeriodo` INT, IN `U_respuesta` VARCHAR(40))   BEGIN 
+CREATE DEFINER=`admin`@`%` PROCEDURE `registrarFeedback` (IN `U_idEvaluado` INT, IN `U_idEvaluador` INT, IN `U_idPregunta` INT, IN `U_idPeriodo` INT, IN `U_respuesta` VARCHAR(40))   BEGIN 
 INSERT INTO respondesolicita VALUES(U_idEvaluado,U_idEvaluador, U_idPregunta, U_idPeriodo,U_respuesta);
 
 UPDATE retroalimentacion SET estatus = 1 WHERE idEvaluador = U_idEvaluador and idEvaluado = U_idEvaluado and idPeriodo = U_idPeriodo;
