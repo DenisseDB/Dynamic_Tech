@@ -210,7 +210,32 @@ exports.buscarEmpleado = (request, response, next) => {
     });
 }
 
+exports.respondidas = (request, response, next) => {
+    Lead.fetchSolicitudesRespondidas()
+    .then(([respondidas, fieldData]) => {
+          //console.log(rows);
+          response.status(200).json(respondidas);
+          response.redirect('/miChapter');
+       })
+       .catch(err => {
+          console.log(err);
+       });
+ };
+
 exports.miChapter = (request, response, next) => {
+
+    Lead.fetchSolicitudesRespondidas()
+    .then(([respondidas, fieldData]) => {
+
+
+        console.log(respondidas[0].conteo);
+
+        Lead.fetchSolicitudesSinResponder()
+        .then(([sinresponder, fieldData]) => {
+
+            console.log(sinresponder[0].conteo);
+            console.log(JSON.stringify({ sinresponder: respondidas[0].conteo, respondidas: sinresponder[0].conteo }));
+
 
     response.render('miChapter', {
 
@@ -221,8 +246,29 @@ exports.miChapter = (request, response, next) => {
         apellidoPSesion: request.session.apellidoPSesion,
         foto: request.session.foto,
 
+        // respondidas: respondidas[0].conteo,
+        // sinresponder: sinresponder[0].conteo,
+        // respondidas: respondidas,
+        // sinresponder: sinresponder,
+        //json: JSON.stringify({ sinresponder: respondidas[0].conteo, respondidas: sinresponder[0].conteo })
+    
+        
+
+        
+
 
     });
+
+}).catch((error) => {
+    console.log(error);
+});
+
+
+
+
+}).catch((error) => {
+console.log(error);
+});
 
 
 };

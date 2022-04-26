@@ -76,22 +76,21 @@ module.exports = class ChapterLead {
     static modificarEmpleado(nombre,apellidoP,apellidoM,correo,contrasena, idEquipo, 
         idEmpleado, idRol, nivelCraft,nivelPeople, nivelBusiness,foto) {
         
-        // return bcrypt.hash(contrasena, 12)
-
-        //     .then((password_cifrado) => {
-        //     return db.execute('CALL modificarEmpleado (?,?,?,?,?,?,?,?,?,?)', [nombre,apellidoP,apellidoM,correo,
-        //         password_cifrado, idEquipo,idEmpleado, idRol, nivelCraft,nivelPeople, nivelBusiness]);
-    
-        //     }).catch((error) => {
-        //         console.log(error);
-        //     });
-        // }
-
-        // return db.execute('CALL modificarEmpleado (?,?,?,?,?,?,?,?,?,?,?);', [nombre,apellidoP,apellidoM,correo,
-        //   contrasena, idEquipo,idEmpleado, idRol, nivelCraft,nivelPeople, nivelBusiness]);
-
         return db.execute("CALL modificarEmpleado (?,?,?,?,?,?,?,?,?,?,?,?);",
         [nombre,apellidoP,apellidoM,correo,contrasena,idEquipo,idEmpleado, idRol,nivelCraft,nivelPeople, nivelBusiness,foto]);
     }
+
+    static fetchSolicitudesRespondidas() {
+        
+        //return db.execute('SELECT COUNT(*) as conteo from retroalimentacion WHERE estatus is NOT NULL and idPeriodo in (SELECT MAX(idPeriodo) FROM periodo);');
+        return db.execute('SELECT r.idPeriodo, estatus, NombrePeriodo from retroalimentacion as r, periodo as p WHERE  p.idPeriodo = r.idPeriodo AND p.idPeriodo in (SELECT MAX(idPeriodo) FROM periodo);')
+    }
+
+    static fetchSolicitudesSinResponder() {
+        
+        return db.execute('SELECT COUNT(*) as conteo from retroalimentacion WHERE estatus is NULL and idPeriodo in (SELECT MAX(idPeriodo) FROM periodo);');
+    }
+
+    
 
 }
