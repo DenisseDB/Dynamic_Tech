@@ -93,36 +93,45 @@
       </ul>
     </div><br><br> -->
 
+    <% let c = 0; %>
     <div class="list-group periodo">
       <% for (let periodo of periodos) { %>
-      
-        
+
         <label class="list-group-item borderless " for="p<%= periodo.idPeriodo %>">
-          <input class="form-check-input me-1 " type="checkbox" value="unchecked" id="p<%= periodo.idPeriodo %>" name="p<%= periodo.idPeriodo %>" >
+          <% if (c == 0) { c++; %>
+          <input class="form-check-input me-1 " type="checkbox" value="unchecked" id="p<%= periodo.idPeriodo %>" name="p<%= periodo.idPeriodo %>" checked>
+          <% } else {%>
+          <input class="form-check-input me-1 " type="checkbox" value="unchecked" id="p<%= periodo.idPeriodo %>" name="p<%= periodo.idPeriodo %>">
+          <% } %>
           <%= periodo.NombrePeriodo %> <%= periodo.anio %>
         </label>
 
         <script>
           document.getElementById("p<%= periodo.idPeriodo %>").onclick = () => {
             let x = document.getElementById("accordion<%= periodo.idPeriodo %>");
-            x.style.transition = 'opacity 1s, display 2s ease-out';
+            let elm = document.getElementById("p<%= periodo.idPeriodo %>");
 
-            if (x.style.opacity == 1) {
+            if (elm.checked == false) {
+              x.style.transition = 'height 0.3s linear 300ms, opacity 300ms';
               x.style.opacity = 0;
-              x.style.display = 'none';
+              x.style.height =  '0px';
             } else {
+              x.style.transition = 'height 0.300ms, opacity 0.5s linear 300ms';
               x.style.opacity = 1;
-              x.style.display = 'block';
+              x.style.height =  '100%';
             }
           }
         </script>
-      
       <% } %>
     </div><br>
 
-    <% let e = 0; let g = 0; %>
+    <% let e = 0; let g = 0; let p = 0;%>
     <% for (let periodo of periodos) { %>
+    <% if (p == 0) { p++;%>
     <div class="accordion pc1" id="accordion<%= periodo.idPeriodo %>">
+    <% } else {%>
+    <div class="accordion pc2" id="accordion<%= periodo.idPeriodo %>">
+    <% } %>
       <div class="accordion-item">
         <h2 class="accordion-header" id="<%= periodo.idPeriodo %>">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= periodo.idPeriodo %>" aria-expanded="false" aria-controls="collapse<%= periodo.idPeriodo %>">
@@ -184,56 +193,12 @@
             </ul>
           </div>
         </div>
-      </div>
-    </div><br>
+      </div><br>
+    </div>
     <% } %>
 </div>
 
-<!--------------------------------------  Scripts y estilos ---------------------------------------------->
-<!-- <script>
-  var hint = document.getElementById('hint');
-  var btn = document.getElementById('btn_show');
-
-  btn.addEventListener('click', function () {
-    var ctr = 1;
-    hint.className = hint.className !== 'show' ? 'show' : 'hide';
-    if (hint.className === 'show') {
-      hint.style.display = 'block';
-      window.setTimeout(function () {
-        hint.style.opacity = 1;
-        hint.style.transform = 'scale(1)';
-      }, 0);
-    }
-    if (hint.className === 'hide') {
-      hint.style.opacity = 0;
-      window.setTimeout(function () {
-        hint.style.display = 'none';
-      }, 700); // timed to match animation-duration
-    }
-
-  });
-
-  function hide(ids) {
-    ids.forEach(id => {
-      document.getElementById(id).style.display = 'none';
-    });
-  }
-
-  function show(ids) {
-    ids.forEach(id => {
-      document.getElementById(id).style.display = 'block';
-    });
-  }
-
-  function trigger() {
-    hide([
-      //ids de los elementos
-    ]);
-    show([
-      //ids de los elementos
-    ]);
-  }
-</script> -->
+<%- include('includes/foot.ejs') %>
 
 <style>
    @keyframes growProgressBar {

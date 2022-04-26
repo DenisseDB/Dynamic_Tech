@@ -102,11 +102,12 @@ hr.style17:after {
   border: none;
 }
 
-#pc1 {
+.pc1 {
   opacity: 1;
-  transition: opacity 0.5s linear;
+  height: 100%; 
 }
 
-#pc1.hide {
-  opacity: 0;
+.pc2 {
+  opacity: 0; 
+  height: 0px;
 }
