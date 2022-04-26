@@ -3,6 +3,7 @@ const Feed = require('../models/contestaFeed');
 const Solicitud = require('../models/solicitud');
 const Lead = require('../models/lead');
 const res = require('express/lib/response');
+const bcrypt = require('bcryptjs');
 
 exports.agregarEmpleados = (request, response, next) => {
     //Tomo las preguntas del cuestionario de Craft asignardo
@@ -145,11 +146,21 @@ exports.empleadoModificado = (request, response, next) => {
     // console.log(request.file);
     // console.log(request.session.fotoEmpleado);
     // request.file ? request.file.filename : request.session.fotoEmpleado,
+    // console.log("contraseña" + request.body.contrasena);
+
+     var hash ="";
+     if (request.body.contrasena === ""){
+
+        hash =  request.session.passEmpleado;
+
+     } else{
+        hash = bcrypt.hashSync(request.body.contrasena, 12);
+     }
 
 
     Lead.modificarEmpleado(request.body.nombre,request.body.apellidoP,
         request.body.apellidoM,request.body.correo,
-        request.body.contrasena ? request.body.contrasena : request.session.passEmpleado, 
+        hash, 
         request.body.equipo,request.params.idEmpleado, request.body.rol, 
         request.body.nivelCraft,request.body.nivelPeople, request.body.nivelBusiness,
         request.file ? request.file.filename : request.session.fotoEmpleado)
