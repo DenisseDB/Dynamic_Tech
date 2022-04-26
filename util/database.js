@@ -15,13 +15,13 @@ const pool = mysql.createPool({
    password: 'contraseña123.'
 });
 
-const DB_INSTANCIA = {
+const DB_INSTANCIA =  mysql.createPool({
    host: 'localhost',
    user: 'admin',
    database: 'dynamictech_bd_feedback2',
    password: 'dynamic123.',
    port: 3306
-};
+});
 
 
 
