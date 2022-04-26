@@ -18,15 +18,23 @@
                       <!-- Final de la nav-->
                       <%- include('includes/sidenavFin.ejs') %>
 
-                      <h2> Cuestionario para Feedback de <%= preguntasC[0].nombre %>
-                        <%= preguntasC[0].apellidoP %>
-                          <%= preguntasC[0].apellidoM %>
-                    </h2><br>
+                  
+
                 
-                    <div class='container'>
+                    <div class='container' style=" width: 90%; text-align: justify;">
+
+                      <div>
+                        <br>
+                        <h3 style="text-align:justify; font-size:x-large;"><a href="/solicitudes" style="text-decoration:none; color:rgb(72, 72, 206)" onclick="alertaCancelado();"> Solicitudes</a><strong> - Cuestionario de Feedback para <%= preguntasC[0].nombre %>
+                          <%= preguntasC[0].apellidoP %>
+                            <%= preguntasC[0].apellidoM %></strong></h3>
+                        <hr class="style17">
+                      </div>
+
+                      <div class='container' style=" width: 90%; text-align: justify;">
                       <form id = 'FormularioGeneral' method="POST"  onsubmit="return submitForm(this);">
                         <div class="card">
-                          <h5 class="card-header">Preguntas de Craft</h5>
+                          <h4 class="card-header" style="font-size:larger;">Preguntas de Craft</h4>
                           <div class="card-body">
                             
                             <% var nombre = 1 %>
@@ -63,29 +71,32 @@
                                     value="5">
                                   <label class="form-check-label" for="<%= pregunta.idPregunta %>">5</label>
                                 </div>
+                                <br><br>
                                 <% } else { %>
                                   <div class="mb-3">
                                     <textarea class="form-control" name="<%= nombre  %>" id="<%= pregunta.idPregunta %>" rows="3"></textarea>
                                   </div>
+                                  <br><br>
                                 <% }  %>
                                 <% nombre ++  %>
-                                <br><br>
+              
                                 <% } %>
                           </div>
                         </div>
                         <br>
                 
                         <div class="card">
-                          <h5 class="card-header">Preguntas de People</h5>
+                          <h4 class="card-header" style="font-size:larger;">Preguntas de People</h4>
                           <div class="card-body">
                 
                             <% for (let pregunta of preguntasP) { %>
                               <h5 id = "<%= pregunta.idPregunta %>">
                                 <%= pregunta.pregunta %>
                               </h5>
+                              <% if (pregunta.idTipo == 1) { %>
                               <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="<%= nombre  %>" id="<%= pregunta.idPregunta %> "
-                                  value="1" required>
+                               <input class="form-check-input" type="radio" name="<%= nombre  %>" id="<%= pregunta.idPregunta %>"
+                                value="1" required>
                                 <label class="form-check-label" for="<%= pregunta.idPregunta %>">1</label>
                               </div>
                               <div class="form-check form-check-inline">
@@ -110,24 +121,32 @@
                                   value="5">
                                 <label class="form-check-label" for="<%= pregunta.idPregunta %>">5</label>
                               </div>
-                              <% nombre ++ %>
                               <br><br>
+                              <% } else { %>
+                                <div class="mb-3">
+                                  <textarea class="form-control" name="<%= nombre  %>" id="<%= pregunta.idPregunta %>" rows="3"></textarea>
+                                </div>
+                                <br><br>
+                              <% }  %>
+                              <% nombre ++  %>
+            
                               <% } %>
                           </div>
                         </div>
                         <br>
                 
                         <div class="card">
-                          <h5 class="card-header">Preguntas de Business</h5>
+                          <h4 class="card-header" style="font-size:larger;">Preguntas de Business</h4>
                           <div class="card-body">
                 
                             <% for (let pregunta of preguntasB) { %>
                               <h5 id = "<%= pregunta.idPregunta %>">
                                 <%= pregunta.pregunta %>
                               </h5>
+                              <% if (pregunta.idTipo == 1) { %>
                               <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="<%= nombre  %>" id="<%= pregunta.idPregunta %>"
-                                  value="1" required>
+                               <input class="form-check-input" type="radio" name="<%= nombre  %>" id="<%= pregunta.idPregunta %>"
+                                value="1" required>
                                 <label class="form-check-label" for="<%= pregunta.idPregunta %>">1</label>
                               </div>
                               <div class="form-check form-check-inline">
@@ -152,17 +171,26 @@
                                   value="5">
                                 <label class="form-check-label" for="<%= pregunta.idPregunta %>">5</label>
                               </div>
-                              <% nombre ++  %>
                               <br><br>
+                              <% } else { %>
+                                <div class="mb-3">
+                                  <textarea class="form-control" name="<%= nombre  %>" id="<%= pregunta.idPregunta %>" rows="3"></textarea>
+                                </div>
+                              <% }  %>
+                              <% nombre ++  %>
+            
                               <% } %>
                           </div>
                         </div>
                         <br>
-                
-                        <a href="/solicitudes"><button type="button" onclick="alertaCancelado();" class="btn btn-outline-dark">Cancelar</button></a>
-                        <button value="submit" class="btn btn-secondary">Enviar</button>
+                        
+
+                        <hr class="style17">
+                        <a href="/solicitudes"><button type="button" onclick="alertaCancelado();" class="btn btn-outline-dark" style="margin-right: 590px; margin-left: 20px;">Cancelar</button></a>
+                        <button value="submit" class="btn btn-secondary" >Enviar</button>
                 
                       </form>
+                      
 
                       <script>
                         function alertaCancelado() {  
@@ -178,6 +206,7 @@
                           }
                     </script>
 
+                      </div>
 
                 
                     </div>
@@ -185,5 +214,6 @@
                 
                 
                   </body>
+                  
                 
                 <%- include('includes/foot.ejs') %>

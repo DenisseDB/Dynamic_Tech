@@ -13,6 +13,13 @@ const rutas_lead = require('./routes/lead.routes'); // Usuario sesionado.
 const rutas_createfb = require('./routes/createfb.routes'); // Rutas para poder crear/generar/modificar cuestionarios.
 const rutas_createPeriodo = require('./routes/createPeriodo.routes'); 
 
+
+// Libreria que nos permite guardar credenciales en variables de retorno
+// const dotenv = require('dotenv').config({path: './.env'});
+const dotenv = require('dotenv').config();
+const port = process.env.PORT || 3000;
+
+
 path = require('path');
 const app = express();
 
@@ -37,7 +44,9 @@ const fileStorage = multer.diskStorage({
         //'uploads': Es el directorio del servidor donde se subirán los archivos 
         callback(null, 'uploads');
     },
+    
     filename: (request, file, callback) => {
+
         //aquí configuramos el nombre que queremos que tenga el archivo en el servidor, 
         //para que no haya problema si se suben 2 archivos con el mismo nombre concatenamos el timestamp
         callback(null, new Date().getTime() + '-' + file.originalname);
@@ -68,4 +77,6 @@ app.use((request, response, next) => {
     next();
 });
 
-app.listen(3000);
+app.listen(port, () => {
+   console.log('Servidor corriendo en el puerto ', port);
+});

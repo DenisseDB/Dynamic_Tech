@@ -15,6 +15,7 @@
   <% } %>
 <% } %>
 
+
 <!-- Final de la nav-->
 <%- include('includes/sidenavFin.ejs') %>
 
@@ -28,7 +29,7 @@
         <h2 class="accordion-header" id="headingOne">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
             aria-expanded="true" aria-controls="collapseOne">
-            <h5><i class="bi bi-person-plus-fill"></i> Agregar Empelado</h5>
+            <h5><i class="bi bi-person-plus-fill"></i> Agregar Empleado</h5>
           </button>
         </h2>
         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
@@ -257,7 +258,7 @@
                   <th style="width:20%;" scope="col">Correo</th>
                   <th scope="col">Nivel Craft</th>
                   <th scope="col">Nivel People</th>
-                  <th scope="col">Nivel Busisness</th>
+                  <th scope="col">Nivel Business</th>
                   <th scope="col"></th>
                   <th scope="col"></th>
                 </tr>
@@ -383,17 +384,30 @@
 
 
         //AJAX para filtrar empleados
-        respuesta += '<div class="col-sm-12">' + '<div class="card">' +
-          '<h5 class="card-header"><i class="bi bi-person-fill"></i> Miembros del chapter</h5>' +
-          '<div class="card-body"><table class="table"><thead class="thead-dark"><tr>' +
-          '<th scope="col"></th><th scope="col">Nombre</th><th scope="col">Correo</th>' +
-          '<th scope="col">Nivel Craft</th><th scope="col">Nivel People</th>' +
-          '<th scope="col">Nivel  Busisness</th><th scope="col"></th><th scope="col">' +
-          '</th></tr></thead><tbody><tr>';
+        respuesta += ' <div class="col-sm-12">' +
+                     ' <div class="card">' +
+                     '   <h5 class="card-header"><i class="bi bi-person-fill"></i> Miembros del chapter</h5>' +
+                     '   <div class="card-body">' +   
+                     '     <table class="table" style="table-layout: fixed">' +
+                     '       <thead class="thead-dark"> ' +
+                     '         <tr>' +
+                     '           <th scope="col"></th>' +
+                     '           <th style="width:20%;" scope="col">Nombre</th>' +
+                     '           <th style="width:20%;" scope="col">Correo</th>' +
+                     '           <th scope="col">Nivel Craft</th>' +
+                     '           <th scope="col">Nivel People</th>' +
+                     '           <th scope="col">Nivel Business</th>' +
+                     '           <th scope="col"></th>' +
+                     '           <th scope="col"></th>' +
+                     '         </tr>' +
+                     '       </thead>' +
+                     '       <tbody>' +
+                     '         <tr>' ;
 
         for (let empleado = 0; empleado < data.length; empleado = empleado + 3) {
-          respuesta += '<td> <img src="' + data[empleado].fotoPerfil + '" alt="hugenerd" width="60" height="60" class="rounded-circle"></td>' +
+          respuesta += '<td style="text-align:center"> <img src="' + data[empleado].fotoPerfil + '" alt="hugenerd" width="60" height="60" class="rounded-circle"></td>' +
             '<td>' + data[empleado].nombre + ' ' + data[empleado].apellidoP + ' ';
+
           if (data[empleado].apellidoM == '' || data[empleado].apellidoM == null) {
 
           } else {
@@ -405,20 +419,42 @@
 
           for (let dim of data) {
             if ((data[empleado].idEmpleado == dim.idEmpleado) && (dim.idDimension == 1)) {
-              respuesta += '<td>' + dim.nivelE.toFixed(1) + '</td>';
+
+
+               var craft = dim.nivelE; 
+               var craft2 = dim.nivelE * 100 / 5;
+
+             respuesta += '<td style="text-align:center; width:33%"><div role="progressbar" id="pg1" data-content="'+
+               craft.toFixed(1) +'" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" value="2" style="--value:'
+               + craft2 + ';"></td>';
             }
           }
 
           for (let dim of data) {
             if ((data[empleado].idEmpleado == dim.idEmpleado) && (dim.idDimension == 2)) {
-              respuesta += '<td>' + dim.nivelE.toFixed(1) + '</td>';
+
+              var people = dim.nivelE;
+              var people2 = dim.nivelE * 100 / 5;
+              
+              respuesta += '<td style="text-align:center"><div role="progressbar" id="pg2" data-content="' +
+                people.toFixed(1) + '" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" value="2" style="--value:' +
+                people2 +'; --fg: rgb(91, 57, 107); --bg: rgb(238, 229, 249);"></td>';
+
             }
           }
 
 
           for (let dim of data) {
             if ((data[empleado].idEmpleado == dim.idEmpleado) && (dim.idDimension == 3)) {
-              respuesta += '<td>' + dim.nivelE.toFixed(1) + '</td>';
+
+              var business = dim.nivelE; 
+              var business2 = dim.nivelE * 100 / 5;
+              
+              
+              respuesta += '<td style="text-align:center"><div role="progressbar" id="pg2" data-content="'+
+                 business.toFixed(1) +'" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" value="2" style="--value:' +
+                 business2 + '; --fg: rgb(39, 94, 179); --bg: rgb(229, 237, 249);"></td>';
+ 
             }
           }
 
@@ -429,6 +465,7 @@
         }
 
         respuesta += '</tbody></table></div></div></div>';
+  
 
 
 
