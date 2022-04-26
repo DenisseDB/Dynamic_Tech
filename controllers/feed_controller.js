@@ -106,20 +106,24 @@ exports.miFeedback =  async (request, response, next) => {
     }
         
     response.render('miFeedback.ejs',
-    {
-        idSesionado: request.session.idEmpleado,
-        rolesA :  request.session.privilegiosPermitidos,
-        periodos : pds,
-        retroalimentaciones : hs,
-        desempenioE : dsI,
-        desempenioG : dsG,
-        nombreSesion: request.session.nombreSesion,
-        apellidoPSesion: request.session.apellidoPSesion,
-        foto: request.session.foto,
-        idEmpleado: request.session.idEmpleado ? request.session.idEmpleado : '',
-        nivel_craftpg: request.session.craft ? request.session.craft : '',
-        nivel_peoplepg: request.session.people ? request.session.people : '',
-        nivel_businesspg: request.session.business ? request.session.business : ''
+       {
+         idSesionado: request.session.idEmpleado,
+         rolesA :  request.session.privilegiosPermitidos,
+         periodos : pds,
+         retroalimentaciones: hs,
+         desempenioE : dsI,
+          desempenioG: dsG,
+          nombre_empleado: '',
+          apellido_empleado: '',
+         nombreSesion: request.session.nombreSesion,
+         apellidoPSesion: request.session.apellidoPSesion,
+         foto: request.session.foto,
+         idEmpleado: request.session.idEmpleado ? request.session.idEmpleado : '',
+         nivel_craftpg: request.session.craft ? request.session.craft : '',
+         nivel_peoplepg: request.session.people ? request.session.people : '',
+         nivel_businesspg: request.session.business ? request.session.business : '',
+         
+        
     });
 };
 
@@ -144,11 +148,89 @@ exports.detalleFeedback =  async (request, response, next) => {
         people : rPeople,
         business : rBusiness,
         solicitud : sol,
-        niveles : lvl,
+       niveles: lvl,
+       nombre_empleado: '',
+       apellido_empleado: '',
+       id_empleado: '',
         nombreSesion: request.session.nombreSesion,
         apellidoPSesion: request.session.apellidoPSesion,
-        foto: request.session.foto 
+         foto: request.session.foto,
+         self: '',
     });
+};
+
+exports.miFeedback_id = async (request, response, next) => {
+   const pds = await Historial.fetchAllPeriodo(); // Periodos de evaluación.
+   const hs = await Historial.fetchFeedHistorico(request.params.id); // Histórico de solicitudes respondidas.
+   let dsI = []; let dsG = []; 
+
+   for await (let x of hs) {
+      let especifico = await Historial.fetchDesempenioE(x.idCuestionarioCraft, x.idCuestionarioPeople, x.idCuestionarioBusiness,
+         request.params.id, x.idEvaluador, x.idPeriodo);
+      dsI.push(especifico);
+   }
+
+   for await (let p of pds) {
+      let general = await Historial.fetchDesempenioG(request.params.id, p.idPeriodo);
+      dsG.push(general);
+   }
+
+   
+   const niv = await User.fetchDimensiones_actuales(request.params.id);
+   const nom = await User.fetchNombre(request.params.id);
+
+   response.render('miFeedback.ejs',
+      {
+         idSesionado: request.session.idEmpleado,
+         rolesA: request.session.privilegiosPermitidos,
+         periodos: pds,
+         retroalimentaciones: hs,
+         desempenioE: dsI,
+         desempenioG: dsG,
+         nombre_empleado: nom[0][0].nombre,
+         apellido_empleado: nom[0][0].apellidoP,
+         nombreSesion: request.session.nombreSesion,
+         apellidoPSesion: request.session.apellidoPSesion,
+         foto: request.session.foto,
+         idEmpleado: request.params.id,
+         nivel_craftpg: niv[0][0].nivelE,
+         nivel_peoplepg: niv[0][1].nivelE,
+         nivel_businesspg: niv[0][2].nivelE
+      });
+};
+
+
+exports.detalleFeedback_id = async (request, response, next) => {
+   let evaluador = request.body.IdEval;
+   let periodo = request.body.IdPed;
+   let evaluado = request.params.id;
+   let idcraft = request.body.IdCraft;
+   let idPeople = request.body.IdPeople;
+   let idCommercial = request.body.IdCommercial;
+
+   const rCraft = await Historial.fetchFeedDetallado(idcraft, evaluado, evaluador, periodo); // Retro del Cuestionario Craft.
+   const rPeople = await Historial.fetchFeedDetallado(idPeople, evaluado, evaluador, periodo); // Retro del Cuestionario People.
+   const rBusiness = await Historial.fetchFeedDetallado(idCommercial, evaluado, evaluador, periodo); // Retro del Cuestionario Business.
+   const sol = await Historial.fetchSolicitud(evaluado, evaluador, periodo); // Detalle del Periodo y Evaluador.
+   const lvl = await Historial.fetchNiveles(idcraft, idPeople, idCommercial); // Detalle de los niveles al momento de la solicitud.
+   const nom = await User.fetchNombre(request.params.id);
+
+   response.render('detalleFeedback.ejs',
+      {
+         rolesA: request.session.privilegiosPermitidos,
+         craft: rCraft,
+         people: rPeople,
+         business: rBusiness,
+         solicitud: sol,
+         niveles: lvl,
+         id_empleado: request.params.id,
+         nombre_empleado: nom[0][0].nombre,
+         apellido_empleado: nom[0][0].apellidoP,
+         nombreSesion: request.session.nombreSesion,
+         apellidoPSesion: request.session.apellidoPSesion,
+         foto: request.session.foto,
+         self: '1',
+      });
 };
 
 
