@@ -47,24 +47,14 @@
                 <th scope="row">Foto de perfil: </th>
                 <td> 
                 
-                  <img class="rounded-circle" src="/<%= empleado[0].fotoPerfil %>" id="output" alt="hugenerd" width="80" height="80" class="rounded-circle" />
-                  <br><br>
-                  <div class="mb-3">
-                    <input class="form-control" type="file" id="fotoPerfil" name="fotoPerfil" capture>
+                  <div class="profile-pic-div">
+                    <img src="/<%= empleado[0].fotoPerfil %>" id="photo">
+                    <input type="file" id="file" name="fotoPerfil">
+                    <label for="file" id="uploadBtn">Choose Photo</label>
                   </div>
+    
                 </td>
-
-              </tr>
-
-              <tr>
-                <!-- Foto de perfil-->
-                <th scope="row">Foto de perfil link: </th> 
-                <td>
-                  <input type="text" name="fotoPerfil1" id="fotoPerfil1" value="<%= empleado[0].fotoPerfil %>"  autocomplete="off" class="form-control"/>
-                </td>
-              </tr>
-
-              
+              </tr>                       
 
               <tr>
                 <!-- Nombre -->
@@ -104,7 +94,7 @@
               <tr>
                 <th scope="row">Contraseña: </th>
                 <td>
-                  <input type="password" name="contrasena" id="contrasena" value="<%= empleado[0].contrasena %>"  autocomplete="off" class="form-control"/></td>
+                  <input type="password" name="contrasena" id="contrasena"  autocomplete="off" class="form-control"/></td>
                 </td>
                 
               </tr>
@@ -263,6 +253,48 @@
     </div>
   </div>
 
+
 </body>
+
+<script>
+  //Declaro componentes de html
+
+const imgDiv = document.querySelector('.profile-pic-div');
+const img = document.querySelector('#photo');
+const file = document.querySelector('#file');
+const uploadBtn = document.querySelector('#uploadBtn');
+
+//Hover de user
+
+imgDiv.addEventListener('mouseenter', function(){
+    uploadBtn.style.display = "block";
+});
+
+//Hover out
+
+imgDiv.addEventListener('mouseleave', function(){
+    uploadBtn.style.display = "none";
+});
+
+
+//Cuando cambiamos la imagen
+
+file.addEventListener('change', function(){
+    //El nuevo file de imagen
+    const choosedFile = this.files[0];
+
+    if (choosedFile) {
+
+        const reader = new FileReader(); //FileReader es una función predifinida de JS
+
+        reader.addEventListener('load', function(){
+            img.setAttribute('src', reader.result);
+        });
+
+        reader.readAsDataURL(choosedFile);
+
+    }
+});
+</script>
 
 <%- include('includes/foot.ejs') %>

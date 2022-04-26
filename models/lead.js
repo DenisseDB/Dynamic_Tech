@@ -74,7 +74,7 @@ module.exports = class ChapterLead {
     }
 
     static modificarEmpleado(nombre,apellidoP,apellidoM,correo,contrasena, idEquipo, 
-        idEmpleado, idRol, nivelCraft,nivelPeople, nivelBusiness) {
+        idEmpleado, idRol, nivelCraft,nivelPeople, nivelBusiness,foto) {
         
         // return bcrypt.hash(contrasena, 12)
 
@@ -90,8 +90,8 @@ module.exports = class ChapterLead {
         // return db.execute('CALL modificarEmpleado (?,?,?,?,?,?,?,?,?,?,?);', [nombre,apellidoP,apellidoM,correo,
         //   contrasena, idEquipo,idEmpleado, idRol, nivelCraft,nivelPeople, nivelBusiness]);
 
-        return db.execute("CALL modificarEmpleado (?,?,?,?,?,?,?,?,?,?,?);",
-        [nombre,apellidoP,apellidoM,correo,contrasena,idEquipo,idEmpleado, idRol,nivelCraft,nivelPeople, nivelBusiness]);
+        return db.execute("CALL modificarEmpleado (?,?,?,?,?,?,?,?,?,?,?,?);",
+        [nombre,apellidoP,apellidoM,correo,contrasena,idEquipo,idEmpleado, idRol,nivelCraft,nivelPeople, nivelBusiness,foto]);
     }
 
 }

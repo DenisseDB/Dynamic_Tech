@@ -62,23 +62,23 @@ exports.agregarEmpleados = (request, response, next) => {
 exports.guardarEmpleado = (request, response, next) => {
 
     console.log("Salvar empleado");
-    // console.log(request.body);
+    console.log(request.body);
+
+    console.log(request.file ? request.file.filename : 'iconperfil.png');
 
     // var file;
-    // console.log(request.file.filename);
 
-
-    var empleado = new Lead(request.body.nombre, request.body.apellidoP, request.body.apellidoM,
-        request.body.email, request.body.password, request.body.equipo, request.file.filename, request.body.rol,
-        request.body.nivelCraft, request.body.nivelPeople, request.body.nivelBusiness);
+    var empleado = new Lead(
+        request.body.nombre, request.body.apellidoP, request.body.apellidoM,
+        request.body.email, request.body.password, request.body.equipo, 
+        request.file ? request.file.filename : 'iconperfil.png' , request.body.rol,
+        request.body.nivelCraft, request.body.nivelPeople, request.body.nivelBusiness
+        );
 
     empleado.save().then(() => {
         request.session.empleadoSuccess = true;
         response.redirect('/empleados');
     }).catch(err => console.log(err));
-
-
-
 
 
 };
@@ -87,6 +87,9 @@ exports.modificarEmpleado = (request, response, next) => {
 
     Lead.fetchEmpleado(request.params.idEmpleado)
         .then(([rows, fielData]) => {
+
+        request.session.fotoEmpleado = rows[0].fotoPerfil;
+        request.session.passEmpleado = rows[0].contrasena;
 
             Lead.fecthEquipos(request.params.idEmpleado)
                 .then(([equipos, fielData]) => {
@@ -139,11 +142,17 @@ exports.modificarEmpleado = (request, response, next) => {
 exports.empleadoModificado = (request, response, next) => {
 
     // console.log(request.body);   
+    // console.log(request.file);
+    // console.log(request.session.fotoEmpleado);
+    // request.file ? request.file.filename : request.session.fotoEmpleado,
+
 
     Lead.modificarEmpleado(request.body.nombre,request.body.apellidoP,
-        request.body.apellidoM,request.body.correo,request.body.contrasena, 
+        request.body.apellidoM,request.body.correo,
+        request.body.contrasena ? request.body.contrasena : request.session.passEmpleado, 
         request.body.equipo,request.params.idEmpleado, request.body.rol, 
-        request.body.nivelCraft,request.body.nivelPeople, request.body.nivelBusiness)
+        request.body.nivelCraft,request.body.nivelPeople, request.body.nivelBusiness,
+        request.file ? request.file.filename : request.session.fotoEmpleado)
                         .then(([rows, fielData]) => {
 
                             response.redirect('/empleados');
@@ -189,3 +198,20 @@ exports.buscarEmpleado = (request, response, next) => {
         console.log(err);
     });
 }
+
+exports.miChapter = (request, response, next) => {
+
+    response.render('miChapter', {
+
+        correo: request.session.correo ? request.session.correo : '',
+        rolesA: request.session.privilegiosPermitidos,
+        rol: request.session.idRol ? request.session.idRol : '',
+        nombreSesion: request.session.nombreSesion,
+        apellidoPSesion: request.session.apellidoPSesion,
+        foto: request.session.foto,
+
+
+    });
+
+
+};

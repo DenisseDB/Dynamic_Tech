@@ -16,6 +16,9 @@ router.post('/empleados/:idEmpleado',isAuth, checkRoleAuth([1]), leadController.
 router.get('/empleados',isAuth, checkRoleAuth([1]), leadController.agregarEmpleados);
 router.post('/empleados',isAuth, checkRoleAuth([1]), leadController.guardarEmpleado);
 
+router.get('/miChapter',isAuth, checkRoleAuth([1]), leadController.miChapter);
+
+
 
 
 module.exports = router;
