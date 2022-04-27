@@ -3,11 +3,11 @@
 <!-- Para que aparezca Mis Mentorados -->
 <% for (i=0; i < rolesA.length; i++) { %>
 <% if (rolesA[i].idPrivilegio==1) { %>
-   <%- include('includes/sideMentorados.ejs') %>
+<%- include('includes/sideMentorados.ejs') %>
 <% } %>
 <% } %>
 
-               <!-- Para que aparezca Empleados del chapter -->
+<!-- Para que aparezca Empleados del chapter -->
 <% for (i=0; i < rolesA.length; i++) { %>
 <% if (rolesA[i].idPrivilegio==2) { %>
 <%- include('includes/sideAgregarE.ejs') %>
@@ -23,15 +23,16 @@
       <br>
       <div class="container">
          <div class="col-sm-12">
-            <a href="/feedback/generarFormato" type="button" style="margin:auto" class="btn btn-dark"> + Nuevo Cuestionario</a>
+            <a href="/feedback/generarFormato" type="button" style="margin:auto" class="btn btn-dark"> + Nuevo
+               Cuestionario</a>
             <br>
             <br>
 
             <div class="accordion" id="accordionExample">
                <div class="accordion-item">
                   <h2 class="accordion-header" id="headingOne">
-                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                        aria-expanded="true" aria-controls="collapseOne">
+                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         <h5> Cuestionarios de Craft </h5>
                      </button>
                   </h2>
@@ -48,33 +49,34 @@
                            </thead>
                            <tbody>
                               <% for (let cuestionario of cuestionarios) { %>
-                                 <% if (cuestionario.idDimension == 1 ) { %>
-                                 <tr>
-                                    <td>
-                                       <%=cuestionario.nombre%>
-                                    </td>
-                                    <td>
-                                       <%=cuestionario.nivelC%>
-                                    </td>
-                                    <td>
-                                       <% var c=cuestionario.fecha; %>
-                                          <%= new Date(c).toISOString().slice(0, 19).replace('T', ' ' ); %>
-                        
-                                    </td>
-                                    <td>
-                                       <% var url2='/feedback/verCuestionario/' + cuestionario.idCuestionario;%>
-                                       <a href="<%=url2%>" type="button" style="margin:auto" class="btn btn-outline-dark">
-                                          <!--i class="bi bi-eye-fill"></i--> Ver
-                                       </a>
+                              <% if (cuestionario.idDimension == 1 ) { %>
+                              <tr>
+                                 <td>
+                                    <%=cuestionario.nombre%>
+                                 </td>
+                                 <td>
+                                    <%=cuestionario.nivelC%>
+                                 </td>
+                                 <td>
+                                    <% var c=cuestionario.fecha; %>
+                                    <%= new Date(c).toISOString().slice(0, 19).replace('T', ' ' ); %>
 
-                                       <% var url='/feedback/editarCuestionario/' + cuestionario.idCuestionario;%>
-                                       <a href="<%=url%>" type="button" style="margin:auto" class="btn btn-dark">
-                                          <!--i class="bi bi-pencil-square"></i--> Editar
-                                       </a>
-                                    </td>
-                                 </tr>
-                                 <% } %>
-                                 <% } %>
+                                 </td>
+                                 <td>
+                                    <% var url2='/feedback/verCuestionario/' + cuestionario.idCuestionario;%>
+                                    <a href="<%=url2%>" type="button" style="margin:auto"
+                                       class="btn btn-outline-dark col-xs-6" id="Ver_Cuest_Craft">
+                                       <i class="bi bi-eye-fill"> Ver</i>
+                                    </a>
+
+                                    <% var url='/feedback/editarCuestionario/' + cuestionario.idCuestionario;%>
+                                    <a href="<%=url%>" type="button" style="margin:auto" class="btn btn-dark"id="Editar_Cuest_Craft">
+                                       <i class="bi bi-pencil-square"> Editar</i>
+                                    </a>
+                                 </td>
+                              </tr>
+                              <% } %>
+                              <% } %>
                            </tbody>
                         </table>
                      </div>
@@ -87,8 +89,8 @@
             <div class="accordion" id="accordionExample2">
                <div class="accordion-item">
                   <h2 class="accordion-header" id="headingTwo">
-                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-                        aria-expanded="true" aria-controls="collapseTwo">
+                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                         <h5> Cuestionarios de People </h5>
                      </button>
                   </h2>
@@ -105,33 +107,33 @@
                            </thead>
                            <tbody>
                               <% for (let cuestionario of cuestionarios) { %>
-                                 <% if (cuestionario.idDimension==2 ) { %>
-                                    <tr>
-                                       <td>
-                                          <%=cuestionario.nombre%>
-                                       </td>
-                                       <td>
-                                          <%=cuestionario.nivelC%>
-                                       </td>
-                                       <td>
-                                          <% var c=cuestionario.fecha; %>
-                                             <%= new Date(c).toISOString().slice(0, 19).replace('T', ' ' ); %>
-            
-                                       </td>
-                                       <td>
-                                          <% var url2='/feedback/verCuestionario/' + cuestionario.idCuestionario;%>
-                                          <a href="<%=url2%>" type="button" style="margin:auto" class="btn btn-outline-dark">
-                                             <!--i class="bi bi-eye-fill"></i--> Ver
-                                          </a>
+                              <% if (cuestionario.idDimension==2 ) { %>
+                              <tr>
+                                 <td>
+                                    <%=cuestionario.nombre%>
+                                 </td>
+                                 <td>
+                                    <%=cuestionario.nivelC%>
+                                 </td>
+                                 <td>
+                                    <% var c=cuestionario.fecha; %>
+                                    <%= new Date(c).toISOString().slice(0, 19).replace('T', ' ' ); %>
 
-                                          <% var url='/feedback/editarCuestionario/' + cuestionario.idCuestionario;%>
-                                          <a href="<%=url%>" type="button" style="margin:auto" class="btn btn-dark">
-                                             <!--i class="bi bi-pencil-square"></i--> Editar
-                                          </a>
-                                       </td>
-                                    </tr>
-                                    <% } %>
-                                       <% } %>
+                                 </td>
+                                 <td>
+                                    <% var url2='/feedback/verCuestionario/' + cuestionario.idCuestionario;%>
+                                    <a href="<%=url2%>" type="button" style="margin:auto" class="btn btn-outline-dark">
+                                       <!--i class="bi bi-eye-fill"></i--> Ver
+                                    </a>
+
+                                    <% var url='/feedback/editarCuestionario/' + cuestionario.idCuestionario;%>
+                                    <a href="<%=url%>" type="button" style="margin:auto" class="btn btn-dark">
+                                       <!--i class="bi bi-pencil-square"></i--> Editar
+                                    </a>
+                                 </td>
+                              </tr>
+                              <% } %>
+                              <% } %>
                            </tbody>
                         </table>
                      </div>
@@ -144,8 +146,8 @@
             <div class="accordion" id="accordionExample2">
                <div class="accordion-item">
                   <h2 class="accordion-header" id="headingThree">
-                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                        aria-expanded="true" aria-controls="collapseThree">
+                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
                         <h5> Cuestionarios de Business </h5>
                      </button>
                   </h2>
@@ -162,33 +164,33 @@
                            </thead>
                            <tbody>
                               <% for (let cuestionario of cuestionarios) { %>
-                                 <% if (cuestionario.idDimension==3 ) { %>
-                                    <tr>
-                                       <td>
-                                          <%=cuestionario.nombre%>
-                                       </td>
-                                       <td>
-                                          <%=cuestionario.nivelC%>
-                                       </td>
-                                       <td>
-                                          <% var c=cuestionario.fecha; %>
-                                             <%= new Date(c).toISOString().slice(0, 19).replace('T', ' ' ); %>
-            
-                                       </td>
-                                       <td>
-                                          <% var url2='/feedback/verCuestionario/' + cuestionario.idCuestionario;%>
-                                          <a href="<%=url2%>" type="button" style="margin:auto" class="btn btn-outline-dark">
-                                             <!--i class="bi bi-eye-fill"></i--> Ver
-                                          </a>
+                              <% if (cuestionario.idDimension==3 ) { %>
+                              <tr>
+                                 <td>
+                                    <%=cuestionario.nombre%>
+                                 </td>
+                                 <td>
+                                    <%=cuestionario.nivelC%>
+                                 </td>
+                                 <td>
+                                    <% var c=cuestionario.fecha; %>
+                                    <%= new Date(c).toISOString().slice(0, 19).replace('T', ' ' ); %>
 
-                                          <% var url='/feedback/editarCuestionario/' + cuestionario.idCuestionario;%>
-                                          <a href="<%=url%>" type="button" style="margin:auto" class="btn btn-dark">
-                                             <!--i class="bi bi-pencil-square"></i--> Editar
-                                          </a>
-                                       </td>
-                                    </tr>
-                                    <% } %>
-                                       <% } %>
+                                 </td>
+                                 <td>
+                                    <% var url2='/feedback/verCuestionario/' + cuestionario.idCuestionario;%>
+                                    <a href="<%=url2%>" type="button" style="margin:auto" class="btn btn-outline-dark">
+                                       <!--i class="bi bi-eye-fill"></i--> Ver
+                                    </a>
+
+                                    <% var url='/feedback/editarCuestionario/' + cuestionario.idCuestionario;%>
+                                    <a href="<%=url%>" type="button" style="margin:auto" class="btn btn-dark">
+                                       <!--i class="bi bi-pencil-square"></i--> Editar
+                                    </a>
+                                 </td>
+                              </tr>
+                              <% } %>
+                              <% } %>
                            </tbody>
                         </table>
                      </div>
@@ -201,7 +203,7 @@
    </div>
 </div>
 
-            <!--div class="card">
+<!--div class="card">
                <h5 class="card-header"><i class="bi bi-file-earmark-text"></i> Cuestionarios</h5>
                <div class="card-body">
                   <table class="table" style="table-layout: fixed">
@@ -276,7 +278,7 @@
         </div>
    </div>
 </div> -->
-        <!-- <script async>
+<!-- <script async>
 
          window.addEventListener("load", function (event) {
             console.log('Toast');
@@ -285,4 +287,8 @@
             }
          });
       </script> -->
-                     <%- include('includes/foot.ejs') %></br>
+
+
+
+
+<%- include('includes/foot.ejs') %></br>
