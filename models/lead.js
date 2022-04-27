@@ -80,17 +80,9 @@ module.exports = class ChapterLead {
         [nombre,apellidoP,apellidoM,correo,contrasena,idEquipo,idEmpleado, idRol,nivelCraft,nivelPeople, nivelBusiness,foto]);
     }
 
-    static fetchSolicitudesRespondidas() {
-        
-        //return db.execute('SELECT COUNT(*) as conteo from retroalimentacion WHERE estatus is NOT NULL and idPeriodo in (SELECT MAX(idPeriodo) FROM periodo);');
-        return db.execute('SELECT r.idPeriodo, estatus, NombrePeriodo from retroalimentacion as r, periodo as p WHERE  p.idPeriodo = r.idPeriodo AND p.idPeriodo in (SELECT MAX(idPeriodo) FROM periodo);')
+    static fetchSolicitudesActuales() {
+         return db.execute('SELECT r.idPeriodo, estatus, NombrePeriodo from retroalimentacion as r, periodo as p WHERE  p.idPeriodo = r.idPeriodo AND p.idPeriodo in (SELECT MAX(idPeriodo) FROM periodo);')
     }
-
-    static fetchSolicitudesSinResponder() {
-        
-        return db.execute('SELECT COUNT(*) as conteo from retroalimentacion WHERE estatus is NULL and idPeriodo in (SELECT MAX(idPeriodo) FROM periodo);');
-    }
-
-    
+   
 
 }
