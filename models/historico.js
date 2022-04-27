@@ -16,7 +16,7 @@ module.exports = class Historial{
 
     // Método. Solicitudes respondidas históricamente.
     static fetchFeedHistorico(idSesionado) {
-        return db.execute('SELECT idEvaluador, nombre, apellidoP, idCuestionarioCraft, idCuestionarioPeople, idCuestionarioBusiness, idPeriodo FROM retroalimentacion R, empleado E WHERE R.idEvaluador = E.idEmpleado AND idEvaluado = ? AND estatus = 1 ORDER BY idPeriodo DESC, idEvaluador ASC;', 
+        return db.execute('SELECT idEvaluador, fotoPerfil, nombre, apellidoP, idCuestionarioCraft, idCuestionarioPeople, idCuestionarioBusiness, idPeriodo FROM retroalimentacion R, empleado E WHERE R.idEvaluador = E.idEmpleado AND idEvaluado = ? AND estatus = 1 ORDER BY idPeriodo DESC, idEvaluador ASC;', 
         [idSesionado])
             .then(([rows, fielData]) => {
                 return rows;
