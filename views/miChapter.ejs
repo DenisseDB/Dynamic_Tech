@@ -37,6 +37,9 @@
           <h><h5 style="text-align: center;">¿Cómo va el progreso de recolección de feedback?</h5></b>
         </div>
         <div class="card-body">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
           <p class="card-text"><canvas id="myChart" style="width:100%;max-width:600px"></canvas></p>
         </div>
       </div>
@@ -59,6 +62,8 @@ fetch('/miChapter/feedback', {
 
         console.log(solicitudes)
         console.log(solicitudes[0].NombrePeriodo);
+
+        var ctx = document.getElementById("myChart").getContext('2d');
 
         var respondidas = 0;
         var sin_responder = 0;
@@ -85,38 +90,51 @@ fetch('/miChapter/feedback', {
       //"rgb(39, 94, 179)",
     ];
 
-    new Chart("myChart", {
-      type: "doughnut",
-      //type: "pie",
-      data: {
-        labels: xValues,
-        datasets: [{
-          backgroundColor: barColors,
-          data: yValues
-        }]
-      },
-      options: {
-        title: {
+    var data = [
+    {
+       data : yValues,
+       backgroundColor: barColors,
+       borderColor : "#fff",
+
+    }];
+
+    var options = {
+
+      cutoutPercentage: 40,
+
+      title: {
           display: true,
-          text: ["Feedback periodo -" + solicitudes[0].NombrePeriodo,  "Total de solicitudes: " + solicitudes.length]
+          text: ["Feedback periodo " + solicitudes[0].NombrePeriodo,  "Total de solicitudes: " + solicitudes.length]
         },
         tooltips: {
           enabled: true
         },
         plugins: {
-          datalabels: {
-            formatter: (value) => {
+            datalabels: {
+                formatter: (value, ctx) => {
 
-              let percentage = (value * 100 / solicitudes.length).toFixed(2) + "%";
-              return percentage;
+                  let sum = ctx.dataset._meta[0].total;
+                  let percentage = (value * 100 / sum).toFixed(2) + "%";
+                  return percentage;
 
 
-            },
-          color: '#fff',
+                },
+              color: '#fff',
+            }
         }
-      }
-        
-      }
+
+    };
+
+    var ctx = document.getElementById("myChart").getContext('2d');
+
+    var MyChart = new Chart("myChart", {
+      type: "doughnut",
+      //type: "pie",
+      data: {
+        labels: xValues,
+        datasets: data,
+      },
+      options: options,
     });
 
   }).catch(err => {
@@ -134,15 +152,15 @@ fetch('/miChapter/feedback', {
  
  <!-- jQuery --> 
  
- <script crossorigin="anonymous" integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>    
+ <!-- <script crossorigin="anonymous" integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>     -->
  
  <!-- Chart JS -->
 
- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js" integrity="sha256-JG6hsuMjFnQ2spWq0UiaDRJBaarzhFbUxiUTxQDA9Lk=" crossorigin="anonymous"></script>
+ <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js" integrity="sha256-JG6hsuMjFnQ2spWq0UiaDRJBaarzhFbUxiUTxQDA9Lk=" crossorigin="anonymous"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js" integrity="sha256-XF29CBwU1MWLaGEnsELogU6Y6rcc5nCkhhx89nFMIDQ=" crossorigin="anonymous"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js" integrity="sha256-J2sc79NPV/osLcIpzL3K8uJyAD7T5gaEFKlLDM18oxY=" crossorigin="anonymous"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js" integrity="sha256-CfcERD4Ov4+lKbWbYqXD6aFM9M51gN4GUEtDhkWABMo=" crossorigin="anonymous"></script>
- <script type="text/javascript" src="js/datos.js"></script>
+ <script type="text/javascript" src="js/datos.js"></script> -->
 
 </body>
 
