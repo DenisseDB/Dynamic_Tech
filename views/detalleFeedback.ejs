@@ -22,164 +22,29 @@
   <div class="space">
         <div class="sticky-top bwhite">
           <br>
-          <h5><a href="./miFeedback">Mi Feedback</a> - Retroalimentación (<%= solicitud[0].NombrePeriodo %> <%= solicitud[0].anio %>) - <%= solicitud[0].nombre %> <%= solicitud[0].apellidoP %></h5>
+          <% if (self == '') {%>
+            <h5><a href="./miFeedback">Mi Feedback</a> - Retroalimentación (<%= solicitud[0].NombrePeriodo %> <%= solicitud[0].anio %>) - <%= solicitud[0].nombre %> <%= solicitud[0].apellidoP %></h5>
+          <% } else {%>
+            <h5><a href="#">Feedback de <%= nombre_empleado %> <%= apellido_empleado %></a> - Retroalimentación (<%= solicitud[0].NombrePeriodo %>
+                <%= solicitud[0].anio %>) - <%= solicitud[0].nombre %>
+                    <%= solicitud[0].apellidoP %>
+            </h5>
+          <% } %>
           <hr class="style17">
         </div>
         
         <div class="row content-center">
-          <div class="col-auto"><h3><strong>Recolección de Feedback</strong></h3></div>
+          <% if (self=='' ) {%>
+            <div class="col-auto"><h3><strong> Recolección de Feedback </strong></h3></div>
+          <% } else {%>
+            <div class="col-auto">
+              <h3><strong>Recolección de Feedback de </strong> - <%= nombre_empleado %>
+                  <%= apellido_empleado %>
+              </h3>
+            </div>
+          <% } %>
           <div class="col-auto"><p><i>Respondida por: <%= solicitud[0].nombre %> <%= solicitud[0].apellidoP %></i></p></div>
         </div><br>
-
-        <h4>People & Business - Nivel <%= niveles[1].nivelP %></h4>
-        <% for (let pregunta of people) { %>
-          <div class="space2">
-            <h6><%= pregunta.pregunta %></h6>
-
-            <% if (pregunta.idTipo == 1) { %>
-              <% if (pregunta.respuesta == 1) { %>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" checked/>
-                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 1 </label>
-                </div>
-              <% } else { %>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" disabled />
-                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 1 </label>
-                </div>
-              <% } %>
-
-              <% if (pregunta.respuesta == 2) { %>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" checked/>
-                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 2 </label>
-                </div>
-              <% } else { %>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" disabled />
-                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 2 </label>
-                </div>
-              <% } %>
-
-              <% if (pregunta.respuesta == 3) { %>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" checked/>
-                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 3 </label>
-                </div>
-              <% } else { %>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" disabled />
-                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 3 </label>
-                </div>
-              <% } %>
-
-              <% if (pregunta.respuesta == 4) { %>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" checked/>
-                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 4 </label>
-                </div>
-              <% } else { %>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" disabled />
-                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 4 </label>
-                </div>
-              <% } %>
-
-              <% if (pregunta.respuesta == 5) { %>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" checked/>
-                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 5 </label>
-                </div>
-              <% } else { %>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" disabled />
-                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 5 </label>
-                </div>
-              <% } %>
-              
-            <% } else { %>
-              <div class="form-floating space2">
-                <textarea disabled class="form-control" id="floatingTextarea" style="height: 100px; background-color:#F5F5F5;"><%= pregunta.respuesta %></textarea>
-                <label for="floatingTextarea">Respuesta:</label>
-              </div>
-            <% } %>
-          </div>
-        <% } %>
-      
-        <h4>Commercial & Costumer - Nivel <%= niveles[2].nivelP %></h4>
-        <% for (let pregunta of business) { %>
-          <div class="space2">
-            <h6><%= pregunta.pregunta %></h6>
-
-            <% if (pregunta.idTipo == 1) { %>
-              <% if (pregunta.respuesta == 1) { %>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" checked/>
-                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 1 </label>
-                </div>
-              <% } else { %>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" disabled />
-                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 1 </label>
-                </div>
-              <% } %>
-
-              <% if (pregunta.respuesta == 2) { %>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" checked/>
-                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 2 </label>
-                </div>
-              <% } else { %>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" disabled />
-                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 2 </label>
-                </div>
-              <% } %>
-
-              <% if (pregunta.respuesta == 3) { %>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" checked/>
-                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 3 </label>
-                </div>
-              <% } else { %>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" disabled />
-                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 3 </label>
-                </div>
-              <% } %>
-
-              <% if (pregunta.respuesta == 4) { %>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" checked/>
-                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 4 </label>
-                </div>
-              <% } else { %>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" disabled />
-                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 4 </label>
-                </div>
-              <% } %>
-
-              <% if (pregunta.respuesta == 5) { %>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" checked/>
-                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 5 </label>
-                </div>
-              <% } else { %>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" disabled />
-                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 5 </label>
-                </div>
-              <% } %>
-              
-            <% } else { %>
-              <div class="form-floating">
-                <textarea disabled class="form-control" id="floatingTextarea" style="height: 100px; background-color:#F5F5F5;"><%= pregunta.respuesta %></textarea>
-                <label for="floatingTextarea">Respuesta:</label>
-              </div>
-            <% } %>
-          </div>
-        <% } %>
 
         <h4>Craft - Nivel <%= niveles[0].nivelP %></h4>
         <% for (let pregunta of craft) { %>
@@ -255,9 +120,167 @@
             <% } %>
           </div>
         <% } %>
+        <br>
+
+        <h4>People & Business - Nivel <%= niveles[1].nivelP %></h4>
+        <% for (let pregunta of people) { %>
+          <div class="space2">
+            <h6><%= pregunta.pregunta %></h6>
+
+            <% if (pregunta.idTipo == 1) { %>
+              <% if (pregunta.respuesta == 1) { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" checked/>
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 1 </label>
+                </div>
+              <% } else { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" disabled />
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 1 </label>
+                </div>
+              <% } %>
+
+              <% if (pregunta.respuesta == 2) { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" checked/>
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 2 </label>
+                </div>
+              <% } else { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" disabled />
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 2 </label>
+                </div>
+              <% } %>
+
+              <% if (pregunta.respuesta == 3) { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" checked/>
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 3 </label>
+                </div>
+              <% } else { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" disabled />
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 3 </label>
+                </div>
+              <% } %>
+
+              <% if (pregunta.respuesta == 4) { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" checked/>
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 4 </label>
+                </div>
+              <% } else { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" disabled />
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 4 </label>
+                </div>
+              <% } %>
+
+              <% if (pregunta.respuesta == 5) { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" checked/>
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 5 </label>
+                </div>
+              <% } else { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" disabled />
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 5 </label>
+                </div>
+              <% } %>
+              
+            <% } else { %>
+              <div class="form-floating space2">
+                <textarea disabled class="form-control" id="floatingTextarea" style="height: 100px; background-color:#F5F5F5;"><%= pregunta.respuesta %></textarea>
+                <label for="floatingTextarea">Respuesta:</label>
+              </div>
+            <% } %>
+          </div>
+        <% } %>
+        <br>
+      
+        <h4>Commercial & Costumer - Nivel <%= niveles[2].nivelP %></h4>
+        <% for (let pregunta of business) { %>
+          <div class="space2">
+            <h6><%= pregunta.pregunta %></h6>
+
+            <% if (pregunta.idTipo == 1) { %>
+              <% if (pregunta.respuesta == 1) { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" checked/>
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 1 </label>
+                </div>
+              <% } else { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" disabled />
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 1 </label>
+                </div>
+              <% } %>
+
+              <% if (pregunta.respuesta == 2) { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" checked/>
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 2 </label>
+                </div>
+              <% } else { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" disabled />
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 2 </label>
+                </div>
+              <% } %>
+
+              <% if (pregunta.respuesta == 3) { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" checked/>
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 3 </label>
+                </div>
+              <% } else { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" disabled />
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 3 </label>
+                </div>
+              <% } %>
+
+              <% if (pregunta.respuesta == 4) { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" checked/>
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 4 </label>
+                </div>
+              <% } else { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" disabled />
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 4 </label>
+                </div>
+              <% } %>
+
+              <% if (pregunta.respuesta == 5) { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" checked/>
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 5 </label>
+                </div>
+              <% } else { %>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>" disabled />
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> 5 </label>
+                </div>
+              <% } %>
+              
+            <% } else { %>
+              <div class="form-floating">
+                <textarea disabled class="form-control" id="floatingTextarea" style="height: 100px; background-color:#F5F5F5;"><%= pregunta.respuesta %></textarea>
+                <label for="floatingTextarea">Respuesta:</label>
+              </div>
+            <% } %>
+          </div>
+        <% } %>
       <br>
       <div class="d-flex justify-content-end">
-        <a href="./miFeedback" id="regresar" name="regresar" class="btn btn-dark"> Regresar </a>
+
+        <% if (self == '') {%>
+          <a href="./miFeedback" id="regresar" name="regresar" class="btn btn-dark"> Regresar </a>
+        <% } else{%>
+          <% var url='/miFeedback/' + id_empleado;%>
+          <a href="<%=url%>" id="regresar" name="regresar" class="btn btn-dark"> Regresar </a>
+        <% } %>
       </div>     
   </div>
 </body>

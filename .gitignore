@@ -6,7 +6,7 @@
 # Node artifact files
 node_modules/
 dist/
-uploads/
+#uploads/
 
 # Compiled Java class files
 *.class
@@ -40,7 +40,6 @@ Thumbs.db
 *.app
 *.exe
 *.war
-
 # Large media files
 *.mp4
 *.tiff
@@ -53,3 +52,5 @@ Thumbs.db
 VIEJO_modificarFormato.ejs
 borrame_despues.html
 views/nuevoGenerarFormato.ejs
+
+

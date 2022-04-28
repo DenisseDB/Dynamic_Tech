@@ -7,14 +7,19 @@ exports.root = (request, response, next) => {
 
     const info = request.session.info ? request.session.info : '';
     request.session.info = '';
-
-    response.render('formatosEvaluacion', {
-        info: '',
-        nombreSesion: request.session.nombreSesion,
-        apellidoPSesion: request.session.apellidoPSesion,
-        foto: request.session.foto,
-        rolesA: request.session.privilegiosPermitidos,
-    });
+    FormatoEvaluacion.fetchCuestionarios()
+        .then(([rows, fieldData]) => {
+            response.render('formatosEvaluacion', {
+                info: '',
+                nombreSesion: request.session.nombreSesion,
+                apellidoPSesion: request.session.apellidoPSesion,
+                foto: request.session.foto,
+                rolesA: request.session.privilegiosPermitidos,
+                cuestionarios: rows,
+            });
+        }).catch((error) => {
+            console.log(error);
+        });
 };
 
 exports.buscarFormato = (request, response, next) => {
@@ -49,6 +54,7 @@ exports.generarFormato = (request, response, next) => {
                 pregunta0_p: "",
                 pregunta1_p: "",
                 pregunta2_p: "",
+                rolesA: request.session.privilegiosPermitidos,
                 //pr: request.session.pr
             });
         }).catch((error) => {
@@ -72,6 +78,7 @@ exports.generarFormato_post = (request, response, next) => {
                         nombreSesion: request.session.nombreSesion,
                         apellidoPSesion: request.session.apellidoPSesion,
                         foto: request.session.foto,
+                        rolesA: request.session.privilegiosPermitidos,
                     });
                 })
                 .catch(err => {
@@ -96,6 +103,7 @@ exports.crearPregunta1 = (request, response, next) => {
         nombreSesion: request.session.nombreSesion,
         apellidoPSesion: request.session.apellidoPSesion,
         foto: request.session.foto,
+        rolesA: request.session.privilegiosPermitidos,
     });
 };
 
@@ -110,6 +118,7 @@ exports.crearPregunta2 = (request, response, next) => {
         nombreSesion: request.session.nombreSesion,
         apellidoPSesion: request.session.apellidoPSesion,
         foto: request.session.foto,
+        rolesA: request.session.privilegiosPermitidos,
     });
 };
 
@@ -124,6 +133,7 @@ exports.crearPregunta3 = (request, response, next) => {
         nombreSesion: request.session.nombreSesion,
         apellidoPSesion: request.session.apellidoPSesion,
         foto: request.session.foto,
+        rolesA: request.session.privilegiosPermitidos,
     });
 };
 
@@ -138,6 +148,7 @@ exports.crearPregunta4 = (request, response, next) => {
         nombreSesion: request.session.nombreSesion,
         apellidoPSesion: request.session.apellidoPSesion,
         foto: request.session.foto,
+        rolesA: request.session.privilegiosPermitidos,
     });
 };
 exports.crearPregunta_post = (request, response, next) => {
@@ -163,6 +174,7 @@ exports.crearPregunta_post = (request, response, next) => {
                         pregunta1_p: request.body.pregunta1,
                         pregunta2_p: request.body.pregunta2,
                         foto: request.session.foto,
+                        rolesA: request.session.privilegiosPermitidos,
                     });
                 }).catch((error) => {
                     console.log(error);
@@ -176,20 +188,18 @@ exports.crearPregunta_post = (request, response, next) => {
 
 exports.modificarFormato = (request, response, next) => {
 
-    Cuestionario.fetchDimension()
-        .then(([dimension, fielData]) => {
-            response.render('modificarFormato', {
-                dimensiones: dimension,
-                nombreSesion: request.session.nombreSesion,
-                apellidoPSesion: request.session.apellidoPSesion,
-                foto: request.session.foto,
-            });
-        }).catch((error) => {
-            console.log(error);
-        });
-
-
-
+   Cuestionario.fetchDimension()
+      .then(([dimension, fielData]) => {
+         response.render('modificarFormato', {
+            dimensiones: dimension,
+            nombreSesion: request.session.nombreSesion,
+            apellidoPSesion: request.session.apellidoPSesion,
+            foto: request.session.foto,
+            rolesA: request.session.privilegiosPermitidos,
+         });
+      }).catch((error) => {
+         console.log(error);
+      });
 };
 
 
@@ -197,54 +207,57 @@ exports.modificarFormato = (request, response, next) => {
 
 exports.modificarFormato_post = (request, response, next) => {
 
-    //console.log("Controlador:");
-    //console.log(request.body);
-    let preguntas = [request.body.pregunta0, request.body.pregunta1];
-    const formatoEvaluacion = new FormatoEvaluacion(request.body.nombreCuestionario, request.body.inputDimension, request.body.inputNivel, preguntas);
-    formatoEvaluacion.saveCuestionario()
-        .then(() => {
-            formatoEvaluacion.savePreguntasCuestionario()
-                .then(() => {
-                    response.render('formatosEvaluacion');
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        })
-        .catch(err => {
-            console.log(err);
-        });
-    //response.render('generarFormatos', {
-    //});
+   let preguntas = [request.body.pregunta0, request.body.pregunta1];
+   const formatoEvaluacion = new FormatoEvaluacion(request.body.nombreCuestionario, request.body.inputDimension, request.body.inputNivel, preguntas);
+   formatoEvaluacion.saveCuestionario()
+      .then(() => {
+         formatoEvaluacion.savePreguntasCuestionario()
+            .then(() => {
+               response.render('formatosEvaluacion');
+            })
+            .catch(err => {
+               console.log(err);
+            });
+      })
+      .catch(err => {
+         console.log(err);
+      });
+   //response.render('generarFormatos', {
+   //});
 };
 
 
 
 exports.buscarCuestionario = (request, response, next) => {
-    console.log(request.params.nivel);
-    console.log(request.params.dim);
-    console.log('buscar_cuestionario');
-    Cuestionario.findCuestionario(request.params.dim, request.params.nivel)
-        .then(([rows, fieldData]) => {
-            console.log(rows);
-            response.status(200).json(rows);
-        })
-        .catch(err => {
-            console.log(err);
-        });
+   console.log(request.params.nivel);
+   console.log(request.params.dim);
+   console.log('buscar_cuestionario');
+   Cuestionario.findCuestionario(request.params.nivel, request.params.dim)
+      .then(([rows, fieldData]) => {
+         console.log(rows);
+         response.status(200).json(rows);
+      })
+      .catch(err => {
+         console.log(err);
+      });
 };
 
 
 exports.buscarPregunta = (request, response, next) => {
-    console.log(request.params.nivel);
-    console.log(request.params.dim);
-    console.log('buscar_Pregunta');
-    Cuestionario.findQuestions(request.params.nivel, request.params.dim)
-        .then(([rows, fieldData]) => {
-            console.log(rows);
-            response.status(200).json(rows);
-        })
-        .catch(err => {
-            console.log(err);
-        });
+   console.log('buscar_Pregunta');
+
+   console.log("Buscap-> nivel: ",request.params.nivel);
+   console.log("Buscap-> dimension: ",request.params.dim);
+   console.log("Buscap-> cuestionario: ",request.params.cuest);
+
+   Cuestionario.findQuestions(request.params.nivel, request.params.dim,request.params.cuest)
+      .then(([rows, fieldData]) => {
+         console.log(rows);
+         response.status(200).json(rows);
+      })
+      .catch(err => {
+         console.log(err);
+      }); 
 };
+
+

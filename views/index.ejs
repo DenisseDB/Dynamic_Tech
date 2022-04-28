@@ -1,305 +1,84 @@
 <!-- Partes que siempre aparecen en el navbar -->
 <%- include('includes/sidenavsup.ejs') %>
   <!-- Para que aparezca Mis Mentorados -->
-  <% for (i=0; i < rolesA.length; i++) { %>
-    <% if (rolesA[i].idPrivilegio==1) { %>
-      <%- include('includes/sideMentorados.ejs') %>
-        <% } %>
-          <% } %>
+<% for (i=0; i < rolesA.length; i++) { %>
+  <% if (rolesA[i].idPrivilegio==1) { %>
+    <%- include('includes/sideMentorados.ejs') %>
+  <% } %>
+<% } %>
 
             <!-- Para que aparezca Empleados del chapter -->
-            <% for (i=0; i < rolesA.length; i++) { %>
-              <% if (rolesA[i].idPrivilegio==2) { %>
-                <%- include('includes/sideAgregarE.ejs') %>
-                  <% } %>
-                    <% } %>
-
+<% for (i=0; i < rolesA.length; i++) { %>
+  <% if (rolesA[i].idPrivilegio==2) { %>
+    <%- include('includes/sideAgregarE.ejs') %>
+  <% } %>
+<% } %>
                       <!-- Final de la nav-->
-                      <%- include('includes/sidenavFin.ejs') %>
+<%- include('includes/sidenavFin.ejs') %>
+
+<div class="container px-13">
+  <div class="space2">
+    <h2><strong>Mi inicio</strong></h2>
+    <hr class="style17">
+
+    <div class="container px-13">
+      <div class="row d-flex justify-content-center">
+        <!--div class="col-1"></div-->
+        <div class="col-5" style="text-align: center;">
+          <img src="https://github.com/mdo.png" width="240" height="240" class="rounded-circle"><br>
+          <!--img src="<%-foto%>" alt="hugenerd" width="120" height="120" class="rounded-circle"-->
+          <br>
+          </div>
+          <h3 style="text-align: center;"><strong>
+            Bienvenido, <%- nombreSesion %>
+              <%- apellidoPSesion %></strong>
+          </h3>
+    </div>
+  </div>
+    <br>
+
+    <div class="container px-2">
+      <div class="row d-flex justify-content-center">
+        <div class="col-5">
+          <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="/4.png" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="/5.png" class="d-block w-100" alt="...">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-                        <!-- Para las rutas -->
-                        <div class="container px-13">
-                          <h1 id="principal">Mi feedback</h1>
-                          <br>
-                          <div class="row d-flex justify-content-between">
-                            <div class="col-md-5">
-                              <input id="idE" value="<% idEmpleado %>" type="hidden">
-                              <div id="chart-container" style="position: relative; height:30vh; width:40vw">
-                                <!--//Para cambiar tamanio-->
-                                <div class="card">
-                                  <h5 class="card-header">Rendimiento por periodo</h5>
-                                  <div class="card-body">
-                                    <canvas id="mycanvas"></canvas>
-                                  </div>
-                                </div>
+  <!--! Seccion foto -->
 
-                              </div>
-                            </div>
-                            <div class="col-md-5">
-                              <div class="card">
-                                <h5 class="card-header">Nivel</h5>
-                                <div class="card-body">
-                                  <ul class="list-group">
-                                    <table class="table">
-                                      <thead class="thead-dark">
-                                        <tr>
-                                          <th style="text-align:center" scope="col">Craft</th>
-                                          <th style="text-align:center" scope="col">People</th>
-                                          <th style="text-align:center" scope="col">Business</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                        <tr>
-                                          <td>
-                                            <div role="progressbar" id="pg1" data-content="" aria-valuenow="40"
-                                              aria-valuemin="0" aria-valuemax="100" value="2" style="--value:40;">
-                                            </div>
-                                          </td>
-                                          <td>
-                                            <div role="progressbar" id="pg2" data-content="" aria-valuenow="40"
-                                              aria-valuemin="0" aria-valuemax="100" value="2" style="--value:60;">
-                                            </div>
-                                          </td>
-                                          <td>
-                                            <div role="progressbar" id="pg3" data-content="" aria-valuenow="40"
-                                              aria-valuemin="0" aria-valuemax="100" value="2" style="--value:20;">
-                                            </div>
-                                          </td>
-                                        </tr>
-                                        </tr>
-                                      </tbody>
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+  <!--! -->
 
-                        <!--div class="col-md-2">
-                                  <div role="progressbar" id="pg1" data-content="" aria-valuenow="40" aria-valuemin="0"
-                                    aria-valuemax="100" value="2" style="--value:40;">
-                                  </div>
-                                </div>
-                                <div class="col-md-2">
-                                  <div role="progressbar" id="pg2" data-content="2" aria-valuenow="40" aria-valuemin="0"
-                                    aria-valuemax="100" value="2" style="--value:40;">
-                                  </div>
-                                </div!-->
+<!-- Nombre del empleado y demás datos generales -->
 
 
-                        <style>
-                          @keyframes growProgressBar {
+<!--  -->
 
-                            0%,
-                            33% {
-                              --pgPercentage: 0;
-                            }
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+        crossorigin="anonymous"></script>
 
-                            100% {
-                              --pgPercentage: var(--value);
-                            }
-                          }
-
-                          @property --pgPercentage {
-                            syntax: '<number>';
-                            inherits: false;
-                            initial-value: 0;
-                          }
-
-                          div[role="progressbar"] {
-                            --size: 6rem;
-                            --fg: rgb(237, 110, 133);
-                            --bg: rgb(249, 233, 229);
-                            --pgPercentage: var(--value);
-                            animation: growProgressBar 3s 1 forwards;
-                            width: var(--size);
-                            height: var(--size);
-                            border-radius: 50%;
-                            display: grid;
-                            margin: auto;
-                            place-items: center;
-                            background:
-                              radial-gradient(closest-side, white 80%, transparent 0 99.9%, white 0),
-                              conic-gradient(var(--fg) calc(var(--pgPercentage) * 1%), var(--bg) 0);
-                            font-family: Helvetica, Arial, sans-serif;
-                            font-size: calc(var(--size) / 5);
-                            color: var(--fg);
-                          }
-
-                          div[role="progressbar"]::before {
-                            counter-reset: percentage var(--value);
-                            content: attr(data-content);
-                          }
-
-                          /* demo */
-                        </style>
-
-                        <script>
-
-                          const graficas = () => {
-
-                            const new_id = document.getElementById("idE");
-
-                            fetch('/users/tops/' + new_id, {
-                              method: 'GET',
-                              headers: {
-                                'Content-Type': 'application/json',
-                                //'csrf-token': csrf
-                              }
-                            }).then(result => {
-                              return result.json();
-                            }).then(data => {
-
-                              //! Se definen las listas de los valores a desplegar 
-                              var nivel_craft = [];
-                              var nivel_business = [];
-                              var nivel_people = [];
-                              var fechas = [];
-                              var fechas2 = [];
-
-                              for (var i in data) {
-                                if (data[i].idDimension == 1) {
-                                  nivel_craft.push(data[i].nivelE.toFixed(1));
-                                }
-                                else if (data[i].idDimension == 2) {
-                                  nivel_people.push(data[i].nivelE.toFixed(1));
-                                }
-                                else if (data[i].idDimension == 3) {
-                                  nivel_business.push(data[i].nivelE.toFixed(1));
-                                }
-
-                                if (!(fechas2.includes(data[i].fecha))) {
-
-                                  fechas2.push(data[i].fecha);
-                                  let d = data[i].fecha.split("T")[0];
-                                  fechas.push(d);
-                                }
-                              }
-
-                              var chartdata = {
-                                labels: fechas,
-                                datasets: [
-                                  {
-                                    label: 'Craft',
-                                    backgroundColor: // Color de las barras en la grafica
-                                      'rgba(255, 99, 132, 0.2)',
-
-                                    borderColor: // Color del borde de las barras en la grafica  
-                                      'rgb(255, 99, 132)',
-
-                                    hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
-                                    hoverBorderColor: 'rgba(200, 200, 200, 1)',
-                                    data: nivel_craft,
-                                  },
-                                  {
-                                    label: 'People & Mindsets',
-                                    backgroundColor: // Color de las barras en la grafica
-                                      'rgba(255, 159, 64, 0.2)',
-
-                                    borderColor: // Color del borde de las barras en la grafica  
-                                      'rgb(255, 159, 64)',
-
-                                    hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
-                                    hoverBorderColor: 'rgba(200, 200, 200, 1)',
-                                    data: nivel_people,
-                                  },
-                                  {
-                                    label: 'Commercial & customer',
-                                    backgroundColor: // Color de las barras en la grafica
-                                      'rgba(255, 205, 86, 0.2)',
-
-                                    borderColor: // Color del borde de las barras en la grafica  
-                                      'rgb(255, 205, 86)',
-
-                                    hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
-                                    hoverBorderColor: 'rgba(200, 200, 200, 1)',
-                                    data: nivel_business,
-                                  }
-                                ]
-                              };
-
-                              var ctx = document.getElementById("mycanvas");
-
-                              var barGraph = new Chart(ctx, {
-                                type: 'line',
-                                data: chartdata,
-                                options: {
-                                  responsive: true,
-                                  interaction: {
-                                    mode: 'index',
-                                    intersect: false,
-                                  },
-                                  stacked: true,
-                                  plugins: {
-                                    title: {
-                                      display: true,
-                                      text: 'Niveles de Empleado'
-                                    }
-                                  },
-                                  scales: {
-                                    y: {
-                                      type: 'linear',
-                                      display: true,
-                                      position: 'left',
-                                    },
-                                  }
-                                },
-                              })
-
-                              /*let var1 = 2.1
-                              let var2 = var1 * 100 / 5;
-                              document.getElementById('pg1').setAttribute("style", "--value:" + var2 + ";");
-                              document.getElementById('pg1').setAttribute("data-content", "" + var1 + "");*/
-                            }).catch(err => {
-                              console.log(err);
-
-                            });
-                          };
-
-
-
-                          window.onload = function () {
-                            graficas();
-
-                            let niv_c = parseFloat('<%=nivel_craftpg%>').toFixed(1);
-                            let niv_c2 = niv_c * 100 / 5;
-                            document.getElementById('pg1').setAttribute("style", "--value:" + niv_c2 + ";");
-                            document.getElementById('pg1').setAttribute("data-content", "" + niv_c + "");
-
-                            let niv_p = parseFloat('<%=nivel_peoplepg%>').toFixed(1);
-                            let niv_p2 = niv_p * 100 / 5;
-                            document.getElementById('pg2').setAttribute("style", "--value:" + niv_p2 + ";");
-                            document.getElementById('pg2').setAttribute("data-content", "" + niv_p + "");
-
-                            let niv_b = parseFloat('<%=nivel_businesspg%>').toFixed(1);
-                            let niv_b2 = niv_b * 100 / 5;
-                            document.getElementById('pg3').setAttribute("style", "--value:" + niv_b2 + ";");
-                            document.getElementById('pg3').setAttribute("data-content", "" + niv_b + "");
-                          };
-
-
-                        </script>
-
-
-
-
-
-                        <!-- javascript -->
-                        <!--script type="text/javascript" src="js/jquery.min.js"></script-->
-                        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
-                          charset="utf-8"></script>
-                        <script
-                          src="https://cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.6/jquery.easypiechart.min.js"
-                          charset="utf-8"></script>
-                        <script
-                          src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.0.1/progressbar.min.js"></script>
-                        <script type="text/javascript" src="js/Chart.min.js"></script>
-                        <script type="text/javascript" src="js/app.js"></script>
-                        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
-                        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-                          integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
-                          crossorigin="anonymous"></script>
-                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-                          integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
-                          crossorigin="anonymous"></script>
+<%- include('includes/foot.ejs') %>

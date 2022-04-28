@@ -24,23 +24,37 @@
 }
 </style>
 <body>
+  
+  <div >
+    <br>
+    <h3 style="text-align:justify; font-size:x-large;"><a href="/empleados" style="text-decoration:none; color:rgb(72, 72, 206);"> Empleados del chapter</a><strong>
+    </strong></h3>
+    <hr class="style17">
+  </div>
 
   <div class="container">
     <br><br>
     <div class="col-sm-12">
       <div class="card">
-        <h5 class="card-header"><i class="bi bi-person-fill"></i> Datos de <%= empleado[0].nombre %> <%= empleado[0].apellidoP %> <%= empleado[0].apellidoM %></h5>
+        <h5 class="card-header" style="font-size: larger;"><i class="bi bi-person-fill"></i> Datos de <%= empleado[0].nombre %> <%= empleado[0].apellidoP %> <%= empleado[0].apellidoM %></h5>
         <div class="card-body" >
           <!--Para tabla con boostrap-->
           <table class="table">
             <tbody>
-              <form id = "modificarEmpleado" method="post">
+              <form id = "modificarEmpleado" method="post"  enctype="multipart/form-data" >
               <tr>
                 <!-- Foto de perfil-->
                 <th scope="row">Foto de perfil: </th>
-                <td> <img class="rounded-circle" src="/<%= empleado[0].fotoPerfil %>" alt="hugenerd" width="60" height="60" class="rounded-circle">
+                <td> 
+                
+                  <div class="profile-pic-div">
+                    <img src="/<%= empleado[0].fotoPerfil %>" id="photo">
+                    <input type="file" id="file" name="fotoPerfil">
+                    <label for="file" id="uploadBtn">Choose Photo</label>
+                  </div>
+    
                 </td>
-              </tr>
+              </tr>                       
 
               <tr>
                 <!-- Nombre -->
@@ -48,6 +62,7 @@
                 <td>
                   <input type="text" name="nombre" id="nombre" value="<%= empleado[0].nombre %>"  autocomplete="off" class="form-control"/>
                 </td>
+                
               </tr>
 
               <tr>
@@ -71,7 +86,7 @@
               <tr>
                 <th scope="row">Correo: </th>
                 <td>
-                  <input type="text" name="correo" id="correo" value="<%= empleado[0].correo %>"  autocomplete="off" class="form-control"/></td>
+                  <input type="email" name="correo" id="correo" value="<%= empleado[0].correo %>"  autocomplete="off" class="form-control"/></td>
                 </td>
               </tr>
 
@@ -79,7 +94,7 @@
               <tr>
                 <th scope="row">Contraseña: </th>
                 <td>
-                  <input type="text" name="contrasena" id="contrasena" value="<%= empleado[0].contrasena %>"  autocomplete="off" class="form-control"/></td>
+                  <input type="password" name="contrasena" id="contrasena"  autocomplete="off" class="form-control"/></td>
                 </td>
                 
               </tr>
@@ -91,7 +106,7 @@
                     <th scope="row">Rol: </th>
                     <td>
                       <select class="form-select" id="rol" name="rol" aria-label="Floating label select example" required>
-                        <option selected>
+                        <option value = "<%= rol.idRol %>"  selected>
                           <%= rol.descripcion %>
                         </option>
                         <% for (let rolOpcion of roles) { %>
@@ -113,7 +128,7 @@
                         <th scope="row">Equipo: </th>
                         <td>
                           <select class="form-select" id="equipo" name="equipo" aria-label="Floating label select example" required>
-                            <option selected>
+                            <option value = "<%= equipo.idEquipo %>" selected>
                               <%= equipo.nombre %>
                             </option>
                             <% for (let equipoOpcion of equipos) { %>
@@ -193,7 +208,7 @@
                           <% if ( datosE.idDimension==3) { %>
                             <th scope="row">Nivel Business: </th>
                             <td>
-                              <select class="form-select" id="nivelPeople" name="nivelPeople"
+                              <select class="form-select" id="nivelBbusiness" name="nivelBusiness"
                               aria-label="Floating label select example"required>
                               <option selected><%= datosE.nivelE.toFixed(1) %></option>
                                 <option value="1.1">1.1</option>
@@ -224,10 +239,10 @@
             </tbody>
           </table>
 
-          <a href="/empleados" class="btn btn-primary">Atrás</a>
-          <a href="/empleados" class="btn btn-primary">Eliminar Empleado</a>
-          <input type="submit" value="Guardar cambios" class="btn btn-dark"/>
-
+          <a href="/empleados"  class="btn btn-secondary">Atrás</a>
+          <div class="position-relative">
+          <input type="submit" value="Guardar cambios" class="btn btn-dark position-absolute bottom-0 end-0"/>
+        </div>
         </form>
          
            
@@ -238,6 +253,48 @@
     </div>
   </div>
 
+
 </body>
+
+<script>
+  //Declaro componentes de html
+
+const imgDiv = document.querySelector('.profile-pic-div');
+const img = document.querySelector('#photo');
+const file = document.querySelector('#file');
+const uploadBtn = document.querySelector('#uploadBtn');
+
+//Hover de user
+
+imgDiv.addEventListener('mouseenter', function(){
+    uploadBtn.style.display = "block";
+});
+
+//Hover out
+
+imgDiv.addEventListener('mouseleave', function(){
+    uploadBtn.style.display = "none";
+});
+
+
+//Cuando cambiamos la imagen
+
+file.addEventListener('change', function(){
+    //El nuevo file de imagen
+    const choosedFile = this.files[0];
+
+    if (choosedFile) {
+
+        const reader = new FileReader(); //FileReader es una función predifinida de JS
+
+        reader.addEventListener('load', function(){
+            img.setAttribute('src', reader.result);
+        });
+
+        reader.readAsDataURL(choosedFile);
+
+    }
+});
+</script>
 
 <%- include('includes/foot.ejs') %>

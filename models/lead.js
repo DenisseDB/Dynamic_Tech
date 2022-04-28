@@ -73,4 +73,16 @@ module.exports = class ChapterLead {
         return db.execute('UPDATE empleado SET activo = 0 WHERE idEmpleado= ?;', [idEmpleado]);
     }
 
+    static modificarEmpleado(nombre,apellidoP,apellidoM,correo,contrasena, idEquipo, 
+        idEmpleado, idRol, nivelCraft,nivelPeople, nivelBusiness,foto) {
+        
+        return db.execute("CALL modificarEmpleado (?,?,?,?,?,?,?,?,?,?,?,?);",
+        [nombre,apellidoP,apellidoM,correo,contrasena,idEquipo,idEmpleado, idRol,nivelCraft,nivelPeople, nivelBusiness,foto]);
+    }
+
+    static fetchSolicitudesActuales() {
+         return db.execute('SELECT r.idPeriodo, estatus, NombrePeriodo from retroalimentacion as r, periodo as p WHERE  p.idPeriodo = r.idPeriodo AND p.idPeriodo in (SELECT MAX(idPeriodo) FROM periodo);')
+    }
+   
+
 }

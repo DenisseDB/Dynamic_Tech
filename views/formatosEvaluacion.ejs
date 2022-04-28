@@ -15,9 +15,242 @@
 <% } %>
 
 <%- include('includes/sidenavFin.ejs') %>
-      <!--div class="container px-4"-->
-      <h2 id="principal">Formatos de Evaluación</h2>
+
+<div class="container px-13">
+   <div class="space2">
+      <h2><strong> Cuestionarios </strong></h2>
+      <hr class="style17">
       <br>
+      <div class="container">
+         <div class="col-sm-12">
+            <button type="button" style="margin:auto" class="btn btn-dark"> + Nuevo Cuestionario</button>
+            <br>
+            <br>
+
+            <div class="accordion" id="accordionExample">
+               <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne">
+                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
+                        <h5> Cuestionarios de Craft </h5>
+                     </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                     data-bs-parent="#accordionExample">
+                     <div class="accordion-body">
+                        <table class="table" style="table-layout: fixed">
+                           <thead class="thead-dark">
+                              <tr>
+                                 <th style="text-align:center" scope="col">Nombre</th>
+                                 <th style="text-align:center" scope="col"> Dimensión </th>
+                                 <th style="text-align:center" scope="col"> Nivel </th>
+                                 <th style="text-align:center" scope="col"> Fecha de creación </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <% for (let cuestionario of cuestionarios) { %>
+                                 <% if (cuestionario.idDimension == 1 ) { %>
+                                 <tr>
+                                    <td>
+                                       <%=cuestionario.nombre%>
+                                    </td>
+                                    <td>
+                                       <%=cuestionario.idDimension%>
+                                    </td>
+                                    <td>
+                                       <%=cuestionario.nivelP%>
+                                    </td>
+                                    <td>
+                                       <% var c=cuestionario.fecha; %>
+                                          <%= new Date(c).toISOString().slice(0, 19).replace('T', ' ' ); %>
+                        
+                                    </td>
+                                    <td>
+                                       <button type="button" style="margin:auto" class="btn btn-outline-dark">
+                                          <!--i class="bi bi-eye-fill"></i--> Ver
+                                       </button>
+                                       <button type="button" style="margin:auto" class="btn btn-dark">
+                                          <!--i class="bi bi-pencil-square"></i--> Editar
+                                       </button>
+                                    </td>
+                                 </tr>
+                                 <% } %>
+                                 <% } %>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+            <br>
+
+            <div class="accordion" id="accordionExample2">
+               <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingTwo">
+                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                        aria-expanded="true" aria-controls="collapseTwo">
+                        <h5> Cuestionarios de People </h5>
+                     </button>
+                  </h2>
+                  <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo"
+                     data-bs-parent="#accordionExample2">
+                     <div class="accordion-body">
+                        <table class="table" style="table-layout: fixed">
+                           <thead class="thead-dark">
+                              <tr>
+                                 <th style="text-align:center" scope="col">Nombre</th>
+                                 <th style="text-align:center" scope="col"> Dimensión </th>
+                                 <th style="text-align:center" scope="col"> Nivel </th>
+                                 <th style="text-align:center" scope="col"> Fecha de creación </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <% for (let cuestionario of cuestionarios) { %>
+                                 <% if (cuestionario.idDimension==2 ) { %>
+                                    <tr>
+                                       <td>
+                                          <%=cuestionario.nombre%>
+                                       </td>
+                                       <td>
+                                          <%=cuestionario.idDimension%>
+                                       </td>
+                                       <td>
+                                          <%=cuestionario.nivelP%>
+                                       </td>
+                                       <td>
+                                          <% var c=cuestionario.fecha; %>
+                                             <%= new Date(c).toISOString().slice(0, 19).replace('T', ' ' ); %>
+            
+                                       </td>
+                                       <td>
+                                          <button type="button" style="margin:auto" class="btn btn-outline-dark">
+                                             <!--i class="bi bi-eye-fill"></i--> Ver
+                                          </button>
+                                          <button type="button" style="margin:auto" class="btn btn-dark">
+                                             <!--i class="bi bi-pencil-square"></i--> Editar
+                                          </button>
+                                       </td>
+                                    </tr>
+                                    <% } %>
+                                       <% } %>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+            <br>
+
+            <div class="accordion" id="accordionExample2">
+               <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingThree">
+                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                        aria-expanded="true" aria-controls="collapseThree">
+                        <h5> Cuestionarios de Business </h5>
+                     </button>
+                  </h2>
+                  <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree"
+                     data-bs-parent="#accordionExample3">
+                     <div class="accordion-body">
+                        <table class="table" style="table-layout: fixed">
+                           <thead class="thead-dark">
+                              <tr>
+                                 <th style="text-align:center" scope="col">Nombre</th>
+                                 <th style="text-align:center" scope="col"> Dimensión </th>
+                                 <th style="text-align:center" scope="col"> Nivel </th>
+                                 <th style="text-align:center" scope="col"> Fecha de creación </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <% for (let cuestionario of cuestionarios) { %>
+                                 <% if (cuestionario.idDimension==3 ) { %>
+                                    <tr>
+                                       <td>
+                                          <%=cuestionario.nombre%>
+                                       </td>
+                                       <td>
+                                          <%=cuestionario.idDimension%>
+                                       </td>
+                                       <td>
+                                          <%=cuestionario.nivelP%>
+                                       </td>
+                                       <td>
+                                          <% var c=cuestionario.fecha; %>
+                                             <%= new Date(c).toISOString().slice(0, 19).replace('T', ' ' ); %>
+            
+                                       </td>
+                                       <td>
+                                          <button type="button" style="margin:auto" class="btn btn-outline-dark">
+                                             <!--i class="bi bi-eye-fill"></i--> Ver
+                                          </button>
+                                          <button type="button" style="margin:auto" class="btn btn-dark">
+                                             <!--i class="bi bi-pencil-square"></i--> Editar
+                                          </button>
+                                       </td>
+                                    </tr>
+                                    <% } %>
+                                       <% } %>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+         </div>
+      </div>
+   </div>
+</div>
+
+            <!--div class="card">
+               <h5 class="card-header"><i class="bi bi-file-earmark-text"></i> Cuestionarios</h5>
+               <div class="card-body">
+                  <table class="table" style="table-layout: fixed">
+                     <thead class="thead-dark">
+                        <tr>
+                           <th style="text-align:center" scope="col">Nombre</th>
+                           <th style="text-align:center" scope="col"> Dimensión </th>
+                           <th style="text-align:center" scope="col"> Nivel </th>
+                           <th style="text-align:center" scope="col"> Fecha de creación </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <% for (let cuestionario of cuestionarios) { %>
+                           <tr>
+                              <td>
+                                 <%=cuestionario.nombre%>
+                              </td>
+                              <td>
+                                 <%=cuestionario.idDimension%>
+                              </td>
+                              <td>
+                                 <%=cuestionario.nivelP%>
+                              </td>
+                              <td>
+                                 <% var c = cuestionario.fecha; %>
+                                 <%= new Date(c).toISOString().slice(0, 19).replace('T', ' '); %>
+
+                              </td>
+                              <td>
+                                 <button type="button" style="margin:auto" class="btn btn-outline-dark"><i class="bi bi-eye-fill"></i> Ver </button>
+                                 <button type="button" style="margin:auto" class="btn btn-dark"><i class="bi bi-pencil-square"></i> Editar </button>
+                              </td>
+                           </tr>
+                        <% } %>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div!-->
+<!-- <div class="container px-13">
+   <div class="space2">
+      <h2><strong> Formatos de Evaluación </strong></h2>
+      <hr class="style17">
       <h3>Consultar formatos de evaluación </h3>
       </h2>
       <a class="btn btn-outline-secondary" href="/feedback/generarFormato" role="button">Consultar</a>
@@ -28,7 +261,7 @@
       <h3>Modificar formatos de evaluación</h3>
       <a class="btn btn-outline-secondary" href="/feedback/modificarFormato" role="button">Modificar</a>
       <br><br>
-      <!--/div-->
+
       <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
          <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
@@ -44,29 +277,15 @@
             <input id="myinfo" type="hidden" name="myinfo" value="<%=info%>" >
             </div>
         </div>
-        <script async>
-         /*window.addEventListener(" load", function (event) { var
-               toastLiveExample=document.getElementById('liveToast'); var toast=new bootstrap.Toast(toastLiveExample);
-               console.log('<%=info%>');
-
-            if ('<%=info%>' != '') {
-               toast.show();
-               console.log('hey');
-               document.getElementById('myinfo').value = '';
-               }
-
-               });*/
+   </div>
+</div> -->
+        <!-- <script async>
 
          window.addEventListener("load", function (event) {
             console.log('Toast');
-            /*var toastLiveExample = document.getElementById('liveToast');
-            var toast = new bootstrap.Toast(toastLiveExample);
-            console.log('<%=info%>');*/
             if ('<%=info%>' != '') {
                new bootstrap.Toast(document.getElementById('liveToast')).show();
-               //toast.show();
-               //console.log('hey');
             }
          });
-      </script>
+      </script> -->
                      <%- include('includes/foot.ejs') %></br>
