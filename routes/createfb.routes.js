@@ -6,9 +6,6 @@ const router = express.Router();
 const createfb = require('../controllers/createfb_controller');
 const modify_fb = require('../controllers/modifycontroller');
 
-router.get('/generarFormato', isAuth, checkRoleAuth([1]), createfb.generarFormato);
-router.post('/generarFormato', createfb.generarFormato_post);
-
 router.get('/editarCuestionario/:id/:nivel/:dim', isAuth, checkRoleAuth([1]), createfb.editarCuestionario);
 router.post('/editarCuestionario', createfb.editarCuestionario_post);
 
