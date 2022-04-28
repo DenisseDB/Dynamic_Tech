@@ -4,6 +4,7 @@ const Pregunta = require('../models/pregunta');
 const Cuestionario = require('../models/Cuestionario');
 
 exports.root = (request, response, next) => {
+    request.session.p = 0;
 
     const info = request.session.info ? request.session.info : '';
     request.session.info = '';
@@ -24,13 +25,37 @@ exports.root = (request, response, next) => {
 
 exports.editarCuestionario = (request, response, next) => {
 
-    response.render('EditarCuestionario', {
-        info: '',
-        nombreSesion: request.session.nombreSesion,
-        apellidoPSesion: request.session.apellidoPSesion,
-        foto: request.session.foto,
-        rolesA: request.session.privilegiosPermitidos,
-    });
+    // response.render('EditarCuestionario', {
+    //     info: '',
+    //     nombreSesion: request.session.nombreSesion,
+    //     apellidoPSesion: request.session.apellidoPSesion,
+    //     foto: request.session.foto,
+    //     rolesA: request.session.privilegiosPermitidos,
+    // });
+
+    Pregunta.findQuestions_nivdim(request.params.nivel, request.params.dim)
+        .then(([preguntas_nivdim, fieldData]) => {
+            Pregunta.findQuestions_C(request.params.id)
+                .then(([preguntas_cuestionario, fieldData]) => {
+                    response.render('EditarCuestionario', {
+                        info: '',
+                        nombreSesion: request.session.nombreSesion,
+                        apellidoPSesion: request.session.apellidoPSesion,
+                        foto: request.session.foto,
+                        rolesA: request.session.privilegiosPermitidos,
+                        preguntas_nivdim: preguntas_nivdim,
+                        preguntas_cuestionario: preguntas_cuestionario,
+                        niv: request.params.nivel,
+                        dim: request.params.dim,
+                        id: request.params.id,
+                        p: request.session.p,
+                    });
+                }).catch((error) => {
+                    console.log(error);
+                });
+        }).catch((error) => {
+            console.log(error);
+        });
 };
 
 exports.editarCuestionario_post = (request, response, next) => { };
@@ -44,6 +69,30 @@ exports.verCuestionario = (request, response, next) => {
         foto: request.session.foto,
         rolesA: request.session.privilegiosPermitidos,
     });
+};
+
+
+exports.crearPregunta = (request, response, next) => {
+    response.render('crearPregunta', {
+        info: '',
+        nombreSesion: request.session.nombreSesion,
+        apellidoPSesion: request.session.apellidoPSesion,
+        foto: request.session.foto,
+        rolesA: request.session.privilegiosPermitidos,
+        niv: request.params.nivel,
+        dim: request.params.dim,
+        id: request.params.id,
+    });
+};
+
+exports.crearPregunta_post = (request, response, next) => {
+    console.log('pasa');
+    let url = '/feedback/editarCuestionario/' + request.params.id + '/' + request.params.nivel + '/' + request.params.dim;
+    request.session.p = 1;
+    console.log(request.session.p);
+    response.redirect(url);
+        
+
 };
 
 exports.buscarFormato = (request, response, next) => {
@@ -174,39 +223,39 @@ exports.crearPregunta4 = (request, response, next) => {
         rolesA: request.session.privilegiosPermitidos,
     });
 };
-exports.crearPregunta_post = (request, response, next) => {
-    /*console.log('ab');
-    console.log(request.body.textoPregunta);
-    console.log(request.body.nivelPr);
-    console.log(request.body.dimPr);
-    console.log(request.body.inputTipo);*/
+// exports.crearPregunta_post = (request, response, next) => {
+//     /*console.log('ab');
+//     console.log(request.body.textoPregunta);
+//     console.log(request.body.nivelPr);
+//     console.log(request.body.dimPr);
+//     console.log(request.body.inputTipo);*/
 
-    const pregunta = new Pregunta(request.body.textoPregunta, request.body.nivelPr, request.body.dimPr, request.body.inputTipo);
-    pregunta.savePregunta()
-        .then(() => {
-            Dimension.fetchAll()
-                .then(([rows, fieldData]) => {
-                    response.render('generarFormatos', {
-                        dimensiones: rows,
-                        nombreSesion: request.session.nombreSesion,
-                        apellidoPSesion: request.session.apellidoPSesion,
-                        nombreC: request.body.nombreC,
-                        dimC: request.body.dimPr,
-                        nivelC: request.body.nivelPr,
-                        pregunta0_p: request.body.pregunta0,
-                        pregunta1_p: request.body.pregunta1,
-                        pregunta2_p: request.body.pregunta2,
-                        foto: request.session.foto,
-                        rolesA: request.session.privilegiosPermitidos,
-                    });
-                }).catch((error) => {
-                    console.log(error);
-                });
-        })
-        .catch(err => {
-            console.log(err);
-        });
-};
+//     const pregunta = new Pregunta(request.body.textoPregunta, request.body.nivelPr, request.body.dimPr, request.body.inputTipo);
+//     pregunta.savePregunta()
+//         .then(() => {
+//             Dimension.fetchAll()
+//                 .then(([rows, fieldData]) => {
+//                     response.render('generarFormatos', {
+//                         dimensiones: rows,
+//                         nombreSesion: request.session.nombreSesion,
+//                         apellidoPSesion: request.session.apellidoPSesion,
+//                         nombreC: request.body.nombreC,
+//                         dimC: request.body.dimPr,
+//                         nivelC: request.body.nivelPr,
+//                         pregunta0_p: request.body.pregunta0,
+//                         pregunta1_p: request.body.pregunta1,
+//                         pregunta2_p: request.body.pregunta2,
+//                         foto: request.session.foto,
+//                         rolesA: request.session.privilegiosPermitidos,
+//                     });
+//                 }).catch((error) => {
+//                     console.log(error);
+//                 });
+//         })
+//         .catch(err => {
+//             console.log(err);
+//         });
+// };
 
 
 exports.modificarFormato = (request, response, next) => {

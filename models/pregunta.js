@@ -16,9 +16,14 @@ module.exports = class Pregunta {
             [this.tPregunta, this.nivelP, this.dimP, this.tipo]);
     }
 
-    static findQuestions(nivelP, dimP) {
-        return db.execute('SELECT * FROM pregunta WHERE nivelP=? AND idDimension=?',
+    static findQuestions_nivdim(nivelP, dimP) {
+        return db.execute('SELECT idPregunta, idTipo, pregunta FROM pregunta WHERE nivelP=? AND idDimension=?',
             [nivelP, dimP]);
+    }
+
+    static findQuestions_C(nivelC) { 
+        return db.execute('SELECT P.idPregunta, idTipo, pregunta FROM pregunta P, preguntacuestionario PC, cuestionario C WHERE P.idPregunta = PC.idPregunta and C.idCuestionario = PC.idCuestionario AND C.idCuestionario = ?',
+            [nivelC]);
     }
 
 };
