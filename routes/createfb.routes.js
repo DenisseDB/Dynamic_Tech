@@ -8,12 +8,6 @@ const modify_fb = require('../controllers/modifycontroller');
 
 router.get('/generarFormato', isAuth, checkRoleAuth([1]), createfb.generarFormato);
 router.post('/generarFormato', createfb.generarFormato_post);
-
-router.get('/editarCuestionario/:id', isAuth, checkRoleAuth([1]), createfb.editarCuestionario);
-router.post('/editarCuestionario', createfb.editarCuestionario_post);
-
-router.get('/verCuestionario/:id', isAuth, checkRoleAuth([1]), createfb.verCuestionario);
-
 router.get('/crearPregunta/:nombre/:nivel/:dim', checkRoleAuth([1]), createfb.crearPregunta1);
 router.get('/crearPregunta/:nombre/:nivel/:dim/:pregunta0', checkRoleAuth([1]), createfb.crearPregunta2);
 router.get('/crearPregunta/:nombre/:nivel/:dim/:pregunta0/:pregunta1', checkRoleAuth([1]), createfb.crearPregunta3);
