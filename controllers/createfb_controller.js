@@ -79,7 +79,7 @@ exports.verCuestionario = (request, response, next) => {
 
    Cuestionario.fetchPreguta_Cuestionario(request.params.id)
       .then(([preguntas_cuest, fieldData]) => {
-         console.log(preguntas_cuest);
+         //console.log(preguntas_cuest);
          response.render('verCuestionario', {
             preguntas:preguntas_cuest,
             info: '',
