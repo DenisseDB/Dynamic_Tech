@@ -83,6 +83,23 @@ module.exports = class ChapterLead {
     static fetchSolicitudesActuales() {
          return db.execute('SELECT r.idPeriodo, estatus, NombrePeriodo from retroalimentacion as r, periodo as p WHERE  p.idPeriodo = r.idPeriodo AND p.idPeriodo in (SELECT MAX(idPeriodo) FROM periodo);')
     }
+
+    static fetchMentores() {
+        return db.execute('SELECT idMentor,nombre, apellidoP, apellidoM, fotoPerfil FROM asignacionempleado,empleado WHERE idMentor = idEmpleado GROUP BY idMentor;')
+   }
+
+   static fetchMentorados() {
+    return db.execute('SELECT idMentor, idMentorado, nombre, apellidoP, apellidoM FROM asignacionempleado,empleado WHERE idMentorado = idEmpleado;')
+    }
+
+    static fetchNoMentores(){
+        return db.execute('SELECT * FROM `empleado` WHERE idEmpleado NOT IN (SELECT idMentor FROM asignacionempleado);')
+    }
+
+    static fetchNoMentorados(){
+        return db.execute('SELECT * FROM `empleado` WHERE idEmpleado NOT IN (SELECT idMentorado FROM asignacionempleado);')
+    }
+  
    
 
 }

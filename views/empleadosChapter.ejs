@@ -168,7 +168,7 @@
                   <!-- Rol -->
                   <div class="form-floating">
                     <select class="form-select" id="rol" name="rol" aria-label="Floating label select example" required>
-                      <option selected>Elije un rol de empleado</option>
+                      <!-- <option selected disabled>Elije un rol de empleado</option> -->
                       <% for (let rolOpcion of roles) { %>
                         <option value="<%= rolOpcion.idRol %>">
                           <%= rolOpcion.descripcion %>
@@ -184,7 +184,7 @@
                   <div class="form-floating">
                     <select class="form-select" id="equipo" name="equipo" aria-label="Floating label select example"
                       required>
-                      <option selected>Elige un equipo de trabajo</option>
+                      <!-- <option selected disabled>Elige un equipo de trabajo</option> -->
                       <% for (let equipoOpcion of equipos) { %>
                         <option value="<%= equipoOpcion.idEquipo %>">
                           <%= equipoOpcion.nombre %>
@@ -268,7 +268,7 @@
                     <td style="text-align:center">
                       <!--img src="<%= empleado.fotoPerfil%>" alt="hugenerd" width="60" height="60"
                               class="rounded-circle"-->
-                      <img src="https://github.com/mdo.png" alt="hugenerd" width="55" height="55" class="rounded-circle">
+                      <img src="<%= empleado.fotoPerfil%>" alt="hugenerd" width="60" height="60" class="rounded-circle">
                     </td>
                     <td>
                       <%= empleado.nombre %>

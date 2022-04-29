@@ -48,8 +48,111 @@
     </div>
 
 
+   
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header">
+            <h><h5 style="text-align: center;">¿Cuál es el promedio del chapter?</h5></b>
+          </div>
+          <div class="card-body">
+         Aquí va otra gráfica
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="space2">
+    <br><br>
+    <h3><strong>Mentores del chapter</strong></h3>
+    <hr class="style17">
+
+    
+  
+    <div class="row" id="buscarEmpleado">
+      <div class="col-sm-12">
+        <div class="card">
+          <h5 class="card-header" style="vertical-align: middle;"><i class="bi bi-person-fill" ></i>Mentores asignados
+  
+              <a href="/miChapter/agregarMentor" class="btn btn-dark" style="margin-left: 600px;">Agregar Mentor</a>
+      
+        </h5>
+          <div class="card-body">
+            
+            <!--Para tabla con boostrap-->
+            <table class="table" style="table-layout: fixed">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Mentor</th>
+                  <th scope="col">Mentorados</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+
+                <tr>
+                  <% for (let mentor of mentores) { %>
+                    
+                   
+                <style>
+                  td {
+
+                text-align: center;
+                vertical-align: middle;
+                }
+                </style>
+                     
+                    <td>
+                      <img src="<%= mentor.fotoPerfil %>" alt="hugenerd" width="80" height="80" class="rounded-circle">
+                    </td>
+                 
+                  <td>
+                    <%= mentor.nombre %>
+                    <%= mentor.apellidoP %>
+                      <%= mentor.apellidoM %>
+                 </td>
+
+                
+                 <td style="text-align:justify; width:20%;">
+                   <ul>
+                  <% for (let mentorado of mentorados) { %>
+                    <% if (mentor.idMentor == mentorado.idMentor) { %>
+                    <li type="circle"><%= mentorado.nombre %><%= mentorado.apellidoP %><%= mentorado.apellidoM %></li>
+                      <% } %>
+                    <% } %>
+                  </ul>
+                </td>
+
+              
+                <td>
+                  <a href="#"class="btn btn-dark">Modificar Mentorados</a>
+                </td>
+             
+                <td>
+                  <form action="#" method="POST"
+                    onsubmit="return submitForm(this);">
+                    <button value="submit" class="btn btn-danger">Eliminar Mentor</button>
+                  </form>
+              </td>
+                </tr>
+               
+                <%} %>
+              </thead>
+             
+            </table>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    
 <script>
 
+function submitForm() {
+  return confirm('¿Realmente quieres eliminar al mentor?');
+}
 
 fetch('/miChapter/feedback', {
          method: 'GET',
