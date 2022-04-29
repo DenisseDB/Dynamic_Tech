@@ -49,11 +49,13 @@
                                         <% var mentorados_nombre=[] %>
                                         <% var mentorados_apellido=[] %>
                                         <% var mentorados_niveles=[] %>
+                                        <% var mentorados_fotos=[] %>
                                         <% for (let mentorado of mentorados) { %>
                                           <% if (!((mentorados_id).includes(mentorado.idMentorado))) {%>
                                             <% mentorados_id.push(mentorado.idMentorado) %>
                                             <% mentorados_nombre.push(mentorado.nombre) %>
                                             <% mentorados_apellido.push(mentorado.apellidoP)%>
+                                            <% mentorados_fotos.push(mentorado.fotoPerfil)%>
                                             <% mentorados_niveles.push(Array.from(mentorado.nivelE))%>
                                           <% } %>
                                           <% if ((mentorados_niveles)[(mentorados_nombre).length - 1].length <= 3) { %>
@@ -62,7 +64,7 @@
                                         <% } %>
                                         
                                       <% for (let i = 0; i < (mentorados_nombre).length; i++) { %>
-                                        <td style="text-align:center"> <img src="https://github.com/mdo.png"
+                                        <td style="text-align:center"> <img src=" <%= mentorados_fotos[i]; %>"
                                           alt="hugenerd" width="60" height="60"
                                           class="rounded-circle"></td>
                                         <td style="text-align:center">
