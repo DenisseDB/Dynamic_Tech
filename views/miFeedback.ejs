@@ -23,10 +23,11 @@
 
     <% if (idEmpleado == idSesionado) { %>
       <h2><strong>Mi Feedback</strong></h2>
+      <hr class="style17">
     <% } else { %>
-      <h2><strong>Feedback de </strong><i> - <%= nombre_empleado %> <%= apellido_empleado%></i></h2>
-    <% } %>
+        <h2><strong><i> Feedback de <%= nombre_empleado %> <%= apellido_empleado%></i></strong></h2>
         <hr class="style17">
+    <% } %>
     <br>
 
     <!-------------------------------------- Gráficos y Niveles ---------------------------------------------->
@@ -88,10 +89,19 @@
   <br><br><br><br><br><br>
     <!--------------------------------------  Histórico de Solicitudes ---------------------------------------------->
     <% let c = 0; %>
-    <div class="btn-group">      
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-        Periodo
-      </button>
+    <div class="btn-group">
+      <% if (idEmpleado == idSesionado) { %>
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+          Periodo
+        </button>
+      <% } else { %>
+        <div class="content-center">
+          <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+            Periodo
+          </button>
+          &ensp; Para visualizar el historial de <strong><%= nombre_empleado %> <%= apellido_empleado%></strong> selecciona el periodo.
+        </div><br><br>
+      <% } %>
 
       <div class="dropdown-menu" aria-labelledby="dropdownMenuClickable">
         <!-- Default unchecked -->
@@ -148,7 +158,8 @@
                 <table class="table">
                   <thead class="thead-dark">
                     <tr>
-                      <th scope="col" style="width:20%">Nombre</th>
+                      <th scope="col" style="width:3%"></th>
+                      <th scope="col" style="width:17%">Nombre</th>
                       <th scope="col" style="width:20%">Craft</th>
                       <th scope="col" style="width:20%">People & Mindsets</th>
                       <th scope="col" style="width:20%">Commercial & Costumer</th>
@@ -171,26 +182,25 @@
                             <input id="IdPeople" name="IdPeople" type="hidden" value="<%= retro.idCuestionarioPeople %>">
                             <input id="IdCommercial" name="IdCommercial" type="hidden"
                               value="<%= retro.idCuestionarioBusiness %>">
-                            <td style="text-align: center;">
-                              <div class="row content-center">
-                                <div class="col-auto"><img src="https://emser.es/wp-content/uploads/2016/08/usuario-sin-foto.png" width="40px"></div>
-                                <div class="col-auto"><p><%= retro.nombre %> <%= retro.apellidoP %></p></div>
-                              </div>
-                            </td>
+                            <td><div><img src="https://emser.es/wp-content/uploads/2016/08/usuario-sin-foto.png" width="40px"></div></td>
+                            <td><div><p><%= retro.nombre %> <%= retro.apellidoP %></p></div></td>
+
                             <% let d = especifico[e]; %>
-                            <td><div class="content-center"><p><%= d[0].promedio %></p></div></td>
-                            <td><div class="content-center"><p><%= d[1].promedio %></p></div></td>
-                            <td><div class="content-center"><p><%= d[2].promedio %></p></div></td>
-                            <td><div class="content-center"><button type="submit" class="btn btn-dark">Detalle</button></div></td>
+                            <td><div><p><%= d[0].promedio %></p></div></td>
+                            <td><div><p><%= d[1].promedio %></p></div></td>
+                            <td><div><p><%= d[2].promedio %></p></div></td>
+                            <td><div><button type="submit" class="btn btn-dark">Detalle</button></div></td>
                           </form>
                         </tr>
                         <% e++; %>
                       <% } else { %>
-                        <td><div class="bit"><p>Promedio por dimensión</p></div></td>
+                        <% if (g < general.length) { %>
+                        <td colspan="2"><div class="bit"><p>Promedio por dimensión</p></div></td>
                         <td><div class="bit"><p><%= general[g].promedio %></p></div></td>
                         <td><div class="bit"><p><%= general[g+1].promedio %></p></div></td>
                         <td><div class="bit"><p><%= general[g+2].promedio %></p></div></td>
-                        <td><div class="bit"><p>-</p></div></td>                 
+                        <td><div class="bit"><p>-</p></div></td>
+                        <% } %>                 
                       <% g = g + 3; break; } %>
                     <% } %>
                   </tbody>

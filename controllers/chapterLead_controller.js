@@ -2,6 +2,7 @@ const User = require('../models/user');
 const Feed = require('../models/contestaFeed');
 const Solicitud = require('../models/solicitud');
 const Lead = require('../models/lead');
+const Historial = require('../models/historico');
 const res = require('express/lib/response');
 const bcrypt = require('bcryptjs');
 
@@ -82,6 +83,41 @@ exports.guardarEmpleado = (request, response, next) => {
     }).catch(err => console.log(err));
 
 
+};
+
+exports.feedbackEmpleado = async (request, response, next) => {
+    const empleado = request.params.idEmpleado; // Empleado para el cual se consulta su feedback.
+    const niv = await User.fetchDimensiones_actuales(empleado); // Nivel del empleado de la consulta.
+    const nom = await User.fetchNombre(empleado); // Nombre del empleado de la consulta.
+    const pds = await Historial.fetchAllPeriodo(); // Periodos de evaluación.
+    const hs = await Historial.fetchFeedHistorico(empleado); // Histórico de solicitudes respondidas.
+    const dsG = await Historial.fetchDesempenioG(empleado); // Promedio de Desempeño por Periodo (General).
+    let dsI = [];
+
+    for await (let x of hs) {
+        let especifico = await Historial.fetchDesempenioE(x.idCuestionarioCraft, x.idCuestionarioPeople, x.idCuestionarioBusiness,
+            empleado, x.idEvaluador, x.idPeriodo);
+        dsI.push(especifico);
+    }
+
+    response.render('miFeedback.ejs',
+    {
+        idSesionado: request.session.idEmpleado,
+        rolesA :  request.session.privilegiosPermitidos,
+        periodos : pds,
+        retroalimentaciones : hs,
+        especifico : dsI,
+        general : dsG,
+        nombreSesion: request.session.nombreSesion,
+        apellidoPSesion: request.session.apellidoPSesion,
+        foto: request.session.foto,
+        nombre_empleado: nom[0][0].nombre,
+        apellido_empleado: nom[0][0].apellidoP,
+        idEmpleado: empleado,
+        nivel_craftpg: niv[0][0].nivelE,
+        nivel_peoplepg: niv[0][1].nivelE,
+        nivel_businesspg: niv[0][2].nivelE
+    });
 };
 
 exports.modificarEmpleado = (request, response, next) => {
