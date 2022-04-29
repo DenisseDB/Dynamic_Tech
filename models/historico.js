@@ -81,7 +81,7 @@ module.exports = class Historial{
 
     // Método. Desempeño por periodo.
     static fetchDesempenioG(idEvaluado) {
-        return db.execute("SELECT idPeriodo, idDimension, AVG(respuesta) as 'promedio' FROM preguntacuestionario PC, pregunta P, respondesolicita R WHERE PC.idPregunta = P.idPregunta AND idEvaluado = ? and PC.idPregunta = R.idPregunta AND idTipo = 1 GROUP BY idCuestionario, idPeriodo ORDER BY idPeriodo DESC, idDimension ASC;",
+        return db.execute("SELECT idPeriodo, idDimension, AVG(respuesta) as 'promedio' FROM pregunta P, respondesolicita R WHERE idTipo = 1 AND P.idPregunta = R.idPregunta AND idEvaluado = ? GROUP BY idPeriodo, idDimension ORDER BY idPeriodo DESC, idDimension ASC;",
         [idEvaluado])
             .then(([rows, fielData]) => {
                 return rows;

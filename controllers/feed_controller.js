@@ -101,6 +101,8 @@ exports.miFeedback =  async (request, response, next) => {
         dsI.push(especifico);
     }
 
+    console.log(dsG);
+
     response.render('miFeedback.ejs',
     {
         idSesionado: request.session.idEmpleado,

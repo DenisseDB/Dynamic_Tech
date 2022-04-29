@@ -117,6 +117,10 @@ hr.style17:after {
   opacity: 0; 
   height: 0px;
 }
+
+.correo {
+  text-decoration: underline;
+}
  
 .profile-pic-div{
   height: 150px;
