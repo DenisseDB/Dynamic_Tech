@@ -117,33 +117,33 @@
               </label>
           </div>
 
-        <script>
-          document.getElementById("p<%= periodo.idPeriodo %>").onclick = () => {
-            let x = document.getElementById("accordion<%= periodo.idPeriodo %>");
-            let elm = document.getElementById("p<%= periodo.idPeriodo %>");
+          <script>
+            document.getElementById("p<%= periodo.idPeriodo %>").onclick = () => {
+              let x = document.getElementById("accordion<%= periodo.idPeriodo %>");
+              let elm = document.getElementById("p<%= periodo.idPeriodo %>");
 
-            if (elm.checked == false) {
-              x.style.transition = 'height 0.2s linear 300ms, opacity 300ms';
-              x.style.opacity = 0;
-              x.style.height =  '0px';
-            } else {
-              x.style.transition = 'height 0.300ms, opacity 0.1s linear 300ms';
-              x.style.opacity = 1;
-              x.style.height =  '100%';
+              if (elm.checked == false) {
+                x.style.transition = 'height 0.2s linear 300ms, opacity 300ms';
+                x.style.opacity = 0;
+                x.style.height =  '0px';
+              } else {
+                x.style.transition = 'height 0.300ms, opacity 0.1s linear 300ms';
+                x.style.opacity = 1;
+                x.style.height =  '100%';
+              }
             }
-          }
-        </script>
+          </script>
         <% } %>
       </div>
     </div><br><br>   
   
     <% let e = 0; let g = 0; let p = 0;%>
     <% for (let periodo of periodos) { %>
-    <% if (p < 5) { p++;%>
-    <div class="accordion pc1" id="accordion<%= periodo.idPeriodo %>">
-    <% } else {%>
-    <div class="accordion pc2" id="accordion<%= periodo.idPeriodo %>">
-    <% } %>
+      <% if (p < 5) { p++;%>
+      <div class="accordion pc1" id="accordion<%= periodo.idPeriodo %>">
+      <% } else {%>
+      <div class="accordion pc2" id="accordion<%= periodo.idPeriodo %>">
+      <% } %>
       <div class="accordion-item">
         <h2 class="accordion-header" id="h<%= periodo.idPeriodo %>">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
@@ -154,7 +154,7 @@
         <div id="collapse<%= periodo.idPeriodo %>" class="accordion-collapse collapse" aria-labelledby="<%= periodo.idPeriodo %>">
           <div class="accordion-body">
             <ul class="list-group">
-              <% if ((retroalimentaciones.length> 0) && (retroalimentaciones[e].idPeriodo == periodo.idPeriodo)) { %>
+              <% if (((retroalimentaciones.length > 0) && (retroalimentaciones.length > e)) && (retroalimentaciones[e].idPeriodo == periodo.idPeriodo)) { %>
                 <table class="table">
                   <thead class="thead-dark">
                     <tr>
@@ -186,15 +186,17 @@
                             <td><div><p><%= retro.nombre %> <%= retro.apellidoP %></p></div></td>
 
                             <% let d = especifico[e]; %>
+                            <% if (d.length == 3) { %>
                             <td><div><p><%= d[0].promedio %></p></div></td>
                             <td><div><p><%= d[1].promedio %></p></div></td>
                             <td><div><p><%= d[2].promedio %></p></div></td>
                             <td><div><button type="submit" class="btn btn-dark">Detalle</button></div></td>
+                            <% } %>
                           </form>
                         </tr>
                         <% e++; %>
                       <% } else { %>
-                        <% if (g < general.length) { %>
+                        <% if ((g < general.length) && ((general.length % 3) == 0)){ %>
                         <td colspan="2"><div class="bit"><p>Promedio por dimensión</p></div></td>
                         <td><div class="bit"><p><%= general[g].promedio %></p></div></td>
                         <td><div class="bit"><p><%= general[g+1].promedio %></p></div></td>
@@ -212,7 +214,7 @@
           </div>
         </div>
       </div><br>
-    </div>
+      </div>
     <% } %>
   </div>
 </div>
