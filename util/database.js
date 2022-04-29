@@ -13,6 +13,7 @@ const pool = mysql.createPool({
 
 // * pool para db local (borrar despues)
 
+<<<<<<< HEAD
 // const pool = mysql.createPool({
 //    host: 'localhost',
 //    user: 'DynamicTech',
@@ -37,3 +38,6 @@ module.exports = DB_INSTANCIA.promise(); // ! Se ejecuta este comando cuando que
 
 
 // module.exports = pool.promise();
+=======
+module.exports = pool.promise();
+>>>>>>> develop
