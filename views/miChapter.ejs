@@ -63,7 +63,7 @@
 
   <div class="space2">
     <br><br>
-    <h3><strong>Mentorados del chapter</strong></h3>
+    <h3><strong>Mentores del chapter</strong></h3>
     <hr class="style17">
 
     
@@ -71,9 +71,9 @@
     <div class="row" id="buscarEmpleado">
       <div class="col-sm-12">
         <div class="card">
-          <h5 class="card-header" style="vertical-align: middle;"><i class="bi bi-person-fill" ></i>Mentorados asignados
+          <h5 class="card-header" style="vertical-align: middle;"><i class="bi bi-person-fill" ></i>Mentores asignados
   
-              <a href="#" class="btn btn-dark" style="margin-left: 600px;">Agregar Mentorado</a>
+              <a href="/miChapter/agregarMentor" class="btn btn-dark" style="margin-left: 600px;">Agregar Mentor</a>
       
         </h5>
           <div class="card-body">
@@ -102,7 +102,7 @@
                 </style>
                      
                     <td>
-                      <img src="<%= mentor.fotoPerfil %>" alt="hugenerd" width="60" height="60" class="rounded-circle">
+                      <img src="<%= mentor.fotoPerfil %>" alt="hugenerd" width="80" height="80" class="rounded-circle">
                     </td>
                  
                   <td>
@@ -112,7 +112,7 @@
                  </td>
 
                 
-                 <td style="text-align:justify">
+                 <td style="text-align:justify; width:20%;">
                    <ul>
                   <% for (let mentorado of mentorados) { %>
                     <% if (mentor.idMentor == mentorado.idMentor) { %>
