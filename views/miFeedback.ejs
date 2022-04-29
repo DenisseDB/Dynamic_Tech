@@ -175,8 +175,10 @@
                     <% for (e;  e < retroalimentaciones.length; e++) { %>
                       <% if (retroalimentaciones[e].idPeriodo == periodo.idPeriodo) { %>
                         <tr>
-                          <% if (idEmpleado==idSesionado) { %>
+                          <% if (idEmpleado == idSesionado) { %>
                             <form action="/miFeedback" method="POST">
+                          <% } else if(ruta == "/empleados/feedback/") { %>
+                            <form action="/empleados/detallefeedback/<%= idEmpleado %>" method="POST">                          
                           <% } else { %>
                             <% var url='/miFeedback/' + idEmpleado;%>
                             <form action="<%=url%>" method="POST">

@@ -99,6 +99,10 @@ exports.feedbackEmpleado = async (request, response, next) => {
             empleado, x.idEvaluador, x.idPeriodo);
         dsI.push(especifico);
     }
+    
+    //console.log(hs);
+    //console.log(dsI);
+    //console.log(dsG);
 
     response.render('miFeedback.ejs',
     {
@@ -117,7 +121,45 @@ exports.feedbackEmpleado = async (request, response, next) => {
         nivel_craftpg: niv[0][0].nivelE,
         nivel_peoplepg: niv[0][1].nivelE,
         nivel_businesspg: niv[0][2].nivelE,
-        //regresar : "/empleados/feedback/"
+        ruta : "/empleados/feedback/"
+    });
+};
+
+exports.detalleEmpleado = async (request, response, next) => {
+    // console.log("Llegué aquí");
+    let evaluador = request.body.IdEval;
+    let periodo = request.body.IdPed;
+    let evaluado = request.params.idEmpleado;
+    let idcraft = request.body.IdCraft;
+    let idPeople = request.body.IdPeople;
+    let idCommercial = request.body.IdCommercial;
+
+    // console.log(evaluador); console.log(evaluado);
+    // console.log(periodo); console.log(idcraft);
+    // console.log(idPeople); console.log(idCommercial);
+
+    const rCraft = await Historial.fetchFeedDetallado(idcraft, evaluado, evaluador, periodo); // Retro del Cuestionario Craft.
+    const rPeople = await Historial.fetchFeedDetallado(idPeople, evaluado, evaluador, periodo); // Retro del Cuestionario People.
+    const rBusiness = await Historial.fetchFeedDetallado(idCommercial, evaluado, evaluador, periodo); // Retro del Cuestionario Business.
+    const sol = await Historial.fetchSolicitud(evaluado, evaluador, periodo); // Detalle del Periodo y Evaluador.
+    const lvl = await Historial.fetchNiveles(idcraft, idPeople, idCommercial); // Detalle de los niveles al momento de la solicitud.
+    const nom = await User.fetchNombre(request.params.idEmpleado);
+    
+    response.render('detalleFeedback.ejs',
+    {
+        rolesA :  request.session.privilegiosPermitidos,
+        craft : rCraft,
+        people : rPeople,
+        business : rBusiness,
+        solicitud : sol,
+        niveles: lvl,
+        nombreSesion: request.session.nombreSesion,
+        apellidoPSesion: request.session.apellidoPSesion,
+        foto: request.session.foto,
+        nombre_empleado: nom[0][0].nombre,
+        apellido_empleado: nom[0][0].apellidoP,
+        id_empleado: request.params.id,
+        self: '1',
     });
 };
 

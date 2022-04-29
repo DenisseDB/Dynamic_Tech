@@ -116,7 +116,7 @@ exports.miFeedback =  async (request, response, next) => {
         nivel_craftpg: request.session.craft ? request.session.craft : '',
         nivel_peoplepg: request.session.people ? request.session.people : '',
         nivel_businesspg: request.session.business ? request.session.business : '',
-        //regresar : ''
+        ruta : 'normal'
     });
 };
 
