@@ -2,6 +2,7 @@ const User = require('../models/user');
 const Feed = require('../models/contestaFeed');
 const Solicitud = require('../models/solicitud');
 const Lead = require('../models/lead');
+const Historial = require('../models/historico');
 const res = require('express/lib/response');
 const bcrypt = require('bcryptjs');
 
@@ -82,6 +83,85 @@ exports.guardarEmpleado = (request, response, next) => {
     }).catch(err => console.log(err));
 
 
+};
+
+exports.feedbackEmpleado = async (request, response, next) => {
+    const empleado = request.params.idEmpleado; // Empleado para el cual se consulta su feedback.
+    const niv = await User.fetchDimensiones_actuales(empleado); // Nivel del empleado de la consulta.
+    const nom = await User.fetchNombre(empleado); // Nombre del empleado de la consulta.
+    const pds = await Historial.fetchAllPeriodo(); // Periodos de evaluación.
+    const hs = await Historial.fetchFeedHistorico(empleado); // Histórico de solicitudes respondidas.
+    const dsG = await Historial.fetchDesempenioG(empleado); // Promedio de Desempeño por Periodo (General).
+    let dsI = [];
+
+    for await (let x of hs) {
+        let especifico = await Historial.fetchDesempenioE(x.idCuestionarioCraft, x.idCuestionarioPeople, x.idCuestionarioBusiness,
+            empleado, x.idEvaluador, x.idPeriodo);
+        dsI.push(especifico);
+    }
+    
+    //console.log(hs);
+    //console.log(dsI);
+    console.log(dsG);
+
+    response.render('miFeedback.ejs',
+    {
+        idSesionado: request.session.idEmpleado,
+        rolesA :  request.session.privilegiosPermitidos,
+        periodos : pds,
+        retroalimentaciones : hs,
+        especifico : dsI,
+        general : dsG,
+        nombreSesion: request.session.nombreSesion,
+        apellidoPSesion: request.session.apellidoPSesion,
+        foto: request.session.foto,
+        nombre_empleado: nom[0][0].nombre,
+        apellido_empleado: nom[0][0].apellidoP,
+        idEmpleado: empleado,
+        nivel_craftpg: niv[0][0].nivelE,
+        nivel_peoplepg: niv[0][1].nivelE,
+        nivel_businesspg: niv[0][2].nivelE,
+        ruta : "/empleados/feedback/"
+    });
+};
+
+exports.detalleEmpleado = async (request, response, next) => {
+    // console.log("Llegué aquí");
+    let evaluador = request.body.IdEval;
+    let periodo = request.body.IdPed;
+    let evaluado = request.params.idEmpleado;
+    let idcraft = request.body.IdCraft;
+    let idPeople = request.body.IdPeople;
+    let idCommercial = request.body.IdCommercial;
+
+    // console.log(evaluador); console.log(evaluado);
+    // console.log(periodo); console.log(idcraft);
+    // console.log(idPeople); console.log(idCommercial);
+
+    const rCraft = await Historial.fetchFeedDetallado(idcraft, evaluado, evaluador, periodo); // Retro del Cuestionario Craft.
+    const rPeople = await Historial.fetchFeedDetallado(idPeople, evaluado, evaluador, periodo); // Retro del Cuestionario People.
+    const rBusiness = await Historial.fetchFeedDetallado(idCommercial, evaluado, evaluador, periodo); // Retro del Cuestionario Business.
+    const sol = await Historial.fetchSolicitud(evaluado, evaluador, periodo); // Detalle del Periodo y Evaluador.
+    const lvl = await Historial.fetchNiveles(idcraft, idPeople, idCommercial); // Detalle de los niveles al momento de la solicitud.
+    const nom = await User.fetchNombre(request.params.idEmpleado);
+    
+    response.render('detalleFeedback.ejs',
+    {
+        rolesA :  request.session.privilegiosPermitidos,
+        craft : rCraft,
+        people : rPeople,
+        business : rBusiness,
+        solicitud : sol,
+        niveles: lvl,
+        nombreSesion: request.session.nombreSesion,
+        apellidoPSesion: request.session.apellidoPSesion,
+        foto: request.session.foto,
+        nombre_empleado: nom[0][0].nombre,
+        apellido_empleado: nom[0][0].apellidoP,
+        id_empleado: request.params.id,
+        self: '1',
+        ruta : '/empleados/detalleFeedback'
+    });
 };
 
 exports.modificarEmpleado = (request, response, next) => {

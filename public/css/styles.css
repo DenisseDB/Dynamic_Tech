@@ -47,6 +47,10 @@ td, th {
   z-index: 1000;
 }
 
+.content-right {
+  margin-right: 0;
+}
+
 .space {
   padding: 0.5em 3em 1.5em 3em;
 }
@@ -89,7 +93,7 @@ hr.style17:after {
 }
 
 .content-center {
-  height: 40px;
+  height: 20px;
 }
 
 .content-center h3, p{

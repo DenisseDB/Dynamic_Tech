@@ -116,7 +116,6 @@
                               <div class="card">
                                 <h5 class="card-header"><i class="bi bi-book"></i> A evaluar</h5>
                                 <div class="card-body">
-                                  <ul class="list-group">
                                     <% if (evaluaciones.length> 0) { %>
                                       <table class="table">
                                         <thead class="thead-dark">
@@ -148,13 +147,12 @@
                                                       class="btn btn-dark">Responder</a></td>
                                                   <% } %>
                                             </tr>
-                                            <% } %>
+                                          <% } %>
                                         </tbody>
                                       </table>
-                                      <% } else { %>
-                                        <p>Todavía no has recibido ninguna solicitud para contestar feedback de otro
-                                          compañero. Regresa más tarde.</p>
-                                        <% } %>
+                                    <% } else { %>
+                                      <p>Todavía no has recibido ninguna solicitud para contestar feedback de otro compañero. Regresa más tarde.</p>
+                                    <% } %>
                                 </div>
                               </div>
                             </div>

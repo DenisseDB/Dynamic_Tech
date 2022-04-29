@@ -23,10 +23,11 @@
 
     <% if (idEmpleado == idSesionado) { %>
       <h2><strong>Mi Feedback</strong></h2>
+      <hr class="style17">
     <% } else { %>
-      <h2><strong>Feedback de </strong><i> - <%= nombre_empleado %> <%= apellido_empleado%></i></h2>
-    <% } %>
+        <h2><strong><i> Feedback de <%= nombre_empleado %> <%= apellido_empleado%></i></strong></h2>
         <hr class="style17">
+    <% } %>
     <br>
 
     <!-------------------------------------- Gráficos y Niveles ---------------------------------------------->
@@ -88,10 +89,20 @@
   <br><br><br><br><br><br>
     <!--------------------------------------  Histórico de Solicitudes ---------------------------------------------->
     <% let c = 0; %>
-    <div class="btn-group">      
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-        Periodo
-      </button>
+
+    <% if (idEmpleado != idSesionado) { %>
+    <div class="content-center">
+    <% } %>
+    <div class="btn-group">
+      <% if (idEmpleado == idSesionado) { %>
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+          Periodo
+        </button>
+      <% } else { %>
+          <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+            Periodo
+          </button>
+      <% } %>
 
       <div class="dropdown-menu" aria-labelledby="dropdownMenuClickable">
         <!-- Default unchecked -->
@@ -107,33 +118,37 @@
               </label>
           </div>
 
-        <script>
-          document.getElementById("p<%= periodo.idPeriodo %>").onclick = () => {
-            let x = document.getElementById("accordion<%= periodo.idPeriodo %>");
-            let elm = document.getElementById("p<%= periodo.idPeriodo %>");
+          <script>
+            document.getElementById("p<%= periodo.idPeriodo %>").onclick = () => {
+              let x = document.getElementById("accordion<%= periodo.idPeriodo %>");
+              let elm = document.getElementById("p<%= periodo.idPeriodo %>");
 
-            if (elm.checked == false) {
-              x.style.transition = 'height 0.2s linear 300ms, opacity 300ms';
-              x.style.opacity = 0;
-              x.style.height =  '0px';
-            } else {
-              x.style.transition = 'height 0.300ms, opacity 0.1s linear 300ms';
-              x.style.opacity = 1;
-              x.style.height =  '100%';
+              if (elm.checked == false) {
+                x.style.transition = 'height 0.2s linear 300ms, opacity 300ms';
+                x.style.opacity = 0;
+                x.style.height =  '0px';
+              } else {
+                x.style.transition = 'height 0.300ms, opacity 0.1s linear 300ms';
+                x.style.opacity = 1;
+                x.style.height =  '100%';
+              }
             }
-          }
-        </script>
+          </script>
         <% } %>
       </div>
-    </div><br><br>   
+    </div>
+    <% if (idEmpleado != idSesionado) { %>
+      &ensp; Para visualizar el historial de <strong><%= nombre_empleado %> <%= apellido_empleado%></strong> selecciona el periodo.</div>
+    <% } %>  
+    <br><br> 
   
     <% let e = 0; let g = 0; let p = 0;%>
     <% for (let periodo of periodos) { %>
-    <% if (p < 5) { p++;%>
-    <div class="accordion pc1" id="accordion<%= periodo.idPeriodo %>">
-    <% } else {%>
-    <div class="accordion pc2" id="accordion<%= periodo.idPeriodo %>">
-    <% } %>
+      <% if (p < 5) { p++;%>
+      <div class="accordion pc1" id="accordion<%= periodo.idPeriodo %>">
+      <% } else {%>
+      <div class="accordion pc2" id="accordion<%= periodo.idPeriodo %>">
+      <% } %>
       <div class="accordion-item">
         <h2 class="accordion-header" id="h<%= periodo.idPeriodo %>">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
@@ -144,11 +159,12 @@
         <div id="collapse<%= periodo.idPeriodo %>" class="accordion-collapse collapse" aria-labelledby="<%= periodo.idPeriodo %>">
           <div class="accordion-body">
             <ul class="list-group">
-              <% if ((retroalimentaciones.length> 0) && (retroalimentaciones[e].idPeriodo == periodo.idPeriodo)) { %>
+              <% if (((retroalimentaciones.length > 0) && (retroalimentaciones.length > e)) && (retroalimentaciones[e].idPeriodo == periodo.idPeriodo)) { %>
                 <table class="table">
                   <thead class="thead-dark">
                     <tr>
-                      <th scope="col" style="width:20%">Nombre</th>
+                      <th scope="col" style="width:3%"></th>
+                      <th scope="col" style="width:17%">Nombre</th>
                       <th scope="col" style="width:20%">Craft</th>
                       <th scope="col" style="width:20%">People & Mindsets</th>
                       <th scope="col" style="width:20%">Commercial & Costumer</th>
@@ -156,41 +172,44 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <% for (let retro of retroalimentaciones) { %>
-                      <% if (retro.idPeriodo == periodo.idPeriodo) { %>
+                    <% for (e;  e < retroalimentaciones.length; e++) { %>
+                      <% if (retroalimentaciones[e].idPeriodo == periodo.idPeriodo) { %>
                         <tr>
-                          <% if (idEmpleado==idSesionado) { %>
+                          <% if (idEmpleado == idSesionado) { %>
                             <form action="/miFeedback" method="POST">
+                          <% } else if(ruta == "/empleados/feedback/") { %>
+                            <form action="/empleados/detallefeedback/<%= idEmpleado %>" method="POST">                          
                           <% } else { %>
                             <% var url='/miFeedback/' + idEmpleado;%>
                             <form action="<%=url%>" method="POST">
                           <% } %>
-                            <input id="IdPed" name="IdPed" type="hidden" value="<%= retro.idPeriodo %>">
-                            <input id="IdEval" name="IdEval" type="hidden" value="<%= retro.idEvaluador %>">
-                            <input id="IdCraft" name="IdCraft" type="hidden" value="<%= retro.idCuestionarioCraft %>">
-                            <input id="IdPeople" name="IdPeople" type="hidden" value="<%= retro.idCuestionarioPeople %>">
+                            <input id="IdPed" name="IdPed" type="hidden" value="<%= retroalimentaciones[e].idPeriodo %>">
+                            <input id="IdEval" name="IdEval" type="hidden" value="<%= retroalimentaciones[e].idEvaluador %>">
+                            <input id="IdCraft" name="IdCraft" type="hidden" value="<%= retroalimentaciones[e].idCuestionarioCraft %>">
+                            <input id="IdPeople" name="IdPeople" type="hidden" value="<%= retroalimentaciones[e].idCuestionarioPeople %>">
                             <input id="IdCommercial" name="IdCommercial" type="hidden"
-                              value="<%= retro.idCuestionarioBusiness %>">
-                            <td style="text-align: center;">
-                              <div class="row content-center">
-                                <div class="col-auto"><img src="https://emser.es/wp-content/uploads/2016/08/usuario-sin-foto.png" width="40px"></div>
-                                <div class="col-auto"><p><%= retro.nombre %> <%= retro.apellidoP %></p></div>
-                              </div>
-                            </td>
+                              value="<%= retroalimentaciones[e].idCuestionarioBusiness %>">
+                            <td><div><img src="https://emser.es/wp-content/uploads/2016/08/usuario-sin-foto.png" width="40px"></div></td>
+                            <td><div><p><%= retroalimentaciones[e].nombre %> <%= retroalimentaciones[e].apellidoP %></p></div></td>
+
                             <% let d = especifico[e]; %>
-                            <td><div class="content-center"><p><%= d[0].promedio %></p></div></td>
-                            <td><div class="content-center"><p><%= d[1].promedio %></p></div></td>
-                            <td><div class="content-center"><p><%= d[2].promedio %></p></div></td>
-                            <td><div class="content-center"><button type="submit" class="btn btn-dark">Detalle</button></div></td>
+                            <% if (d.length == 3) { %>
+                            <td><div><p><%= d[0].promedio %></p></div></td>
+                            <td><div><p><%= d[1].promedio %></p></div></td>
+                            <td><div><p><%= d[2].promedio %></p></div></td>
+                            <td><div><button type="submit" class="btn btn-dark">Detalle</button></div></td>
+                            <% } %>
                           </form>
                         </tr>
-                        <% e++; %>
                       <% } else { %>
-                        <td><div class="bit"><p>Promedio por dimensión</p></div></td>
+                        <!--  if ((g < general.length) && ((general.length % 3) == 0)){  -->
+                        <% if ((g + 3) < general.length){ %>
+                        <td colspan="2"><div class="bit"><p>Promedio por dimensión</p></div></td>
                         <td><div class="bit"><p><%= general[g].promedio %></p></div></td>
                         <td><div class="bit"><p><%= general[g+1].promedio %></p></div></td>
                         <td><div class="bit"><p><%= general[g+2].promedio %></p></div></td>
-                        <td><div class="bit"><p>-</p></div></td>                 
+                        <td><div class="bit"><p>-</p></div></td>
+                        <% } %>                 
                       <% g = g + 3; break; } %>
                     <% } %>
                   </tbody>
@@ -202,7 +221,7 @@
           </div>
         </div>
       </div><br>
-    </div>
+      </div>
     <% } %>
   </div>
 </div>
