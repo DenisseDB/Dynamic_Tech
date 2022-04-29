@@ -3,11 +3,11 @@
 <!-- Para que aparezca Mis Mentorados -->
 <% for (i=0; i < rolesA.length; i++) { %>
 <% if (rolesA[i].idPrivilegio==1) { %>
-   <%- include('includes/sideMentorados.ejs') %>
+<%- include('includes/sideMentorados.ejs') %>
 <% } %>
 <% } %>
 
-               <!-- Para que aparezca Empleados del chapter -->
+<!-- Para que aparezca Empleados del chapter -->
 <% for (i=0; i < rolesA.length; i++) { %>
 <% if (rolesA[i].idPrivilegio==2) { %>
 <%- include('includes/sideAgregarE.ejs') %>
@@ -17,17 +17,53 @@
 <%- include('includes/sidenavFin.ejs') %>
 
 <div class="container px-13">
-    <div class="space2">
-        <h2><strong> Ver Cuestionario </strong></h2>
+   <div class="space2">
+      <h2><strong> Ver Cuestionario </strong></h2><hr>
+      
+      <!-- *--------------------------------------------- -->
+      
+      <div class="card">
+         <div class="card-header ">
+            <h3><%= preguntas.nombre %> - Nivel: <%=preguntas.nivelP %></h3>
+         </div>
+         <div class="card-body">
+            <% for (let pregunta of preguntas) { %>
+            <div class="space2">
+               <h5><%= pregunta.pregunta %></h5>
+               <% if (pregunta.idTipo == 1) { %>
+               <% for( let i = 1; i <= 5; i++ ) { %>
+               <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>"
+                     id="<%= pregunta.idPregunta %>"  disabled/>
+                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> <%= i %> </label>
+               </div>
+               <% } %>
+               <% } else { %>
+               <div class="form-floating">
+                  <textarea disabled class="form-control" id="floatingTextarea"
+                     style="height: 50px; background-color:#F5F5F5;"></textarea>
+                  <label for="floatingTextarea">Respuesta:</label>
+               </div>
+               <% } %>
+            </div>
+            <% } %>
+         </div>
+         <div class="card-footer text-muted">
+            <br>
+         </div>
+      </div>
 
-        <hr class="style17">
-        <br>
-    </div>
+
+      <!-- *--------------------------------------------- -->
+
+      <hr class="style17">
+      <br>
+   </div>
 </div>
 
 
 <script>
-console.log(request.body.nombre);
+   console.log(request.body.nombre);
 </script>
 
 <%- include('includes/foot.ejs') %></br>

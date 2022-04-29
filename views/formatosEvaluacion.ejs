@@ -2,16 +2,16 @@
 
 <!-- Para que aparezca Mis Mentorados -->
 <% for (i=0; i < rolesA.length; i++) { %>
-<% if (rolesA[i].idPrivilegio==1) { %>
-<%- include('includes/sideMentorados.ejs') %>
-<% } %>
+   <% if (rolesA[i].idPrivilegio==1) { %>
+      <%- include('includes/sideMentorados.ejs') %>
+   <% } %>
 <% } %>
 
 <!-- Para que aparezca Empleados del chapter -->
 <% for (i=0; i < rolesA.length; i++) { %>
-<% if (rolesA[i].idPrivilegio==2) { %>
-<%- include('includes/sideAgregarE.ejs') %>
-<% } %>
+   <% if (rolesA[i].idPrivilegio==2) { %>
+      <%- include('includes/sideAgregarE.ejs') %>
+   <% } %>
 <% } %>
 
 <%- include('includes/sidenavFin.ejs') %>
@@ -66,12 +66,13 @@
                                     <% var url2='/feedback/verCuestionario/' + cuestionario.idCuestionario;%>
                                     <a href="<%=url2%>" type="button" style="margin:auto"
                                        class="btn btn-outline-dark col-xs-6" id="Ver_Cuest_Craft">
-                                       <i class="bi bi-eye-fill"> Ver</i>
+                                       Ver
                                     </a>
 
                                     <% var url='/feedback/editarCuestionario/' + cuestionario.idCuestionario;%>
-                                    <a href="<%=url%>" type="button" style="margin:auto" class="btn btn-dark"id="Editar_Cuest_Craft">
-                                       <i class="bi bi-pencil-square"> Editar</i>
+                                    <a href="<%=url%>" type="button" style="margin:auto" class="btn btn-dark"
+                                       id="Editar_Cuest_Craft">
+                                       Editar <i class="bi bi-pencil-square"></i>
                                     </a>
                                  </td>
                               </tr>
@@ -123,12 +124,12 @@
                                  <td>
                                     <% var url2='/feedback/verCuestionario/' + cuestionario.idCuestionario;%>
                                     <a href="<%=url2%>" type="button" style="margin:auto" class="btn btn-outline-dark">
-                                       <!--i class="bi bi-eye-fill"></i--> Ver
+                                       Ver
                                     </a>
 
                                     <% var url='/feedback/editarCuestionario/' + cuestionario.idCuestionario;%>
                                     <a href="<%=url%>" type="button" style="margin:auto" class="btn btn-dark">
-                                       <!--i class="bi bi-pencil-square"></i--> Editar
+                                       Editar <i class="bi bi-pencil-square"></i>
                                     </a>
                                  </td>
                               </tr>
@@ -179,13 +180,12 @@
                                  </td>
                                  <td>
                                     <% var url2='/feedback/verCuestionario/' + cuestionario.idCuestionario;%>
-                                    <a href="<%=url2%>" type="button" style="margin:auto" class="btn btn-outline-dark">
-                                       <!--i class="bi bi-eye-fill"></i--> Ver
+                                    <a href="<%=url2%>" type="button" style="margin:auto" class="btn btn-outline-dark"> Ver
                                     </a>
 
                                     <% var url='/feedback/editarCuestionario/' + cuestionario.idCuestionario;%>
                                     <a href="<%=url%>" type="button" style="margin:auto" class="btn btn-dark">
-                                       <!--i class="bi bi-pencil-square"></i--> Editar
+                                       Editar <i class="bi bi-pencil-square"></i>
                                     </a>
                                  </td>
                               </tr>
@@ -203,49 +203,51 @@
    </div>
 </div>
 
-<!--div class="card">
-               <h5 class="card-header"><i class="bi bi-file-earmark-text"></i> Cuestionarios</h5>
-               <div class="card-body">
-                  <table class="table" style="table-layout: fixed">
-                     <thead class="thead-dark">
-                        <tr>
-                           <th style="text-align:center" scope="col">Nombre</th>
-                           <th style="text-align:center" scope="col"> Dimensión </th>
-                           <th style="text-align:center" scope="col"> Nivel </th>
-                           <th style="text-align:center" scope="col"> Fecha de creación </th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <% for (let cuestionario of cuestionarios) { %>
-                           <tr>
-                              <td>
-                                 <%=cuestionario.nombre%>
-                              </td>
-                              <td>
-                                 <%=cuestionario.idDimension%>
-                              </td>
-                              <td>
-                                 <%=cuestionario.nivelP%>
-                              </td>
-                              <td>
-                                 <% var c = cuestionario.fecha; %>
-                                 <%= new Date(c).toISOString().slice(0, 19).replace('T', ' '); %>
+<!-- div class="card">
+<h5 class="card-header"><i class="bi bi-file-earmark-text"></i> Cuestionarios</h5>
+<div class="card-body">
+   <table class="table" style="table-layout: fixed">
+      <thead class="thead-dark">
+         <tr>
+            <th style="text-align:center" scope="col">Nombre</th>
+            <th style="text-align:center" scope="col"> Dimensión </th>
+            <th style="text-align:center" scope="col"> Nivel </th>
+            <th style="text-align:center" scope="col"> Fecha de creación </th>
+         </tr>
+      </thead>
+      <tbody>
+         <% for (let cuestionario of cuestionarios) { %>
+         <tr>
+            <td>
+               <%=cuestionario.nombre%>
+            </td>
+            <td>
+               <%=cuestionario.idDimension%>
+            </td>
+            <td>
+               <%=cuestionario.nivelP%>
+            </td>
+            <td>
+               <% var c = cuestionario.fecha; %>
+               <%= new Date(c).toISOString().slice(0, 19).replace('T', ' '); %>
 
-                              </td>
-                              <td>
-                                 <button type="button" style="margin:auto" class="btn btn-outline-dark"><i class="bi bi-eye-fill"></i> Ver </button>
-                                 <button type="button" style="margin:auto" class="btn btn-dark"><i class="bi bi-pencil-square"></i> Editar </button>
-                              </td>
-                           </tr>
-                        <% } %>
-                     </tbody>
-                  </table>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-</div!-->
+            </td>
+            <td>
+               <button type="button" style="margin:auto" class="btn btn-outline-dark"><i class="bi bi-eye-fill"></i> Ver
+               </button>
+               <button type="button" style="margin:auto" class="btn btn-dark"><i class="bi bi-pencil-square"></i> Editar
+               </button>
+            </td>
+         </tr>
+         <% } %>
+      </tbody>
+   </table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div!> -->
 <!-- <div class="container px-13">
    <div class="space2">
       <h2><strong> Formatos de Evaluación </strong></h2>
@@ -286,7 +288,7 @@
                new bootstrap.Toast(document.getElementById('liveToast')).show();
             }
          });
-      </script> -->
+      </script>
 
 
 

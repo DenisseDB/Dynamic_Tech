@@ -5,7 +5,7 @@ const Cuestionario = require('../models/Cuestionario');
 
 exports.root = (request, response, next) => {
 
-   const info = request.session.info ? request.session.info : '';
+   const info = request.session.info ? requestfetchPreguta_Cuestionario.session.info : '';
    request.session.info = '';
    FormatoEvaluacion.fetchCuestionarios()
       .then(([rows, fieldData]) => {
@@ -37,14 +37,35 @@ exports.editarCuestionario_post = (request, response, next) => {};
 
 exports.verCuestionario = (request, response, next) => {
 
-   response.render('verCuestionario', {
-      info: '',
-      nombreSesion: request.session.nombreSesion,
-      apellidoPSesion: request.session.apellidoPSesion,
-      foto: request.session.foto,
-      rolesA: request.session.privilegiosPermitidos,
-   });
+   Cuestionario.fetchPreguta_Cuestionario(request.params.id)
+      .then(([preguntas_cuest, fieldData]) => {
+         console.log(preguntas_cuest);
+         response.render('verCuestionario', {
+            preguntas:preguntas_cuest,
+            info: '',
+            nombreSesion: request.session.nombreSesion,
+            apellidoPSesion: request.session.apellidoPSesion,
+            foto: request.session.foto,
+            rolesA: request.session.privilegiosPermitidos,
+         });
+      }).catch(err => {
+         console.log(err);
+      });
+
+   
 };
+/*   info: '',
+                        nombreSesion: request.session.nombreSesion,
+                        apellidoPSesion: request.session.apellidoPSesion,
+                        foto: request.session.foto,
+                        rolesA: request.session.privilegiosPermitidos,
+                        preguntas_nivdim: preguntas_nivdim,
+                        preguntas_cuestionario: preguntas_cuestionario,
+                        niv: request.params.nivel,
+                        dim: request.params.dim,
+                        id: request.params.id,
+                        p: request.session.p,* */
+
 
 exports.buscarFormato = (request, response, next) => {
    //console.log(request.params.nivel);
