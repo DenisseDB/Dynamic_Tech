@@ -1,0 +1,207 @@
+<%- include('includes/sidenavsup.ejs') %>
+
+<!-- Para que aparezca Mis Mentorados -->
+<% for (i=0; i < rolesA.length; i++) { %>
+<% if (rolesA[i].idPrivilegio==1) { %>
+   <%- include('includes/sideMentorados.ejs') %>
+<% } %>
+<% } %>
+
+               <!-- Para que aparezca Empleados del chapter -->
+<% for (i=0; i < rolesA.length; i++) { %>
+<% if (rolesA[i].idPrivilegio==2) { %>
+<%- include('includes/sideAgregarE.ejs') %>
+<% } %>
+<% } %>
+
+<%- include('includes/sidenavFin.ejs') %>
+
+<div class="container px-13">
+    <div class="space2">
+        <h2><strong> Editar Cuestionario </strong></h2>
+        <hr class="style17">
+        <br>
+        <% var url='/feedback/editarCuestionario/' + id + '/' + niv + '/' + dim + '/' + nombre;%>
+        <form id="myform" action="<%=url%>" method="POST">
+          <div class="card">
+              <h5 class="card-header">Preguntas</h5>
+              <div class="card-body">
+                  <table class="table" style="table-layout: fixed">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th style="text-align:center" scope="col">Pregunta</th>
+                        <th style="text-align:center" scope="col"> Tipo </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% var preguntas_incluidas = [];%>
+                      <% if (typeof preguntas_cuestionario == "object") {%>
+                        <% for (let pregunta of preguntas_cuestionario) {%>
+                          <% preguntas_incluidas.push(pregunta.idPregunta);%>
+                        <% } %>
+                      <% } %>
+                      
+                      <% for (let pregunta of preguntas_nivdim) {%>
+                        <tr>
+                          <td style="text-align:left">
+                            <div class="form-check">
+                                <label class="container">
+                                  <% if (preguntas_incluidas.includes(pregunta.idPregunta) && p == 0) {%> 
+                                    <input class="form-check-input" name="checkboxes[]" type="checkbox" value="<%=pregunta.idPregunta%>" id="flexCheckDefault" checked>
+                                  <% } else{%>
+                                    <input class="form-check-input" name="checkboxes[]" type="checkbox" value="<%=pregunta.idPregunta%>" id="flexCheckDefault">
+                                  <% } %>
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        <%= pregunta.pregunta %>
+                                    </label>
+                                    <span class="checkmark"></span>
+                                  </label>
+                            </div>
+                          </td>
+                          <td> 
+                            <% if (pregunta.idTipo == 1) {%>
+                              numérica
+                            <% } else{%>
+                              texto
+                            <% } %> 
+                          </td>
+                        </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+                  <% var url='/feedback/crearPregunta/' + id + '/' + niv + '/' + dim + '/' + nombre;%>
+                  <a href="<%=url%>" type="button" style="margin:auto" class="btn btn-dark" onclick="save()"> + Nueva Pregunta</a>  
+                  <!--a href="#" type="button" style="margin:auto" class="btn btn-dark" onclick="save()"> + Nueva Pregunta</a-->  
+              </div>
+              <input type="hidden" name="hid" id="hid">
+          </div>
+          <br>
+          <div class="d-flex flex-row-reverse">
+            <div class="p-2">
+              <button id="mybutton" type="submit" style="margin:auto" class="btn btn-dark"> Enviar </button>
+            </div>
+            <div class="p-2">
+              <a href="/feedback" class="btn btn-outline-dark"> Regresar </a>
+            </div>
+          </div>
+        </form>
+    </div>
+</div>
+
+<script>
+  var i, checkboxes = document.querySelectorAll('input[type=checkbox]');
+  var checkboxes_value = []; 
+  var checkboxes_value2 = "";
+  console.log(checkboxes[0].value);
+
+    function save() {
+      for (i = 0; i < checkboxes.length; i++) {
+        localStorage.setItem(checkboxes[i].value, checkboxes[i].checked);
+      }
+    }
+
+
+    window.onload = function() {
+      console.log('<%=p%>');
+      if ('<%=p%>' != 0){
+        for (i = 0; i < checkboxes.length; i++) {
+          checkboxes[i].checked = localStorage.getItem(checkboxes[i].value) === 'true' ? true : false;
+        }
+      }
+    } 
+
+    document.getElementById("mybutton").onclick = () => {
+        for (i = 0; i < checkboxes.length; i++) {
+          if(checkboxes[i].checked == true){
+            checkboxes_value.push(checkboxes[i].value);
+            console.log(checkboxes_value);
+          }
+      }
+
+      if(checkboxes_value.length == 0){
+        document.getElementById("myform").onsubmit = () => {
+          return false;
+        }
+      } else {
+        document.getElementById("myform").onsubmit = () => {
+          return true;
+        }
+      }
+      //document.getElementById("hid").value = checkboxes_value2;
+      document.getElementById("hid").value = JSON.stringify(checkboxes_value);
+
+      //document.getElementById("hid").value = checkboxes_value;
+    }
+
+</script>
+
+<style>
+    /* Customize the label (the container) */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+</style>
