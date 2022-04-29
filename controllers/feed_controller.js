@@ -240,7 +240,7 @@ exports.cuestionario = (request, response, next) => {
       .then(([preguntasCraft, fieldData]) => {
          request.session.preguntasCraft = preguntasCraft;
          // console.log(preguntasCraft[0]);
-         // console.log("Nombre: " + preguntasCraft[0].nombre);
+         console.log("Nombre: " + preguntasCraft[0].nombre);
 
          //Tomo las preguntas del cuestionario de People
          Feed.fecthCuestionarioPeople(request.session.idEmpleado, request.params.idEvaluado, request.params.idPeriodo)
@@ -278,10 +278,12 @@ exports.cuestionario = (request, response, next) => {
 exports.salvarRespuestas = async (request, response, next) => {
 
     console.log("Salvar respuestas");
-    //console.log(request.body);
+    console.log(request.body);
 
     //Para facilitar el manejo de las preguntas
     let craft = request.session.preguntasCraft;
+
+    console.log(craft);
     let people = request.session.preguntasPeople;
     let bus = request.session.preguntasBusiness;
 
@@ -313,7 +315,7 @@ exports.salvarRespuestas = async (request, response, next) => {
         respuestas.push(request.body[i]);
     }
 
-    console.log(respuestas)
+    //console.log(respuestas)
 
     try {
         //Ciclo for para realizar insert de preguntas y respuestas
