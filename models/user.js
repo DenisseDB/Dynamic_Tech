@@ -40,7 +40,7 @@ module.exports = class User {
       //    [idEmpleado]);
       //SELECT idMentorado, nombre, apellidoP, apellidoM, nivelE FROM empleado E, asignacionempleado AE, dimempleado_actual DA WHERE E.idEmpleado = AE.idMentorado AND DA.idEmpleado = AE.idMentorado AND AE.idMentor = 1
 
-      return db.execute('SELECT idMentorado, nombre, apellidoP, apellidoM, nivelE FROM empleado E, asignacionempleado AE, dimempleado_actual DA WHERE E.idEmpleado = AE.idMentorado AND DA.idEmpleado = AE.idMentorado AND AE.idMentor = ?',
+      return db.execute('SELECT idMentorado, nombre, apellidoP, apellidoM, nivelE,fotoPerfil FROM empleado E, asignacionempleado AE, dimempleado_actual DA WHERE E.idEmpleado = AE.idMentorado AND DA.idEmpleado = AE.idMentorado AND AE.idMentor = ?',
          [idEmpleado]);
 
    }
