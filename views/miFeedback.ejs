@@ -89,18 +89,19 @@
   <br><br><br><br><br><br>
     <!--------------------------------------  Histórico de Solicitudes ---------------------------------------------->
     <% let c = 0; %>
+
+    <% if (idEmpleado != idSesionado) { %>
+    <div class="content-center">
+    <% } %>
     <div class="btn-group">
       <% if (idEmpleado == idSesionado) { %>
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
           Periodo
         </button>
       <% } else { %>
-        <div class="content-center">
           <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
             Periodo
           </button>
-          &ensp; Para visualizar el historial de <strong><%= nombre_empleado %> <%= apellido_empleado%></strong> selecciona el periodo.
-        </div><br><br>
       <% } %>
 
       <div class="dropdown-menu" aria-labelledby="dropdownMenuClickable">
@@ -135,7 +136,11 @@
           </script>
         <% } %>
       </div>
-    </div><br><br>   
+    </div>
+    <% if (idEmpleado != idSesionado) { %>
+      &ensp; Para visualizar el historial de <strong><%= nombre_empleado %> <%= apellido_empleado%></strong> selecciona el periodo.</div>
+    <% } %>  
+    <br><br> 
   
     <% let e = 0; let g = 0; let p = 0;%>
     <% for (let periodo of periodos) { %>
@@ -167,8 +172,8 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <% for (let retro of retroalimentaciones) { %>
-                      <% if (retro.idPeriodo == periodo.idPeriodo) { %>
+                    <% for (e;  e < retroalimentaciones.length; e++) { %>
+                      <% if (retroalimentaciones[e].idPeriodo == periodo.idPeriodo) { %>
                         <tr>
                           <% if (idEmpleado==idSesionado) { %>
                             <form action="/miFeedback" method="POST">
@@ -176,14 +181,14 @@
                             <% var url='/miFeedback/' + idEmpleado;%>
                             <form action="<%=url%>" method="POST">
                           <% } %>
-                            <input id="IdPed" name="IdPed" type="hidden" value="<%= retro.idPeriodo %>">
-                            <input id="IdEval" name="IdEval" type="hidden" value="<%= retro.idEvaluador %>">
-                            <input id="IdCraft" name="IdCraft" type="hidden" value="<%= retro.idCuestionarioCraft %>">
-                            <input id="IdPeople" name="IdPeople" type="hidden" value="<%= retro.idCuestionarioPeople %>">
+                            <input id="IdPed" name="IdPed" type="hidden" value="<%= retroalimentaciones[e].idPeriodo %>">
+                            <input id="IdEval" name="IdEval" type="hidden" value="<%= retroalimentaciones[e].idEvaluador %>">
+                            <input id="IdCraft" name="IdCraft" type="hidden" value="<%= retroalimentaciones[e].idCuestionarioCraft %>">
+                            <input id="IdPeople" name="IdPeople" type="hidden" value="<%= retroalimentaciones[e].idCuestionarioPeople %>">
                             <input id="IdCommercial" name="IdCommercial" type="hidden"
-                              value="<%= retro.idCuestionarioBusiness %>">
+                              value="<%= retroalimentaciones[e].idCuestionarioBusiness %>">
                             <td><div><img src="https://emser.es/wp-content/uploads/2016/08/usuario-sin-foto.png" width="40px"></div></td>
-                            <td><div><p><%= retro.nombre %> <%= retro.apellidoP %></p></div></td>
+                            <td><div><p><%= retroalimentaciones[e].nombre %> <%= retroalimentaciones[e].apellidoP %></p></div></td>
 
                             <% let d = especifico[e]; %>
                             <% if (d.length == 3) { %>
@@ -194,9 +199,9 @@
                             <% } %>
                           </form>
                         </tr>
-                        <% e++; %>
                       <% } else { %>
-                        <% if ((g < general.length) && ((general.length % 3) == 0)){ %>
+                        <!--  if ((g < general.length) && ((general.length % 3) == 0)){  -->
+                        <% if ((g + 3) < general.length){ %>
                         <td colspan="2"><div class="bit"><p>Promedio por dimensión</p></div></td>
                         <td><div class="bit"><p><%= general[g].promedio %></p></div></td>
                         <td><div class="bit"><p><%= general[g+1].promedio %></p></div></td>

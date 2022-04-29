@@ -4,8 +4,7 @@ module.exports = class Historial{
 
     // Método. Periodos de evaluación previos y actual.
     static fetchAllPeriodo() {
-        //return db.execute('SELECT * FROM periodo ORDER BY idPeriodo DESC LIMIT 12;')
-        return db.execute('SELECT * FROM periodo ORDER BY idPeriodo DESC')
+        return db.execute('SELECT * FROM periodo ORDER BY idPeriodo DESC LIMIT 12;')
             .then(([rows, fielData]) => {
                 return rows;
             })

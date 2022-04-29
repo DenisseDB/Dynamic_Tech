@@ -116,7 +116,8 @@ exports.feedbackEmpleado = async (request, response, next) => {
         idEmpleado: empleado,
         nivel_craftpg: niv[0][0].nivelE,
         nivel_peoplepg: niv[0][1].nivelE,
-        nivel_businesspg: niv[0][2].nivelE
+        nivel_businesspg: niv[0][2].nivelE,
+        //regresar : "/empleados/feedback/"
     });
 };
 
