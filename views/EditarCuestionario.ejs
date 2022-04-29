@@ -21,11 +21,11 @@
         <h2><strong> Editar Cuestionario </strong></h2>
         <hr class="style17">
         <br>
-
-        <div class="card">
-            <h5 class="card-header">Preguntas</h5>
-            <div class="card-body">
-                <form>
+        <% var url='/feedback/editarCuestionario/' + id + '/' + niv + '/' + dim + '/' + nombre;%>
+        <form id="myform" action="<%=url%>" method="POST">
+          <div class="card">
+              <h5 class="card-header">Preguntas</h5>
+              <div class="card-body">
                   <table class="table" style="table-layout: fixed">
                     <thead class="thead-dark">
                       <tr>
@@ -47,9 +47,9 @@
                             <div class="form-check">
                                 <label class="container">
                                   <% if (preguntas_incluidas.includes(pregunta.idPregunta) && p == 0) {%> 
-                                    <input class="form-check-input" type="checkbox" value="<%=pregunta.idPregunta%>" id="flexCheckDefault" checked>
+                                    <input class="form-check-input" name="checkboxes[]" type="checkbox" value="<%=pregunta.idPregunta%>" id="flexCheckDefault" checked>
                                   <% } else{%>
-                                    <input class="form-check-input" type="checkbox" value="<%=pregunta.idPregunta%>" id="flexCheckDefault">
+                                    <input class="form-check-input" name="checkboxes[]" type="checkbox" value="<%=pregunta.idPregunta%>" id="flexCheckDefault">
                                   <% } %>
                                     <label class="form-check-label" for="flexCheckDefault">
                                         <%= pregunta.pregunta %>
@@ -69,25 +69,37 @@
                       <% } %>
                     </tbody>
                   </table>
-                  <% var url='/feedback/crearPregunta/' + id + '/' + niv + '/' + dim;%>
-                  <a href="<%=url%>" type="button" style="margin:auto" class="btn btn-dark" onclick="save()"> + Nueva Pregunta</a>
-                </form>
+                  <% var url='/feedback/crearPregunta/' + id + '/' + niv + '/' + dim + '/' + nombre;%>
+                  <a href="<%=url%>" type="button" style="margin:auto" class="btn btn-dark" onclick="save()"> + Nueva Pregunta</a>  
+                  <!--a href="#" type="button" style="margin:auto" class="btn btn-dark" onclick="save()"> + Nueva Pregunta</a-->  
+              </div>
+              <input type="hidden" name="hid" id="hid">
+          </div>
+          <br>
+          <div class="d-flex flex-row-reverse">
+            <div class="p-2">
+              <button id="mybutton" type="submit" style="margin:auto" class="btn btn-dark"> Enviar </button>
             </div>
-        </div>
-        <br>
-        <a href="/feedback" class="btn btn-outline-dark"> Regresar </a>
-
+            <div class="p-2">
+              <a href="/feedback" class="btn btn-outline-dark"> Regresar </a>
+            </div>
+          </div>
+        </form>
     </div>
 </div>
 
 <script>
   var i, checkboxes = document.querySelectorAll('input[type=checkbox]');
+  var checkboxes_value = []; 
+  var checkboxes_value2 = "";
+  console.log(checkboxes[0].value);
 
     function save() {
       for (i = 0; i < checkboxes.length; i++) {
         localStorage.setItem(checkboxes[i].value, checkboxes[i].checked);
       }
     }
+
 
     window.onload = function() {
       console.log('<%=p%>');
@@ -97,6 +109,29 @@
         }
       }
     } 
+
+    document.getElementById("mybutton").onclick = () => {
+        for (i = 0; i < checkboxes.length; i++) {
+          if(checkboxes[i].checked == true){
+            checkboxes_value.push(checkboxes[i].value);
+            console.log(checkboxes_value);
+          }
+      }
+
+      if(checkboxes_value.length == 0){
+        document.getElementById("myform").onsubmit = () => {
+          return false;
+        }
+      } else {
+        document.getElementById("myform").onsubmit = () => {
+          return true;
+        }
+      }
+      //document.getElementById("hid").value = checkboxes_value2;
+      document.getElementById("hid").value = JSON.stringify(checkboxes_value);
+
+      //document.getElementById("hid").value = checkboxes_value;
+    }
 
 </script>
 

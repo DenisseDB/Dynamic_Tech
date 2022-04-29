@@ -40,6 +40,7 @@ exports.editarCuestionario = (request, response, next) => {
                         niv: request.params.nivel,
                         dim: request.params.dim,
                         id: request.params.id,
+                        nombre: request.params.nombre,
                         p: request.session.p,
                     });
                 }).catch((error) => {
@@ -50,7 +51,29 @@ exports.editarCuestionario = (request, response, next) => {
         });
 };
 
-exports.editarCuestionario_post = (request, response, next) => { };
+exports.editarCuestionario_post = (request, response, next) => { 
+    const formatoEvaluacion = new FormatoEvaluacion(request.params.nombre, request.params.dim, request.params.nivel);
+    formatoEvaluacion.saveCuestionario()
+    .then(() => {
+        FormatoEvaluacion.savePreguntasCuestionario(JSON.parse(request.body.hid), request.params.id)
+        .then(() => {
+            response.redirect('/feedback');
+        })
+        .catch(err => {
+         console.log(err);
+        });
+    })
+    .catch(err => {
+        console.log(err);
+    });
+    /*formatoEvaluacion.saveCuestionario()
+    .then(() => {
+        response.redirect('/feedback');
+    })
+    .catch(err => {
+        console.log(err);
+    });*/
+};
 
 exports.verCuestionario = (request, response, next) => {
 
@@ -74,11 +97,12 @@ exports.crearPregunta = (request, response, next) => {
         niv: request.params.nivel,
         dim: request.params.dim,
         id: request.params.id,
+        nombre: request.params.nombre,
     });
 };
 
 exports.crearPregunta_post = (request, response, next) => {
-    let url = '/feedback/editarCuestionario/' + request.params.id + '/' + request.params.nivel + '/' + request.params.dim;
+    let url = '/feedback/editarCuestionario/' + request.params.id + '/' + request.params.nivel + '/' + request.params.dim + '/' + request.params.nombre;
     request.session.p = 1;
 
     const pregunta = new Pregunta(request.body.textoPregunta, request.params.nivel, request.params.dim, request.body.inputTipo);
