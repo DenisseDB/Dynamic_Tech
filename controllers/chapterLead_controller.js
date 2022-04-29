@@ -102,7 +102,7 @@ exports.feedbackEmpleado = async (request, response, next) => {
     
     //console.log(hs);
     //console.log(dsI);
-    //console.log(dsG);
+    console.log(dsG);
 
     response.render('miFeedback.ejs',
     {
@@ -160,6 +160,7 @@ exports.detalleEmpleado = async (request, response, next) => {
         apellido_empleado: nom[0][0].apellidoP,
         id_empleado: request.params.id,
         self: '1',
+        ruta : '/empleados/detalleFeedback'
     });
 };
 

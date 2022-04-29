@@ -79,7 +79,7 @@ module.exports = class Historial{
             });    
     }
 
-    // Método. Desempeño según feedback de compañero en un periodo.
+    // Método. Desempeño por periodo.
     static fetchDesempenioG(idEvaluado) {
         return db.execute("SELECT idPeriodo, idDimension, AVG(respuesta) as 'promedio' FROM preguntacuestionario PC, pregunta P, respondesolicita R WHERE PC.idPregunta = P.idPregunta AND idEvaluado = ? and PC.idPregunta = R.idPregunta AND idTipo = 1 GROUP BY idCuestionario, idPeriodo ORDER BY idPeriodo DESC, idDimension ASC;",
         [idEvaluado])
