@@ -14,18 +14,18 @@ module.exports = class Historial {
          });
    }
 
-   // Método. Solicitudes respondidas históricamente.
-   static fetchFeedHistorico(idSesionado) {
-      return db.execute('SELECT idEvaluador, nombre, apellidoP, idCuestionarioCraft, idCuestionarioPeople, idCuestionarioBusiness, idPeriodo FROM retroalimentacion R, empleado E WHERE R.idEvaluador = E.idEmpleado AND idEvaluado = ? AND estatus = 1 ORDER BY idPeriodo DESC;',
-         [idSesionado])
-         .then(([rows, fielData]) => {
-            return rows;
-         })
-         .catch((error) => {
-            console.log(error);
-            return 0;
-         });
-   }
+    // Método. Solicitudes respondidas históricamente.
+    static fetchFeedHistorico(idSesionado) {
+        return db.execute('SELECT idEvaluador, fotoPerfil, nombre, apellidoP, idCuestionarioCraft, idCuestionarioPeople, idCuestionarioBusiness, idPeriodo FROM retroalimentacion R, empleado E WHERE R.idEvaluador = E.idEmpleado AND idEvaluado = ? AND estatus = 1 ORDER BY idPeriodo DESC, idEvaluador ASC;', 
+        [idSesionado])
+            .then(([rows, fielData]) => {
+                return rows;
+            })
+            .catch((error) => {
+                console.log(error);
+                return 0;
+            });    
+    }
 
    // Método. Detalle de una solicitud.
    static fetchSolicitud(idEvaluado, idEvaluador, idPeriodo) {
@@ -79,16 +79,16 @@ module.exports = class Historial {
          });
    }
 
-   // Método. Desempeño según feedback de compañero en un periodo.
-   static fetchDesempenioG(idEvaluado, idPeriodo) {
-      return db.execute("SELECT idDimension, AVG(respuesta) as 'promedio' FROM preguntacuestionario PC, pregunta P, respondesolicita R WHERE PC.idPregunta = P.idPregunta AND idEvaluado = ? AND idPeriodo = ? and PC.idPregunta = R.idPregunta AND idTipo = 1 GROUP BY idCuestionario ORDER BY idDimension ASC;",
-         [idEvaluado, idPeriodo])
-         .then(([rows, fielData]) => {
-            return rows;
-         })
-         .catch((error) => {
-            console.log(error);
-            return 0;
-         });
-   }
-};
+    // Método. Desempeño por periodo.
+    static fetchDesempenioG(idEvaluado) {
+        return db.execute("SELECT idPeriodo, idDimension, AVG(respuesta) as 'promedio' FROM preguntacuestionario PC, pregunta P, respondesolicita R WHERE PC.idPregunta = P.idPregunta AND idEvaluado = ? and PC.idPregunta = R.idPregunta AND idTipo = 1 GROUP BY idCuestionario, idPeriodo ORDER BY idPeriodo DESC, idDimension ASC;",
+        [idEvaluado])
+            .then(([rows, fielData]) => {
+                return rows;
+            })
+            .catch((error) => {
+                console.log(error);
+                return 0;
+            });    
+    }
+}

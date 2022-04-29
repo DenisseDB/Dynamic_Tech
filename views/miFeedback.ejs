@@ -23,10 +23,11 @@
 
     <% if (idEmpleado == idSesionado) { %>
       <h2><strong>Mi Feedback</strong></h2>
+      <hr class="style17">
     <% } else { %>
-      <h2><strong>Feedback de </strong><i> - <%= nombre_empleado %> <%= apellido_empleado%></i></h2>
-    <% } %>
+        <h2><strong><i> Feedback de <%= nombre_empleado %> <%= apellido_empleado%></i></strong></h2>
         <hr class="style17">
+    <% } %>
     <br>
 
     <!-------------------------------------- Gráficos y Niveles ---------------------------------------------->
@@ -87,38 +88,83 @@
 
   <br><br><br><br><br><br>
     <!--------------------------------------  Histórico de Solicitudes ---------------------------------------------->
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-         aria-expanded="false">
-         Periodo
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-         <% for (let periodo of periodos) { %>
-         <li><a class="dropdown-item" href="#">
-               <%= periodo.NombrePeriodo %>
-               <%= periodo.anio %>
-            </a></li>
-        <% } %>
-      </ul>
-    </div><br>
+    <% let c = 0; %>
 
-    <% let c = 0; let b = 0; %>
+    <% if (idEmpleado != idSesionado) { %>
+    <div class="content-center">
+    <% } %>
+    <div class="btn-group">
+      <% if (idEmpleado == idSesionado) { %>
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+          Periodo
+        </button>
+      <% } else { %>
+          <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+            Periodo
+          </button>
+      <% } %>
+
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuClickable">
+        <!-- Default unchecked -->
+        <% for (let periodo of periodos) { %>
+          <div class="custom-control custom-checkbox dropdown-item" id="mySelect">            
+              <label class="custom-control-label" for="p<%= periodo.idPeriodo %>">
+                <% if (c < 5) { c++; %>
+                <input class="custom-control-label" type="checkbox" id="p<%= periodo.idPeriodo %>" name="p<%= periodo.idPeriodo %>" checked>
+                <% } else {%>
+                <input class="custom-control-label" type="checkbox" id="p<%= periodo.idPeriodo %>" name="p<%= periodo.idPeriodo %>">
+                <% } %>
+                <%= periodo.NombrePeriodo %> <%= periodo.anio %>
+              </label>
+          </div>
+
+          <script>
+            document.getElementById("p<%= periodo.idPeriodo %>").onclick = () => {
+              let x = document.getElementById("accordion<%= periodo.idPeriodo %>");
+              let elm = document.getElementById("p<%= periodo.idPeriodo %>");
+
+              if (elm.checked == false) {
+                x.style.transition = 'height 0.2s linear 300ms, opacity 300ms';
+                x.style.opacity = 0;
+                x.style.height =  '0px';
+              } else {
+                x.style.transition = 'height 0.300ms, opacity 0.1s linear 300ms';
+                x.style.opacity = 1;
+                x.style.height =  '100%';
+              }
+            }
+          </script>
+        <% } %>
+      </div>
+    </div>
+    <% if (idEmpleado != idSesionado) { %>
+      &ensp; Para visualizar el historial de <strong><%= nombre_empleado %> <%= apellido_empleado%></strong> selecciona el periodo.</div>
+    <% } %>  
+    <br><br> 
+  
+    <% let e = 0; let g = 0; let p = 0;%>
     <% for (let periodo of periodos) { %>
-    <div class="accordion" id="accordionOpen">
+      <% if (p < 5) { p++;%>
+      <div class="accordion pc1" id="accordion<%= periodo.idPeriodo %>">
+      <% } else {%>
+      <div class="accordion pc2" id="accordion<%= periodo.idPeriodo %>">
+      <% } %>
       <div class="accordion-item">
-        <h2 class="accordion-header" id="<%= periodo.idPeriodo %>">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= periodo.idPeriodo %>" aria-expanded="false" aria-controls="collapse<%= periodo.idPeriodo %>">
+        <h2 class="accordion-header" id="h<%= periodo.idPeriodo %>">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#collapse<%= periodo.idPeriodo %>" aria-expanded="false" aria-controls="collapse<%= periodo.idPeriodo %>">
             <strong><%= periodo.NombrePeriodo %> <%= periodo.anio %></strong>
           </button>
         </h2>
         <div id="collapse<%= periodo.idPeriodo %>" class="accordion-collapse collapse" aria-labelledby="<%= periodo.idPeriodo %>">
           <div class="accordion-body">
             <ul class="list-group">
-              <% if ((retroalimentaciones.length> 0) && (retroalimentaciones[c].idPeriodo == periodo.idPeriodo)) { %>
+              <% if (((retroalimentaciones.length > 0) && (retroalimentaciones.length > e)) && (retroalimentaciones[e].idPeriodo == periodo.idPeriodo)) { %>
                 <table class="table">
                   <thead class="thead-dark">
                     <tr>
-                      <th scope="col" style="width:20%">Nombre</th>
+                      <th scope="col" style="width:3%"></th>
+                      <th scope="col" style="width:17%">Nombre</th>
                       <th scope="col" style="width:20%">Craft</th>
                       <th scope="col" style="width:20%">People & Mindsets</th>
                       <th scope="col" style="width:20%">Commercial & Costumer</th>
@@ -126,43 +172,45 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <% for (let retro of retroalimentaciones) { %>
-                      <% if (retro.idPeriodo == periodo.idPeriodo) { %>
+                    <% for (e;  e < retroalimentaciones.length; e++) { %>
+                      <% if (retroalimentaciones[e].idPeriodo == periodo.idPeriodo) { %>
                         <tr>
-                          <% if (idEmpleado==idSesionado) { %>
+                          <% if (idEmpleado == idSesionado) { %>
                             <form action="/miFeedback" method="POST">
+                          <% } else if(ruta == "/empleados/feedback/") { %>
+                            <form action="/empleados/detallefeedback/<%= idEmpleado %>" method="POST">                          
                           <% } else { %>
                             <% var url='/miFeedback/' + idEmpleado;%>
                             <form action="<%=url%>" method="POST">
                           <% } %>
-                            <input id="IdPed" name="IdPed" type="hidden" value="<%= retro.idPeriodo %>">
-                            <input id="IdEval" name="IdEval" type="hidden" value="<%= retro.idEvaluador %>">
-                            <input id="IdCraft" name="IdCraft" type="hidden" value="<%= retro.idCuestionarioCraft %>">
-                            <input id="IdPeople" name="IdPeople" type="hidden" value="<%= retro.idCuestionarioPeople %>">
+                            <input id="IdPed" name="IdPed" type="hidden" value="<%= retroalimentaciones[e].idPeriodo %>">
+                            <input id="IdEval" name="IdEval" type="hidden" value="<%= retroalimentaciones[e].idEvaluador %>">
+                            <input id="IdCraft" name="IdCraft" type="hidden" value="<%= retroalimentaciones[e].idCuestionarioCraft %>">
+                            <input id="IdPeople" name="IdPeople" type="hidden" value="<%= retroalimentaciones[e].idCuestionarioPeople %>">
                             <input id="IdCommercial" name="IdCommercial" type="hidden"
-                              value="<%= retro.idCuestionarioBusiness %>">
-                            <td style="text-align: center;">
-                              <div class="row content-center">
-                                <div class="col-auto"><img src="https://emser.es/wp-content/uploads/2016/08/usuario-sin-foto.png" width="40px"></div>
-                                <div class="col-auto"><p><%= retro.nombre %> <%= retro.apellidoP %></p></div>
-                              </div>
-                            </td>
-                            <% let d = desempenioE[c]; %>
-                            <td><div class="content-center"><p><%= d[0].promedio %></p></div></td>
-                            <td><div class="content-center"><p><%= d[1].promedio %></p></div></td>
-                            <td><div class="content-center"><p><%= d[2].promedio %></p></div></td>
-                            <td><div class="content-center"><button type="submit" class="btn btn-dark">Detalle</button></div></td>
+                              value="<%= retroalimentaciones[e].idCuestionarioBusiness %>">
+                            <td><div><img src="https://emser.es/wp-content/uploads/2016/08/usuario-sin-foto.png" width="40px"></div></td>
+                            <td><div><p><%= retroalimentaciones[e].nombre %> <%= retroalimentaciones[e].apellidoP %></p></div></td>
+
+                            <% let d = especifico[e]; %>
+                            <% if (d.length == 3) { %>
+                            <td><div><p><%= d[0].promedio %></p></div></td>
+                            <td><div><p><%= d[1].promedio %></p></div></td>
+                            <td><div><p><%= d[2].promedio %></p></div></td>
+                            <td><div><button type="submit" class="btn btn-dark">Detalle</button></div></td>
+                            <% } %>
                           </form>
                         </tr>
-                        <% c++; %>
                       <% } else { %>
-                        <% let p = desempenioG[b]; %>
-                        <td><div class="bit"><p>Promedio por dimensión</p></div></td>
-                        <td><div class="bit"><p><%= p[0].promedio %></p></div></td>
-                        <td><div class="bit"><p><%= p[1].promedio %></p></div></td>
-                        <td><div class="bit"><p><%= p[2].promedio %></p></div></td>
-                        <td><div class="bit"><p>-</p></div></td>                 
-                      <% break; } %>
+                        <!--  if ((g < general.length) && ((general.length % 3) == 0)){  -->
+                        <% if ((g + 3) < general.length){ %>
+                        <td colspan="2"><div class="bit"><p>Promedio por dimensión</p></div></td>
+                        <td><div class="bit"><p><%= general[g].promedio %></p></div></td>
+                        <td><div class="bit"><p><%= general[g+1].promedio %></p></div></td>
+                        <td><div class="bit"><p><%= general[g+2].promedio %></p></div></td>
+                        <td><div class="bit"><p>-</p></div></td>
+                        <% } %>                 
+                      <% g = g + 3; break; } %>
                     <% } %>
                   </tbody>
                 </table>
@@ -172,59 +220,25 @@
             </ul>
           </div>
         </div>
+      </div><br>
       </div>
-    </div><br>
-    <% b++; } %>
+    <% } %>
+  </div>
 </div>
 <%- include('includes/foot.ejs') %>
-
-<!--------------------------------------  Manejo del Histórico ---------------------------------------------->
-<!-- <script>
-  var hint = document.getElementById('hint');
-  var btn = document.getElementById('btn_show');
-
-  btn.addEventListener('click', function () {
-    var ctr = 1;
-    hint.className = hint.className !== 'show' ? 'show' : 'hide';
-    if (hint.className === 'show') {
-      hint.style.display = 'block';
-      window.setTimeout(function () {
-        hint.style.opacity = 1;
-        hint.style.transform = 'scale(1)';
-      }, 0);
-    }
-    if (hint.className === 'hide') {
-      hint.style.opacity = 0;
-      window.setTimeout(function () {
-        hint.style.display = 'none';
-      }, 700); // timed to match animation-duration
-    }
-
-  });
-
-  function hide(ids) {
-    ids.forEach(id => {
-      document.getElementById(id).style.display = 'none';
-    });
-  }
-
-  function show(ids) {
-    ids.forEach(id => {
-      document.getElementById(id).style.display = 'block';
-    });
-  }
-
-  function trigger() {
-    hide([
-      //ids de los elementos
-    ]);
-    show([
-      //ids de los elementos
-    ]);
-  }
-</script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.0.1/progressbar.min.js"></script>
+<script type="text/javascript" src="js/Chart.min.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+   integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+   integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
 
 <style>
+  @import "transitions";
+  
    @keyframes growProgressBar {
 
       0%,
@@ -272,6 +286,11 @@
    /* demo */
 </style>
 
+<script>
+    require(['bootstrap-multiselect'], function(purchase){
+    $('#mySelect').multiselect();
+    });
+</script>
 
 <script>
    const graficas = () => {
@@ -414,16 +433,3 @@
    };
 </script>
 
-<!-- javascript -->
-<!--script type="text/javascript" src="js/jquery.min.js"></script-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" charset="utf-8"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.6/jquery.easypiechart.min.js" charset="utf-8">
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.0.1/progressbar.min.js"></script>
-<script type="text/javascript" src="js/Chart.min.js"></script>
-<script type="text/javascript" src="js/app.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-   integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-   integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>

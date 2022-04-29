@@ -1,0 +1,92 @@
+<!-- Partes que siempre aparecen en el navbar -->
+<%- include('includes/sidenavsup.ejs') %>
+
+<!-- Para que aparezca Mis Mentorados -->
+<% for (i = 0; i < rolesA.length; i++) {  %>
+  <% if (rolesA[i].idPrivilegio == 1) { %> 
+  <%- include('includes/sideMentorados.ejs') %>
+  <% } %>
+<% } %>
+
+<!-- Para que aparezca Empleados del chapter -->
+<% for (i = 0; i < rolesA.length; i++) {  %>
+  <% if (rolesA[i].idPrivilegio == 2) { %> 
+  <%- include('includes/sideAgregarE.ejs') %>
+  <% } %>
+<% } %>
+
+<!-- Final de la nav-->
+<%- include('includes/sidenavFin.ejs') %>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css" integrity="sha512-mR/b5Y7FRsKqrYZou7uysnOdCIJib/7r5QeJMFvLNHNhtye3xJp1TdJVPLtetkukFn227nKpXD9OjUc09lx97Q==" crossorigin="anonymous"
+  referrerpolicy="no-referrer" />
+
+<div class='container' style=" width: 90%; text-align: justify;">
+
+    <div>
+      <br>
+      <h3 style="text-align:justify; font-size:x-large;"><a href="/miChapter" style="text-decoration:none; color:rgb(72, 72, 206)">Mi chapter</a><strong> - Agregar Mentor</strong></h3>
+      <hr class="style17">
+    </div>
+
+
+    <div class="container" style=" width: 70%;">
+        <br><br>
+        <div class="col-sm-12">
+          <div class="card">
+            <h5 class="card-header" style="font-size: larger;"><i class="bi bi-person-fill"></i>Datos del nuevo Mentor</h5></div>
+            <div class="card-body" >
+              <!--Para tabla con boostrap-->
+              <table class="table">
+                <tbody>
+
+                      
+                            <tr>
+                             
+                                    <th scope="row">Nombre mentor: </th>
+                                    <td>
+                                         
+                                        <input class="form-control" list="mentor" id="nuevoMentor" name="nuevoMentor"
+                                        placeholder="Type to search..." required>
+                                      <datalist id="mentor">
+                                            <% for (let mentor of noMentores) { %>   
+                                            <option data-value="<%= mentor.idEmpleado %>">
+                                                <%=  mentor.nombre%> <%=  mentor.apellidoP%> <%=  mentor.apellidoM%>
+                                            </option>
+                                            <% }%> 
+                                        </datalist>
+                            
+                                    </td>
+                            </tr>
+                            <tr>
+
+                                <th scope="row">Mentorados asignables: </th>
+                                    <td>
+                                          <select class="selectpicker" multiple aria-label="size 3 select example">
+                                            <% for (let mentorado of noMentorados) { %>   
+                                            <option value="<%= mentorado.idEmpleado %>"> <%=  mentorado.nombre%> <%=  mentorado.apellidoP%> <%=  mentorado.apellidoM%></option>
+                                            <% }%> 
+                                          </select>
+
+                                        <script type="text/javascript">  
+                                           $(document).ready(function() {       
+                                            $('#languages').multiselect({		
+                                                nonSelectedText: 'Select Language'				
+                                            });
+                                        }); 
+                                         </script>  
+                                         
+                                    </td>
+                            </tr>
+                   
+
+                </tbody>
+              </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js" integrity="sha512-FHZVRMUW9FsXobt+ONiix6Z0tIkxvQfxtCSirkKc5Sb4TKHmqq1dZa8DphF0XqKb3ldLu/wgMa8mT6uXiLlRlw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
