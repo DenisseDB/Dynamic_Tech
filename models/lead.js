@@ -93,11 +93,11 @@ module.exports = class ChapterLead {
     }
 
     static fetchNoMentores(){
-        return db.execute('SELECT * FROM `empleado` WHERE idEmpleado NOT IN (SELECT idMentor FROM asignacionempleado);')
+        return db.execute('SELECT empleado.idEmpleado,nombre,apellidoP,apellidoM,fotoPerfil,idRol,activo FROM empleado,rolempleado WHERE empleado.idEmpleado = rolempleado.idEmpleado AND (idRol = 1 or idRol = 2) AND activo = 1 and empleado.idEmpleado NOT IN (SELECT idMentor FROM asignacionempleado);')
     }
 
     static fetchNoMentorados(){
-        return db.execute('SELECT * FROM `empleado` WHERE idEmpleado NOT IN (SELECT idMentorado FROM asignacionempleado);')
+        return db.execute('SELECT * FROM `empleado` WHERE activo = 1 and idEmpleado NOT IN (SELECT idMentorado FROM asignacionempleado);')
     }
   
    
