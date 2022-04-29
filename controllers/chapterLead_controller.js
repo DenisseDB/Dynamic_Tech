@@ -212,14 +212,48 @@ exports.buscarEmpleado = (request, response, next) => {
 
 exports.respondidas = (request, response, next) => {
     Lead.fetchSolicitudesActuales()
-    .then(([respondidas, fieldData]) => {
-          //console.log(rows);
-          response.status(200).json(respondidas);
-       })
-       .catch(err => {
-          console.log(err);
-       });
- };
+        .then(([respondidas, fieldData]) => {
+            //console.log(rows);
+            response.status(200).json(respondidas);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
+
+exports.agregarMentor = (request, response, next) => {
+
+    Lead.fetchNoMentores()
+        .then(([noMentores, fielData]) => {
+
+            Lead.fetchNoMentorados()
+                .then(([noMentorados, fielData]) => {
+
+                    response.render('agregarMentor', {
+
+                        correo: request.session.correo ? request.session.correo : '',
+                        rolesA: request.session.privilegiosPermitidos,
+                        rol: request.session.idRol ? request.session.idRol : '',
+                        noMentores: noMentores,
+                        noMentorados: noMentorados,
+                        nombreSesion: request.session.nombreSesion,
+                        apellidoPSesion: request.session.apellidoPSesion,
+                        foto: request.session.foto,
+
+
+                    });
+
+
+
+
+                }).catch((error) => {
+                    console.log(error);
+                });
+
+        }).catch((error) => {
+            console.log(error);
+        });
+};
 
 exports.miChapter = (request, response, next) => {
 
@@ -250,5 +284,7 @@ exports.miChapter = (request, response, next) => {
     .catch(err => {
     console.log(err);
     });
+  
+    
 
 };

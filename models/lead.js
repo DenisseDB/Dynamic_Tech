@@ -90,7 +90,15 @@ module.exports = class ChapterLead {
 
    static fetchMentorados() {
     return db.execute('SELECT idMentor, idMentorado, nombre, apellidoP, apellidoM FROM asignacionempleado,empleado WHERE idMentorado = idEmpleado;')
-}
+    }
+
+    static fetchNoMentores(){
+        return db.execute('SELECT * FROM `empleado` WHERE idEmpleado NOT IN (SELECT idMentor FROM asignacionempleado);')
+    }
+
+    static fetchNoMentorados(){
+        return db.execute('SELECT * FROM `empleado` WHERE idEmpleado NOT IN (SELECT idMentorado FROM asignacionempleado);')
+    }
   
    
 
