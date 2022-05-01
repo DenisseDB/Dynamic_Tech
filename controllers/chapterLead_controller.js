@@ -397,6 +397,20 @@ exports.modificarMentor = (request, response, next) => {
         });
 };
 
+exports.eliminarMentorado = (request, response, next) => {
+
+    //console.log(request.params.idMentor);
+    //console.log(request.params.idMentorado);
+
+    Lead.eliminarMentorado(request.params.idMentor,request.params.idMentorado)
+           .then(([rows,fieldData]) =>{ 
+
+               response.redirect('/miChapter');
+
+           }).catch(error => {
+               console.log(error);
+           });
+};
 
 exports.miChapter = (request, response, next) => {
 

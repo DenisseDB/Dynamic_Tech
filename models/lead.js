@@ -120,6 +120,13 @@ module.exports = class ChapterLead {
     }
 
 
+    //Para eliminar mentor
+    static eliminarMentorado(idMentor,idMentorado){
+        return db.execute('DELETE FROM asignacionempleado WHERE idMentor= ? AND idMentorado = ?;', [idMentor, idMentorado]);
+    }
+
+
+
   
    
 
