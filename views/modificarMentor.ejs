@@ -1,0 +1,37 @@
+<!-- Partes que siempre aparecen en el navbar -->
+<%- include('includes/sidenavsup.ejs') %>
+
+<!-- Para que aparezca Mis Mentorados -->
+<% for (i = 0; i < rolesA.length; i++) {  %>
+  <% if (rolesA[i].idPrivilegio == 1) { %> 
+  <%- include('includes/sideMentorados.ejs') %>
+  <% } %>
+<% } %>
+
+<!-- Para que aparezca Empleados del chapter -->
+<% for (i = 0; i < rolesA.length; i++) {  %>
+  <% if (rolesA[i].idPrivilegio == 2) { %> 
+  <%- include('includes/sideAgregarE.ejs') %>
+  <% } %>
+<% } %>
+
+<!-- Final de la nav-->
+<%- include('includes/sidenavFin.ejs') %>
+
+<div class="container">
+    <br>
+    <h3 style="text-align:justify; font-size:x-large;"><a href="/miChapter"
+            style="text-decoration:none; color:rgb(72, 72, 206)">Mi chapter</a><strong> - Modificar
+            Mentorados de: </strong> <%= mentor[0].nombre %> <%= mentor[0].apellidoP %> <%= mentor[0].apellidoM %></h3>
+    <hr class="style17">
+</div>
+
+<div class = "container">
+
+    
+
+
+</div>
+
+<!--Footer DynamicTech-->
+<%- include('includes/foot.ejs') %>

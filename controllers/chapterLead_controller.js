@@ -335,6 +335,69 @@ exports.agregarMentor = (request, response, next) => {
         });
 };
 
+
+exports.agregarNuevoMentor = (request, response, next) => {
+
+    console.log(request.body);
+};
+
+exports.eliminarMentor = (request, response, next) => {
+
+    console.log(request.params.idMentor);
+
+    Lead.eliminarMentor(request.params.idMentor)
+           .then(([rows,fieldData]) =>{ 
+
+               response.redirect('/miChapter');
+
+           }).catch(error => {
+               console.log(error);
+           });
+};
+
+
+exports.modificarMentor = (request, response, next) => {
+
+    Lead.fetchMentor(request.params.idMentor)
+        .then(([Mentor, fielData]) => {
+
+            Lead.fetchNoMentorados()
+                .then(([noMentorados, fielData]) => {
+
+                    Lead.fetchMentorado(request.params.idMentor)
+                    .then(([mentorados, fielData]) => {
+
+                    response.render('modificarMentor', {
+
+                        correo: request.session.correo ? request.session.correo : '',
+                        rolesA: request.session.privilegiosPermitidos,
+                        rol: request.session.idRol ? request.session.idRol : '',
+                        nombreSesion: request.session.nombreSesion,
+                        apellidoPSesion: request.session.apellidoPSesion,
+                        foto: request.session.foto,
+                        mentor : Mentor,
+                        mentorados: mentorados,
+                        noMentorados: noMentorados,
+
+
+
+                    });
+
+                }).catch((error) => {
+                    console.log(error);
+                });
+
+
+                }).catch((error) => {
+                    console.log(error);
+                });
+
+        }).catch((error) => {
+            console.log(error);
+        });
+};
+
+
 exports.miChapter = (request, response, next) => {
 
     Lead.fetchMentores()

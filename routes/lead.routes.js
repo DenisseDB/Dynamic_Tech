@@ -23,7 +23,11 @@ router.post('/empleados',isAuth, checkRoleAuth([1]), leadController.guardarEmple
 
 router.get('/miChapter/feedback', isAuth,checkRoleAuth([1]), leadController.respondidas);
 router.get('/miChapter/agregarMentor', isAuth,checkRoleAuth([1]), leadController.agregarMentor);
+router.post('/miChapter/agregarMentor', isAuth,checkRoleAuth([1]), leadController.agregarNuevoMentor);
+router.post('/miChapter/eliminarMentor/:idMentor', isAuth,checkRoleAuth([1]), leadController.eliminarMentor);
+router.get('/miChapter/modificarMentor/:idMentor',isAuth, checkRoleAuth([1]), leadController.modificarMentor);
 router.get('/miChapter',isAuth, checkRoleAuth([1]), leadController.miChapter);
+
 
 
 
