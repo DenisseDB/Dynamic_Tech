@@ -15,44 +15,43 @@
 <% } %>
 
 <%- include('includes/sidenavFin.ejs') %>
-
 <div class="container px-13">
-    <div class="space2">
-        <h2><strong> Crear Pregunta </strong></h2>
-        <hr class="style17">
+   <div class="space2">
+      <h2><strong> Crear Pregunta </strong></h2>
+      <hr class="style17">
 
-        <% var url='/feedback/crearPregunta/' + id + '/' + niv + '/' + dim + '/' + nombre;%>
+      <% var url='/feedback/crearPregunta/' + id + '/' + niv + '/' + dim + '/' + nombre;%>
 
-        <div class="row d-flex justify-content-center">
-            <div class="col-7">
-                <form action="<%=url%>" method="POST">
-                    <div class="card">
-                        <h5 class="card-header">Crear pregunta</h5>
-                        <div class="card-body">
-                            <label class="form-label" id="basic-addon1">Pregunta</label>
-                            <textarea class="form-control" name="textoPregunta" id="textoPregunta"
-                                placeholder="Ingrese su pregunta" aria-describedby="QuestionInput" rows="4" cols="50"
-                                required></textarea>
-                            <br>
-                            <label class="form-label" for="inputTipo">Tipo de Pregunta</label>
-                            <select class="form-select" name="inputTipo" id="inputTipo" required>
-                                <option value="" disabled selected>Selecciona un tipo</option>
-                                <option value="1"> Númerica </option>
-                                <option value="2"> Texto </option>
-                            </select>
-                        </div>
-                    </div>
-                    <br>
-                    <input type="submit" style="margin:auto" class="btn btn-dark">
-                    <a id="button1" class="btn btn-outline-dark"> Regresar </a>
-                </form>
-            </div>
-        </div>
-    </div>
+      <div class="row d-flex justify-content-center">
+         <div class="col-7">
+            <form action="<%=url%>" method="POST">
+               <div class="card">
+                  <h5 class="card-header">Crear pregunta</h5>
+                  <div class="card-body">
+                     <label class="form-label" id="basic-addon1">Pregunta</label>
+                     <textarea class="form-control" name="textoPregunta" id="textoPregunta"
+                        placeholder="Ingrese su pregunta" aria-describedby="QuestionInput" rows="4" cols="50"
+                        required></textarea>
+                     <br>
+                     <label class="form-label" for="inputTipo">Tipo de Pregunta</label>
+                     <select class="form-select" name="inputTipo" id="inputTipo" required>
+                        <option value="" disabled selected>Selecciona un tipo</option>
+                        <option value="1"> Númerica </option>
+                        <option value="2"> Texto </option>
+                     </select>
+                  </div>
+               </div>
+               <br>
+               <input type="submit" style="margin:auto" class="btn btn-dark">
+               <a id="button1" class="btn btn-outline-dark"> Regresar </a>
+            </form>
+         </div>
+      </div>
+   </div>
 </div>
 
 <script>
-    document.getElementById("button1").onclick = () => {
-        history.go(-1);
-    }
+   document.getElementById("button1").onclick = () => {
+      history.go(-1);
+   }
 </script>

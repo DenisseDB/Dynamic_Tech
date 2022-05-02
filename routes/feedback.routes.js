@@ -19,7 +19,7 @@ router.post('/mentorados/detalleFeedback/:idEmpleado', isAuth, feedController.de
 //router.get('/mentorados/detalleFeedback/:idEmpleado', isAuth, feedController.detalleFeedback_id); 
 
 router.get('/responderFeedback/:idEvaluado/:idPeriodo', isAuth,feedController.cuestionario) // CUESTIONARIO - Formulario de feedback
-router.post('/responderFeedback/:idEvaluado/:idPeriodo', isAuth,feedController.salvarRespuestas)
+router.post('/responderFeedback/:idEvaluado/:idPeriodo', isAuth, feedController.salvarRespuestas);
 router.get('/home', isAuth, feedController.home); // HOME - Inicio
 
 module.exports = router;
