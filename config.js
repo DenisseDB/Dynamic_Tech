@@ -12,9 +12,9 @@ const dotenv = require('dotenv').config();
 //! Llamada a variable de entorno de la instancia
 module.exports = {
    HOST: process.env.HOST || '',
-   USER: process.env.USER || '',
+   USER: process.env.USERBD || '',
    DATABASE: process.env.DATABASE || '',
    PASSWORD: process.env.PASSWORD || '',
-   PORT: process.env.PORT || ''
+   // PORT: process.env.PORT || ''
 };
 // !

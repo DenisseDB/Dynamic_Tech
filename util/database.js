@@ -28,6 +28,7 @@ const DB_INSTANCIA =  mysql.createPool({
    user: config.USER,
    database: config.DATABASE,
    password: config.PASSWORD,
+   port: config.PORT,
 });
 // !
 

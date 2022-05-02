@@ -75,22 +75,30 @@ module.exports = class ChapterLead {
     static modificarEmpleado(nombre,apellidoP,apellidoM,correo,contrasena, idEquipo, 
         idEmpleado, idRol, nivelCraft,nivelPeople, nivelBusiness,foto) {
         
-        // return bcrypt.hash(contrasena, 12)
-
-        //     .then((password_cifrado) => {
-        //     return db.execute('CALL modificarEmpleado (?,?,?,?,?,?,?,?,?,?)', [nombre,apellidoP,apellidoM,correo,
-        //         password_cifrado, idEquipo,idEmpleado, idRol, nivelCraft,nivelPeople, nivelBusiness]);
-    
-        //     }).catch((error) => {
-        //         console.log(error);
-        //     });
-        // }
-
-        // return db.execute('CALL modificarEmpleado (?,?,?,?,?,?,?,?,?,?,?);', [nombre,apellidoP,apellidoM,correo,
-        //   contrasena, idEquipo,idEmpleado, idRol, nivelCraft,nivelPeople, nivelBusiness]);
-
         return db.execute("CALL modificarEmpleado (?,?,?,?,?,?,?,?,?,?,?,?);",
         [nombre,apellidoP,apellidoM,correo,contrasena,idEquipo,idEmpleado, idRol,nivelCraft,nivelPeople, nivelBusiness,foto]);
     }
+
+    static fetchSolicitudesActuales() {
+         return db.execute('SELECT r.idPeriodo, estatus, NombrePeriodo from retroalimentacion as r, periodo as p WHERE  p.idPeriodo = r.idPeriodo AND p.idPeriodo in (SELECT MAX(idPeriodo) FROM periodo);')
+    }
+
+    static fetchMentores() {
+        return db.execute('SELECT idMentor,nombre, apellidoP, apellidoM, fotoPerfil FROM asignacionempleado,empleado WHERE idMentor = idEmpleado GROUP BY idMentor;')
+   }
+
+   static fetchMentorados() {
+    return db.execute('SELECT idMentor, idMentorado, nombre, apellidoP, apellidoM FROM asignacionempleado,empleado WHERE idMentorado = idEmpleado;')
+    }
+
+    static fetchNoMentores(){
+        return db.execute('SELECT * FROM `empleado` WHERE idEmpleado NOT IN (SELECT idMentor FROM asignacionempleado);')
+    }
+
+    static fetchNoMentorados(){
+        return db.execute('SELECT * FROM `empleado` WHERE idEmpleado NOT IN (SELECT idMentorado FROM asignacionempleado);')
+    }
+  
+   
 
 }
