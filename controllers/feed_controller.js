@@ -50,8 +50,8 @@ exports.solicitudesFeedback = async (request, response, next) => {
 
 exports.nuevaSolicitud = async (request, response, next) => {
    let evaluadores = request.body.nombre; // Nombre(s) de compañeros evaluadores.
-   let arr = Array.isArray(evaluadores); // ¿evaluadores es un array?
-   let str = typeof evaluadores === 'string'; // ¿evaluadores es un array?
+   let arr = Array.isArray(evaluadores); // ¿evaluadores (array)?
+   let str = typeof evaluadores === 'string'; // ¿evaluador (string)?
    let n_solicitudes = request.session.solicitudes;
 
    if (arr && ((n_solicitudes + evaluadores.length) <= 7)) {
@@ -100,8 +100,6 @@ exports.miFeedback =  async (request, response, next) => {
          request.session.idEmpleado, x.idEvaluador, x.idPeriodo);
       dsI.push(especifico);
    }
-
-    console.log(dsG);
 
     response.render('miFeedback.ejs',
     {
