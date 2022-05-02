@@ -37,12 +37,13 @@
             <hr class="style17">
         </div>
 
-
+        <br><br>
         <div class="container" style=" width: 70%;">
             <br><br>
             <div class="col-sm-12">
                 <div class="card">
-                    <h5 class="card-header" style="font-size: larger;"><i class="bi bi-person-fill"></i>Datos del nuevo
+                    <h5 class="card-header" style="font-size: larger;"><i class="bi bi-person-plus-fill"></i></i> Datos
+                        del nuevo
                         Mentor</h5>
                 </div>
                 <div class="card-body">
@@ -53,28 +54,27 @@
 
                                 <tr>
                                     <style>
-                                    td {
-                      
-                                      text-align: center;
-                                      vertical-align: middle;
-                                      }
-                                      </style>
+                                        td {
+
+                                            text-align: center;
+                                            vertical-align: middle;
+                                        }
+                                    </style>
 
                                     <th scope="row">Nombre mentor: </th>
                                     <td>
 
-                                        <input class="form-control" list="mentor" id="nuevoMentor" name="nuevoMentor"
-                                            placeholder="Type to search..." required>
-                                        <datalist id="mentor">
+                                        <select id="mentorado" name="mentorado" class="selectpicker"
+                                            data-live-search="true" title="Selecciona al nuevo mentor"
+                                            data-width="100%">
                                             <% for (let mentor of noMentores) { %>
-                                                <option data-value="<%= mentor.idEmpleado %>">
+                                                <option value="<%= mentor.idEmpleado %>">
                                                     <%= mentor.nombre%>
                                                         <%= mentor.apellidoP%>
                                                             <%= mentor.apellidoM%>
                                                 </option>
-                                                <% }%>
-                                        </datalist>
-
+                                                <% } %>
+                                        </select>
                                     </td>
                                 </tr>
                                 <tr>
@@ -84,7 +84,7 @@
 
                                         <select id="mentorados" name="mentorados" class="selectpicker" multiple
                                             data-live-search="true" title="Selecciona uno o varios mentorados"
-                                            style="width:200px">
+                                            data-width="100%">
                                             <% for (let mentorado of noMentorados) { %>
                                                 <option value="<%= mentorado.idEmpleado %>">
                                                     <%= mentorado.nombre%>
@@ -93,48 +93,29 @@
                                                 </option>
                                                 <% } %>
                                         </select>
-            
-                <!-- <div class="col-auto" id="enviar">
-                                                  <button type="submit" id="button1" class="btn btn-dark">Enviar</button>
-                                                </div>
-                                                <div class="col-auto">
-                                                  <a href="./solicitudes" id="cancel" name="cancel"
-                                                    class="btn btn-secondary"> Cancelar </a>
-                                                </div> -->
+                </div>
+                </div>
+                </td>
+                </tr>
+                <tr>
+                
+                    <td>
+                        <a href="/miChapter" class="btn btn-secondary">Atrás</a>
+                    </td>
+                
+                    <td>
+                
+                        <input type="submit" value="Guardar cambios" class="btn btn-dark" />
+                
+                
+                    </td>
+                </tr>
+                </form>
 
 
-            </div>
+            </tbody>
+            </table>
         </div>
-
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#languages').multiselect({
-                    nonSelectedText: 'Select Language'
-                });
-            }); 
-        </script>
-
-        </td>
-        </tr>
-        <tr>
-
-            <td>
-                <a href="/miChapter" class="btn btn-secondary">Atrás</a>
-            </td>
-
-            <td>
-
-                <input type="submit" value="Guardar cambios" class="btn btn-dark" />
-
-
-            </td>
-        </tr>
-        </form>
-
-
-        </tbody>
-        </table>
-    </div>
     </div>
     </div>
     </div>

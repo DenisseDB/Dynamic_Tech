@@ -31,6 +31,7 @@ router.post('/miChapter/eliminarMentor/:idMentor', isAuth,checkRoleAuth([1]), le
 
 //Para modificar mentor 
 router.get('/miChapter/modificarMentor/:idMentor',isAuth, checkRoleAuth([1]), leadController.modificarMentor);
+router.post('/miChapter/modificarMentor/:idMentor',isAuth, checkRoleAuth([1]), leadController.mentorModificado);
 router.post('/miChapter/eliminarMentorado/:idMentor/:idMentorado',isAuth, checkRoleAuth([1]), leadController.eliminarMentorado);
 
 
