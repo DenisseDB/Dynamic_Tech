@@ -29,7 +29,7 @@ exports.editarCuestionario = (request, response, next) => {
       .then(([preguntas_nivdim, fieldData]) => {
          Pregunta.findQuestions_C(request.params.id)
             .then(([preguntas_cuestionario, fieldData]) => {
-               response.render('EditarCuestionario2', {
+               response.render('EditarCuestionario', {
                   info: '',
                   nombreSesion: request.session.nombreSesion,
                   apellidoPSesion: request.session.apellidoPSesion,
