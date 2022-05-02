@@ -24,7 +24,7 @@
         <% var url='/feedback/editarCuestionario/' + id + '/' + niv + '/' + dim + '/' + nombre;%>
         <form id="myform" action="<%=url%>" method="POST">
           <div class="card">
-              <h5 class="card-header">Preguntas</h5>
+              <h5 class="card-header">Banco de Preguntas</h5>
               <div class="card-body">
                   <table class="table" style="table-layout: fixed">
                     <thead class="thead-dark">
@@ -60,9 +60,9 @@
                           </td>
                           <td> 
                             <% if (pregunta.idTipo == 1) {%>
-                              numérica
+                              Numérica
                             <% } else{%>
-                              texto
+                              Texto
                             <% } %> 
                           </td>
                         </tr>
@@ -70,7 +70,11 @@
                     </tbody>
                   </table>
                   <% var url='/feedback/crearPregunta/' + id + '/' + niv + '/' + dim + '/' + nombre;%>
-                  <a href="<%=url%>" type="button" style="margin:auto" class="btn btn-dark" onclick="save()"> + Nueva Pregunta</a>  
+                  <div class="d-flex flex-row-reverse">
+                    <div class="p-2">
+                      <a href="<%=url%>" type="button" style="margin:auto" class="btn btn-dark" onclick="save()"> + Nueva Pregunta</a>
+                    </div>  
+                  </div>
                   <!--a href="#" type="button" style="margin:auto" class="btn btn-dark" onclick="save()"> + Nueva Pregunta</a-->  
               </div>
               <input type="hidden" name="hid" id="hid">
