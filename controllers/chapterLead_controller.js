@@ -102,8 +102,8 @@ exports.feedbackEmpleado = async (request, response, next) => {
     
     //console.log(hs);
     //console.log(dsI);
-    console.log(dsG);
-    console.log(empleado);
+    //console.log(dsG);
+    //console.log(empleado);
 
     response.render('miFeedback.ejs',
     {
