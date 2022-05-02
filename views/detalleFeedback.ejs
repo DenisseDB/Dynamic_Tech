@@ -26,7 +26,7 @@
          <h5><a href="./miFeedback">Mi Feedback</a> - Retroalimentación (<%= solicitud[0].NombrePeriodo %>
             <%= solicitud[0].anio %>) - <%= solicitud[0].nombre %> <%= solicitud[0].apellidoP %></h5>
          <% } else {%>
-         <h5><a href="#">Feedback de <%= nombre_empleado %> <%= apellido_empleado %></a> - Retroalimentación
+         <h5><a href="#" onclick="javascript:history.go(-1)">Feedback de <%= nombre_empleado %> <%= apellido_empleado %></a> - Retroalimentación
             (<%= solicitud[0].NombrePeriodo %>
             <%= solicitud[0].anio %>) - <%= solicitud[0].nombre %>
             <%= solicitud[0].apellidoP %>

@@ -50,8 +50,8 @@ exports.solicitudesFeedback = async (request, response, next) => {
 
 exports.nuevaSolicitud = async (request, response, next) => {
    let evaluadores = request.body.nombre; // Nombre(s) de compañeros evaluadores.
-   let arr = Array.isArray(evaluadores); // ¿evaluadores es un array?
-   let str = typeof evaluadores === 'string'; // ¿evaluadores es un array?
+   let arr = Array.isArray(evaluadores); // ¿evaluadores (array)?
+   let str = typeof evaluadores === 'string'; // ¿evaluador (string)?
    let n_solicitudes = request.session.solicitudes;
 
    if (arr && ((n_solicitudes + evaluadores.length) <= 7)) {
@@ -100,6 +100,8 @@ exports.miFeedback =  async (request, response, next) => {
          request.session.idEmpleado, x.idEvaluador, x.idPeriodo);
       dsI.push(especifico);
    }
+
+   console.log(request.session.foto);
 
     response.render('miFeedback.ejs',
     {
@@ -156,8 +158,6 @@ exports.detalleFeedback = async (request, response, next) => {
 };
 
 exports.miFeedback_id = async (request, response, next) => {
-   //console.log('holis');
-   //console.log(request.params.idEmpleado);
 
    const empleado = request.params.idEmpleado; // Empleado para el cual se consulta su feedback.
     const niv = await User.fetchDimensiones_actuales(empleado); // Nivel del empleado de la consulta.
@@ -173,11 +173,6 @@ exports.miFeedback_id = async (request, response, next) => {
         dsI.push(especifico);
     }
     
-    //console.log(hs);
-    //console.log(dsI);
-   //console.log(dsG);
-   //console.log(niv[0][0].nivelE);
-
    response.render('miFeedback.ejs',
     {
         idSesionado: request.session.idEmpleado,
@@ -208,10 +203,6 @@ exports.detalleFeedback_id = async (request, response, next) => {
    let idcraft = request.body.IdCraft;
    let idPeople = request.body.IdPeople;
    let idCommercial = request.body.IdCommercial;
-
-   // console.log(evaluador); console.log(evaluado);
-   // console.log(periodo); console.log(idcraft);
-   // console.log(idPeople); console.log(idCommercial);
 
    const rCraft = await Historial.fetchFeedDetallado(idcraft, evaluado, evaluador, periodo); // Retro del Cuestionario Craft.
    const rPeople = await Historial.fetchFeedDetallado(idPeople, evaluado, evaluador, periodo); // Retro del Cuestionario People.

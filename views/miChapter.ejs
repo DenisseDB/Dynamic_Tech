@@ -73,7 +73,7 @@
         <div class="card">
           <h5 class="card-header" style="vertical-align: middle;"><i class="bi bi-person-fill" ></i>Mentores asignados
   
-              <a href="/miChapter/agregarMentor" class="btn btn-dark" style="margin-left: 600px;">Agregar Mentor</a>
+              <a href="/miChapter/agregarMentor" class="btn btn-dark" style="margin-left: 600px;"><i class="bi bi-person-plus-fill"></i>  Agregar Mentor</a>
       
         </h5>
           <div class="card-body">
@@ -82,11 +82,11 @@
             <table class="table" style="table-layout: fixed">
               <thead class="thead-dark">
                 <tr>
-                  <th scope="col"></th>
+                  <th scope="col" style="width: 15%;"></th>
                   <th scope="col">Mentor</th>
                   <th scope="col">Mentorados</th>
                   <th scope="col"></th>
-                  <th scope="col"></th>
+                  <th scope="col" style="width: 10%;"></th>
                 </tr>
 
                 <tr>
@@ -116,7 +116,7 @@
                    <ul>
                   <% for (let mentorado of mentorados) { %>
                     <% if (mentor.idMentor == mentorado.idMentor) { %>
-                    <li type="circle"><%= mentorado.nombre %><%= mentorado.apellidoP %><%= mentorado.apellidoM %></li>
+                    <li type="circle"><%= mentorado.nombre %> <%= mentorado.apellidoP %> <%= mentorado.apellidoM %></li>
                       <% } %>
                     <% } %>
                   </ul>
@@ -124,13 +124,16 @@
 
               
                 <td>
-                  <a href="#"class="btn btn-dark">Modificar Mentorados</a>
+                   <!-- <a href="/miChapter/modificarMentor/<%= mentor.idMentor %>"class="btn btn-secondary">Modificar Mentorados</a> -->
+                   <a href="/miChapter/modificarMentor/<%= mentor.idMentor %>"class="btn btn-secondary">Modificar Mentorados</a>
                 </td>
              
                 <td>
-                  <form action="#" method="POST"
+                  <form action="/miChapter/eliminarMentor/<%= mentor.idMentor %>" method="POST"
                     onsubmit="return submitForm(this);">
-                    <button value="submit" class="btn btn-danger">Eliminar Mentor</button>
+                    <!-- <button value="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button> -->
+                    <button value="submit" class="btn btn-danger"> <i class="bi bi-person-x-fill"></i></button>
+                   
                   </form>
               </td>
                 </tr>

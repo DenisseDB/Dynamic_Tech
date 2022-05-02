@@ -100,11 +100,6 @@ exports.feedbackEmpleado = async (request, response, next) => {
         dsI.push(especifico);
     }
     
-    //console.log(hs);
-    //console.log(dsI);
-    console.log(dsG);
-    console.log(empleado);
-
     response.render('miFeedback.ejs',
     {
         idSesionado: request.session.idEmpleado,
@@ -134,10 +129,6 @@ exports.detalleEmpleado = async (request, response, next) => {
     let idcraft = request.body.IdCraft;
     let idPeople = request.body.IdPeople;
     let idCommercial = request.body.IdCommercial;
-
-    // console.log(evaluador); console.log(evaluado);
-    // console.log(periodo); console.log(idcraft);
-    // console.log(idPeople); console.log(idCommercial);
 
     const rCraft = await Historial.fetchFeedDetallado(idcraft, evaluado, evaluador, periodo); // Retro del Cuestionario Craft.
     const rPeople = await Historial.fetchFeedDetallado(idPeople, evaluado, evaluador, periodo); // Retro del Cuestionario People.
@@ -334,6 +325,87 @@ exports.agregarMentor = (request, response, next) => {
         }).catch((error) => {
             console.log(error);
         });
+};
+
+
+exports.agregarNuevoMentor = (request, response, next) => {
+
+    console.log(request.body);
+};
+
+exports.eliminarMentor = (request, response, next) => {
+
+    console.log(request.params.idMentor);
+
+    Lead.eliminarMentor(request.params.idMentor)
+           .then(([rows,fieldData]) =>{ 
+
+               response.redirect('/miChapter');
+
+           }).catch(error => {
+               console.log(error);
+           });
+};
+
+
+exports.modificarMentor = (request, response, next) => {
+
+    //console.log(request.session.foto);
+
+    Lead.fetchMentor(request.params.idMentor)
+        .then(([Mentor, fielData]) => {
+
+            //console.log(Mentor);
+
+            Lead.fetchNoMentorados()
+                .then(([noMentorados, fielData]) => {
+
+                    Lead.fetchMentorado(request.params.idMentor)
+                    .then(([mentorados, fielData]) => {
+
+                    response.render('modificarMentor', {
+
+                        correo: request.session.correo ? request.session.correo : '',
+                        rolesA: request.session.privilegiosPermitidos,
+                        rol: request.session.idRol ? request.session.idRol : '',
+                        nombreSesion: request.session.nombreSesion,
+                        apellidoPSesion: request.session.apellidoPSesion,
+                        foto: request.session.foto,
+                        mentor : Mentor,
+                        mentorados: mentorados,
+                        noMentorados: noMentorados,
+
+
+
+                    });
+
+                }).catch((error) => {
+                    console.log(error);
+                });
+
+
+                }).catch((error) => {
+                    console.log(error);
+                });
+
+        }).catch((error) => {
+            console.log(error);
+        });
+};
+
+exports.eliminarMentorado = (request, response, next) => {
+
+    //console.log(request.params.idMentor);
+    //console.log(request.params.idMentorado);
+
+    Lead.eliminarMentorado(request.params.idMentor,request.params.idMentorado)
+           .then(([rows,fieldData]) =>{ 
+
+               response.redirect('/miChapter');
+
+           }).catch(error => {
+               console.log(error);
+           });
 };
 
 exports.miChapter = (request, response, next) => {
