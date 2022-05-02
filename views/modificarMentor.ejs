@@ -53,7 +53,7 @@
                                   text-align: center;
                                   vertical-align: middle;
                                   }
-                                  </style>
+                            </style>
 
                             <tr>
 
@@ -71,25 +71,35 @@
                                 </td>
 
                                 <td>
-                                    <form action="/miChapter/eliminarMentorado/<%= mentorado.idMentor %>/<%= mentorado.idMentorado%>" method="POST" onsubmit="return submitForm(this);">
+                                    <form action="/miChapter/eliminarMentorado/<%= mentorado.idMentor %>/<%= mentorado.idMentorado%>" method="POST" onsubmit="return submitForm(this);" id="eliminarMentorado"> 
                                         <!-- <button value="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button> -->
-                                        <button value="submit" class="btn btn-danger"> <i
-                                                class="bi bi-person-x-fill"></i></button>
+                                        <button value="submit" class="btn btn-danger"><i class="bi bi-trash3"></i></button>
 
                                     </form>
                                 </td>
 
                             </tr>
                             <% } %>
-                                <form id="modificarMentor" method="post" enctype="multipart/form-data">
+                                <form action="/miChapter/modificarMentor/mentor[0].idMentor"  id= "nuevosMentorados" method="post" enctype="multipart/form-data">
                                     <tr>
-                                        <th scope="row">Agregar nuevos Mentorados</th>
-                                        <td>
+                                        <th scope="row"><br>Nuevos Mentorados:<br><br></th>
+                                    
+                                            <td colspan="2">
+                                            <select id="mentorado" name="mentorado" class="selectpicker" 
+                                            data-live-search="true" title="Selecciona nuevos mentorados"
+                                            data-width="100%">
+                                            <% for (let mentor of noMentorados) { %>
+                                                <option value="<%= mentor.idEmpleado %>">
+                                                    <%= mentor.nombre%>
+                                                        <%= mentor.apellidoP%>
+                                                            <%= mentor.apellidoM%> 
+                                                </option>
+                                               
+                                                <% } %>
+                                        </select>
 
                                         </td>
-                                        <td>
-
-                                        </td>
+                                     
                                     </tr>
                                     <tr>
 

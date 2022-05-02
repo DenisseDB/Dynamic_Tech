@@ -15,7 +15,7 @@ module.exports = class ChapterLead {
         this.idRol = idRol;
         this.nivelCraft = nivelCraft;
         this.nivelPeople = nivelPeople;
-        this.nivelBusiness = nivelPeople;
+        this.nivelBusiness = nivelBusiness;
     }
 
     // //Este método servirá para guardar de manera persistente el nuevo objeto. 
@@ -123,6 +123,12 @@ module.exports = class ChapterLead {
     //Para eliminar mentor
     static eliminarMentorado(idMentor,idMentorado){
         return db.execute('DELETE FROM asignacionempleado WHERE idMentor= ? AND idMentorado = ?;', [idMentor, idMentorado]);
+    }
+
+
+    //Para añadir chapter asisstant con mentorados
+      static agregaMentor(idMentor,idMentorado){
+        return db.execute('INSERT INTO asignacionempleado(idMentor, idMentorado) VALUES (?, ?);', [idMentor, idMentorado]);
     }
 
 

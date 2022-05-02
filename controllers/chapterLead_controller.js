@@ -1,9 +1,7 @@
 const User = require('../models/user');
-const Feed = require('../models/contestaFeed');
-const Solicitud = require('../models/solicitud');
 const Lead = require('../models/lead');
 const Historial = require('../models/historico');
-const res = require('express/lib/response');
+const Mentor = require('../models/modificarMentor');
 const bcrypt = require('bcryptjs');
 
 exports.agregarEmpleados = (request, response, next) => {
@@ -328,9 +326,28 @@ exports.agregarMentor = (request, response, next) => {
 };
 
 
-exports.agregarNuevoMentor = (request, response, next) => {
+exports.agregarNuevoMentor = async (request, response, next) => {
 
-    console.log(request.body);
+    console.log(request.body.mentorado);
+    console.log(request.body.mentorados);
+
+    var mentorado = request.body.mentorados;
+
+    // for (let nuevoMentorado of mentorado ) {
+    //             console.log(nuevoMentorado);
+    //         }
+    
+    try {
+        //Ciclo for para realizar insert de mentorados a mentor 
+        for (let nuevoMentorado of mentorado ) {
+            let res = new Mentor(request.body.mentorado,nuevoMentorado);
+            await res.saveMentor();
+        }
+        response.redirect('/miChapter');
+
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 exports.eliminarMentor = (request, response, next) => {
@@ -393,6 +410,11 @@ exports.modificarMentor = (request, response, next) => {
         });
 };
 
+exports.mentorModificado = (request, response, next) => {
+
+    console.log(request.body);
+};
+
 exports.eliminarMentorado = (request, response, next) => {
 
     //console.log(request.params.idMentor);
@@ -401,7 +423,7 @@ exports.eliminarMentorado = (request, response, next) => {
     Lead.eliminarMentorado(request.params.idMentor,request.params.idMentorado)
            .then(([rows,fieldData]) =>{ 
 
-               response.redirect('/miChapter');
+               response.redirect('/miChapter/modificarMentor/'+request.params.idMentor+"'");
 
            }).catch(error => {
                console.log(error);

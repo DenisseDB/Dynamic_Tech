@@ -3,266 +3,258 @@
 
 <!-- Para que aparezca Mis Mentorados -->
 <% for (i = 0; i < rolesA.length; i++) {  %>
-<% if (rolesA[i].idPrivilegio == 1) { %>
-<%- include('includes/sideMentorados.ejs') %>
-<% } %>
+  <% if (rolesA[i].idPrivilegio == 1) { %> 
+  <%- include('includes/sideMentorados.ejs') %>
+  <% } %>
 <% } %>
 
 <!-- Para que aparezca Empleados del chapter -->
 <% for (i = 0; i < rolesA.length; i++) {  %>
-<% if (rolesA[i].idPrivilegio == 2) { %>
-<%- include('includes/sideAgregarE.ejs') %>
-<% } %>
+  <% if (rolesA[i].idPrivilegio == 2) { %> 
+  <%- include('includes/sideAgregarE.ejs') %>
+  <% } %>
 <% } %>
 
 <!-- Final de la nav-->
 <%- include('includes/sidenavFin.ejs') %>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-
 <body>
 
-
-   <div class="container px-13">
-      <div class="space2">
-         <h2><strong>Mi Chapter</strong></h2>
-         <hr class="style17">
-
-
-         <div class="container">
-
-            <div class="row">
-               <div class="col-sm-6">
-                  <div class="card">
-                     <div class="card-header">
-                        <h>
-                           <h5 style="text-align: center">¿Cómo va el progreso de recolección de feedback?</h5></b>
-                     </div>
-                     <div class="card-body">
-                        <!-- jQuery -->
-                        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-                        <!-- Chart JS -->
-                        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-                        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
-                        <p class="card-text"><canvas id="myChart" style="width:100%;max-width:600px"></canvas></p>
-                     </div>
-                  </div>
-               </div>
+  
+  <div class="container px-13">
+    <div class="space2">
+      <h2><strong>Mi Chapter</strong></h2>
+      <hr class="style17">
 
 
+<div class="container">
 
-               <div class="col-sm-6">
-                  <div class="card">
-                     <div class="card-header">
-                        <h>
-                           <h5 style="text-align: center;">¿Cuál es el promedio del chapter?</h5></b>
-                     </div>
-                     <div class="card-body">
-                        Aquí va otra gráfica
-                     </div>
-                  </div>
-               </div>
-            </div>
-
-            <div class="space2">
-               <br><br>
-               <h3><strong>Mentores del chapter</strong></h3>
-               <hr class="style17">
-
-
-
-               <div class="row" id="buscarEmpleado">
-                  <div class="col-sm-12">
-                     <div class="card">
-                        <h5 class="card-header" style="vertical-align: middle;"><i
-                              class="bi bi-person-fill"></i>Mentores asignados
-
-                           <a href="/miChapter/agregarMentor" class="btn btn-dark" style="margin-left: 600px;"><i
-                                 class="bi bi-person-plus-fill"></i> Agregar Mentor</a>
-
-                        </h5>
-                        <div class="card-body">
-
-                           <!--Para tabla con boostrap-->
-                           <table class="table" style="table-layout: fixed">
-                              <thead class="thead-dark">
-                                 <tr>
-                                    <th scope="col" style="width: 15%;"></th>
-                                    <th scope="col">Mentor</th>
-                                    <th scope="col">Mentorados</th>
-                                    <th scope="col"></th>
-                                    <th scope="col" style="width: 10%;"></th>
-                                 </tr>
-
-                                 <tr>
-                                    <% for (let mentor of mentores) { %>
-
-
-                                    <style>
-                                       td {
-
-                                          text-align: center;
-                                          vertical-align: middle;
-                                       }
-                                    </style>
-
-                                    <td>
-                                       <img src="<%= mentor.fotoPerfil %>" alt="hugenerd" width="80" height="80"
-                                          class="rounded-circle">
-                                    </td>
-
-                                    <td>
-                                       <%= mentor.nombre %>
-                                       <%= mentor.apellidoP %>
-                                       <%= mentor.apellidoM %>
-                                    </td>
-
-
-                                    <td style="text-align:justify; width:20%;">
-                                       <ul>
-                                          <% for (let mentorado of mentorados) { %>
-                                          <% if (mentor.idMentor == mentorado.idMentor) { %>
-                                          <li type="circle"><%= mentorado.nombre %> <%= mentorado.apellidoP %>
-                                             <%= mentorado.apellidoM %></li>
-                                          <% } %>
-                                          <% } %>
-                                       </ul>
-                                    </td>
-
-
-                                    <td>
-                                       <!-- <a href="/miChapter/modificarMentor/<%= mentor.idMentor %>"class="btn btn-secondary">Modificar Mentorados</a> -->
-                                       <a href="/miChapter/modificarMentor/<%= mentor.idMentor %>"
-                                          class="btn btn-secondary">Modificar Mentorados</a>
-                                    </td>
-
-                                    <td>
-                                       <form action="/miChapter/eliminarMentor/<%= mentor.idMentor %>" method="POST"
-                                          onsubmit="return submitForm(this);">
-                                          <!-- <button value="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button> -->
-                                          <button value="submit" class="btn btn-danger"> <i
-                                                class="bi bi-person-x-fill"></i></button>
-
-                                       </form>
-                                    </td>
-                                 </tr>
-
-                                 <%} %>
-                              </thead>
-
-                           </table>
-
-                        </div>
-                     </div>
-                  </div>
-               </div>
-
-
-
-
-               <script>
-                  function submitForm() {
-                     return confirm('¿Realmente quieres eliminar al mentor?');
-                  }
-
-                  fetch('/miChapter/feedback', {
-                     method: 'GET',
-                     headers: {
-                        'Content-Type': 'application/json',
-                        //'csrf-token': csrf
-                     }
-                  }).then(result => {
-                     return result.json();
-                  }).then(solicitudes => {
-
-
-                     console.log(solicitudes)
-                     console.log(solicitudes[0].NombrePeriodo);
-
-                     var ctx = document.getElementById("myChart").getContext('2d');
-
-                     var respondidas = 0;
-                     var sin_responder = 0;
-
-                     for (let sol in solicitudes) {
-
-                        if (solicitudes[sol].estatus == 1) {
-                           respondidas++;
-
-                        } else {
-                           sin_responder++;
-                        }
-
-
-                     }
-
-
-                     var xValues = ["Solicitudes sin responder", "Solicitudes respondidas"];
-                     var yValues = [sin_responder, respondidas];
-                     var barColors = [
-                        //"#D4507C",
-                        "#E25287",
-                        "#3136B2",
-                        //"rgb(39, 94, 179)",
-                     ];
-
-                     var data = [{
-                        data: yValues,
-                        backgroundColor: barColors,
-                        borderColor: "#fff",
-
-                     }];
-
-                     var options = {
-
-                        cutoutPercentage: 40,
-
-                        title: {
-                           display: true,
-                           text: ["Feedback periodo -" + solicitudes[0].NombrePeriodo,
-                              "Total de solicitudes: " + solicitudes.length
-                           ]
-                        },
-                        tooltips: {
-                           enabled: true
-                        },
-                        plugins: {
-                           datalabels: {
-                              formatter: (value, ctx) => {
-
-                                 let sum = ctx.dataset._meta[0].total;
-                                 let percentage = (value * 100 / sum).toFixed(2) + "%";
-                                 return percentage;
-
-
-                              },
-                              color: '#fff',
-                           }
-                        }
-
-                     };
-
-                     var ctx = document.getElementById("myChart").getContext('2d');
-
-                     var MyChart = new Chart("myChart", {
-                        type: "doughnut",
-                        //type: "pie",
-                        data: {
-                           labels: xValues,
-                           datasets: data,
-                        },
-                        options: options,
-                     });
-
-                  }).catch(err => {
-                     console.log(err);
-                  });
-               </script>
-
-            </div>
-         </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header">
+          <h><h5 style="text-align: center;">¿Cómo va el progreso de recolección de feedback?</h5></b>
+        </div>
+        <div class="card-body">
+           <!-- jQuery --> 
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          <!-- Chart JS -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+          <p class="card-text"><canvas id="myChart" style="width:100%;max-width:600px"></canvas></p>
+        </div>
       </div>
-   </div>
+    </div>
+
+
+   
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header">
+            <h><h5 style="text-align: center;">¿Cuál es el promedio del chapter?</h5></b>
+          </div>
+          <div class="card-body">
+         Aquí va otra gráfica
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="space2">
+    <br><br>
+    <h3><strong>Mentores del chapter</strong></h3>
+    <hr class="style17">
+
+    
+  
+    <div class="row" id="buscarEmpleado">
+      <div class="col-sm-12">
+        <div class="card">
+          <h5 class="card-header" style="vertical-align: middle;"><i class="bi bi-person-fill" ></i>Mentores asignados
+  
+              <a href="/miChapter/agregarMentor" class="btn btn-dark" style="margin-left: 600px;"><i class="bi bi-person-plus-fill"></i>  Agregar Mentor</a>
+      
+        </h5>
+          <div class="card-body">
+            
+            <!--Para tabla con boostrap-->
+            <table class="table" style="table-layout: fixed">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col" style="width: 15%;"></th>
+                  <th scope="col">Mentor</th>
+                  <th scope="col">Mentorados</th>
+                  <th scope="col"></th>
+                  <th scope="col" style="width: 10%;"></th>
+                </tr>
+
+                <tr>
+                  <% for (let mentor of mentores) { %>
+                    
+                   
+                <style>
+                  td {
+
+                text-align: center;
+                vertical-align: middle;
+                }
+                </style>
+                     
+                    <td>
+                      <img src="<%= mentor.fotoPerfil %>" alt="hugenerd" width="80" height="80" class="rounded-circle">
+                    </td>
+                 
+                  <td>
+                    <%= mentor.nombre %>
+                    <%= mentor.apellidoP %>
+                      <%= mentor.apellidoM %>
+                 </td>
+
+                
+                 <td style="text-align:justify; width:20%;">
+                   <ul>
+                  <% for (let mentorado of mentorados) { %>
+                    <% if (mentor.idMentor == mentorado.idMentor) { %>
+                    <li type="circle"><%= mentorado.nombre %> <%= mentorado.apellidoP %> <%= mentorado.apellidoM %></li>
+                      <% } %>
+                    <% } %>
+                  </ul>
+                </td>
+
+              
+                <td>
+                   <!-- <a href="/miChapter/modificarMentor/<%= mentor.idMentor %>"class="btn btn-secondary">Modificar Mentorados</a> -->
+                   <a href="/miChapter/modificarMentor/<%= mentor.idMentor %>"class="btn btn-secondary">Modificar Mentorados</a>
+                </td>
+             
+                <td>
+                  <form action="/miChapter/eliminarMentor/<%= mentor.idMentor %>" method="POST"
+                    onsubmit="return submitForm(this);">
+                    <!-- <button value="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button> -->
+                    <button value="submit" class="btn btn-danger"><i class="bi bi-trash3"></i></button>
+                   
+                  </form>
+              </td>
+                </tr>
+               
+                <%} %>
+              </thead>
+             
+            </table>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    
+<script>
+
+function submitForm() {
+  return confirm('¿Realmente quieres eliminar al mentor?');
+}
+
+fetch('/miChapter/feedback', {
+         method: 'GET',
+         headers: {
+            'Content-Type': 'application/json',
+            //'csrf-token': csrf
+         }
+      }).then(result => {
+         return result.json();
+      }).then(solicitudes => {
+
+
+        console.log(solicitudes)
+        console.log(solicitudes[0].NombrePeriodo);
+
+        var ctx = document.getElementById("myChart").getContext('2d');
+
+        var respondidas = 0;
+        var sin_responder = 0;
+
+      for(let sol in solicitudes){
+
+        if(solicitudes[sol].estatus == 1){
+          respondidas ++;
+         
+        }else{
+          sin_responder ++;
+        }
+
+
+      }
+        
+
+    var xValues = ["Solicitudes sin responder", "Solicitudes respondidas"];
+    var yValues = [sin_responder, respondidas];
+    var barColors = [
+      //"#D4507C",
+      "#E25287",
+      "#3136B2",
+      //"rgb(39, 94, 179)",
+    ];
+
+    var data = [
+    {
+       data : yValues,
+       backgroundColor: barColors,
+       borderColor : "#fff",
+
+    }];
+
+    var options = {
+
+      cutoutPercentage: 40,
+
+      title: {
+          display: true,
+          text: ["Feedback periodo -" + solicitudes[0].NombrePeriodo,  "Total de solicitudes: " + solicitudes.length]
+        },
+        tooltips: {
+          enabled: true
+        },
+        plugins: {
+            datalabels: {
+                formatter: (value, ctx) => {
+
+                  let sum = ctx.dataset._meta[0].total;
+                  let percentage = (value * 100 / sum).toFixed(2) + "%";
+                  return percentage;
+
+
+                },
+              color: '#fff',
+            }
+        }
+
+    };
+
+    var ctx = document.getElementById("myChart").getContext('2d');
+
+    var MyChart = new Chart("myChart", {
+      type: "doughnut",
+      //type: "pie",
+      data: {
+        labels: xValues,
+        datasets: data,
+      },
+      options: options,
+    });
+
+  }).catch(err => {
+         console.log(err);
+  });
+
+</script>
+
+</div>
+</div>
+    </div>
+  </div>
 </body>
 
 <%- include('includes/foot.ejs') %>
