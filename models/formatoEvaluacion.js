@@ -9,7 +9,8 @@ module.exports = class formatoEvaluacion {
         this.nivel = nuevo_nivel;
         this.dimension = nueva_dimension;
         this.pregunta = nueva_pregunta;
-    }
+   }
+   
 
     static fetchCuestionarios() {
         //return db.execute('SELECT DISTINCT nombre, fecha, idDimension, nivelP FROM cuestionario C, preguntacuestionario PC, pregunta P WHERE C.idCuestionario = PC.idCuestionario AND PC.idPregunta = P.idPregunta; ');

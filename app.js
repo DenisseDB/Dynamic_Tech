@@ -65,8 +65,8 @@ app.use(session({
 }));
 
 // Rutas.
-app.use('/', rutas_feed);
 app.use('/', rutas_lead);
+app.use('/', rutas_feed);
 
 app.use('/users', rutas_users);
 app.use('/feedback', rutas_createfb);
