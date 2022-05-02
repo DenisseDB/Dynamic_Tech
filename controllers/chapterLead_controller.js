@@ -100,11 +100,6 @@ exports.feedbackEmpleado = async (request, response, next) => {
         dsI.push(especifico);
     }
     
-    //console.log(hs);
-    //console.log(dsI);
-    //console.log(dsG);
-    //console.log(empleado);
-
     response.render('miFeedback.ejs',
     {
         idSesionado: request.session.idEmpleado,
@@ -134,10 +129,6 @@ exports.detalleEmpleado = async (request, response, next) => {
     let idcraft = request.body.IdCraft;
     let idPeople = request.body.IdPeople;
     let idCommercial = request.body.IdCommercial;
-
-    // console.log(evaluador); console.log(evaluado);
-    // console.log(periodo); console.log(idcraft);
-    // console.log(idPeople); console.log(idCommercial);
 
     const rCraft = await Historial.fetchFeedDetallado(idcraft, evaluado, evaluador, periodo); // Retro del Cuestionario Craft.
     const rPeople = await Historial.fetchFeedDetallado(idPeople, evaluado, evaluador, periodo); // Retro del Cuestionario People.
