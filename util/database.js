@@ -24,10 +24,10 @@ const pool = mysql.createPool({
 
 // ! pool creado para la base de datos de la instancia --> (No usar fuera de rama main)
 const DB_INSTANCIA =  mysql.createPool({
-   host: "localhost",
-   user: "admin",
-   database: "dynamictech_bd_feedback2",
-   password: "dynamic123.",
+   host: config.HOST,
+   user: config.USER,
+   database: config.DATABASE,
+   password: config.PASSWORD,
 });
 // !
 
