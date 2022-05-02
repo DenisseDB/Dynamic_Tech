@@ -49,72 +49,94 @@
                     <!--Para tabla con boostrap-->
                     <table class="table">
                         <tbody>
-                            <form id = "agregarNuevoMentor" method="post"  enctype="multipart/form-data" >
+                            <form id="agregarNuevoMentor" method="post" enctype="multipart/form-data">
 
-                            <tr>
+                                <tr>
+                                    <style>
+                                    td {
+                      
+                                      text-align: center;
+                                      vertical-align: middle;
+                                      }
+                                      </style>
 
-                                <th scope="row">Nombre mentor: </th>
-                                <td>
+                                    <th scope="row">Nombre mentor: </th>
+                                    <td>
 
-                                    <input class="form-control" list="mentor" id="nuevoMentor" name="nuevoMentor"
-                                        placeholder="Type to search..." required>
-                                    <datalist id="mentor">
-                                        <% for (let mentor of noMentores) { %>
-                                            <option data-value="<%= mentor.idEmpleado %>">
-                                                <%= mentor.nombre%>
-                                                    <%= mentor.apellidoP%>
-                                                        <%= mentor.apellidoM%>
-                                            </option>
-                                            <% }%>
-                                    </datalist>
+                                        <input class="form-control" list="mentor" id="nuevoMentor" name="nuevoMentor"
+                                            placeholder="Type to search..." required>
+                                        <datalist id="mentor">
+                                            <% for (let mentor of noMentores) { %>
+                                                <option data-value="<%= mentor.idEmpleado %>">
+                                                    <%= mentor.nombre%>
+                                                        <%= mentor.apellidoP%>
+                                                            <%= mentor.apellidoM%>
+                                                </option>
+                                                <% }%>
+                                        </datalist>
 
-                                </td>
-                            </tr>
-                            <tr>
+                                    </td>
+                                </tr>
+                                <tr>
 
-                                <th scope="row">Mentorados asignables: </th>
-                                <td>
-                                    <select class="selectpicker" multiple aria-label="size 3 select example" id = "nuevoMentorados" name = "nuevoMentorados">
-                                        <% for (let mentorado of noMentorados) { %>
-                                            <option value="<%= mentorado.idEmpleado %>">
-                                                <%= mentorado.nombre%>
-                                                <%= mentorado.apellidoP%>
-                                                        <%= mentorado.apellidoM%>
-                                            </option>
-                                            <% }%>
-                                    </select>
+                                    <th scope="row">Mentorados asignables: </th>
+                                    <td>
 
-                                    <script type="text/javascript">
-                                        $(document).ready(function () {
-                                            $('#languages').multiselect({
-                                                nonSelectedText: 'Select Language'
-                                            });
-                                        }); 
-                                    </script>
-
-                                </td>
-                            </tr>
-                            <tr>
-
-                                <td>
-                                    <a href="/miChapter"  class="btn btn-secondary">Atrás</a>
-                                </td>
-
-                                <td>
-                            
-                                    <input type="submit" value="Guardar cambios" class="btn btn-dark"/>
+                                        <select id="mentorados" name="mentorados" class="selectpicker" multiple
+                                            data-live-search="true" title="Selecciona uno o varios mentorados"
+                                            style="width:200px">
+                                            <% for (let mentorado of noMentorados) { %>
+                                                <option value="<%= mentorado.idEmpleado %>">
+                                                    <%= mentorado.nombre%>
+                                                        <%= mentorado.apellidoP%>
+                                                            <%= mentorado.apellidoM%>
+                                                </option>
+                                                <% } %>
+                                        </select>
+            
+                <!-- <div class="col-auto" id="enviar">
+                                                  <button type="submit" id="button1" class="btn btn-dark">Enviar</button>
+                                                </div>
+                                                <div class="col-auto">
+                                                  <a href="./solicitudes" id="cancel" name="cancel"
+                                                    class="btn btn-secondary"> Cancelar </a>
+                                                </div> -->
 
 
-                                </td>
-                            </tr>
-                        </form>
-         
-
-                        </tbody>
-                    </table>
-                </div>
             </div>
         </div>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#languages').multiselect({
+                    nonSelectedText: 'Select Language'
+                });
+            }); 
+        </script>
+
+        </td>
+        </tr>
+        <tr>
+
+            <td>
+                <a href="/miChapter" class="btn btn-secondary">Atrás</a>
+            </td>
+
+            <td>
+
+                <input type="submit" value="Guardar cambios" class="btn btn-dark" />
+
+
+            </td>
+        </tr>
+        </form>
+
+
+        </tbody>
+        </table>
+    </div>
+    </div>
+    </div>
     </div>
 
 

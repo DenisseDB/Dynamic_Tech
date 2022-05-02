@@ -358,8 +358,12 @@ exports.eliminarMentor = (request, response, next) => {
 
 exports.modificarMentor = (request, response, next) => {
 
+    //console.log(request.session.foto);
+
     Lead.fetchMentor(request.params.idMentor)
         .then(([Mentor, fielData]) => {
+
+            //console.log(Mentor);
 
             Lead.fetchNoMentorados()
                 .then(([noMentorados, fielData]) => {

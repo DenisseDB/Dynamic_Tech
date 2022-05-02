@@ -36,37 +36,30 @@
         <br><br>
         <div class="col-sm-12">
             <div class="card">
-                <h5 class="card-header" style="font-size: larger;"><i class="bi bi-person-fill"></i>Mentorados:</h5>
+                <h5 class="card-header" style="font-size: larger;"><i class="bi bi-person-fill"></i>Mentorados de  <%= mentor[0].nombre %>
+                    <%= mentor[0].apellidoP %>
+                        <%= mentor[0].apellidoM %></h5>
             </div>
             <div class="card-body">
                 <!--Para tabla con boostrap-->
                 <table class="table">
                     <tbody>
 
-                        <tr>
-
-                            <td>
-
-                            </td>
-                            <!-- <th scope="row">Foto Mentor: </th> -->
-                            <td>
-
-                                <img src="<%= mentor[0].fotoPerfil %>" alt="hugenerd" width="120" height="120"
-                                    class="rounded-circle"><br>
-
-                            </td>
-
-                            <td>
-
-                            </td>
-                        </tr>
                         <% for (let mentorado of mentorados) { %>
+
+                            <style>
+                                td {
+                  
+                                  text-align: center;
+                                  vertical-align: middle;
+                                  }
+                                  </style>
 
                             <tr>
 
                                 <td>
 
-                                    <img src="<%= mentorado.fotoPerfil%>" alt="hugenerd" width="100" height="100"
+                                    <img src="/<%= mentorado.fotoPerfil%>" alt="hugenerd" width="70" height="70"
                                         class="rounded-circle"><br>
                                 </td>
 
