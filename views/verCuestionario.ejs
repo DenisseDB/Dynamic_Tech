@@ -18,38 +18,63 @@
 
 <div class="container px-13">
    <div class="space2">
-      <h2><strong> Ver Cuestionario </strong></h2><hr>
-      
+      <h2><strong> Ver Cuestionario </strong></h2>
+      <hr>
+
       <!-- *--------------------------------------------- -->
-      
+
       <div class="card">
          <div class="card-header ">
-            <h3><%= preguntas.nombre %> - Nivel: <%=preguntas.nivelP %></h3>
+            <% for( let titulo of nombreDimension ) { %>
+            <h3 class="text-lg-center"><strong>Cuestionario:<%= nombre_cuestinario %> <br> Dimension:
+                  <%= titulo.nombre %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nivel:
+                  <%= titulo.nivelC %></strong> <!-- &nbsp; significa un espacio similar  a 'tab' -->
+               </h>
+               <% } %>
          </div>
          <div class="card-body">
-            <% for (let pregunta of preguntas) { %>
-            <div class="space2">
-               <h5><%= pregunta.pregunta %></h5>
-               <% if (pregunta.idTipo == 1) { %>
-               <% for( let i = 1; i <= 5; i++ ) { %>
-               <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>"
-                     id="<%= pregunta.idPregunta %>"  disabled/>
-                  <label class="form-check-label" for="<%= pregunta.idPregunta %>"> <%= i %> </label>
-               </div>
-               <% } %>
-               <% } else { %>
-               <div class="form-floating">
-                  <textarea disabled class="form-control" id="floatingTextarea"
-                     style="height: 50px; background-color:#F5F5F5;"></textarea>
-                  <label for="floatingTextarea">Respuesta:</label>
-               </div>
-               <% } %>
-            </div>
-            <% } %>
+            <table class="table" style="table-layout: fixed">
+               <thead class="thead-dark">
+                  <tr>
+                     <th style="text-align:center" scope="col">Pregunta</th>
+                     <th style="text-align:center" scope="col"> Tipo </th>
+                  </tr>
+               </thead>
+
+
+               <tbody>
+                  <% for (let pregunta of preguntas) { %>
+                  <div class="space2">
+                     <h5><%= pregunta.pregunta %></h5>
+                     <% if (pregunta.idTipo == 1) { %>
+                     <% for( let i = 1; i <= 5; i++ ) { %>
+                     <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>"
+                           id="<%= pregunta.idPregunta %>" disabled />
+                        <label class="form-check-label" for="<%= pregunta.idPregunta %>"> <%= i %> </label>
+                     </div>
+                     <% } %>
+                     <% } else { %>
+                     <div class="form-floating">
+                        <textarea disabled class="form-control" id="floatingTextarea"
+                           style="height: 50px; background-color:#F5F5F5;"></textarea>
+                        <label for="floatingTextarea">Respuesta:</label>
+                     </div>
+                     <% } %>
+                  </div>
+                  <% } %>
+               </tbody>
+               
+            </table>
+
          </div>
          <div class="card-footer text-muted">
-            <br>
+            <div class="d-flex flex-row-reverse">
+               <div class="p-2">
+                  <a href="/feedback" class="btn btn-outline-dark"> Regresar </a>
+               </div>
+               <br>
+            </div>
          </div>
       </div>
 

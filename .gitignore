@@ -47,7 +47,7 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
-*.vscode
+.vscode/settings.json
 
 VIEJO_modificarFormato.ejs
 borrame_despues.html
@@ -55,3 +55,5 @@ borrame_despues copy.html
 views/nuevoGenerarFormato.ejs
 
 
+/views/EditarCuestionario2.ejs
+/views/ModificarPregunta.ejs

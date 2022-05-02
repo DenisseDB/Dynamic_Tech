@@ -2,7 +2,11 @@ const db = require('../util/database');
 
 
 module.exports = class Cuestionario{
-   constructor(){}
+   constructor(_nombre, _dimension, _nivel) {
+      this.nombre = _nombre;
+      this.nivel = _nivel;
+      this.dimension = _dimension;
+   }
 
    // Despliega todas las dimensiones disponibles 
    static fetchDimension() {
@@ -13,8 +17,12 @@ module.exports = class Cuestionario{
 
    // Toma de la base de datos las preguntas del cuestionario, recibe como parametro el id del cuestionario a obtener las preguntas 
    static fetchPreguta_Cuestionario(id_cuestionario) {
-      return db.execute('SELECT * FROM cuestionario NATURAL join preguntacuestionario NATURAL join pregunta INNER JOIN dimension on dimension.idDimension = pregunta.idDimension where idCuestionario = ?;', [id_cuestionario]);
+      return db.execute('SELECT dimension.nombre, cuestionario.nivelC, pregunta.pregunta, pregunta.idTipo FROM cuestionario NATURAL join preguntacuestionario NATURAL join pregunta INNER JOIN dimension on dimension.idDimension = pregunta.idDimension where idCuestionario = ?;', [id_cuestionario]);
    }
+   static Dimension_Nombre(id_cuestionario) {
+      return db.execute('SELECT DISTINCT(dimension.nombre),cuestionario.nivelC,cuestionario.idDimension FROM cuestionario NATURAL join preguntacuestionario NATURAL join pregunta INNER JOIN dimension on dimension.idDimension = pregunta.idDimension where idCuestionario = ?;', [id_cuestionario]);
+   }
+
 
    // !Metodo que ayuda a recuperar los datos de los niveles y las dimensiones
 

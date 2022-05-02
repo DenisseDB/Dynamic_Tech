@@ -16,7 +16,7 @@ router.get('/miFeedback/:id', isAuth, feedController.miFeedback_id); // FEEDBACK
 router.post('/miFeedback/:id', isAuth, feedController.detalleFeedback_id); // FEEDBACK - Mi Feedback
 
 router.get('/responderFeedback/:idEvaluado/:idPeriodo', isAuth,feedController.cuestionario) // CUESTIONARIO - Formulario de feedback
-router.post('/responderFeedback/:idEvaluado/:idPeriodo', isAuth,feedController.salvarRespuestas)
+router.post('/responderFeedback/:idEvaluado/:idPeriodo', isAuth, feedController.salvarRespuestas);
 router.get('/home', isAuth, feedController.home); // HOME - Inicio
 
 module.exports = router;
