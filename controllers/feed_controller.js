@@ -195,7 +195,7 @@ exports.miFeedback_id = async (request, response, next) => {
         nivel_craftpg: niv[0][0].nivelE,
         nivel_peoplepg: niv[0][1].nivelE,
         nivel_businesspg: niv[0][2].nivelE,
-        ruta : "/empleados/feedback/"
+        ruta : "/mentorados/detalleFeedback/"
     });
 };
 
@@ -235,7 +235,7 @@ exports.detalleFeedback_id = async (request, response, next) => {
        apellido_empleado: nom[0][0].apellidoP,
        id_empleado: request.params.id,
        self: '1',
-       ruta : '/miFeedback/:id'
+       ruta : ''
    });
 };
 

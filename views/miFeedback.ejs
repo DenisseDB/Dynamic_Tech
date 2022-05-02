@@ -177,9 +177,9 @@
                             <form action="/miFeedback" method="POST">
                           <% } else if(ruta == "/empleados/feedback/") { %>
                             <form action="/empleados/detallefeedback/<%= idEmpleado %>" method="POST">                          
-                          <% } else { %>
-                            <% var url='/miFeedback/' + idEmpleado;%>
-                            <form action="<%=url%>" method="POST">
+                          <% } 
+                          else { %>
+                            <form action="/mentorados/detalleFeedback/<%= idEmpleado %>" method="POST">     
                           <% } %>
                             <input id="IdPed" name="IdPed" type="hidden" value="<%= retroalimentaciones[e].idPeriodo %>">
                             <input id="IdEval" name="IdEval" type="hidden" value="<%= retroalimentaciones[e].idEvaluador %>">

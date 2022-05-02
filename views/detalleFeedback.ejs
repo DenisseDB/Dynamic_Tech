@@ -256,8 +256,10 @@
          <% if (self == '') {%>
          <a href="./miFeedback" id="regresar" name="regresar" class="btn btn-dark"> Regresar </a>
          <% } else{%>
-         <% var url='/miFeedback/' + id_empleado;%>
-         <a href="./" id="regresar" name="regresar" class="btn btn-dark"> Regresar </a>
+         <% var url='./mentorados/vistaFeedback/' + id_empleado; %>
+         <form action="javascript:history.go(-1)" method="POST">
+            <button value="submit" class="btn btn-dark">Regresar</button>
+          </form>
          <% } %>
       </div>
    </div>
