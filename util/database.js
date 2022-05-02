@@ -15,12 +15,12 @@ const pool = mysql.createPool({
    password: 'contraseña123.'
 });
 
-/*const pool = mysql.createPool({
-   host: 'localhost',
-   user: 'DynamicTech',
-   database: 'dynamictech_bd_feedback2',
-   password: ''
-});*/
+// const pool = mysql.createPool({
+//    host: 'localhost',
+//    user: 'DynamicTech',
+//    database: 'dynamictech_bd_feedback2',
+//    password: ''
+// });
 
 // const pool = mysql.createPool({
 //    host: 'localhost',

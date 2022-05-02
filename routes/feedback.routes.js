@@ -12,8 +12,8 @@ router.get('/mentorados', isAuth, checkRoleAuth([1, 2]), feedController.misMento
 router.get('/miFeedback', isAuth, feedController.miFeedback); // FEEDBACK - Mi Feedback
 router.post('/miFeedback', isAuth, feedController.detalleFeedback);
 
-router.get('/miFeedback/:id', isAuth, feedController.miFeedback_id); // FEEDBACK - Mi Feedback
-router.post('/miFeedback/:id', isAuth, feedController.detalleFeedback_id); // FEEDBACK - Mi Feedback
+router.post('/mentorados/vistaFeedback/:idEmpleado', isAuth, checkRoleAuth([1,2]), feedController.miFeedback_id); // FEEDBACK - Mi Feedback
+//router.post('/miFeedback/:id', isAuth, feedController.detalleFeedback_id); // FEEDBACK - Mi Feedback
 
 router.get('/responderFeedback/:idEvaluado/:idPeriodo', isAuth,feedController.cuestionario) // CUESTIONARIO - Formulario de feedback
 router.post('/responderFeedback/:idEvaluado/:idPeriodo', isAuth,feedController.salvarRespuestas)

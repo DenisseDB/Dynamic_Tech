@@ -156,9 +156,10 @@ exports.detalleFeedback = async (request, response, next) => {
 };
 
 exports.miFeedback_id = async (request, response, next) => {
+   //console.log('holis');
+   //console.log(request.params.idEmpleado);
 
-   const empleado = request.params.id; // Empleado para el cual se consulta su feedback.
-   console.log('mi' + request.params.id);
+   const empleado = request.params.idEmpleado; // Empleado para el cual se consulta su feedback.
     const niv = await User.fetchDimensiones_actuales(empleado); // Nivel del empleado de la consulta.
     const nom = await User.fetchNombre(empleado); // Nombre del empleado de la consulta.
     const pds = await Historial.fetchAllPeriodo(); // Periodos de evaluación.
