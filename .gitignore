@@ -6,7 +6,7 @@
 # Node artifact files
 node_modules/
 dist/
-uploads/
+#uploads/
 
 # Compiled Java class files
 *.class
@@ -51,7 +51,7 @@ Thumbs.db
 
 VIEJO_modificarFormato.ejs
 borrame_despues.html
+borrame_despues copy.html
 views/nuevoGenerarFormato.ejs
 
-config.js
-.env
+

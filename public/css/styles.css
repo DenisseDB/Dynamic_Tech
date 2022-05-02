@@ -12,7 +12,9 @@ footer {
     height: 4rem;
     background-color: #bb3131;
   } */
-
+#barra_lateral{
+   background-color: rgb(35, 31, 32);
+}
   body {
     /* font-family:'Times New Roman', Times, serif !important; */
     font-family: Arial, Helvetica, sans-serif !important;
@@ -43,6 +45,10 @@ td, th {
   bottom:0;
   right:1em;
   z-index: 1000;
+}
+
+.content-right {
+  margin-right: 0;
 }
 
 .space {
@@ -87,7 +93,7 @@ hr.style17:after {
 }
 
 .content-center {
-  height: 40px;
+  height: 20px;
 }
 
 .content-center h3, p{
@@ -98,6 +104,20 @@ hr.style17:after {
   font-weight: bold;
 }
 
+.borderless {
+  border: none;
+}
+
+.pc1 {
+  opacity: 1;
+  height: 100%; 
+}
+
+.pc2 {
+  opacity: 0; 
+  height: 0px;
+}
+ 
 .profile-pic-div{
   height: 150px;
   width: 150px;

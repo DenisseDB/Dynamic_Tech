@@ -21,39 +21,237 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <body>
 
+  
+  <div class="container px-13">
+    <div class="space2">
+      <h2><strong>Mi Chapter</strong></h2>
+      <hr class="style17">
+
+
 <div class="container">
-<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
 
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header">
+          <h><h5 style="text-align: center;">¿Cómo va el progreso de recolección de feedback?</h5></b>
+        </div>
+        <div class="card-body">
+           <!-- jQuery --> 
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          <!-- Chart JS -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+          <p class="card-text"><canvas id="myChart" style="width:100%;max-width:600px"></canvas></p>
+        </div>
+      </div>
+    </div>
+
+
+   
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header">
+            <h><h5 style="text-align: center;">¿Cuál es el promedio del chapter?</h5></b>
+          </div>
+          <div class="card-body">
+         Aquí va otra gráfica
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="space2">
+    <br><br>
+    <h3><strong>Mentores del chapter</strong></h3>
+    <hr class="style17">
+
+    
+  
+    <div class="row" id="buscarEmpleado">
+      <div class="col-sm-12">
+        <div class="card">
+          <h5 class="card-header" style="vertical-align: middle;"><i class="bi bi-person-fill" ></i>Mentores asignados
+  
+              <a href="/miChapter/agregarMentor" class="btn btn-dark" style="margin-left: 600px;">Agregar Mentor</a>
+      
+        </h5>
+          <div class="card-body">
+            
+            <!--Para tabla con boostrap-->
+            <table class="table" style="table-layout: fixed">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Mentor</th>
+                  <th scope="col">Mentorados</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+
+                <tr>
+                  <% for (let mentor of mentores) { %>
+                    
+                   
+                <style>
+                  td {
+
+                text-align: center;
+                vertical-align: middle;
+                }
+                </style>
+                     
+                    <td>
+                      <img src="<%= mentor.fotoPerfil %>" alt="hugenerd" width="80" height="80" class="rounded-circle">
+                    </td>
+                 
+                  <td>
+                    <%= mentor.nombre %>
+                    <%= mentor.apellidoP %>
+                      <%= mentor.apellidoM %>
+                 </td>
+
+                
+                 <td style="text-align:justify; width:20%;">
+                   <ul>
+                  <% for (let mentorado of mentorados) { %>
+                    <% if (mentor.idMentor == mentorado.idMentor) { %>
+                    <li type="circle"><%= mentorado.nombre %><%= mentorado.apellidoP %><%= mentorado.apellidoM %></li>
+                      <% } %>
+                    <% } %>
+                  </ul>
+                </td>
+
+              
+                <td>
+                  <a href="#"class="btn btn-dark">Modificar Mentorados</a>
+                </td>
+             
+                <td>
+                  <form action="#" method="POST"
+                    onsubmit="return submitForm(this);">
+                    <button value="submit" class="btn btn-danger">Eliminar Mentor</button>
+                  </form>
+              </td>
+                </tr>
+               
+                <%} %>
+              </thead>
+             
+            </table>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    
 <script>
-var xValues = ["Solicitudes Enviadas", "Solicitudes respondidas"];
-var yValues = [55, 49];
-var barColors = [
-  //"#D4507C",
-  "#E25287",
-  "#3136B2",
-  //"rgb(39, 94, 179)",
-];
 
-new Chart("myChart", {
-  type: "doughnut",
-  data: {
-    labels: xValues,
-    datasets: [{
-      backgroundColor: barColors,
-      data: yValues
-    }]
-  },
-  options: {
-    title: {
-      display: true,
-      text: "Feedback periodo -"
-    }
-  }
-});
+function submitForm() {
+  return confirm('¿Realmente quieres eliminar al mentor?');
+}
+
+fetch('/miChapter/feedback', {
+         method: 'GET',
+         headers: {
+            'Content-Type': 'application/json',
+            //'csrf-token': csrf
+         }
+      }).then(result => {
+         return result.json();
+      }).then(solicitudes => {
+
+
+        console.log(solicitudes)
+        console.log(solicitudes[0].NombrePeriodo);
+
+        var ctx = document.getElementById("myChart").getContext('2d');
+
+        var respondidas = 0;
+        var sin_responder = 0;
+
+      for(let sol in solicitudes){
+
+        if(solicitudes[sol].estatus == 1){
+          respondidas ++;
+         
+        }else{
+          sin_responder ++;
+        }
+
+
+      }
+        
+
+    var xValues = ["Solicitudes sin responder", "Solicitudes respondidas"];
+    var yValues = [sin_responder, respondidas];
+    var barColors = [
+      //"#D4507C",
+      "#E25287",
+      "#3136B2",
+      //"rgb(39, 94, 179)",
+    ];
+
+    var data = [
+    {
+       data : yValues,
+       backgroundColor: barColors,
+       borderColor : "#fff",
+
+    }];
+
+    var options = {
+
+      cutoutPercentage: 40,
+
+      title: {
+          display: true,
+          text: ["Feedback periodo -" + solicitudes[0].NombrePeriodo,  "Total de solicitudes: " + solicitudes.length]
+        },
+        tooltips: {
+          enabled: true
+        },
+        plugins: {
+            datalabels: {
+                formatter: (value, ctx) => {
+
+                  let sum = ctx.dataset._meta[0].total;
+                  let percentage = (value * 100 / sum).toFixed(2) + "%";
+                  return percentage;
+
+
+                },
+              color: '#fff',
+            }
+        }
+
+    };
+
+    var ctx = document.getElementById("myChart").getContext('2d');
+
+    var MyChart = new Chart("myChart", {
+      type: "doughnut",
+      //type: "pie",
+      data: {
+        labels: xValues,
+        datasets: data,
+      },
+      options: options,
+    });
+
+  }).catch(err => {
+         console.log(err);
+  });
+
 </script>
 
 </div>
-
+</div>
+    </div>
+  </div>
 </body>
 
 <%- include('includes/foot.ejs') %>
