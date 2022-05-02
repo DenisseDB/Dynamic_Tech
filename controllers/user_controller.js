@@ -1,12 +1,17 @@
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 
+
 exports.get_login = (request, response, next) => {
+   if (request.session.isLoggedIn == true) {
+      response.redirect('/home');
+  } else {
    response.render('login', {
       correo: request.session.correo ? request.session.correo : '',
       info: '',
       incorrecto: '',
    });
+  }
 };
 
 // ROLES AUTORIZADOS PARA TOPS

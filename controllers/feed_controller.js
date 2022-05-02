@@ -156,9 +156,10 @@ exports.detalleFeedback = async (request, response, next) => {
 };
 
 exports.miFeedback_id = async (request, response, next) => {
+   //console.log('holis');
+   //console.log(request.params.idEmpleado);
 
-   const empleado = request.params.id; // Empleado para el cual se consulta su feedback.
-   console.log('mi' + request.params.id);
+   const empleado = request.params.idEmpleado; // Empleado para el cual se consulta su feedback.
     const niv = await User.fetchDimensiones_actuales(empleado); // Nivel del empleado de la consulta.
     const nom = await User.fetchNombre(empleado); // Nombre del empleado de la consulta.
     const pds = await Historial.fetchAllPeriodo(); // Periodos de evaluación.
@@ -194,7 +195,7 @@ exports.miFeedback_id = async (request, response, next) => {
         nivel_craftpg: niv[0][0].nivelE,
         nivel_peoplepg: niv[0][1].nivelE,
         nivel_businesspg: niv[0][2].nivelE,
-        ruta : "/empleados/feedback/"
+        ruta : "/mentorados/detalleFeedback/"
     });
 };
 
@@ -234,7 +235,7 @@ exports.detalleFeedback_id = async (request, response, next) => {
        apellido_empleado: nom[0][0].apellidoP,
        id_empleado: request.params.id,
        self: '1',
-       ruta : '/miFeedback/:id'
+       ruta : ''
    });
 };
 
