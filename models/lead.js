@@ -15,7 +15,7 @@ module.exports = class ChapterLead {
         this.idRol = idRol;
         this.nivelCraft = nivelCraft;
         this.nivelPeople = nivelPeople;
-        this.nivelBusiness = nivelPeople;
+        this.nivelBusiness = nivelBusiness;
     }
 
     // //Este método servirá para guardar de manera persistente el nuevo objeto. 
@@ -79,10 +79,13 @@ module.exports = class ChapterLead {
         [nombre,apellidoP,apellidoM,correo,contrasena,idEquipo,idEmpleado, idRol,nivelCraft,nivelPeople, nivelBusiness,foto]);
     }
 
+    //Para gráfica de solicitudes del chapter
     static fetchSolicitudesActuales() {
          return db.execute('SELECT r.idPeriodo, estatus, NombrePeriodo from retroalimentacion as r, periodo as p WHERE  p.idPeriodo = r.idPeriodo AND p.idPeriodo in (SELECT MAX(idPeriodo) FROM periodo);')
     }
 
+
+    //Para cargar mi chapter
     static fetchMentores() {
         return db.execute('SELECT idMentor,nombre, apellidoP, apellidoM, fotoPerfil FROM asignacionempleado,empleado WHERE idMentor = idEmpleado GROUP BY idMentor;')
    }
@@ -91,13 +94,44 @@ module.exports = class ChapterLead {
     return db.execute('SELECT idMentor, idMentorado, nombre, apellidoP, apellidoM FROM asignacionempleado,empleado WHERE idMentorado = idEmpleado;')
     }
 
+    //Para agregar Mentor
     static fetchNoMentores(){
-        return db.execute('SELECT * FROM `empleado` WHERE idEmpleado NOT IN (SELECT idMentor FROM asignacionempleado);')
+        return db.execute('SELECT empleado.idEmpleado,nombre,apellidoP,apellidoM,fotoPerfil,idRol,activo FROM empleado,rolempleado WHERE empleado.idEmpleado = rolempleado.idEmpleado AND (idRol = 1 or idRol = 2) AND activo = 1 and empleado.idEmpleado NOT IN (SELECT idMentor FROM asignacionempleado);')
     }
 
     static fetchNoMentorados(){
-        return db.execute('SELECT * FROM `empleado` WHERE idEmpleado NOT IN (SELECT idMentorado FROM asignacionempleado);')
+        return db.execute('SELECT * FROM `empleado` WHERE activo = 1 and idEmpleado NOT IN (SELECT idMentorado FROM asignacionempleado);')
     }
+
+    //Para eliminar mentor
+    static eliminarMentor(idMentor){
+        return db.execute('DELETE FROM asignacionempleado WHERE idMentor= ?;', [idMentor]);
+    }
+
+
+    //Para modificar mentorados de un mentor
+    static fetchMentor(idMentor){
+        return db.execute('SELECT idMentor, idMentorado,nombre,apellidoP,apellidoM,fotoPerfil FROM asignacionempleado,empleado WHERE idMentor = ? and idMentor = idEmpleado;', [idMentor]);
+    }
+
+    static fetchMentorado(idMentor){
+        return db.execute('SELECT idMentor, idMentorado,nombre,apellidoP,apellidoM,fotoPerfil FROM asignacionempleado,empleado WHERE idMentor = ? and idMentorado = idEmpleado;', [idMentor]);
+    }
+
+
+    //Para eliminar mentor
+    static eliminarMentorado(idMentor,idMentorado){
+        return db.execute('DELETE FROM asignacionempleado WHERE idMentor= ? AND idMentorado = ?;', [idMentor, idMentorado]);
+    }
+
+
+    //Para añadir chapter asisstant con mentorados
+      static agregaMentor(idMentor,idMentorado){
+        return db.execute('INSERT INTO asignacionempleado(idMentor, idMentorado) VALUES (?, ?);', [idMentor, idMentorado]);
+    }
+
+
+
   
    
 
