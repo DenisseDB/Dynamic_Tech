@@ -61,9 +61,9 @@ exports.login = (request, response, next) => {
                                     request.session.apellidoPSesion = user.apellidoP;
                                     request.session.foto = rows[0].fotoPerfil;
 
-
                                     request.session.correo = user.correo;
                                     request.session.idRol = rows[0].idRol;
+                                    request.session.idEquipo = rows[0].idEquipo;
 
                                  // Nivel en cada dimensión del sesionado
                                     request.session.craft = rows[0].nivelE;
@@ -74,10 +74,12 @@ exports.login = (request, response, next) => {
                                        response.redirect('../home');
                                           });
                                  }
+                              
                               response.render('login', {
                                  correo: request.session.correo ? request.session.correo : '',
                                  info: '',
                                  incorrecto: 'incorrecto',
+                                 user_info: rows,
                                  });
                               }).catch(err => {
                                  response.redirect('/users/login');

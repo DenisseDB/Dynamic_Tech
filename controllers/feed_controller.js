@@ -355,22 +355,30 @@ exports.home = (request, response, next) => {
 
          request.session.privilegiosPermitidos = rows,
 
-            response.render('index', { // mandamos su informacion al sidenav
+            User.findEquipo()
+            .then(([rows2, fieldData]) => {
 
-               foto: request.session.foto,
-               nombreSesion: request.session.nombreSesion,
-               apellidoPSesion: request.session.apellidoPSesion,
-               correo: request.session.correo ? request.session.correo : '',
-               rolesA: rows,
-               rol: request.session.idRol ? request.session.idRol : '',
-               idEmpleado: request.session.idEmpleado ? request.session.idEmpleado : '',
-               nivel_craftpg: request.session.craft ? request.session.craft : '',
-               nivel_peoplepg: request.session.people ? request.session.people : '',
-               nivel_businesspg: request.session.business ? request.session.business : '',
-            }
-         );
+               response.render('index', { // mandamos su informacion al sidenav
 
+                  foto: request.session.foto,
+                  nombreSesion: request.session.nombreSesion,
+                  apellidoPSesion: request.session.apellidoPSesion,
+                  correo: request.session.correo ? request.session.correo : '',
+                  rolesA: rows,
+                  rol: request.session.idRol ? request.session.idRol : '',
+                  idEmpleado: request.session.idEmpleado ? request.session.idEmpleado : '',
+                  nivel_craftpg: request.session.craft ? request.session.craft : '',
+                  nivel_peoplepg: request.session.people ? request.session.people : '',
+                  nivel_businesspg: request.session.business ? request.session.business : '',
+                  id_equipo: request.session.idEquipo ? request.session.idEquipo : '',
+                  equipos: rows2,
+               })
 
+            })
+            .catch(err => {
+               console.log(err);
+            });
+         
       }).catch((error) => {
          console.log(error);
       });
