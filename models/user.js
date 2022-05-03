@@ -77,6 +77,10 @@ module.exports = class User {
 
    }
 
+   static findEquipo() { 
+      return db.execute('SELECT idEquipo, nombre FROM equipo');
+   }
+
    /*static fetchDimensiones(idEmpleado) {
        return db.execute('SELECT nombre, nivelE FROM dimEmpleado DE, Dimension D WHERE DE.idDimension = D.idDimension AND idEmpleado=?',
            [idEmpleado]);
