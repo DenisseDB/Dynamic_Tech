@@ -394,7 +394,7 @@
       var color_business_bg_circ = cir_business;
    }
 
-   const graficas = () => {
+   const graficas = async () => {
       const new_id = document.getElementById("idE").value;
       console.log(new_id);
       fetch('/users/tops/' + new_id, {
@@ -412,18 +412,35 @@
          var nivel_people = [];
          var fechas = [];
          var fechas2 = [];
+
+         var count = 0;
+
          for (var i in data) {
+            console.log(data[i]);
             if (data[i].idDimension == 1) {
-               nivel_craft.push(data[i].nivelE.toFixed(1));
+               if (count < 4) {
+                  nivel_craft.push(data[i].nivelE.toFixed(1));
+                  count += 1;
+               }
+               
             } else if (data[i].idDimension == 2) {
-               nivel_people.push(data[i].nivelE.toFixed(1));
+               if (count < 4) {
+                  nivel_people.push(data[i].nivelE.toFixed(1));
+                  count += 1;
+               }
             } else if (data[i].idDimension == 3) {
-               nivel_business.push(data[i].nivelE.toFixed(1));
+               if (count < 4) {
+                  nivel_business.push(data[i].nivelE.toFixed(1));
+                  count += 1;
+               }
             }
-            if (!(fechas2.includes(data[i].fecha))) {
-               fechas2.push(data[i].fecha);
-               let d = data[i].fecha.split("T")[0];
+
+            let d = data[i].fecha.split("T")[0];
+
+            if (!(fechas.includes(d))) {
+               console.log(fechas.includes(d));
                fechas.push(d);
+               count = 0;
             }
          }
 
