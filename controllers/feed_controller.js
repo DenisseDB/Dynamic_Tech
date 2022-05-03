@@ -349,6 +349,19 @@ exports.misMentorados = (request, response, next) => {
       });
 };
 
+exports.preguntasFrecuentes = (request, response, next) => {
+
+   response.render('preguntasFrecuentes', {
+
+      correo: request.session.correo ? request.session.correo : '',
+      rolesA: request.session.privilegiosPermitidos,
+      rol: request.session.idRol ? request.session.idRol : '',
+      nombreSesion: request.session.nombreSesion,
+      apellidoPSesion: request.session.apellidoPSesion,
+      foto: request.session.foto,
+   });
+};
+
 exports.home = (request, response, next) => {
    User.fecthPrivilegios(request.session.idRol)
       .then(([rows, fielData]) => {
