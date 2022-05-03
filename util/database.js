@@ -28,17 +28,7 @@ const DB_INSTANCIA =  mysql.createPool({
    user: config.USERBD,
    database: config.DATABASE,
    password: config.PASSWORD,
-<<<<<<< HEAD
    port: config.PORT,
-=======
-});*/
-   
-const pool = mysql.createPool({
-   host: 'mysql-dynamictech.alwaysdata.net',
-   user: '263275',
-   database: 'dynamictech_bd_feedback2',
-   password: 'contraseña123.'
->>>>>>> develop
 });
 // !
 
@@ -47,22 +37,4 @@ module.exports = DB_INSTANCIA.promise(); // ! Se ejecuta este comando cuando que
                                          // ! solo ejecutar la bd de la instancia 
 
 
-<<<<<<< HEAD
 // module.exports = pool.promise();
-=======
-// const pool = mysql.createPool({
-//    host: 'localhost',
-//    user: 'DynamicTech',
-//    database: 'dynamictech_bd_feedback3',
-//    password: ''
-// });
-
-// const pool = mysql.createPool({
-//    host: 'localhost',
-//    user: 'DynamicTech',
-//    database: 'dynamictech_bd_feedback2',
-//    password: ''
-// });
-
-module.exports = pool.promise();
->>>>>>> develop
