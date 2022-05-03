@@ -411,8 +411,54 @@ exports.modificarMentor = (request, response, next) => {
 };
 
 exports.mentorModificado = (request, response, next) => {
+    var url = '/miChapter/modificarMentor/' + request.params.idEmpleado;
+    const mentor = new Mentor(request.params.idMentor, request.body.mentorado);
 
-    console.log(request.body);
+    mentor.saveMentor()
+    .then(() => {
+        Lead.fetchMentor(request.params.idMentor)
+        .then(([Mentor, fielData]) => {
+
+            Lead.fetchNoMentorados()
+                .then(([noMentorados, fielData]) => {
+
+                    Lead.fetchMentorado(request.params.idMentor)
+                    .then(([mentorados, fielData]) => {
+
+                    response.render('modificarMentor', {
+
+                        correo: request.session.correo ? request.session.correo : '',
+                        rolesA: request.session.privilegiosPermitidos,
+                        rol: request.session.idRol ? request.session.idRol : '',
+                        nombreSesion: request.session.nombreSesion,
+                        apellidoPSesion: request.session.apellidoPSesion,
+                        foto: request.session.foto,
+                        mentor : Mentor,
+                        mentorados: mentorados,
+                        noMentorados: noMentorados,
+
+
+
+                    });
+
+                }).catch((error) => {
+                    console.log(error);
+                });
+
+
+                }).catch((error) => {
+                    console.log(error);
+                });
+
+        }).catch((error) => {
+            console.log(error);
+        });
+     })
+     .catch(err => {
+        console.log(err);
+     });
+
+
 };
 
 exports.eliminarMentorado = (request, response, next) => {
