@@ -3,6 +3,7 @@ const Dimension = require('../models/dimension');
 const Pregunta = require('../models/pregunta');
 const Cuestionario = require('../models/Cuestionario');
 
+/* Fetching the data from the database and rendering it to the view. */
 exports.root = (request, response, next) => {
    request.session.p = 0;
 
