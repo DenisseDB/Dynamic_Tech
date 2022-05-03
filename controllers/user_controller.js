@@ -14,17 +14,6 @@ exports.get_login = (request, response, next) => {
   }
 };
 
-// ROLES AUTORIZADOS PARA TOPS
-exports.tops = (request, response, next) => {
-   let roles = [1, 2]; // roles autorizados
-   response.render('index', { // mandamos su informacion al sidenav
-      correo: request.session.correo ? request.session.correo : '',
-      rol: request.session.idRol ? request.session.idRol : '',
-      roles_autorizados: roles,
-      idEmpleado: request.session.idEmpleado ? request.session.idEmpleado : '',
-      nivel_craftpg: request.session.craft ? request.session.craft : '',
-   });
-};
 
 exports.tops_id = (request, response, next) => {
    User.fetchDimensiones(request.params.id)
@@ -139,23 +128,6 @@ exports.logout = (request, response, next) => {
    request.session.destroy(() => {
       response.redirect('/users/login'); //Este código se ejecuta cuando la sesión se elimina.
    });
-};
-
-exports.misMentorados = (request, response, next) => {
-   User.fecthMentorados(request.session.idEmpleado)
-      .then(([rows, fielData]) => {
-         response.render('misMentorados', {
-            // TODO ESTO SE ENVIA A MISMENTORADOS.EJS
-            mentorados: rows, // llevar los mentorados
-            nombre: request.session.nombre, // sacar su nombre
-            correo: request.session.correo, // correo del usurio que esta en header
-            rol: request.session.idRol, // obtener rol del usario
-         }
-
-         );
-      }).catch((error) => {
-         console.log(error);
-      });
 };
 
 exports.root = (request, response, next) => {
