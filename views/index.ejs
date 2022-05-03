@@ -33,6 +33,20 @@
             Bienvenido, <%- nombreSesion %>
               <%- apellidoPSesion %></strong>
           </h3>
+          <p style="text-align: center;">Chapter: Software
+            
+            <br>
+
+            Equipo: 
+            <% for (let equipo of equipos) {%>
+              <% if (equipo.idEquipo == id_equipo) {%>
+                <%= equipo.nombre %>
+              <% } %>
+            <% } %>
+
+            <br>
+            
+          </p>
     </div>
   </div>
     <br>

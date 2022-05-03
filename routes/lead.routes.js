@@ -22,8 +22,21 @@ router.get('/empleados',isAuth, checkRoleAuth([1]), leadController.agregarEmplea
 router.post('/empleados',isAuth, checkRoleAuth([1]), leadController.guardarEmpleado);
 
 router.get('/miChapter/feedback', isAuth,checkRoleAuth([1]), leadController.respondidas);
+
 router.get('/miChapter/agregarMentor', isAuth,checkRoleAuth([1]), leadController.agregarMentor);
+router.post('/miChapter/agregarMentor', isAuth,checkRoleAuth([1]), leadController.agregarNuevoMentor);
+
+router.post('/miChapter/eliminarMentor/:idMentor', isAuth,checkRoleAuth([1]), leadController.eliminarMentor);
+
+
+//Para modificar mentor 
+router.get('/miChapter/modificarMentor/:idMentor',isAuth, checkRoleAuth([1]), leadController.modificarMentor);
+router.post('/miChapter/modificarMentor/:idMentor',isAuth, checkRoleAuth([1]), leadController.mentorModificado);
+router.post('/miChapter/eliminarMentorado/:idMentor/:idMentorado',isAuth, checkRoleAuth([1]), leadController.eliminarMentorado);
+
+
 router.get('/miChapter',isAuth, checkRoleAuth([1]), leadController.miChapter);
+
 
 
 

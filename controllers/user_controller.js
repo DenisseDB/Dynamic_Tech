@@ -1,25 +1,19 @@
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 
+
 exports.get_login = (request, response, next) => {
+   if (request.session.isLoggedIn == true) {
+      response.redirect('/home');
+  } else {
    response.render('login', {
       correo: request.session.correo ? request.session.correo : '',
       info: '',
       incorrecto: '',
    });
+  }
 };
 
-// ROLES AUTORIZADOS PARA TOPS
-exports.tops = (request, response, next) => {
-   let roles = [1, 2]; // roles autorizados
-   response.render('index', { // mandamos su informacion al sidenav
-      correo: request.session.correo ? request.session.correo : '',
-      rol: request.session.idRol ? request.session.idRol : '',
-      roles_autorizados: roles,
-      idEmpleado: request.session.idEmpleado ? request.session.idEmpleado : '',
-      nivel_craftpg: request.session.craft ? request.session.craft : '',
-   });
-};
 
 exports.tops_id = (request, response, next) => {
    User.fetchDimensiones(request.params.id)
@@ -56,9 +50,9 @@ exports.login = (request, response, next) => {
                                     request.session.apellidoPSesion = user.apellidoP;
                                     request.session.foto = rows[0].fotoPerfil;
 
-
                                     request.session.correo = user.correo;
                                     request.session.idRol = rows[0].idRol;
+                                    request.session.idEquipo = rows[0].idEquipo;
 
                                  // Nivel en cada dimensión del sesionado
                                     request.session.craft = rows[0].nivelE;
@@ -69,10 +63,12 @@ exports.login = (request, response, next) => {
                                        response.redirect('../home');
                                           });
                                  }
+                              
                               response.render('login', {
                                  correo: request.session.correo ? request.session.correo : '',
                                  info: '',
                                  incorrecto: 'incorrecto',
+                                 user_info: rows,
                                  });
                               }).catch(err => {
                                  response.redirect('/users/login');
@@ -132,23 +128,6 @@ exports.logout = (request, response, next) => {
    request.session.destroy(() => {
       response.redirect('/users/login'); //Este código se ejecuta cuando la sesión se elimina.
    });
-};
-
-exports.misMentorados = (request, response, next) => {
-   User.fecthMentorados(request.session.idEmpleado)
-      .then(([rows, fielData]) => {
-         response.render('misMentorados', {
-            // TODO ESTO SE ENVIA A MISMENTORADOS.EJS
-            mentorados: rows, // llevar los mentorados
-            nombre: request.session.nombre, // sacar su nombre
-            correo: request.session.correo, // correo del usurio que esta en header
-            rol: request.session.idRol, // obtener rol del usario
-         }
-
-         );
-      }).catch((error) => {
-         console.log(error);
-      });
 };
 
 exports.root = (request, response, next) => {

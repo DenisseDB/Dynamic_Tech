@@ -1,9 +1,7 @@
 const User = require('../models/user');
-const Feed = require('../models/contestaFeed');
-const Solicitud = require('../models/solicitud');
 const Lead = require('../models/lead');
 const Historial = require('../models/historico');
-const res = require('express/lib/response');
+const Mentor = require('../models/modificarMentor');
 const bcrypt = require('bcryptjs');
 
 exports.agregarEmpleados = (request, response, next) => {
@@ -100,10 +98,6 @@ exports.feedbackEmpleado = async (request, response, next) => {
         dsI.push(especifico);
     }
     
-    //console.log(hs);
-    //console.log(dsI);
-    console.log(dsG);
-
     response.render('miFeedback.ejs',
     {
         idSesionado: request.session.idEmpleado,
@@ -133,10 +127,6 @@ exports.detalleEmpleado = async (request, response, next) => {
     let idcraft = request.body.IdCraft;
     let idPeople = request.body.IdPeople;
     let idCommercial = request.body.IdCommercial;
-
-    // console.log(evaluador); console.log(evaluado);
-    // console.log(periodo); console.log(idcraft);
-    // console.log(idPeople); console.log(idCommercial);
 
     const rCraft = await Historial.fetchFeedDetallado(idcraft, evaluado, evaluador, periodo); // Retro del Cuestionario Craft.
     const rPeople = await Historial.fetchFeedDetallado(idPeople, evaluado, evaluador, periodo); // Retro del Cuestionario People.
@@ -333,6 +323,125 @@ exports.agregarMentor = (request, response, next) => {
         }).catch((error) => {
             console.log(error);
         });
+};
+
+
+exports.agregarNuevoMentor = async (request, response, next) => {
+
+    console.log(request.body.mentorado);
+    console.log(request.body.mentorados);
+
+    var mentorado = request.body.mentorados;
+
+    // for (let nuevoMentorado of mentorado ) {
+    //             console.log(nuevoMentorado);
+    //         }
+    
+    try {
+        //Ciclo for para realizar insert de mentorados a mentor 
+        for (let nuevoMentorado of mentorado ) {
+            let res = new Mentor(request.body.mentorado,nuevoMentorado);
+            await res.saveMentor();
+        }
+        response.redirect('/miChapter');
+
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+exports.eliminarMentor = (request, response, next) => {
+
+    console.log(request.params.idMentor);
+
+    Lead.eliminarMentor(request.params.idMentor)
+           .then(([rows,fieldData]) =>{ 
+
+               response.redirect('/miChapter');
+
+           }).catch(error => {
+               console.log(error);
+           });
+};
+
+
+exports.modificarMentor = (request, response, next) => {
+
+    //console.log(request.session.foto);
+
+    Lead.fetchMentor(request.params.idMentor)
+        .then(([Mentor, fielData]) => {
+
+            //console.log(Mentor);
+
+            Lead.fetchNoMentorados()
+                .then(([noMentorados, fielData]) => {
+
+                    Lead.fetchMentorado(request.params.idMentor)
+                    .then(([mentorados, fielData]) => {
+
+                    response.render('modificarMentor', {
+
+                        correo: request.session.correo ? request.session.correo : '',
+                        rolesA: request.session.privilegiosPermitidos,
+                        rol: request.session.idRol ? request.session.idRol : '',
+                        nombreSesion: request.session.nombreSesion,
+                        apellidoPSesion: request.session.apellidoPSesion,
+                        foto: request.session.foto,
+                        mentor : Mentor,
+                        mentorados: mentorados,
+                        noMentorados: noMentorados,
+
+
+
+                    });
+
+                }).catch((error) => {
+                    console.log(error);
+                });
+
+
+                }).catch((error) => {
+                    console.log(error);
+                });
+
+        }).catch((error) => {
+            console.log(error);
+        });
+};
+
+exports.mentorModificado = async (request, response, next) => {
+
+    var mentorado = request.body.mentorado; 
+
+    try {
+        //Ciclo for para realizar insert de mentorados a mentor 
+        for (let nuevoMentorado of mentorado ) {
+            let res = new Mentor(request.params.idMentor,nuevoMentorado);
+            await res.saveMentor();
+        }
+        response.redirect('/miChapter/modificarMentor/'+request.params.idMentor+"'");
+
+    } catch (error) {
+        console.log(error);
+    }
+    
+
+};
+
+exports.eliminarMentorado = (request, response, next) => {
+
+    //console.log(request.params.idMentor);
+    //console.log(request.params.idMentorado);
+
+    Lead.eliminarMentorado(request.params.idMentor,request.params.idMentorado)
+           .then(([rows,fieldData]) =>{ 
+
+               response.redirect('/miChapter/modificarMentor/'+request.params.idMentor+"'");
+
+           }).catch(error => {
+               console.log(error);
+           });
 };
 
 exports.miChapter = (request, response, next) => {
