@@ -2,16 +2,16 @@
 
 <!-- Para que aparezca Mis Mentorados -->
 <% for (i=0; i < rolesA.length; i++) { %>
-<% if (rolesA[i].idPrivilegio==1) { %>
-   <%- include('includes/sideMentorados.ejs') %>
-<% } %>
+   <% if (rolesA[i].idPrivilegio==1) { %>
+      <%- include('includes/sideMentorados.ejs') %>
+   <% } %>
 <% } %>
 
                <!-- Para que aparezca Empleados del chapter -->
 <% for (i=0; i < rolesA.length; i++) { %>
-<% if (rolesA[i].idPrivilegio==2) { %>
-<%- include('includes/sideAgregarE.ejs') %>
-<% } %>
+   <% if (rolesA[i].idPrivilegio==2) { %>
+      <%- include('includes/sideAgregarE.ejs') %>
+   <% } %>
 <% } %>
 
 <%- include('includes/sidenavFin.ejs') %>
@@ -23,10 +23,6 @@
       <br>
       <div class="container">
          <div class="col-sm-12">
-            <button type="button" style="margin:auto" class="btn btn-dark"> + Nuevo Cuestionario</button>
-            <br>
-            <br>
-
             <div class="accordion" id="accordionExample">
                <div class="accordion-item">
                   <h2 class="accordion-header" id="headingOne">
@@ -49,33 +45,35 @@
                            </thead>
                            <tbody>
                               <% for (let cuestionario of cuestionarios) { %>
-                                 <% if (cuestionario.idDimension == 1 ) { %>
-                                 <tr>
-                                    <td>
-                                       <%=cuestionario.nombre%>
-                                    </td>
-                                    <td>
-                                       <%=cuestionario.idDimension%>
-                                    </td>
-                                    <td>
-                                       <%=cuestionario.nivelP%>
-                                    </td>
-                                    <td>
-                                       <% var c=cuestionario.fecha; %>
-                                          <%= new Date(c).toISOString().slice(0, 19).replace('T', ' ' ); %>
-                        
-                                    </td>
-                                    <td>
-                                       <button type="button" style="margin:auto" class="btn btn-outline-dark">
-                                          <!--i class="bi bi-eye-fill"></i--> Ver
-                                       </button>
-                                       <button type="button" style="margin:auto" class="btn btn-dark">
-                                          <!--i class="bi bi-pencil-square"></i--> Editar
-                                       </button>
-                                    </td>
-                                 </tr>
-                                 <% } %>
-                                 <% } %>
+                              <% if (cuestionario.idDimension == 1 ) { %>
+                              <tr>
+                                 <td>
+                                    <%=cuestionario.nombre%>
+                                 </td>
+                                 <td>
+                                    <%=cuestionario.nivelC%>
+                                 </td>
+                                 <td>
+                                    <% var c=cuestionario.fecha; %>
+                                    <%= new Date(c).toISOString().slice(0, 19).replace('T', ' ' ); %>
+
+                                 </td>
+                                 <td>
+                                    <% var url2='/feedback/verCuestionario/' + cuestionario.idCuestionario+'/' + cuestionario.nombre;%>
+                                    <a href="<%=url2%>" type="button" style="margin:auto"
+                                       class="btn btn-outline-dark col-xs-6" id="Ver_Cuest_Craft">
+                                       Ver
+                                    </a>
+
+                                    <% var url='/feedback/editarCuestionario/' + cuestionario.idCuestionario + '/' + cuestionario.nivelC + '/' + cuestionario.idDimension + '/' + cuestionario.nombre;%>
+                                    <a href="<%=url%>" type="button" style="margin:auto" class="btn btn-dark"
+                                       id="Editar_Cuest_Craft">
+                                       Editar <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                 </td>
+                              </tr>
+                              <% } %>
+                              <% } %>
                            </tbody>
                         </table>
                      </div>
@@ -88,9 +86,9 @@
             <div class="accordion" id="accordionExample2">
                <div class="accordion-item">
                   <h2 class="accordion-header" id="headingTwo">
-                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-                        aria-expanded="true" aria-controls="collapseTwo">
-                        <h5> Cuestionarios de People </h5>
+                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        <h5> Cuestionarios de People & Mindsets </h5>
                      </button>
                   </h2>
                   <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo"
@@ -107,33 +105,33 @@
                            </thead>
                            <tbody>
                               <% for (let cuestionario of cuestionarios) { %>
-                                 <% if (cuestionario.idDimension==2 ) { %>
-                                    <tr>
-                                       <td>
-                                          <%=cuestionario.nombre%>
-                                       </td>
-                                       <td>
-                                          <%=cuestionario.idDimension%>
-                                       </td>
-                                       <td>
-                                          <%=cuestionario.nivelP%>
-                                       </td>
-                                       <td>
-                                          <% var c=cuestionario.fecha; %>
-                                             <%= new Date(c).toISOString().slice(0, 19).replace('T', ' ' ); %>
-            
-                                       </td>
-                                       <td>
-                                          <button type="button" style="margin:auto" class="btn btn-outline-dark">
-                                             <!--i class="bi bi-eye-fill"></i--> Ver
-                                          </button>
-                                          <button type="button" style="margin:auto" class="btn btn-dark">
-                                             <!--i class="bi bi-pencil-square"></i--> Editar
-                                          </button>
-                                       </td>
-                                    </tr>
-                                    <% } %>
-                                       <% } %>
+                              <% if (cuestionario.idDimension==2 ) { %>
+                              <tr>
+                                 <td>
+                                    <%=cuestionario.nombre%>
+                                 </td>
+                                 <td>
+                                    <%=cuestionario.nivelC%>
+                                 </td>
+                                 <td>
+                                    <% var c=cuestionario.fecha; %>
+                                    <%= new Date(c).toISOString().slice(0, 19).replace('T', ' ' ); %>
+
+                                 </td>
+                                 <td>
+                                    <% var url2='/feedback/verCuestionario/' + cuestionario.idCuestionario+'/' + cuestionario.nombre;%>
+                                    <a href="<%=url2%>" type="button" style="margin:auto" class="btn btn-outline-dark">
+                                       Ver
+                                    </a>
+
+                                    <% var url='/feedback/editarCuestionario/' + cuestionario.idCuestionario + '/' + cuestionario.nivelC + '/' + cuestionario.idDimension + '/' + cuestionario.nombre;%>
+                                    <a href="<%=url%>" type="button" style="margin:auto" class="btn btn-dark">
+                                       Editar <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                 </td>
+                              </tr>
+                              <% } %>
+                              <% } %>
                            </tbody>
                         </table>
                      </div>
@@ -146,9 +144,9 @@
             <div class="accordion" id="accordionExample2">
                <div class="accordion-item">
                   <h2 class="accordion-header" id="headingThree">
-                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                        aria-expanded="true" aria-controls="collapseThree">
-                        <h5> Cuestionarios de Business </h5>
+                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                        <h5> Cuestionarios de Commercial & customer </h5>
                      </button>
                   </h2>
                   <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree"
@@ -165,33 +163,32 @@
                            </thead>
                            <tbody>
                               <% for (let cuestionario of cuestionarios) { %>
-                                 <% if (cuestionario.idDimension==3 ) { %>
-                                    <tr>
-                                       <td>
-                                          <%=cuestionario.nombre%>
-                                       </td>
-                                       <td>
-                                          <%=cuestionario.idDimension%>
-                                       </td>
-                                       <td>
-                                          <%=cuestionario.nivelP%>
-                                       </td>
-                                       <td>
-                                          <% var c=cuestionario.fecha; %>
-                                             <%= new Date(c).toISOString().slice(0, 19).replace('T', ' ' ); %>
-            
-                                       </td>
-                                       <td>
-                                          <button type="button" style="margin:auto" class="btn btn-outline-dark">
-                                             <!--i class="bi bi-eye-fill"></i--> Ver
-                                          </button>
-                                          <button type="button" style="margin:auto" class="btn btn-dark">
-                                             <!--i class="bi bi-pencil-square"></i--> Editar
-                                          </button>
-                                       </td>
-                                    </tr>
-                                    <% } %>
-                                       <% } %>
+                              <% if (cuestionario.idDimension==3 ) { %>
+                              <tr>
+                                 <td>
+                                    <%=cuestionario.nombre%>
+                                 </td>
+                                 <td>
+                                    <%=cuestionario.nivelC%>
+                                 </td>
+                                 <td>
+                                    <% var c=cuestionario.fecha; %>
+                                    <%= new Date(c).toISOString().slice(0, 19).replace('T', ' ' ); %>
+
+                                 </td>
+                                 <td>
+                                    <% var url2='/feedback/verCuestionario/' + cuestionario.idCuestionario+'/' + cuestionario.nombre;%>
+                                    <a href="<%=url2%>" type="button" style="margin:auto" class="btn btn-outline-dark"> Ver
+                                    </a>
+
+                                    <% var url='/feedback/editarCuestionario/' + cuestionario.idCuestionario + '/' + cuestionario.nivelC + '/' + cuestionario.idDimension + '/' + cuestionario.nombre;%>
+                                    <a href="<%=url%>" type="button" style="margin:auto" class="btn btn-dark">
+                                       Editar <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                 </td>
+                              </tr>
+                              <% } %>
+                              <% } %>
                            </tbody>
                         </table>
                      </div>
@@ -204,88 +201,6 @@
    </div>
 </div>
 
-            <!--div class="card">
-               <h5 class="card-header"><i class="bi bi-file-earmark-text"></i> Cuestionarios</h5>
-               <div class="card-body">
-                  <table class="table" style="table-layout: fixed">
-                     <thead class="thead-dark">
-                        <tr>
-                           <th style="text-align:center" scope="col">Nombre</th>
-                           <th style="text-align:center" scope="col"> Dimensión </th>
-                           <th style="text-align:center" scope="col"> Nivel </th>
-                           <th style="text-align:center" scope="col"> Fecha de creación </th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <% for (let cuestionario of cuestionarios) { %>
-                           <tr>
-                              <td>
-                                 <%=cuestionario.nombre%>
-                              </td>
-                              <td>
-                                 <%=cuestionario.idDimension%>
-                              </td>
-                              <td>
-                                 <%=cuestionario.nivelP%>
-                              </td>
-                              <td>
-                                 <% var c = cuestionario.fecha; %>
-                                 <%= new Date(c).toISOString().slice(0, 19).replace('T', ' '); %>
+<%- include('includes/foot.ejs') %>
 
-                              </td>
-                              <td>
-                                 <button type="button" style="margin:auto" class="btn btn-outline-dark"><i class="bi bi-eye-fill"></i> Ver </button>
-                                 <button type="button" style="margin:auto" class="btn btn-dark"><i class="bi bi-pencil-square"></i> Editar </button>
-                              </td>
-                           </tr>
-                        <% } %>
-                     </tbody>
-                  </table>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-</div!-->
-<!-- <div class="container px-13">
-   <div class="space2">
-      <h2><strong> Formatos de Evaluación </strong></h2>
-      <hr class="style17">
-      <h3>Consultar formatos de evaluación </h3>
-      </h2>
-      <a class="btn btn-outline-secondary" href="/feedback/generarFormato" role="button">Consultar</a>
-      <br><br>
-      <h3>Generar formatos de evaluación</h3>
-      <a class="btn btn-outline-secondary" href="/feedback/generarFormato" role="button">Generar</a>
-      <br><br>
-      <h3>Modificar formatos de evaluación</h3>
-      <a class="btn btn-outline-secondary" href="/feedback/modificarFormato" role="button">Modificar</a>
-      <br><br>
 
-      <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-         <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-               <img src="..." class="rounded me-2" alt="...">
-               <strong class="me-auto">Estado de Registro de Cuestionario</strong>
-               <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-               <p>
-                  <%=info%>
-               </p>
-            </div>
-            <input id="myinfo" type="hidden" name="myinfo" value="<%=info%>" >
-            </div>
-        </div>
-   </div>
-</div> -->
-        <!-- <script async>
-
-         window.addEventListener("load", function (event) {
-            console.log('Toast');
-            if ('<%=info%>' != '') {
-               new bootstrap.Toast(document.getElementById('liveToast')).show();
-            }
-         });
-      </script> -->
-                     <%- include('includes/foot.ejs') %></br>

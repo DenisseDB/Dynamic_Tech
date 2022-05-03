@@ -47,7 +47,7 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
-*.vscode
+.vscode/settings.json
 
 VIEJO_modificarFormato.ejs
 borrame_despues.html

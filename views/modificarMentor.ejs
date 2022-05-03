@@ -1,0 +1,149 @@
+<!-- Partes que siempre aparecen en el navbar -->
+<%- include('includes/sidenavsup.ejs') %>
+
+<!-- Para que aparezca Mis Mentorados -->
+<% for (i = 0; i < rolesA.length; i++) {  %>
+  <% if (rolesA[i].idPrivilegio == 1) { %> 
+  <%- include('includes/sideMentorados.ejs') %>
+  <% } %>
+<% } %>
+
+<!-- Para que aparezca Empleados del chapter -->
+<% for (i = 0; i < rolesA.length; i++) {  %>
+  <% if (rolesA[i].idPrivilegio == 2) { %> 
+  <%- include('includes/sideAgregarE.ejs') %>
+  <% } %>
+<% } %>
+
+<!-- Final de la nav-->
+<%- include('includes/sidenavFin.ejs') %>
+
+<div class="container">
+    <br>
+    <h3 style="text-align:justify; font-size:x-large;"><a href="/miChapter"
+            style="text-decoration:none; color:rgb(72, 72, 206)">Mi chapter</a><strong> - Modificar
+            Mentorados de: </strong>
+        <%= mentor[0].nombre %>
+            <%= mentor[0].apellidoP %>
+                <%= mentor[0].apellidoM %>
+    </h3>
+    <hr class="style17">
+</div>
+
+<div class='container' style=" width: 90%; text-align: justify;">
+
+    <div class="container" style=" width: 70%;">
+        <br><br>
+        <div class="col-sm-12">
+            <div class="card">
+                <h5 class="card-header" style="font-size: larger;"><i class="bi bi-person-fill"></i>Mentorados de  <%= mentor[0].nombre %>
+                    <%= mentor[0].apellidoP %>
+                        <%= mentor[0].apellidoM %></h5>
+            </div>
+            <div class="card-body">
+                <!--Para tabla con boostrap-->
+                <table class="table">
+                    <tbody>
+
+                        <% for (let mentorado of mentorados) { %>
+
+                            <style>
+                                td {
+                  
+                                  text-align: center;
+                                  vertical-align: middle;
+                                  }
+                            </style>
+
+                            <tr>
+
+                                <td>
+
+                                    <img src="/<%= mentorado.fotoPerfil%>" alt="hugenerd" width="70" height="70"
+                                        class="rounded-circle"><br>
+                                </td>
+
+                                <td>
+
+                                    <%= mentorado.nombre%>
+                                        <%= mentorado.apellidoP%>
+                                            <%= mentorado.apellidoM%>
+                                </td>
+
+                                <td>
+                                    <form action="/miChapter/eliminarMentorado/<%= mentorado.idMentor %>/<%= mentorado.idMentorado%>" method="POST" onsubmit="return submitForm(this);" id="eliminarMentorado"> 
+                                        <!-- <button value="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button> -->
+                                        <button value="submit" class="btn btn-danger"><i class="bi bi-trash3"></i></button>
+
+                                    </form>
+                                </td>
+                            
+                            </tr>
+                            <% } %>
+                        </tbody>
+                </table>
+                
+                <% var url = '/miChapter/modificarMentor/' + mentor[0].idMentor %>
+                <form action="<%= url %>"  id="nuevosMentorados" name="nuevosMentorados" method="POST">
+                    <table style="margin: 0px auto;">
+                        <tbody>
+                            <tr>
+                                <th><br>Nuevos Mentorados:<br><br></th>
+                            
+                                    <td style="width: 100px">
+                                    
+                                        <select id="mentorado" name="mentorado" class="selectpicker" data-live-search="true"
+                                            title="Selecciona nuevos mentorados" data-width="300%" required>
+                                            <% for (let mentorado of noMentorados) { %>
+
+                                                <% if (mentor[0].idMentor != mentorado.idEmpleado) {%>
+                                                    <option value="<%= mentor.idEmpleado %>">
+                                                        <%= mentorado.nombre%>
+                                                            <%= mentorado.apellidoP%>
+                                                                <%= mentorado.apellidoM%>
+                                                    </option>
+
+                                                <% } %>
+                                    
+                                            <% } %>
+                                        </select>
+                                  
+                                    </td>        
+                                                             
+                            </tr>
+                           
+                            <tr>
+
+                                
+
+                                <td>
+                                    <a href="/miChapter" class="btn btn-secondary">Atrás</a>
+                                </td>
+
+
+                                <td>
+
+                                </td>
+
+                                <td>
+                                    <input id="button1" type="submit" value="Guardar cambios" class="btn btn-dark" >
+                                    
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function submitForm() {
+  return confirm('¿Realmente quieres eliminar a este mentorado?');
+}
+
+</script>
+
+<!--Footer DynamicTech-->
+<%- include('includes/foot.ejs') %>

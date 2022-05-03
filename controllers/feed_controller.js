@@ -50,8 +50,8 @@ exports.solicitudesFeedback = async (request, response, next) => {
 
 exports.nuevaSolicitud = async (request, response, next) => {
    let evaluadores = request.body.nombre; // Nombre(s) de compañeros evaluadores.
-   let arr = Array.isArray(evaluadores); // ¿evaluadores es un array?
-   let str = typeof evaluadores === 'string'; // ¿evaluadores es un array?
+   let arr = Array.isArray(evaluadores); // ¿evaluadores (array)?
+   let str = typeof evaluadores === 'string'; // ¿evaluador (string)?
    let n_solicitudes = request.session.solicitudes;
 
    if (arr && ((n_solicitudes + evaluadores.length) <= 7)) {
@@ -95,11 +95,13 @@ exports.miFeedback =  async (request, response, next) => {
     const dsG = await Historial.fetchDesempenioG(request.session.idEmpleado); // Promedio de Desempeño por Periodo (General).
     let dsI = [];
 
-    for await (let x of hs) {
-        let especifico = await Historial.fetchDesempenioE(x.idCuestionarioCraft, x.idCuestionarioPeople, x.idCuestionarioBusiness,
-            request.session.idEmpleado, x.idEvaluador, x.idPeriodo);
-        dsI.push(especifico);
-    }
+   for await (let x of hs) {
+      let especifico = await Historial.fetchDesempenioE(x.idCuestionarioCraft, x.idCuestionarioPeople, x.idCuestionarioBusiness,
+         request.session.idEmpleado, x.idEvaluador, x.idPeriodo);
+      dsI.push(especifico);
+   }
+
+   console.log(request.session.foto);
 
     response.render('miFeedback.ejs',
     {
@@ -108,7 +110,9 @@ exports.miFeedback =  async (request, response, next) => {
         periodos : pds,
         retroalimentaciones : hs,
         especifico : dsI,
-        general : dsG,
+        general: dsG,
+        nombre_empleado: '',
+        apellido_empleado: '',
         nombreSesion: request.session.nombreSesion,
         apellidoPSesion: request.session.apellidoPSesion,
         foto: request.session.foto,
@@ -120,19 +124,19 @@ exports.miFeedback =  async (request, response, next) => {
     });
 };
 
-exports.detalleFeedback =  async (request, response, next) => {
-    let evaluador = request.body.IdEval;
-    let periodo = request.body.IdPed;
-    let evaluado = request.session.idEmpleado;
-    let idcraft = request.body.IdCraft;
-    let idPeople = request.body.IdPeople;
-    let idCommercial = request.body.IdCommercial;
+exports.detalleFeedback = async (request, response, next) => {
+   let evaluador = request.body.IdEval;
+   let periodo = request.body.IdPed;
+   let evaluado = request.session.idEmpleado;
+   let idcraft = request.body.IdCraft;
+   let idPeople = request.body.IdPeople;
+   let idCommercial = request.body.IdCommercial;
 
-    const rCraft = await Historial.fetchFeedDetallado(idcraft, evaluado, evaluador, periodo); // Retro del Cuestionario Craft.
-    const rPeople = await Historial.fetchFeedDetallado(idPeople, evaluado, evaluador, periodo); // Retro del Cuestionario People.
-    const rBusiness = await Historial.fetchFeedDetallado(idCommercial, evaluado, evaluador, periodo); // Retro del Cuestionario Business.
-    const sol = await Historial.fetchSolicitud(evaluado, evaluador, periodo); // Detalle del Periodo y Evaluador.
-    const lvl = await Historial.fetchNiveles(idcraft, idPeople, idCommercial); // Detalle de los niveles al momento de la solicitud.
+   const rCraft = await Historial.fetchFeedDetallado(idcraft, evaluado, evaluador, periodo); // Retro del Cuestionario Craft.
+   const rPeople = await Historial.fetchFeedDetallado(idPeople, evaluado, evaluador, periodo); // Retro del Cuestionario People.
+   const rBusiness = await Historial.fetchFeedDetallado(idCommercial, evaluado, evaluador, periodo); // Retro del Cuestionario Business.
+   const sol = await Historial.fetchSolicitud(evaluado, evaluador, periodo); // Detalle del Periodo y Evaluador.
+   const lvl = await Historial.fetchNiveles(idcraft, idPeople, idCommercial); // Detalle de los niveles al momento de la solicitud.
 
     response.render('detalleFeedback.ejs',
     {
@@ -154,50 +158,48 @@ exports.detalleFeedback =  async (request, response, next) => {
 };
 
 exports.miFeedback_id = async (request, response, next) => {
-   const pds = await Historial.fetchAllPeriodo(); // Periodos de evaluación.
-   const hs = await Historial.fetchFeedHistorico(request.params.id); // Histórico de solicitudes respondidas.
-   let dsI = []; let dsG = []; 
 
-   for await (let x of hs) {
-      let especifico = await Historial.fetchDesempenioE(x.idCuestionarioCraft, x.idCuestionarioPeople, x.idCuestionarioBusiness,
-         request.params.id, x.idEvaluador, x.idPeriodo);
-      dsI.push(especifico);
-   }
+   const empleado = request.params.idEmpleado; // Empleado para el cual se consulta su feedback.
+    const niv = await User.fetchDimensiones_actuales(empleado); // Nivel del empleado de la consulta.
+    const nom = await User.fetchNombre(empleado); // Nombre del empleado de la consulta.
+    const pds = await Historial.fetchAllPeriodo(); // Periodos de evaluación.
+    const hs = await Historial.fetchFeedHistorico(empleado); // Histórico de solicitudes respondidas.
+    const dsG = await Historial.fetchDesempenioG(empleado); // Promedio de Desempeño por Periodo (General).
+    let dsI = [];
 
-   for await (let p of pds) {
-      let general = await Historial.fetchDesempenioG(request.params.id, p.idPeriodo);
-      dsG.push(general);
-   }
-
-   
-   const niv = await User.fetchDimensiones_actuales(request.params.id);
-   const nom = await User.fetchNombre(request.params.id);
-
+    for await (let x of hs) {
+        let especifico = await Historial.fetchDesempenioE(x.idCuestionarioCraft, x.idCuestionarioPeople, x.idCuestionarioBusiness,
+            empleado, x.idEvaluador, x.idPeriodo);
+        dsI.push(especifico);
+    }
+    
    response.render('miFeedback.ejs',
-      {
-         idSesionado: request.session.idEmpleado,
-         rolesA: request.session.privilegiosPermitidos,
-         periodos: pds,
-         retroalimentaciones: hs,
-         desempenioE: dsI,
-         desempenioG: dsG,
-         nombre_empleado: nom[0][0].nombre,
-         apellido_empleado: nom[0][0].apellidoP,
-         nombreSesion: request.session.nombreSesion,
-         apellidoPSesion: request.session.apellidoPSesion,
-         foto: request.session.foto,
-         idEmpleado: request.params.id,
-         nivel_craftpg: niv[0][0].nivelE,
-         nivel_peoplepg: niv[0][1].nivelE,
-         nivel_businesspg: niv[0][2].nivelE
-      });
+    {
+        idSesionado: request.session.idEmpleado,
+        rolesA :  request.session.privilegiosPermitidos,
+        periodos : pds,
+        retroalimentaciones : hs,
+        especifico : dsI,
+        general : dsG,
+        nombreSesion: request.session.nombreSesion,
+        apellidoPSesion: request.session.apellidoPSesion,
+        foto: request.session.foto,
+        nombre_empleado: nom[0][0].nombre,
+        apellido_empleado: nom[0][0].apellidoP,
+        idEmpleado: empleado,
+        nivel_craftpg: niv[0][0].nivelE,
+        nivel_peoplepg: niv[0][1].nivelE,
+        nivel_businesspg: niv[0][2].nivelE,
+        ruta : "/mentorados/detalleFeedback/"
+    });
 };
 
 
 exports.detalleFeedback_id = async (request, response, next) => {
+   // console.log("Llegué aquí");
    let evaluador = request.body.IdEval;
    let periodo = request.body.IdPed;
-   let evaluado = request.params.id;
+   let evaluado = request.params.idEmpleado;
    let idcraft = request.body.IdCraft;
    let idPeople = request.body.IdPeople;
    let idCommercial = request.body.IdCommercial;
@@ -207,24 +209,25 @@ exports.detalleFeedback_id = async (request, response, next) => {
    const rBusiness = await Historial.fetchFeedDetallado(idCommercial, evaluado, evaluador, periodo); // Retro del Cuestionario Business.
    const sol = await Historial.fetchSolicitud(evaluado, evaluador, periodo); // Detalle del Periodo y Evaluador.
    const lvl = await Historial.fetchNiveles(idcraft, idPeople, idCommercial); // Detalle de los niveles al momento de la solicitud.
-   const nom = await User.fetchNombre(request.params.id);
-
+   const nom = await User.fetchNombre(request.params.idEmpleado);
+   
    response.render('detalleFeedback.ejs',
-      {
-         rolesA: request.session.privilegiosPermitidos,
-         craft: rCraft,
-         people: rPeople,
-         business: rBusiness,
-         solicitud: sol,
-         niveles: lvl,
-         id_empleado: request.params.id,
-         nombre_empleado: nom[0][0].nombre,
-         apellido_empleado: nom[0][0].apellidoP,
-         nombreSesion: request.session.nombreSesion,
-         apellidoPSesion: request.session.apellidoPSesion,
-         foto: request.session.foto,
-         self: '1',
-      });
+   {
+       rolesA :  request.session.privilegiosPermitidos,
+       craft : rCraft,
+       people : rPeople,
+       business : rBusiness,
+       solicitud : sol,
+       niveles: lvl,
+       nombreSesion: request.session.nombreSesion,
+       apellidoPSesion: request.session.apellidoPSesion,
+       foto: request.session.foto,
+       nombre_empleado: nom[0][0].nombre,
+       apellido_empleado: nom[0][0].apellidoP,
+       id_empleado: request.params.id,
+       self: '1',
+       ruta : ''
+   });
 };
 
 
@@ -234,7 +237,7 @@ exports.cuestionario = (request, response, next) => {
       .then(([preguntasCraft, fieldData]) => {
          request.session.preguntasCraft = preguntasCraft;
          // console.log(preguntasCraft[0]);
-         // console.log("Nombre: " + preguntasCraft[0].nombre);
+         console.log("Nombre: " + preguntasCraft[0].nombre);
 
          //Tomo las preguntas del cuestionario de People
          Feed.fecthCuestionarioPeople(request.session.idEmpleado, request.params.idEvaluado, request.params.idPeriodo)
@@ -272,54 +275,56 @@ exports.cuestionario = (request, response, next) => {
 exports.salvarRespuestas = async (request, response, next) => {
 
     console.log("Salvar respuestas");
-    //console.log(request.body);
+    console.log(request.body);
 
     //Para facilitar el manejo de las preguntas
     let craft = request.session.preguntasCraft;
+
+    console.log(craft);
     let people = request.session.preguntasPeople;
     let bus = request.session.preguntasBusiness;
 
-    //Para obtener cuantas preguntas fueron
-    var total = craft.length + people.length + bus.length
+   //Para obtener cuantas preguntas fueron
+   var total = craft.length + people.length + bus.length;
 
-    //Para obtener los ids de cada pregunta
-    /* Recorro cada cuestinario para obtener sus ids preguntas y los guardo en 
-        un array
-    */
-    var idP = [];
-    for (i = 0; i < craft.length; i++ ) {
-        idP.push(craft[i].idPregunta);
-    }
-    for (i = 0; i < people.length; i++ ) {
-        idP.push(people[i].idPregunta);
-    }
-    for (i = 0; i < bus.length; i++ ) {
-        idP.push(bus[i].idPregunta);
-    }
- 
-    console.log(idP)
-    //Para obtener las respuestas del body
-    /* Recorro cada radio button del body para obtener sus respuesta y la guardo en 
-        un array
-    */
-    var respuestas = [];
-    for (i = 1; i <= total; i++ ) {
-        respuestas.push(request.body[i]);
-    }
+   //Para obtener los ids de cada pregunta
+   /* Recorro cada cuestinario para obtener sus ids preguntas y los guardo en 
+       un array
+   */
+   var idP = [];
+   for (i = 0; i < craft.length; i++) {
+      idP.push(craft[i].idPregunta);
+   }
+   for (i = 0; i < people.length; i++) {
+      idP.push(people[i].idPregunta);
+   }
+   for (i = 0; i < bus.length; i++) {
+      idP.push(bus[i].idPregunta);
+   }
 
-    console.log(respuestas)
+   console.log(idP);
+   //Para obtener las respuestas del body
+   /* Recorro cada radio button del body para obtener sus respuesta y la guardo en 
+       un array
+   */
+   var respuestas = [];
+   for (i = 1; i <= total; i++) {
+      respuestas.push(request.body[i]);
+   }
 
-    try {
-        //Ciclo for para realizar insert de preguntas y respuestas
-        for (i = 0; i < total; i++ ) {
-            let res = new Feed (request.params.idEvaluado, request.session.idEmpleado, idP[i],request.params.idPeriodo, respuestas[i])
-            await res.save();
-        }
-       response.redirect('/solicitudes');
+    //console.log(respuestas)
 
-    } catch(error) {
-        console.log(error)
-    }
+   try {
+      //Ciclo for para realizar insert de preguntas y respuestas
+      for (i = 0; i < total; i++) {
+         let res = new Feed(request.params.idEvaluado, request.session.idEmpleado, idP[i], request.params.idPeriodo, respuestas[i]);
+         await res.save();
+      }
+      response.redirect('/solicitudes');
+
+   } catch (error) {
+      console.log(error);
+   }
 };
 
 exports.misMentorados = (request, response, next) => {
@@ -344,28 +349,49 @@ exports.misMentorados = (request, response, next) => {
       });
 };
 
+exports.preguntasFrecuentes = (request, response, next) => {
+
+   response.render('preguntasFrecuentes', {
+
+      correo: request.session.correo ? request.session.correo : '',
+      rolesA: request.session.privilegiosPermitidos,
+      rol: request.session.idRol ? request.session.idRol : '',
+      nombreSesion: request.session.nombreSesion,
+      apellidoPSesion: request.session.apellidoPSesion,
+      foto: request.session.foto,
+   });
+};
+
 exports.home = (request, response, next) => {
    User.fecthPrivilegios(request.session.idRol)
       .then(([rows, fielData]) => {
 
          request.session.privilegiosPermitidos = rows,
 
-            response.render('index', { // mandamos su informacion al sidenav
+            User.findEquipo()
+            .then(([rows2, fieldData]) => {
 
-               foto: request.session.foto,
-               nombreSesion: request.session.nombreSesion,
-               apellidoPSesion: request.session.apellidoPSesion,
-               correo: request.session.correo ? request.session.correo : '',
-               rolesA: rows,
-               rol: request.session.idRol ? request.session.idRol : '',
-               idEmpleado: request.session.idEmpleado ? request.session.idEmpleado : '',
-               nivel_craftpg: request.session.craft ? request.session.craft : '',
-               nivel_peoplepg: request.session.people ? request.session.people : '',
-               nivel_businesspg: request.session.business ? request.session.business : '',
+               response.render('index', { // mandamos su informacion al sidenav
 
+                  foto: request.session.foto,
+                  nombreSesion: request.session.nombreSesion,
+                  apellidoPSesion: request.session.apellidoPSesion,
+                  correo: request.session.correo ? request.session.correo : '',
+                  rolesA: rows,
+                  rol: request.session.idRol ? request.session.idRol : '',
+                  idEmpleado: request.session.idEmpleado ? request.session.idEmpleado : '',
+                  nivel_craftpg: request.session.craft ? request.session.craft : '',
+                  nivel_peoplepg: request.session.people ? request.session.people : '',
+                  nivel_businesspg: request.session.business ? request.session.business : '',
+                  id_equipo: request.session.idEquipo ? request.session.idEquipo : '',
+                  equipos: rows2,
+               })
+
+            })
+            .catch(err => {
+               console.log(err);
             });
-
-
+         
       }).catch((error) => {
          console.log(error);
       });
