@@ -20,11 +20,28 @@
    <div class="space2">
       <h2><strong> Editar Cuestionario </strong></h2>
       <hr class="style17">
+
+      <h4> 
+         Dimensión: 
+         <% if (dim == 1) {%>
+            Craft 
+         <% } else if (dim == 2) {%>
+            People & Mindsets
+         <% } else if (dim == 3){ %>
+            Commercial & customer 
+         <% } %>
+      </h4>
+      <h4>
+         Nivel: <%= niv %>
+      </h4>
+
       <br>
       <% var url='/feedback/editarCuestionario/' + id + '/' + niv + '/' + dim + '/' + nombre;%>
       <form id="myform" action="<%=url%>" method="POST">
          <div class="card">
-            <h5 class="card-header">Preguntas</h5>
+            <div class="card-header">
+               <h5>Banco de preguntas</h5>
+            </div>
             <div class="card-body">
                <table class="table" style="table-layout: fixed">
                   <thead class="thead-dark">
@@ -72,8 +89,12 @@
                   </tbody>
                </table>
                <% var url='/feedback/crearPregunta/' + id + '/' + niv + '/' + dim + '/' + nombre;%>
-               <a href="<%=url%>" type="button" style="margin:auto" class="btn btn-dark" onclick="save()"> + Nueva
-                  Pregunta</a>
+               <div class="d-flex flex-row-reverse">
+                  <div class="p-2">
+                     <a href="<%=url%>" type="button" style="margin:auto" class="btn btn-dark" onclick="save()"> + Nueva
+                        Pregunta</a>
+                  </div>
+               </div>
                <!--a href="#" type="button" style="margin:auto" class="btn btn-dark" onclick="save()"> + Nueva Pregunta</a-->
             </div>
             <input type="hidden" name="hid" id="hid">
