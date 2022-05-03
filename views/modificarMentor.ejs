@@ -91,33 +91,29 @@
                                 <th><br>Nuevos Mentorados:<br><br></th>
                             
                                     <td style="width: 100px">
-                                    <select id="mentorado" name="mentorado" class="selectpicker" 
-                                    data-live-search="true" title="Selecciona nuevos mentorados"
-                                    data-width="300%">
-                                    <% for (let mentor of noMentorados) { %>
-                                        <option value="<%= mentor.idEmpleado %>">
-                                            <%= mentor.nombre%>
-                                                <%= mentor.apellidoP%>
-                                                    <%= mentor.apellidoM%> 
-                                        </option>
                                     
-                                        <% } %>
-                                    </select>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                            
+                                        <select id="mentorado" name="mentorado" class="selectpicker" data-live-search="true"
+                                            title="Selecciona nuevos mentorados" data-width="300%">
+                                            <% for (let mentor of noMentorados) { %>
+                                                <option value="<%= mentor.idEmpleado %>">
+                                                    <%= mentor.nombre%>
+                                                        <%= mentor.apellidoP%>
+                                                            <%= mentor.apellidoM%>
+                                                </option>
+                                    
+                                                <% } %>
+                                        </select>
+                                    </td>                                  
                             </tr>
+
                             <tr>
+
+                                
 
                                 <td>
                                     <a href="/miChapter" class="btn btn-secondary">Atrás</a>
                                 </td>
+
 
                                 <td>
 
@@ -125,7 +121,7 @@
 
                                 <td>
                                     <input id="button1" type="submit" value="Guardar cambios" class="btn btn-dark" >
-
+                                    
                                 </td>
                             </tr>
                         </tbody>
