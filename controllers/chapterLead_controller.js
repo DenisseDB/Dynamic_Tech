@@ -412,7 +412,8 @@ exports.modificarMentor = (request, response, next) => {
 
 exports.mentorModificado = (request, response, next) => {
 
-    console.log(request.body);
+    console.log(request.body.mentorado);
+    response.redirect('/home');
 };
 
 exports.eliminarMentorado = (request, response, next) => {
