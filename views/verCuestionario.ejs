@@ -2,16 +2,16 @@
 
 <!-- Para que aparezca Mis Mentorados -->
 <% for (i=0; i < rolesA.length; i++) { %>
-   <% if (rolesA[i].idPrivilegio==1) { %>
-      <%- include('includes/sideMentorados.ejs') %>
-   <% } %>
+<% if (rolesA[i].idPrivilegio==1) { %>
+<%- include('includes/sideMentorados.ejs') %>
+<% } %>
 <% } %>
 
 <!-- Para que aparezca Empleados del chapter -->
 <% for (i=0; i < rolesA.length; i++) { %>
-   <% if (rolesA[i].idPrivilegio==2) { %>
-      <%- include('includes/sideAgregarE.ejs') %>
-   <% } %>
+<% if (rolesA[i].idPrivilegio==2) { %>
+<%- include('includes/sideAgregarE.ejs') %>
+<% } %>
 <% } %>
 
 <%- include('includes/sidenavFin.ejs') %>
@@ -50,26 +50,27 @@
                      <div class="space2">
                         <td style="text-align:left">
                            <p><%= pregunta.pregunta %></p>
+
+                           <!-- * -------------------------------------------->
+                           <% if (pregunta.idTipo == 1) { %>
+                           <% for( let i = 1; i <= 5; i++ ) { %>
+                           <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio"
+                                 name="flexRadioDisabled<%= pregunta.idPregunta %>" id="<%= pregunta.idPregunta %>"
+                                 disabled />
+                              <label class="form-check-label" for="<%= pregunta.idPregunta %>"> <%= i %> </label>
+                           </div>
+                           <% } %>
+                           <% } else { %>
+                           <div class="form-floating">
+                              <textarea disabled class="form-control" id="floatingTextarea"
+                                 style="height: 50px; background-color:#F5F5F5;"></textarea>
+                              <label for="floatingTextarea">Respuesta:</label>
+                           </div>
+                           <% } %>
+                           <!-- * -------------------------------------------->
                         </td>
 
-
-                        <!-- * -------------------------------------------->
-                        <!-- <% if (pregunta.idTipo == 1) { %>
-                        <% for( let i = 1; i <= 5; i++ ) { %>
-                        <div class="form-check form-check-inline">
-                           <input class="form-check-input" type="radio" name="flexRadioDisabled<%= pregunta.idPregunta %>"
-                              id="<%= pregunta.idPregunta %>" disabled />
-                           <label class="form-check-label" for="<%= pregunta.idPregunta %>"> <%= i %> </label>
-                        </div>
-                        <% } %>
-                        <% } else { %>
-                        <div class="form-floating">
-                           <textarea disabled class="form-control" id="floatingTextarea"
-                              style="height: 50px; background-color:#F5F5F5;"></textarea>
-                           <label for="floatingTextarea">Respuesta:</label>
-                        </div>
-                        <% } %> -->
-                        <!-- * -------------------------------------------->
 
                         <td>
                            <% if (pregunta.idTipo == 1) {%>
