@@ -15,13 +15,6 @@ module.exports = class ChapterLeadMentores {
         return db.execute('INSERT INTO asignacionempleado(idMentor, idMentorado) VALUES (?, ?);', [this.idMentor, this.idMentorado]);
     }
 
-    
-
-    //Para añadir chapter asisstant con mentorados
-      static agregaMentor(idMentor,idMentorado){
-        return db.execute('INSERT INTO asignacionempleado(idMentor, idMentorado) VALUES (?, ?);', [idMentor, idMentorado]);
-    }
-
 
 
   
