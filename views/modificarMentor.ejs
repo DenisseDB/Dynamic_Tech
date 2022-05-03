@@ -77,50 +77,60 @@
 
                                     </form>
                                 </td>
-
+                            
                             </tr>
                             <% } %>
-                                <form action="/miChapter/modificarMentor/mentor[0].idMentor"  id= "nuevosMentorados" method="post" enctype="multipart/form-data">
-                                    <tr>
-                                        <th scope="row"><br>Nuevos Mentorados:<br><br></th>
-                                    
-                                            <td colspan="2">
-                                            <select id="mentorado" name="mentorado" class="selectpicker" 
-                                            data-live-search="true" title="Selecciona nuevos mentorados"
-                                            data-width="100%">
-                                            <% for (let mentor of noMentorados) { %>
-                                                <option value="<%= mentor.idEmpleado %>">
-                                                    <%= mentor.nombre%>
-                                                        <%= mentor.apellidoP%>
-                                                            <%= mentor.apellidoM%> 
-                                                </option>
-                                               
-                                                <% } %>
-                                        </select>
-
-                                        </td>
-                                     
-                                    </tr>
-                                    <tr>
-
-                                        <td>
-                                            <a href="/miChapter" class="btn btn-secondary">Atrás</a>
-                                        </td>
-
-                                        <td>
-
-                                        </td>
-
-                                        <td>
-
-                                            <input type="submit" value="Guardar cambios" class="btn btn-dark" />
-
-
-                                        </td>
-                                    </tr>
-                                </form>
-                    </tbody>
+                        </tbody>
                 </table>
+
+                <% var url = '/miChapter/modificarMentor/' + mentor[0].idMentor %>
+                <form action="<%= url %>"  id="nuevosMentorados" name="nuevosMentorados" method="POST">
+                    <table style="margin: 0px auto;">
+                        <tbody>
+                            <tr>
+                                <th><br>Nuevos Mentorados:<br><br></th>
+                            
+                                    <td colspan="2" style="width: 100px">
+                                    <select id="mentorado" name="mentorado" class="selectpicker" 
+                                    data-live-search="true" title="Selecciona nuevos mentorados"
+                                    data-width="100%">
+                                    <% for (let mentor of noMentorados) { %>
+                                        <option value="<%= mentor.idEmpleado %>">
+                                            <%= mentor.nombre%>
+                                                <%= mentor.apellidoP%>
+                                                    <%= mentor.apellidoM%> 
+                                        </option>
+                                    
+                                        <% } %>
+                                    </select>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+                            
+                            </tr>
+                            <tr>
+
+                                <td>
+                                    <a href="/miChapter" class="btn btn-secondary">Atrás</a>
+                                </td>
+
+                                <td>
+
+                                </td>
+
+                                <td>
+                                    <input id="button1" type="submit" value="Guardar cambios" class="btn btn-dark" >
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
             </div>
         </div>
     </div>
@@ -130,6 +140,11 @@
     function submitForm() {
   return confirm('¿Realmente quieres eliminar a este mentorado?');
 }
+    document.getElementById('mentorado').onchange = () => {
+        console.log(document.getElementById('mentorado').value);
+        console.log(document.getElementById('nuevosMentorados').value);
+    }
+
 </script>
 
 <!--Footer DynamicTech-->
