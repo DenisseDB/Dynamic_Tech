@@ -89,24 +89,22 @@
                         <tbody>
                             <tr>
                                 <th><br>Nuevos Mentorados:<br><br></th>
-                            
-                                    <td style="width: 100px">
+                                
+                                <td>
                                     
-                                        <select id="mentorado" name="mentorado" class="selectpicker" data-live-search="true"
-                                            title="Selecciona nuevos mentorados" data-width="300%" required>
-                                            <% for (let mentorado of noMentorados) { %>
-
-                                                <% if (mentor[0].idMentor != mentorado.idEmpleado) {%>
-                                                    <option value="<%= mentor.idEmpleado %>">
-                                                        <%= mentorado.nombre%>
-                                                            <%= mentorado.apellidoP%>
-                                                                <%= mentorado.apellidoM%>
-                                                    </option>
-
-                                                <% } %>
-                                    
+                                        
+                                        <select id="mentorado" name="mentorado" class="selectpicker" multiple
+                                        data-live-search="true" title="Selecciona uno o varios mentorados"
+                                        data-width="800%" required>
+                                        <% for (let mentorado of noMentorados) { %>
+                                            <option value="<%= mentorado.idEmpleado %>">
+                                                <%= mentorado.nombre%>
+                                                    <%= mentorado.apellidoP%>
+                                                        <%= mentorado.apellidoM%>
+                                            </option>
                                             <% } %>
-                                        </select>
+                                    </select>
+                                   
                                   
                                     </td>        
                                                              
