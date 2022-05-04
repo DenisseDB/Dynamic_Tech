@@ -15,10 +15,22 @@ module.exports = class PeriodoEvaluacion {
         return db.execute('SELECT * FROM periodo ORDER BY idPeriodo ASC');
     }
 
+    static fetchUltimo() { 
+        return db.execute('SELECT * FROM periodo ORDER BY idPeriodo DESC LIMIT 1;');
+    }
+
     savePeriodo() {
+
         return db.execute('INSERT INTO periodo(NombrePeriodo, fecha_inicial, fecha_final, anio) VALUES (?,?,?,?)',
             [this.nombre, this.fechaInicial, this.fechaFinal, this.anio]);
     }
+
+    modifyPeriodo(idPeriodo) {
+
+        return db.execute('UPDATE periodo SET NombrePeriodo=?, fecha_inicial=?, fecha_final=?, anio=? WHERE idPeriodo=?',
+            [this.nombre, this.fechaInicial, this.fechaFinal, this.anio, idPeriodo]);
+    }
+
 
 }
 

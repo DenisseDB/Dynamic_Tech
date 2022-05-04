@@ -412,20 +412,80 @@
          var nivel_people = [];
          var fechas = [];
          var fechas2 = [];
+
+         var count = 0;
+         var count2 = 0;
+         var count3 = 0;
+
          for (var i in data) {
-            if (data[i].idDimension == 1) {
-               nivel_craft.push(data[i].nivelE.toFixed(1));
-            } else if (data[i].idDimension == 2) {
-               nivel_people.push(data[i].nivelE.toFixed(1));
-            } else if (data[i].idDimension == 3) {
-               nivel_business.push(data[i].nivelE.toFixed(1));
-            }
-            if (!(fechas2.includes(data[i].fecha))) {
-               fechas2.push(data[i].fecha);
-               let d = data[i].fecha.split("T")[0];
+
+            let d = data[i].fecha.split(" ")[0];
+
+            if (!(fechas.includes(d))) {
+               console.log(fechas.includes(d));
                fechas.push(d);
+               fechas2.push(data[i].fecha);
+               count = 0;
+               count2 = 0;
+               count3 = 0;
             }
+
+            if (data[i].idDimension == 1) {
+
+               if (data[i].fecha.split(" ")[0] == fechas[fechas.length - 1]) {
+                  if (data[i].fecha > fechas2[fechas2.length - 1] && count > 0) {
+                     nivel_craft[nivel_craft.length - 1] = data[i].nivelE.toFixed(1);
+                     fechas2[fechas2.length - 1] = data[i].fecha;
+                  }
+                  else {
+                     nivel_craft.push(data[i].nivelE.toFixed(1));
+                     count += 1;
+                  }
+               } else {
+                  nivel_craft.push(data[i].nivelE.toFixed(1));
+               }
+               
+            } else if (data[i].idDimension == 2) {
+
+               if (data[i].fecha.split(" ")[0] == fechas[fechas.length - 1]) {
+
+                  if (data[i].fecha > fechas2[fechas2.length - 1] && count2 > 0) {
+                     nivel_people[nivel_people.length - 1] = data[i].nivelE.toFixed(1);
+                     fechas2[fechas2.length - 1] = data[i].fecha;
+                  }
+                  else {
+                     nivel_people.push(data[i].nivelE.toFixed(1));
+                     count2 += 1;
+                  }
+               } else {
+                  nivel_people.push(data[i].nivelE.toFixed(1));
+               }
+
+            } else if (data[i].idDimension == 3) {
+               console.log(nivel_business);
+
+               if (data[i].fecha.split(" ")[0] == fechas[fechas.length - 1]) {
+
+                  if (data[i].fecha > fechas2[fechas2.length - 1] && count3 > 0) {
+
+                     nivel_business[nivel_business.length - 1] = data[i].nivelE.toFixed(1);
+                     fechas2[fechas2.length - 1] = data[i].fecha;
+                  }
+                  else {
+                     nivel_business.push(data[i].nivelE.toFixed(1));
+                     count3 += 1;
+                  }
+               } else {
+                  nivel_business.push(data[i].nivelE.toFixed(1));
+               }
+            }
+
+
          }
+
+         console.log(nivel_craft);
+         console.log(nivel_people);
+         console.log(nivel_business);
 
          var chartdata = {
             labels: fechas,
