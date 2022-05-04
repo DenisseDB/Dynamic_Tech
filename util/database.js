@@ -8,7 +8,7 @@ const pool = mysql.createPool({
    user: config.USER,
    database: config.DATABASE,
    password: config.PASSWORD,
-   dateStrings: true
+   dateStrings: true,
 });
 // *
 
@@ -31,6 +31,7 @@ const DB_INSTANCIA =  mysql.createPool({
    database: config.DATABASE,
    password: config.PASSWORD,
    port: config.PORT,
+   dateStrings: true,
 });
 // !
 
