@@ -8,13 +8,13 @@ const config = require('../config');
    password: config.PASSWORD,
 });*/
    
-const pool = mysql.createPool({
-   host: 'mysql-dynamictech.alwaysdata.net',
-   user: '263275',
-   database: 'dynamictech_bd_feedback2',
-   password: 'contraseña123.',
-   dateStrings: true
-});
+// const pool = mysql.createPool({
+//    host: 'mysql-dynamictech.alwaysdata.net',
+//    user: '263275',
+//    database: 'dynamictech_bd_feedback2',
+//    password: 'contraseña123.',
+//    dateStrings: true
+// });
 
 // const pool = mysql.createPool({
 //    host: 'localhost',
@@ -23,12 +23,12 @@ const pool = mysql.createPool({
 //    password: ''
 // });
 
-// const pool = mysql.createPool({
-//    host: 'localhost',
-//    user: 'DynamicTech',
-//    database: 'dynamictech_bd_feedback2',
-//    password: '',
-//    dateStrings: true,
-// });
+const pool = mysql.createPool({
+   host: 'localhost',
+   user: 'DynamicTech',
+   database: 'dynamictech_bd_feedback2',
+   password: '',
+   dateStrings: true,
+});
 
 module.exports = pool.promise();
