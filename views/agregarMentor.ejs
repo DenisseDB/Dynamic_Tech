@@ -146,22 +146,27 @@
 
                     var respuesta = '';
 
-                    respuesta +=  ' <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"'+
-                                   '     integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">'+
-                                   ' <link rel="stylesheet"'+
-                                   '     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css"'+
-                                   '     integrity="sha512-mR/b5Y7FRsKqrYZou7uysnOdCIJib/7r5QeJMFvLNHNhtye3xJp1TdJVPLtetkukFn227nKpXD9OjUc09lx97Q=="'+
-                                   '     crossorigin="anonymous" referrerpolicy="no-referrer" />';  
+                    // respuesta +=  ' <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"'+
+                    //                '     integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">'+
+                    //                ' <link rel="stylesheet"'+
+                    //                '     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css"'+
+                    //                '     integrity="sha512-mR/b5Y7FRsKqrYZou7uysnOdCIJib/7r5QeJMFvLNHNhtye3xJp1TdJVPLtetkukFn227nKpXD9OjUc09lx97Q=="'+
+                    //                '     crossorigin="anonymous" referrerpolicy="no-referrer" />';  
                                    
                     respuesta+= ' <select class="form-select" id="mentorados" name="mentorados" '+
                                             'title="Selecciona uno o varios mentorados" data-width="100%" required>   '     
 
-                    for (let mentorado of data) {
-            
-
-                    respuesta +=   '<option value="' + mentorado.idEmpleado +'">' +
+                        for (let mentorado of data) {
+                
+                        if(mentorado.apellidoM == null){
+                        respuesta +=   '<option value="' + mentorado.idEmpleado +'">' +
+                                        mentorado.nombre +' '+ mentorado.apellidoP + ' '+ 
+                                        '</option>';
+                        }else{
+                        respuesta += '<option value="' + mentorado.idEmpleado +'">' +
                                     mentorado.nombre +' '+ mentorado.apellidoP + ' '+  mentorado.apellidoM +
                                     '</option>';
+                        }
                     }
                      
                     
