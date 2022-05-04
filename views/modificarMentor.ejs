@@ -1,23 +1,19 @@
 <!-- Partes que siempre aparecen en el navbar -->
 <%- include('includes/sidenavsup.ejs') %>
-
 <!-- Para que aparezca Mis Mentorados -->
 <% for (i = 0; i < rolesA.length; i++) {  %>
   <% if (rolesA[i].idPrivilegio == 1) { %> 
   <%- include('includes/sideMentorados.ejs') %>
   <% } %>
 <% } %>
-
 <!-- Para que aparezca Empleados del chapter -->
 <% for (i = 0; i < rolesA.length; i++) {  %>
   <% if (rolesA[i].idPrivilegio == 2) { %> 
   <%- include('includes/sideAgregarE.ejs') %>
   <% } %>
 <% } %>
-
 <!-- Final de la nav-->
 <%- include('includes/sidenavFin.ejs') %>
-
 <div class="container">
     <br>
     <h3 style="text-align:justify; font-size:x-large;"><a href="/miChapter"
@@ -29,9 +25,7 @@
     </h3>
     <hr class="style17">
 </div>
-
 <div class='container' style=" width: 90%; text-align: justify;">
-
     <div class="container" style=" width: 70%;">
         <br><br>
         <div class="col-sm-12">
@@ -44,9 +38,7 @@
                 <!--Para tabla con boostrap-->
                 <table class="table">
                     <tbody>
-
                         <% for (let mentorado of mentorados) { %>
-
                             <style>
                                 td {
                   
@@ -54,27 +46,20 @@
                                   vertical-align: middle;
                                   }
                             </style>
-
                             <tr>
-
                                 <td>
-
                                     <img src="/<%= mentorado.fotoPerfil%>" alt="hugenerd" width="70" height="70"
                                         class="rounded-circle"><br>
                                 </td>
-
                                 <td>
-
                                     <%= mentorado.nombre%>
                                         <%= mentorado.apellidoP%>
                                             <%= mentorado.apellidoM%>
                                 </td>
-
                                 <td>
                                     <form action="/miChapter/eliminarMentorado/<%= mentorado.idMentor %>/<%= mentorado.idMentorado%>" method="POST" onsubmit="return submitForm(this);" id="eliminarMentorado"> 
                                         <!-- <button value="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button> -->
                                         <button value="submit" class="btn btn-danger"><i class="bi bi-trash3"></i></button>
-
                                     </form>
                                 </td>
                             
@@ -83,46 +68,42 @@
                         </tbody>
                 </table>
                 
+
+                <% var idMentor =  mentor[0].idMentor %>
                 <% var url = '/miChapter/modificarMentor/' + mentor[0].idMentor %>
                 <form action="<%= url %>"  id="nuevosMentorados" name="nuevosMentorados" method="POST">
                     <table style="margin: 0px auto;">
                         <tbody>
                             <tr>
                                 <th><br>Nuevos Mentorados:<br><br></th>
-                                
-                                <td>
-                                    
-                                        
+
+                                    <td style="width: 100px">
+
                                         <select id="mentorado" name="mentorado" class="selectpicker" multiple
-                                        data-live-search="true" title="Selecciona uno o varios mentorados"
-                                        data-width="800%" required>
-                                        <% for (let mentorado of noMentorados) { %>
-                                            <option value="<%= mentorado.idEmpleado %>">
-                                                <%= mentorado.nombre%>
-                                                    <%= mentorado.apellidoP%>
-                                                        <%= mentorado.apellidoM%>
-                                            </option>
-                                            <% } %>
-                                    </select>
-                                   
-                                  
-                                    </td>        
-                                                             
+                                        data-live-search="true" title="Selecciona nuevos mentorados" data-width="300%">
+                                            <% for (let mentor of noMentorados) { %>
+                                                <% if (mentor.idEmpleado != idMentor) { %> 
+                                                <option value="<%= mentor.idEmpleado %>">
+                                                    <%= mentor.nombre%>
+                                                        <%= mentor.apellidoP%>
+                                                            <%= mentor.apellidoM%>
+                                                </option>
+                                                    <% } %>                                    
+                                                <% } %>
+                                        </select>
+                                    </td>      
+                                 
                             </tr>
                            
+
                             <tr>
 
-                                
 
                                 <td>
                                     <a href="/miChapter" class="btn btn-secondary">Atrás</a>
                                 </td>
-
-
                                 <td>
-
                                 </td>
-
                                 <td>
                                     <input id="button1" type="submit" value="Guardar cambios" class="btn btn-dark" >
                                     
@@ -135,13 +116,14 @@
         </div>
     </div>
 </div>
-
 <script>
     function submitForm() {
   return confirm('¿Realmente quieres eliminar a este mentorado?');
 }
-
+    document.getElementById('mentorado').onchange = () => {
+        console.log(document.getElementById('mentorado').value);
+        console.log(document.getElementById('nuevosMentorados').value);
+    }
 </script>
-
 <!--Footer DynamicTech-->
 <%- include('includes/foot.ejs') %>

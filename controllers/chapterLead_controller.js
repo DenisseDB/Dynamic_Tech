@@ -293,6 +293,9 @@ exports.respondidas = (request, response, next) => {
 
 exports.agregarMentor = (request, response, next) => {
 
+    let nsuccess = request.session.success;
+    request.session.success = '';
+
     Lead.fetchNoMentores()
         .then(([noMentores, fielData]) => {
 
@@ -309,6 +312,7 @@ exports.agregarMentor = (request, response, next) => {
                         nombreSesion: request.session.nombreSesion,
                         apellidoPSesion: request.session.apellidoPSesion,
                         foto: request.session.foto,
+                        notificacion: nsuccess ? nsuccess : '',
 
 
                     });
@@ -325,6 +329,22 @@ exports.agregarMentor = (request, response, next) => {
         });
 };
 
+exports.sinMentor = (request, response, next) => {
+    
+    console.log(request.params.mentor);
+
+    Lead.fetchNoMentoresSelect(request.params.mentor)
+        .then(([rows, fieldData]) => {
+            //console.log(rows);
+            return response.status(200).json(rows);
+        })
+    .catch(err => {
+        console.log(err);
+        console.log("catch");
+    });
+};
+
+
 
 exports.agregarNuevoMentor = async (request, response, next) => {
 
@@ -333,20 +353,29 @@ exports.agregarNuevoMentor = async (request, response, next) => {
 
     var mentorado = request.body.mentorados;
 
-    // for (let nuevoMentorado of mentorado ) {
-    //             console.log(nuevoMentorado);
-    //         }
     
-    try {
-        //Ciclo for para realizar insert de mentorados a mentor 
-        for (let nuevoMentorado of mentorado ) {
-            let res = new Mentor(request.body.mentorado,nuevoMentorado);
-            await res.saveMentor();
-        }
+    if(Array.isArray(mentorado) === false){
+
+        let res = new Mentor(request.body.mentorado,mentorado);
+        res.saveMentor();
         response.redirect('/miChapter');
 
-    } catch (error) {
-        console.log(error);
+    } else {
+
+        try {
+            //Ciclo for para realizar insert de mentorados a mentor 
+            for (let nuevoMentorado of mentorado ) {
+                console.log(nuevoMentorado);
+                let res = new Mentor(request.body.mentorado,nuevoMentorado);
+                await res.saveMentor();
+                
+            }
+            request.session.success = 1;
+            response.redirect('/miChapter');
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 };
 
@@ -412,19 +441,41 @@ exports.modificarMentor = (request, response, next) => {
 
 exports.mentorModificado = async (request, response, next) => {
 
-    var mentorado = request.body.mentorado; 
+    console.log(request.params.idMentor)
+    console.log(request.body); 
 
-    try {
-        //Ciclo for para realizar insert de mentorados a mentor 
-        for (let nuevoMentorado of mentorado ) {
-            let res = new Mentor(request.params.idMentor,nuevoMentorado);
-            await res.saveMentor();
+    var mentoradosNuevos = request.body.mentorado; 
+    // console.log("mentorados nuevos: " + mentoradosNuevos);
+
+    // console.log(mentoradosNuevos)
+
+    // console.log(mentoradosNuevos.length)
+
+
+    if(Array.isArray(mentoradosNuevos) === false){
+
+        let res = new Mentor(request.params.idMentor,mentoradosNuevos);
+        res.saveMentor();
+        response.redirect('/miChapter/modificarMentor/'+request.params.idMentor);
+
+    }else{
+
+        try {
+            //Ciclo for para realizar insert de mentorados a mentor 
+            for (let nuevoMentorado of mentoradosNuevos ) {
+                // console.log("Ciclo for " + request.params.idMentor)
+                // console.log(nuevoMentorado)
+                let res = new Mentor(request.params.idMentor,nuevoMentorado);
+                await res.saveMentor();
+            }
+            response.redirect('/miChapter/modificarMentor/'+request.params.idMentor);
+    
+        } catch (error) {
+            console.log(error);
         }
-        response.redirect('/miChapter/modificarMentor/'+request.params.idMentor+"'");
-
-    } catch (error) {
-        console.log(error);
     }
+
+   
     
 
 };

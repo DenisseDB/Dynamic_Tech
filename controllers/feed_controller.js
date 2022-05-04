@@ -52,7 +52,7 @@ exports.solicitudesFeedback = async (request, response, next) => {
 };
 
 exports.nuevaSolicitud = async (request, response, next) => {
-   let evaluadores = request.body.nombre; // Nombre(s) de compañeros evaluadores.
+   let evaluadores = request.body.evaluador; // Nombre(s) de compañeros evaluadores.
    let arr = Array.isArray(evaluadores); // ¿evaluadores (array)?
    let str = typeof evaluadores === 'string'; // ¿evaluador (string)?
    let n_solicitudes = request.session.solicitudes;
@@ -62,9 +62,8 @@ exports.nuevaSolicitud = async (request, response, next) => {
          request.session.people, request.session.business); // Cuestionarios del sesionado.
 
       for await (let evaluador of evaluadores) {
-         const IDE = await Solicitud.fecthOneID(evaluador); // ID del evaluador.
 
-         const solicitud = new Solicitud(request.session.idEmpleado, IDE[0].idEmpleado,
+         const solicitud = new Solicitud(request.session.idEmpleado, evaluador,
             IDC[0].idCuestionario, IDC[1].idCuestionario, IDC[2].idCuestionario,
             request.body.periodo, new Date()); // Nueva solicitud.
 
@@ -76,9 +75,7 @@ exports.nuevaSolicitud = async (request, response, next) => {
       const IDC = await Solicitud.fecthIDCuestionarios(request.session.craft,
          request.session.people, request.session.business); // Cuestionarios del sesionado.
 
-      const IDE = await Solicitud.fecthOneID(evaluadores); // ID del evaluador.
-
-      const solicitud = new Solicitud(request.session.idEmpleado, IDE[0].idEmpleado,
+      const solicitud = new Solicitud(request.session.idEmpleado, evaluadores,
          IDC[0].idCuestionario, IDC[1].idCuestionario, IDC[2].idCuestionario,
          request.body.periodo, new Date()); // Nueva solicitud.
 
