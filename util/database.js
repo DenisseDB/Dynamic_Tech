@@ -12,5 +12,5 @@ const pool = mysql.createPool({
    user: 'DynamicTech',
    database: 'dynamictech_bd_feedback2',
    password: ''
-});*/
+});
 module.exports = pool.promise();
