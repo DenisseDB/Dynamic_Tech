@@ -15,13 +15,16 @@ exports.solicitudesFeedback = async (request, response, next) => {
 
    // Rango de fechas (para solicitar/responder feedback).
    const d = new Date();
-   const date = new Date(d.toDateString());
+   //const date = new Date(d.toDateString());
+   const date = new Date(d);
 
    let inicio = pd[0].fecha_inicial;
-   inicio = new Date(inicio.toDateString());
+   //inicio = new Date(inicio.toDateString());
+   inicio = new Date(inicio);
 
    let final = pd[0].fecha_final;
-   final = new Date(final.toDateString());
+   //final = new Date(final.toDateString());
+   final = new Date(final);
 
    const pa = (inicio <= date) && (final >= date);
 

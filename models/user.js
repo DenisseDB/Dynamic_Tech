@@ -61,6 +61,9 @@ module.exports = class User {
    }
 
    static fetchDimensiones(idEmpleado) {
+      //return db.execute('SELECT D.idDimension, nivelE, fecha FROM dimempleado DE, dimension D WHERE DE.idDimension = D.idDimension AND idEmpleado=? ORDER BY fecha',
+         //[idEmpleado]);
+      
       return db.execute('SELECT D.idDimension, nivelE, fecha FROM dimempleado DE, dimension D WHERE DE.idDimension = D.idDimension AND idEmpleado=? ORDER BY fecha',
          [idEmpleado]);
 
