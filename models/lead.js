@@ -99,9 +99,15 @@ module.exports = class ChapterLead {
         return db.execute('SELECT empleado.idEmpleado,nombre,apellidoP,apellidoM,fotoPerfil,idRol,activo FROM empleado,rolempleado WHERE empleado.idEmpleado = rolempleado.idEmpleado AND (idRol = 1 or idRol = 2) AND activo = 1 and empleado.idEmpleado NOT IN (SELECT idMentor FROM asignacionempleado);')
     }
 
+    //Para el nuevo select sin el mentor elegido
+    static fetchNoMentoresSelect(idMentor){
+        return db.execute('SELECT * FROM `empleado` WHERE activo = 1 and idEmpleado != ? and idEmpleado NOT IN (SELECT idMentorado FROM asignacionempleado);',[idMentor])
+    }
+
     static fetchNoMentorados(){
         return db.execute('SELECT * FROM `empleado` WHERE activo = 1 and idEmpleado NOT IN (SELECT idMentorado FROM asignacionempleado);')
     }
+
 
     //Para eliminar mentor
     static eliminarMentor(idMentor){

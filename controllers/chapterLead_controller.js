@@ -293,6 +293,9 @@ exports.respondidas = (request, response, next) => {
 
 exports.agregarMentor = (request, response, next) => {
 
+    let nsuccess = request.session.success;
+    request.session.success = '';
+
     Lead.fetchNoMentores()
         .then(([noMentores, fielData]) => {
 
@@ -309,6 +312,7 @@ exports.agregarMentor = (request, response, next) => {
                         nombreSesion: request.session.nombreSesion,
                         apellidoPSesion: request.session.apellidoPSesion,
                         foto: request.session.foto,
+                        notificacion: nsuccess ? nsuccess : '',
 
 
                     });
@@ -325,6 +329,22 @@ exports.agregarMentor = (request, response, next) => {
         });
 };
 
+exports.sinMentor = (request, response, next) => {
+    
+    console.log(request.params.mentor);
+
+    Lead.fetchNoMentoresSelect(request.params.mentor)
+        .then(([rows, fieldData]) => {
+            //console.log(rows);
+            return response.status(200).json(rows);
+        })
+    .catch(err => {
+        console.log(err);
+        console.log("catch");
+    });
+};
+
+
 
 exports.agregarNuevoMentor = async (request, response, next) => {
 
@@ -340,7 +360,7 @@ exports.agregarNuevoMentor = async (request, response, next) => {
         res.saveMentor();
         response.redirect('/miChapter');
 
-    }else{
+    } else {
 
         try {
             //Ciclo for para realizar insert de mentorados a mentor 
@@ -348,7 +368,9 @@ exports.agregarNuevoMentor = async (request, response, next) => {
                 console.log(nuevoMentorado);
                 let res = new Mentor(request.body.mentorado,nuevoMentorado);
                 await res.saveMentor();
+                
             }
+            request.session.success = 1;
             response.redirect('/miChapter');
 
         } catch (error) {

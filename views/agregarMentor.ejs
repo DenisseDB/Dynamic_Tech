@@ -51,22 +51,21 @@
                     <table class="table">
                         <tbody>
                             <form id="agregarNuevoMentor" method="post" enctype="multipart/form-data">
-
+                    
                                 <tr>
                                     <style>
                                         td {
-
+                    
                                             text-align: center;
                                             vertical-align: middle;
                                         }
                                     </style>
-
+                    
                                     <th scope="row">Nombre mentor: </th>
                                     <td>
-
-                                        <select id="mentorado" name="mentorado" class="selectpicker"
-                                            data-live-search="true" title="Selecciona al nuevo mentor"
-                                            data-width="100%" required>
+                    
+                                        <select id="mentorado" name="mentorado" class="selectpicker" data-live-search="true"
+                                            title="Selecciona al nuevo mentor" data-width="100%" required>
                                             <% for (let mentor of noMentores) { %>
                                                 <option value="<%= mentor.idEmpleado %>">
                                                     <%= mentor.nombre%>
@@ -78,44 +77,110 @@
                                     </td>
                                 </tr>
                                 <tr>
-
+                    
                                     <th scope="row">Mentorados asignables: </th>
                                     <td>
-
-                                        <select id="mentorados" name="mentorados" class="selectpicker" multiple
-                                            data-live-search="true" title="Selecciona uno o varios mentorados"
-                                            data-width="100%" required>
-                                            <% for (let mentorado of noMentorados) { %>
-                                                <option value="<%= mentorado.idEmpleado %>">
+                    
+                                        <div id = "mentorados"></div>
+                                         <!-- <select id="mentoradosSelect" name="mentorados" class="selectpicker" multiple data-live-search="true"
+                                            title="Selecciona uno o varios mentorados" data-width="100%" required>                                            <!-- <% for (let mentorado of noMentorados) { %>
+                                                 <option value="<%= mentorado.idEmpleado %>">
                                                     <%= mentorado.nombre%>
                                                         <%= mentorado.apellidoP%>
                                                             <%= mentorado.apellidoM%>
                                                 </option>
-                                                <% } %>
-                                        </select>
-                </div>
-                </div>
-                </td>
-                </tr>
-                <tr>
-                
-                    <td>
-                        <a href="/miChapter" class="btn btn-secondary">Atrás</a>
-                    </td>
-                
-                    <td>
-                
-                        <input type="submit" value="Guardar cambios" class="btn btn-dark" />
-                
-                
-                    </td>
-                </tr>
-                </form>
+                                                <% } %> 
+                                        </select> -->
+                                    </div>
+                    
+                                        </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                    
+                                    <td>
+                                        <a href="/miChapter" class="btn btn-secondary">Atrás</a>
+                                    </td>
+                    
+                                    <td>
+                    
+                                        <input type="submit" value="Guardar cambios" class="btn btn-dark" />
+                    
+                    
+                                    </td>
+                                </tr>
+                            </form>
+                    
+                    
+                        </tbody>
+                    </table>
 
+            <script src="https://code.jquery.com/jquery-1.10.2.js"></script>   
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+            
+            <script>
+                const accion_asincrona = () => {
+                    
 
-            </tbody>
-            </table>
-        </div>
+                  const mentor = document.getElementById("mentorado").value;
+                  console.log(mentor);
+
+            
+            
+                  //función que manda la petición asíncrona
+                  fetch('/miChapter/mentorSeleccionado/'+ mentor, {
+                    method: 'GET',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      //'}csrf-token': csrf
+                    }
+                    //body: JSON.stringify(data)
+                  }).then(result => {
+                    console.log(result)
+                    return result.json(); //Regresa otra promesa
+                    //No jala la data
+                  }).then(data => {
+                    //Modificamos el DOM de nuestra página de acuerdo a los datos de la segunda promesa
+                    //console.log(data);
+
+                    var respuesta = '';
+
+                    respuesta +=  ' <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"'+
+                                   '     integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">'+
+                                   ' <link rel="stylesheet"'+
+                                   '     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css"'+
+                                   '     integrity="sha512-mR/b5Y7FRsKqrYZou7uysnOdCIJib/7r5QeJMFvLNHNhtye3xJp1TdJVPLtetkukFn227nKpXD9OjUc09lx97Q=="'+
+                                   '     crossorigin="anonymous" referrerpolicy="no-referrer" />';  
+                                   
+                    respuesta+= ' <select class="form-select" id="mentorados" name="mentorados" '+
+                                            'title="Selecciona uno o varios mentorados" data-width="100%" required>   '     
+
+                    for (let mentorado of data) {
+            
+
+                    respuesta +=   '<option value="' + mentorado.idEmpleado +'">' +
+                                    mentorado.nombre +' '+ mentorado.apellidoP + ' '+  mentorado.apellidoM +
+                                    '</option>';
+                    }
+                     
+                    
+                    respuesta += '</select>'
+            
+                    //AJAX para filtrar empleados
+                    
+              
+                    document.getElementById('mentorados').innerHTML = respuesta;
+            
+                    //De aquí sale el error
+                  }).catch(err => {
+                    console.log(err);
+                  });
+                };
+            
+                document.getElementById('mentorado').onchange = accion_asincrona;
+              </script>
+  </div>
     </div>
     </div>
     </div>
