@@ -8,6 +8,8 @@ const leadController = require('../controllers/chapterLead_controller');
 
 
 router.get('/empleados/buscarEmpleado/:valor', isAuth,checkRoleAuth([1]), leadController.buscarEmpleado);
+router.get('/miChapter/mentorSeleccionado/:mentor', //isAuth,checkRoleAuth([1]), 
+    leadController.sinMentor);
 
 
 router.post('/empleados/eliminar/:idEmpleado',isAuth, checkRoleAuth([1]), leadController.eliminarEmpleado);

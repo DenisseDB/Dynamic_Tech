@@ -69,6 +69,7 @@
                 </table>
                 
 
+                <% var idMentor =  mentor[0].idMentor %>
                 <% var url = '/miChapter/modificarMentor/' + mentor[0].idMentor %>
                 <form action="<%= url %>"  id="nuevosMentorados" name="nuevosMentorados" method="POST">
                     <table style="margin: 0px auto;">
@@ -81,15 +82,16 @@
                                         <select id="mentorado" name="mentorado" class="selectpicker" multiple
                                         data-live-search="true" title="Selecciona nuevos mentorados" data-width="300%">
                                             <% for (let mentor of noMentorados) { %>
+                                                <% if (mentor.idEmpleado != idMentor) { %> 
                                                 <option value="<%= mentor.idEmpleado %>">
                                                     <%= mentor.nombre%>
                                                         <%= mentor.apellidoP%>
                                                             <%= mentor.apellidoM%>
                                                 </option>
-                                    
+                                                    <% } %>                                    
                                                 <% } %>
                                         </select>
-                                    </td>        
+                                    </td>      
                                  
                             </tr>
                            
