@@ -19,6 +19,8 @@
 <!-- Final de la nav-->
 <%- include('includes/sidenavFin.ejs') %>
 
+
+
 <div class="container px-13">
   <div class="space2">
     <h2><strong>Personas del Chapter</strong></h2>
@@ -203,7 +205,7 @@
                 </div>
               </div>
 
-              <button value="submit" class="btn btn-darkbtn btn-dark">Agregar</button>
+              <button value="submit" id = "button1" class="btn btn-darkbtn btn-dark">Agregar</button>
                             
             </form>
 
@@ -214,22 +216,12 @@
     </div>
 
 
-    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-      <div class="toast align-items-center text-white bg-secondary border-0" id="liveToastSuccess" class="toast"
-        role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-          <i class="bi bi-person-plus-fill"></i>
-          <strong class="me-auto"> Agregar Empleado</strong>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-          Se ha agregado correctamente al nuevo empleado.
-        </div>
-      </div>
-    </div>
+
 
 
     <br><br>
+
+
 
     <style>
       td {
@@ -370,7 +362,6 @@
 
   </script>
 
-
   <script>
     const accion_asincrona = () => {
       const valor_busqueda = document.getElementById('buscar').value;
@@ -405,12 +396,12 @@
                      '     <table class="table" style="table-layout: fixed">' +
                      '       <thead class="thead-dark"> ' +
                      '         <tr>' +
-                     '           <th scope="col"></th>' +
+                     '           <th style="width:8%;" scope="col"></th>' +
                      '           <th style="width:15%;" scope="col">Nombre</th>' +
-                     '           <th style="width:20%;" scope="col">Correo</th>' +
-                     '           <th scope="col">Nivel Craft</th>' +
-                     '           <th scope="col">Nivel People</th>' +
-                     '           <th scope="col">Nivel Business</th>' +
+                     '           <th style="width:25%;" scope="col">Correo</th>' +
+                     '           <th style="width:8%;" scope="col">Nivel Craft</th>' +
+                     '           <th style="width:8%;" scope="col">Nivel People</th>' +
+                     '           <th style="width:10%;" scope="col">Nivel Business</th>' +
                      '           <th scope="col"></th>' +
                      '           <th scope="col"></th>' +
                      '           <th style="width:5%;" scope="col"></th>' +
@@ -540,5 +531,8 @@
   
     /* demo */
   </style>
+
+
+  
 
   <%- include('includes/foot.ejs') %>
