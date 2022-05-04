@@ -340,7 +340,7 @@ exports.agregarNuevoMentor = async (request, response, next) => {
         res.saveMentor();
         response.redirect('/miChapter');
 
-    }else{
+    } else {
 
         try {
             //Ciclo for para realizar insert de mentorados a mentor 
