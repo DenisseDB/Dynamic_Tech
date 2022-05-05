@@ -86,10 +86,10 @@
                                             value="<%= periodo[0].idPeriodo %>">
                                           <div class="row">
                                             <div class="col-auto">
-                                              <select id="nombre" name="nombre" class="selectpicker" multiple
+                                              <select id="evaluador" name="evaluador" class="selectpicker" multiple
                                                 data-live-search="true" title="Selecciona uno o varios compañeros">
                                                 <% for (let empleado of empleados) { %>
-                                                  <option>
+                                                  <option value="<%= empleado.idEmpleado %>">
                                                     <%= empleado.nombre %>
                                                       <%= empleado.apellidoP %>
                                                   </option>
