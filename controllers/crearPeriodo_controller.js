@@ -23,14 +23,12 @@ exports.root = async (request, response, next) => {
     // response.render('PeriodosEvaluacion');
     const info = request.session.info ? request.session.info : '';
     request.session.info = '';
-    ultimo_periodo = await PeriodoEvaluacion.fetchUP();
 
+    ultimo_periodo = await PeriodoEvaluacion.fetchUP();
     const d = new Date();
     const date = new Date(d);
-
     let final = ultimo_periodo[0].fecha_final;
     final = new Date(final);
-
     const gp = date < final;
         
         PeriodoEvaluacion.fetchUltimo()
@@ -64,7 +62,7 @@ exports.generarPeriodo = (request, response, next) => {
         });
 };
 
-exports.generarPeriodoPost = (request, response, next) => {
+exports.generarPeriodoPost = async (request, response, next) => {
 
     function NombreMes(mes) {
         let meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
@@ -83,25 +81,10 @@ exports.generarPeriodoPost = (request, response, next) => {
 
     const periodoEvaluacion = new PeriodoEvaluacion(nombre_periodo, request.body.inicioFecha, request.body.finFecha, anio_periodo);
 
-
-    
-
     //const periodoEvaluacion = new PeriodoEvaluacion(nombre_periodo, request.body.inicioFecha, request.body.finFecha, Number(anio_periodo));
     periodoEvaluacion.savePeriodo()
         .then(() => {
-            PeriodoEvaluacion.fetchUltimo()
-            .then(([rows, fielData]) => {
-                response.render('PeriodosEvaluacion', {
-                    ultimo_periodo: rows,
-                    info: '',
-                    nombreSesion: request.session.nombreSesion,
-                    apellidoPSesion: request.session.apellidoPSesion,
-                    foto: request.session.foto,
-                    rolesA: request.session.privilegiosPermitidos,
-                });
-            }).catch((error) => {
-                console.log(error);
-            });
+            response.redirect('/Periodo');
         })
         .catch(err => {
             console.log(err);
