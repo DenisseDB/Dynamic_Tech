@@ -19,24 +19,34 @@ const { execute } = require('../util/database');
 //     });
 // };
 
-exports.root = (request, response, next) => {
+exports.root = async (request, response, next) => {
     // response.render('PeriodosEvaluacion');
-     const info = request.session.info ? request.session.info : '';
+    const info = request.session.info ? request.session.info : '';
     request.session.info = '';
-    
-     PeriodoEvaluacion.fetchUltimo()
-     .then(([rows, fielData]) => {
-         response.render('PeriodosEvaluacion', {
-            ultimo_periodo: rows,
-            info: '',
-            nombreSesion: request.session.nombreSesion,
-            apellidoPSesion: request.session.apellidoPSesion,
-            foto: request.session.foto,
-            rolesA: request.session.privilegiosPermitidos,
+    ultimo_periodo = await PeriodoEvaluacion.fetchUP();
+
+    const d = new Date();
+    const date = new Date(d);
+
+    let final = ultimo_periodo[0].fecha_final;
+    final = new Date(final);
+
+    const gp = date < final;
+        
+        PeriodoEvaluacion.fetchUltimo()
+        .then(([rows, fielData]) => {
+            response.render('PeriodosEvaluacion', {
+                ultimo_periodo: rows,
+                info: '',
+                nombreSesion: request.session.nombreSesion,
+                apellidoPSesion: request.session.apellidoPSesion,
+                foto: request.session.foto,
+                rolesA: request.session.privilegiosPermitidos,
+                generar_periodo : gp                
+            });
+        }).catch((error) => {
+            console.log(error);
         });
-     }).catch((error) => {
-         console.log(error);
-     });
  };
 
 exports.generarPeriodo = (request, response, next) => {
