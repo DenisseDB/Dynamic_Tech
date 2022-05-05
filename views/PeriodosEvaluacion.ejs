@@ -1,19 +1,19 @@
 <%- include('includes/sidenavsup.ejs') %>
 <!-- Para que aparezca Mis Mentorados -->
-<% for (i = 0; i < rolesA.length; i++) {  %>
-<% if (rolesA[i].idPrivilegio == 1) { %>
-<%- include('includes/sideMentorados.ejs') %>
-<% } %>
-<% } %>
+<% for (i=0; i < rolesA.length; i++) { %>
+    <% if (rolesA[i].idPrivilegio==1) { %>
+        <%- include('includes/sideMentorados.ejs') %>
+            <% } %>
+                <% } %>
 
-<!-- Para que aparezca Empleados del chapter -->
-<% for (i = 0; i < rolesA.length; i++) {  %>
-<% if (rolesA[i].idPrivilegio == 2) { %>
-<%- include('includes/sideAgregarE.ejs') %>
-<% } %>
-<% } %>
+                    <!-- Para que aparezca Empleados del chapter -->
+                    <% for (i=0; i < rolesA.length; i++) { %>
+                        <% if (rolesA[i].idPrivilegio==2) { %>
+                            <%- include('includes/sideAgregarE.ejs') %>
+                                <% } %>
+                                    <% } %>
 
-<%- include('includes/sidenavFin.ejs') %>
+                                        <%- include('includes/sidenavFin.ejs') %>
 
 <div class="container px-13">
     <div class="space2">
@@ -103,151 +103,82 @@
                                 </table>
                             </div>
                         </div>
-                     </form>
-                  </div>
-               </div>
 
-               <br>
-               <br>
-
-               <div class="card">
-                  <div class="card-header">
-                     <h5> Último Periodo Generado </h5>
-                  </div>
-                  <div class="card-body">
-                     <table class="table" style="table-layout: fixed">
-                        <thead class="thead-dark">
-                           <tr>
-                              <th style="text-align:center" scope="col">Nombre</th>
-                              <th style="text-align:center" scope="col"> Fecha Inicial </th>
-                              <th style="text-align:center" scope="col"> Fecha Final </th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                              <td>
-                                 <%= ultimo_periodo[0].NombrePeriodo %>
-                              </td>
-                              <td>
-                                 <%= ultimo_periodo[0].fecha_inicial %>
-                              </td>
-                              <td>
-                                 <%= ultimo_periodo[0].fecha_final %>
-                              </td>
-                              <td>
-                                 <a href="/Periodo/modificarPeriodo" style="margin:auto" class="btn btn-dark"> Modificar
-                                 </a>
-                              </td>
-                           </tr>
-
-                        </tbody>
-                     </table>
-                  </div>
-               </div>
-
+                </div>
             </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
 </div>
 
 <script>
-   let nivelp;
-
-   document.getElementById("buttonRegistrar").onclick = () => {
-
-
+    let nivelp;
+    document.getElementById("buttonRegistrar").onclick = () => {
       /////////////////////////////////
-
-      hoy = fechaActual();
-
-      let fecha_inicial = document.getElementById("inicioFecha").value;
-      let fecha_final = document.getElementById("finFecha").value;
-
-
-      //SEPARAR FECHAS
-      let anio_periodo = parseInt(String(fecha_final).substring(0, 4));
-      let mes_inicioPeriodo = parseInt(String(fecha_inicial).substring(5, 7));
-      let mes_finPeriodo = parseInt(String(fecha_final).substring(5, 7));
-
-
-      fecha_final = fecha_final.toString();
-      console.log("String fecha" + fecha_final);
-
-      //ASIGNARLE NOMBRE AL MES 
-      const nombreMesFinal = NombreMes(mes_finPeriodo);
-      const nombreMesInicio = NombreMes(mes_inicioPeriodo);
-
-      nombre_periodo = nombreMesInicio + ' - ' + nombreMesFinal;
-
-
+        hoy = fechaActual();
+        let fecha_inicial = document.getElementById("inicioFecha").value;
+        let fecha_final = document.getElementById("finFecha").value;
+        //SEPARAR FECHAS
+        let anio_periodo = parseInt(String(fecha_final).substring(0, 4));
+        let mes_inicioPeriodo = parseInt(String(fecha_inicial).substring(5, 7));
+        let mes_finPeriodo = parseInt(String(fecha_final).substring(5, 7));
+        fecha_final = fecha_final.toString();
+        console.log("String fecha" + fecha_final);
+        //ASIGNARLE NOMBRE AL MES 
+        const nombreMesFinal = NombreMes(mes_finPeriodo);
+        const nombreMesInicio = NombreMes(mes_inicioPeriodo);
+        nombre_periodo = nombreMesInicio + ' - ' + nombreMesFinal;
+        if (fecha_inicial != '' && fecha_final != '') {
             if( fecha_inicial < hoy && fecha_final < hoy ) {
                 console.log('fecha hoy' +  hoy);
                 let respuesta = alert('No puede crear periodos en el pasado. Verifique sus fechas.');  
                 location.reload(); 
                 return false;
             }
-
             else if (fecha_inicial < hoy && fecha_final > hoy){
                 let respuesta = alert('La fecha de inicio no puede ser menor a la actual. Verifique sus fechas.');  
                 location.reload(); 
                 return false;
             }
-
             else if (fecha_inicial >= fecha_final ){
                 let respuesta = alert('La fecha final no puede ser menor que la de inicio. Verifique sus fechas.');  
                 location.reload(); 
                 return false;
             }
-
-            document.getElementById("inicioFecha").setAttribute("readonly", "readonly");
-            document.getElementById("finFecha").setAttribute("readonly", "readonly");
-
-
-            let PeriodoAlerta = 'Periodo de evaluación ' + nombre_periodo + ' generado.';
-            let respuesta = alert(PeriodoAlerta);
-
-            return true;
-         
-
-
-   }
-
-
-   function NombreMes(mes) {
-      // console.log('Nombre de mes para ' + mes + ' prueba');
-
-      let meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre",
-         "Noviembre", "Diciembre"
-      ];
-      nombreMes = meses[mes - 1];
-      return nombreMes;
-   }
-
-   function fechaActual() {
-
-      //GENERAR LA FECHA ACTUAL 
-
-      let hoy = new Date();
-      let dd = hoy.getDate();
-      let mm = hoy.getMonth() + 1;
-      let yyyy = hoy.getFullYear();
-
-
-      //formato para generar formato 00 en día y mes
-      if (dd < 10) {
-         dd = '0' + dd;
-      }
-
-      if (mm < 10) {
-         mm = '0' + mm;
-      }
-
-      hoy = yyyy + '-' + mm + '-' + dd; //FECHA DEL DÍA ACTUAL
-
-      return hoy;
-      console.log(hoy);
-   }
+            else{
+                
+                document.getElementById("inicioFecha").setAttribute("readonly", "readonly");
+                document.getElementById("finFecha").setAttribute("readonly", "readonly");
+                let PeriodoAlerta = 'Periodo de evaluación ' + nombre_periodo + ' generado.';
+                let respuesta = alert(PeriodoAlerta);
+               
+                return true;
+            }
+        }
+    }
+    
+    function NombreMes(mes) {
+       // console.log('Nombre de mes para ' + mes + ' prueba');
+        let meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        nombreMes = meses[mes - 1];
+        return nombreMes;
+    }
+    function fechaActual(){
+        //GENERAR LA FECHA ACTUAL 
+        let hoy = new Date();
+        let dd = hoy.getDate();
+        let mm = hoy.getMonth()+1;
+        let yyyy = hoy.getFullYear();
+        //formato para generar formato 00 en día y mes
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+        if (mm < 10) {
+            mm = '0' + mm;
+        } 
+        hoy = yyyy+'-'+mm+'-'+dd; //FECHA DEL DÍA ACTUAL
+        return hoy;
+        console.log(hoy);
+    }
 </script>
 
 <%- include('includes/foot.ejs') %>
