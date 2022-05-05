@@ -81,16 +81,16 @@
                                     <th scope="row">Mentorados asignables: </th>
                                     <td>
                     
-                                        <div id = "mentorados"></div>
-                                         <!-- <select id="mentoradosSelect" name="mentorados" class="selectpicker" multiple data-live-search="true"
-                                            title="Selecciona uno o varios mentorados" data-width="100%" required>                                            <!-- <% for (let mentorado of noMentorados) { %>
+                                        <div id = "hola"></div>
+                                          <select id="mentorados" name="mentorados" class="form-select" title="Selecciona uno o varios mentorados" data-width="100%" required>                                            
+                                            <!-- <% for (let mentorado of noMentorados) { %>
                                                  <option value="<%= mentorado.idEmpleado %>">
                                                     <%= mentorado.nombre%>
                                                         <%= mentorado.apellidoP%>
                                                             <%= mentorado.apellidoM%>
                                                 </option>
-                                                <% } %> 
-                                        </select> -->
+                                                <% } %>  -->
+                                        </select>
                                     </div>
                     
                                         </div>
@@ -153,8 +153,8 @@
                     //                '     integrity="sha512-mR/b5Y7FRsKqrYZou7uysnOdCIJib/7r5QeJMFvLNHNhtye3xJp1TdJVPLtetkukFn227nKpXD9OjUc09lx97Q=="'+
                     //                '     crossorigin="anonymous" referrerpolicy="no-referrer" />';  
                                    
-                    respuesta+= ' <select class="form-select" id="mentorados" name="mentorados" '+
-                                            'title="Selecciona uno o varios mentorados" data-width="100%" required>   '     
+                    // respuesta+= ' <select class="form-select" id="mentorados" name="mentorados" '+
+                    //                         'title="Selecciona uno o varios mentorados" data-width="100%" required>   '     
 
                         for (let mentorado of data) {
                 
@@ -170,7 +170,7 @@
                     }
                      
                     
-                    respuesta += '</select>'
+                    // respuesta += '</select>'
             
                     //AJAX para filtrar empleados
                     
