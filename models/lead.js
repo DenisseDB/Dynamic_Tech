@@ -136,6 +136,11 @@ module.exports = class ChapterLead {
         return db.execute('INSERT INTO asignacionempleado(idMentor, idMentorado) VALUES (?, ?);', [idMentor, idMentorado]);
     }
 
+    static promedio(){
+        return db.execute('SELECT MIN(nivelE) as promedio FROM dimempleado_actual WHERE idDimension = 1 UNION SELECT MIN(nivelE +1) FROM dimempleado_actual WHERE idDimension = 2 UNION SELECT MIN(nivelE +1) FROM dimempleado_actual WHERE idDimension = 3;');
+    }
+
+
 
 
   
