@@ -348,15 +348,17 @@ exports.sinMentor = (request, response, next) => {
 
 exports.agregarNuevoMentor = async (request, response, next) => {
 
-    console.log(request.body.mentorado);
+    console.log(request.body.mentor);
     console.log(request.body.mentorados);
 
     var mentorado = request.body.mentorados;
+    //const result = Array.isArray(mentorado) === false;
+    //console.log(result);
 
-    
+    // new Mentor(idMentor, idMentorado);
     if(Array.isArray(mentorado) === false){
 
-        let res = new Mentor(request.body.mentorado,mentorado);
+        let res = new Mentor(request.body.mentor, mentorado);
         res.saveMentor();
         response.redirect('/miChapter');
 
@@ -366,7 +368,7 @@ exports.agregarNuevoMentor = async (request, response, next) => {
             //Ciclo for para realizar insert de mentorados a mentor 
             for (let nuevoMentorado of mentorado ) {
                 console.log(nuevoMentorado);
-                let res = new Mentor(request.body.mentorado,nuevoMentorado);
+                let res = new Mentor(request.body.mentor, nuevoMentorado);
                 await res.saveMentor();
                 
             }

@@ -64,7 +64,7 @@
                                     <th scope="row">Nombre mentor: </th>
                                     <td>
                     
-                                        <select id="mentorado" name="mentorado" class="selectpicker" data-live-search="true"
+                                        <select id="mentor" name="mentor" class="selectpicker" data-live-search="true"
                                             title="Selecciona al nuevo mentor" data-width="100%" required>
                                             <% for (let mentor of noMentores) { %>
                                                 <option value="<%= mentor.idEmpleado %>">
@@ -121,13 +121,8 @@
             
             <script>
                 const accion_asincrona = () => {
-                    
+                  const mentor = document.getElementById("mentor").value;
 
-                  const mentor = document.getElementById("mentorado").value;
-                  console.log(mentor);
-
-            
-            
                   //función que manda la petición asíncrona
                   fetch('/miChapter/mentorSeleccionado/'+ mentor, {
                     method: 'GET',
@@ -173,8 +168,6 @@
                     respuesta += '</select>'
             
                     //AJAX para filtrar empleados
-                    
-              
                     document.getElementById('mentorados').innerHTML = respuesta;
             
                     //De aquí sale el error
@@ -183,7 +176,7 @@
                   });
                 };
             
-                document.getElementById('mentorado').onchange = accion_asincrona;
+                document.getElementById('mentor').onchange = accion_asincrona;
               </script>
   </div>
     </div>
