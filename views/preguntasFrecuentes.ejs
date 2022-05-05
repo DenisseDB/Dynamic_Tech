@@ -1,0 +1,78 @@
+<!-- Partes que siempre aparecen en el navbar -->
+<%- include('includes/sidenavsup.ejs') %>
+
+<!-- Para que aparezca Mis Mentorados -->
+<% for (i = 0; i < rolesA.length; i++) {  %>
+  <% if (rolesA[i].idPrivilegio == 1) { %> 
+  <%- include('includes/sideMentorados.ejs') %>
+  <% } %>
+<% } %>
+
+<!-- Para que aparezca Empleados del chapter -->
+<% for (i = 0; i < rolesA.length; i++) {  %>
+  <% if (rolesA[i].idPrivilegio == 2) { %> 
+  <%- include('includes/sideAgregarE.ejs') %>
+  <% } %>
+<% } %>
+
+<!-- Final de la nav-->
+<%- include('includes/sidenavFin.ejs') %>
+
+  
+<div class="container px-13">
+    <div class="space2">
+        <h2><strong>Preguntas frecuentes y tutoriales</strong></h2>
+        <hr class="style17">
+
+    </div>
+</div>
+
+<div class="container">
+
+    <body>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h>
+                            <h5 style="text-align: center;">Título del documento o pregunta</h5></b>
+                    </div>
+                    <div class="card-body">
+                        <iframe src="lab23.pdf" width="100%" height="400px"></iframe>
+                        <br>
+                        <div style="text-align: center;">
+                            <a href="lab23.pdf">Haz clic aquí para ver el PDF en pantalla completa</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h>
+                            <h5 style="text-align: center;">Título del documento o pregunta</h5></b>
+                    </div>
+                    <div class="card-body">
+                        <iframe src="lab23.pdf" width="100%" height="400px"></iframe>
+                        <br>
+                        <div style="text-align: center;">
+                            <a href="lab23.pdf">Haz clic aquí para ver el PDF en pantalla completa</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </body>
+</div>
+
+
+
+
+<!--Footer-->
+<%- include('includes/foot.ejs') %>

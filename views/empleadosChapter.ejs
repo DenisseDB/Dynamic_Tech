@@ -19,6 +19,8 @@
 <!-- Final de la nav-->
 <%- include('includes/sidenavFin.ejs') %>
 
+
+
 <div class="container px-13">
   <div class="space2">
     <h2><strong>Personas del Chapter</strong></h2>
@@ -85,83 +87,82 @@
                 <!-- Para los niveles de cada dimensión -->
                 <div class="col">
                   <!-- Nivel craft -->
-                  <div class="form-floating">
-                    <input class="form-control" list="opcionesNivelCraft" id="nivelCraft" name="nivelCraft"
-                      placeholder="Type to search...">
-                    <datalist id="opcionesNivelCraft">
-                      <option value="1.1">
-                      <option value="1.2">
-                      <option value="1.3">
-                      <option value="2.1">
-                      <option value="2.2">
-                      <option value="2.3">
-                      <option value="3.1">
-                      <option value="3.2">
-                      <option value="3.3">
-                      <option value="4.1">
-                      <option value="4.2">
-                      <option value="4.3">
-                      <option value="5.1">
-                      <option value="5.2">
-                      <option value="5.3">
-                    </datalist>
-                    <label for="nivelCraft" class="form-label">Nivel craft</label>
-                  </div>
+                  <label for="nivelCraft" class="form-label">Nivel de Craft</label>
+                  <select id="nivelCraft" name="nivelCraft" class="selectpicker"
+                  data-live-search="true" title="Selecciona un nivel de craft"
+                  data-width="100%" required>
+                    <option value="1.1">1.1</option>
+                    <option value="1.2">1.2</option>
+                    <option value="1.3">1.3</option>
+                    <option value="2.1">2.1</option>
+                    <option value="2.2">2.2</option>
+                    <option value="2.3">2.3</option>
+                    <option value="3.1">3.1</option>
+                    <option value="3.2">3.2</option>
+                    <option value="3.3">3.3</option>
+                    <option value="4.1">4.1</option>
+                    <option value="4.2">4.2</option>
+                    <option value="4.3">4.3</option>
+                    <option value="5.1">5.1</option>
+                    <option value="5.2">5.2</option>
+                    <option value="5.3">5.3</option>
+
+                 
+              </select>
                 </div>
                 <div class="col">
 
                   <!-- Nivel de people -->
-                  <div class="form-floating">
-                    <input class="form-control" list="opcionesNivelPeople" id="nivelPeople" name="nivelPeople"
-                      placeholder="Type to search...">
-                    <datalist id="opcionesNivelPeople">
-                      <option value="1.1">
-                      <option value="1.2">
-                      <option value="1.3">
-                      <option value="2.1">
-                      <option value="2.2">
-                      <option value="2.3">
-                      <option value="3.1">
-                      <option value="3.2">
-                      <option value="3.3">
-                      <option value="4.1">
-                      <option value="4.2">
-                      <option value="4.3">
-                      <option value="5.1">
-                      <option value="5.2">
-                      <option value="5.3">
-                    </datalist>
-                    <label for="nivelPeople" class="form-label">Nivel People</label>
-                  </div>
+                  <label for="nivelPeople" class="form-label">Nivel de People</label>
+                  <select id="nivelPeople" name="nivelPeople" class="selectpicker"
+                  data-live-search="true" title="Selecciona un nivel de people"
+                  data-width="100%" required>
+                    <option value="1.1">1.1</option>
+                    <option value="1.2">1.2</option>
+                    <option value="1.3">1.3</option>
+                    <option value="2.1">2.1</option>
+                    <option value="2.2">2.2</option>
+                    <option value="2.3">2.3</option>
+                    <option value="3.1">3.1</option>
+                    <option value="3.2">3.2</option>
+                    <option value="3.3">3.3</option>
+                    <option value="4.1">4.1</option>
+                    <option value="4.2">4.2</option>
+                    <option value="4.3">4.3</option>
+                    <option value="5.1">5.1</option>
+                    <option value="5.2">5.2</option>
+                    <option value="5.3">5.3</option>
+
+                 
+              </select>
                 </div>
                 <div class="col">
                   <!-- Nivel de Business -->
-                  <div class="form-floating">
-                    <input class="form-control" list="opcionesNivelBusiness" id="nivelBusiness" name="nivelBusiness"
-                      placeholder="Type to search...">
-                    <datalist id="opcionesNivelBusiness">
-                      <option value="1.1">
-                      <option value="1.2">
-                      <option value="1.3">
-                      <option value="2.1">
-                      <option value="2.2">
-                      <option value="2.3">
-                      <option value="3.1">
-                      <option value="3.2">
-                      <option value="3.3">
-                      <option value="4.1">
-                      <option value="4.2">
-                      <option value="4.3">
-                      <option value="5.1">
-                      <option value="5.2">
-                      <option value="5.3">
-                    </datalist>
-                    <label for="nivelBusiness" class="form-label">Nivel Business</label>
-                    <br>
-                  </div>
-
+                  <label for="nivelBusiness" class="form-label">Nivel de Business</label>
+                  <select id="nivelBusiness" name="nivelBusiness" class="selectpicker"
+                  data-live-search="true" title="Selecciona un nivel de business"
+                  data-width="100%" required>
+                    <option value="1.1">1.1</option>
+                    <option value="1.2">1.2</option>
+                    <option value="1.3">1.3</option>
+                    <option value="2.1">2.1</option>
+                    <option value="2.2">2.2</option>
+                    <option value="2.3">2.3</option>
+                    <option value="3.1">3.1</option>
+                    <option value="3.2">3.2</option>
+                    <option value="3.3">3.3</option>
+                    <option value="4.1">4.1</option>
+                    <option value="4.2">4.2</option>
+                    <option value="4.3">4.3</option>
+                    <option value="5.1">5.1</option>
+                    <option value="5.2">5.2</option>
+                    <option value="5.3">5.3</option>
+                 
+              </select>
+              <br><br>
                 </div>
-
+                
+                 
                 <hr />
 
                 <div class="col">
@@ -204,7 +205,7 @@
                 </div>
               </div>
 
-              <button value="submit" class="btn btn-darkbtn btn-dark">Agregar</button>
+              <button value="submit" id = "button1" class="btn btn-darkbtn btn-dark">Agregar</button>
                             
             </form>
 
@@ -215,22 +216,12 @@
     </div>
 
 
-    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-      <div class="toast align-items-center text-white bg-secondary border-0" id="liveToastSuccess" class="toast"
-        role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-          <i class="bi bi-person-plus-fill"></i>
-          <strong class="me-auto"> Agregar Empleado</strong>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-          Se ha agregado correctamente al nuevo empleado.
-        </div>
-      </div>
-    </div>
+
 
 
     <br><br>
+
+
 
     <style>
       td {
@@ -371,7 +362,6 @@
 
   </script>
 
-
   <script>
     const accion_asincrona = () => {
       const valor_busqueda = document.getElementById('buscar').value;
@@ -406,12 +396,12 @@
                      '     <table class="table" style="table-layout: fixed">' +
                      '       <thead class="thead-dark"> ' +
                      '         <tr>' +
-                     '           <th scope="col"></th>' +
+                     '           <th style="width:8%;" scope="col"></th>' +
                      '           <th style="width:15%;" scope="col">Nombre</th>' +
-                     '           <th style="width:20%;" scope="col">Correo</th>' +
-                     '           <th scope="col">Nivel Craft</th>' +
-                     '           <th scope="col">Nivel People</th>' +
-                     '           <th scope="col">Nivel Business</th>' +
+                     '           <th style="width:25%;" scope="col">Correo</th>' +
+                     '           <th style="width:8%;" scope="col">Nivel Craft</th>' +
+                     '           <th style="width:8%;" scope="col">Nivel People</th>' +
+                     '           <th style="width:10%;" scope="col">Nivel Business</th>' +
                      '           <th scope="col"></th>' +
                      '           <th scope="col"></th>' +
                      '           <th style="width:5%;" scope="col"></th>' +
@@ -541,5 +531,8 @@
   
     /* demo */
   </style>
+
+
+  
 
   <%- include('includes/foot.ejs') %>

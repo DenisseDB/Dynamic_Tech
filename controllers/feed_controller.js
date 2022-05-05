@@ -15,13 +15,16 @@ exports.solicitudesFeedback = async (request, response, next) => {
 
    // Rango de fechas (para solicitar/responder feedback).
    const d = new Date();
-   const date = new Date(d.toDateString());
+   //const date = new Date(d.toDateString());
+   const date = new Date(d);
 
    let inicio = pd[0].fecha_inicial;
-   inicio = new Date(inicio.toDateString());
+   //inicio = new Date(inicio.toDateString());
+   inicio = new Date(inicio);
 
    let final = pd[0].fecha_final;
-   final = new Date(final.toDateString());
+   //final = new Date(final.toDateString());
+   final = new Date(final);
 
    const pa = (inicio <= date) && (final >= date);
 
@@ -49,7 +52,7 @@ exports.solicitudesFeedback = async (request, response, next) => {
 };
 
 exports.nuevaSolicitud = async (request, response, next) => {
-   let evaluadores = request.body.nombre; // Nombre(s) de compañeros evaluadores.
+   let evaluadores = request.body.evaluador; // Nombre(s) de compañeros evaluadores.
    let arr = Array.isArray(evaluadores); // ¿evaluadores (array)?
    let str = typeof evaluadores === 'string'; // ¿evaluador (string)?
    let n_solicitudes = request.session.solicitudes;
@@ -59,9 +62,8 @@ exports.nuevaSolicitud = async (request, response, next) => {
          request.session.people, request.session.business); // Cuestionarios del sesionado.
 
       for await (let evaluador of evaluadores) {
-         const IDE = await Solicitud.fecthOneID(evaluador); // ID del evaluador.
 
-         const solicitud = new Solicitud(request.session.idEmpleado, IDE[0].idEmpleado,
+         const solicitud = new Solicitud(request.session.idEmpleado, evaluador,
             IDC[0].idCuestionario, IDC[1].idCuestionario, IDC[2].idCuestionario,
             request.body.periodo, new Date()); // Nueva solicitud.
 
@@ -73,9 +75,7 @@ exports.nuevaSolicitud = async (request, response, next) => {
       const IDC = await Solicitud.fecthIDCuestionarios(request.session.craft,
          request.session.people, request.session.business); // Cuestionarios del sesionado.
 
-      const IDE = await Solicitud.fecthOneID(evaluadores); // ID del evaluador.
-
-      const solicitud = new Solicitud(request.session.idEmpleado, IDE[0].idEmpleado,
+      const solicitud = new Solicitud(request.session.idEmpleado, evaluadores,
          IDC[0].idCuestionario, IDC[1].idCuestionario, IDC[2].idCuestionario,
          request.body.periodo, new Date()); // Nueva solicitud.
 
@@ -349,28 +349,49 @@ exports.misMentorados = (request, response, next) => {
       });
 };
 
+exports.preguntasFrecuentes = (request, response, next) => {
+
+   response.render('preguntasFrecuentes', {
+
+      correo: request.session.correo ? request.session.correo : '',
+      rolesA: request.session.privilegiosPermitidos,
+      rol: request.session.idRol ? request.session.idRol : '',
+      nombreSesion: request.session.nombreSesion,
+      apellidoPSesion: request.session.apellidoPSesion,
+      foto: request.session.foto,
+   });
+};
+
 exports.home = (request, response, next) => {
    User.fecthPrivilegios(request.session.idRol)
       .then(([rows, fielData]) => {
 
          request.session.privilegiosPermitidos = rows,
 
-            response.render('index', { // mandamos su informacion al sidenav
+            User.findEquipo()
+            .then(([rows2, fieldData]) => {
 
-               foto: request.session.foto,
-               nombreSesion: request.session.nombreSesion,
-               apellidoPSesion: request.session.apellidoPSesion,
-               correo: request.session.correo ? request.session.correo : '',
-               rolesA: rows,
-               rol: request.session.idRol ? request.session.idRol : '',
-               idEmpleado: request.session.idEmpleado ? request.session.idEmpleado : '',
-               nivel_craftpg: request.session.craft ? request.session.craft : '',
-               nivel_peoplepg: request.session.people ? request.session.people : '',
-               nivel_businesspg: request.session.business ? request.session.business : '',
-            }
-         );
+               response.render('index', { // mandamos su informacion al sidenav
 
+                  foto: request.session.foto,
+                  nombreSesion: request.session.nombreSesion,
+                  apellidoPSesion: request.session.apellidoPSesion,
+                  correo: request.session.correo ? request.session.correo : '',
+                  rolesA: rows,
+                  rol: request.session.idRol ? request.session.idRol : '',
+                  idEmpleado: request.session.idEmpleado ? request.session.idEmpleado : '',
+                  nivel_craftpg: request.session.craft ? request.session.craft : '',
+                  nivel_peoplepg: request.session.people ? request.session.people : '',
+                  nivel_businesspg: request.session.business ? request.session.business : '',
+                  id_equipo: request.session.idEquipo ? request.session.idEquipo : '',
+                  equipos: rows2,
+               })
 
+            })
+            .catch(err => {
+               console.log(err);
+            });
+         
       }).catch((error) => {
          console.log(error);
       });

@@ -2,191 +2,193 @@
 <%- include('includes/sidenavsup.ejs') %>
 
   <!-- Para que aparezca Mis Mentorados -->
-  <% for (i=0; i < rolesA.length; i++) { %>
-    <% if (rolesA[i].idPrivilegio==1) { %>
-      <%- include('includes/sideMentorados.ejs') %>
-        <% } %>
-          <% } %>
+<% for (i=0; i < rolesA.length; i++) { %>
+  <% if (rolesA[i].idPrivilegio==1) { %>
+    <%- include('includes/sideMentorados.ejs') %>
+  <% } %>
+<% } %>
 
             <!-- Para que aparezca Empleados del chapter -->
-            <% for (i=0; i < rolesA.length; i++) { %>
-              <% if (rolesA[i].idPrivilegio==2) { %>
-                <%- include('includes/sideAgregarE.ejs') %>
-                  <% } %>
+<% for (i=0; i < rolesA.length; i++) { %>
+  <% if (rolesA[i].idPrivilegio==2) { %>
+    <%- include('includes/sideAgregarE.ejs') %>
+  <% } %>
+<% } %>
+
+<!-- Final de la nav-->
+<%- include('includes/sidenavFin.ejs') %>
+
+<div class="container px-13">
+  <div class="space2">
+    <h2><strong> Mis Mentorados </strong></h2>
+    <hr class="style17">
+    
+    <h3>
+      <%= nombre %>, estos son tus mentorados:
+    </h3>
+    <br><br>
+    <div class="container">
+      <div class="col-sm-12">
+        <div class="card">
+          <h5 class="card-header"><i class="bi bi-people-fill"></i> Mentorados</h5>
+          <div class="card-body">
+            <!--Para tabla con boostrap-->
+            <table class="table" style="table-layout: fixed">
+              <thead class="thead-dark">
+                <tr>
+                  <th style="text-align:center" scope="col"></th>
+                  <th style="text-align:center" scope="col">Nombre</th>
+                  <th style="text-align:center" scope="col">  Craft  </th>
+                  <th style="text-align:center" scope="col">  People  </th>
+                  <th style="text-align:center" scope="col">Busisness</th>
+                  <th style="text-align:center" scope="col">Retroalimentación</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <% var mentorados_id=[] %>
+                  <% var mentorados_nombre=[] %>
+                  <% var mentorados_apellido=[] %>
+                  <% var mentorados_niveles=[] %>
+                  <% var mentorados_fotos=[] %>
+                  <% for (let mentorado of mentorados) { %>
+                    <% if (!((mentorados_id).includes(mentorado.idMentorado))) {%>
+                      <% mentorados_id.push(mentorado.idMentorado) %>
+                      <% mentorados_nombre.push(mentorado.nombre) %>
+                      <% mentorados_apellido.push(mentorado.apellidoP)%>
+                      <% mentorados_fotos.push(mentorado.fotoPerfil)%>
+                      <% mentorados_niveles.push(Array.from(mentorado.nivelE))%>
                     <% } %>
+                    <% if ((mentorados_niveles)[(mentorados_nombre).length - 1].length <= 3) { %>
+                      <% mentorados_niveles[(mentorados_niveles).length - 1].push(mentorado.nivelE) %>
+                    <% } %>
+                  <% } %>
+                  
+                <% for (let i = 0; i < (mentorados_nombre).length; i++) { %>
+                  <td style="text-align:center"> <img src=" <%= mentorados_fotos[i]; %>"
+                    alt="hugenerd" width="60" height="60"
+                    class="rounded-circle"></td>
+                  <td style="text-align:center">
+                    <%= mentorados_nombre[i]; %>
+                    <%=  mentorados_apellido[i]; %>
+                    <% var nivelC = parseFloat(mentorados_niveles[i][0]).toFixed(1); %>
+                    <% var nivelC2 = nivelC * 100 / 5; %>
+                    <% var nivelP = parseFloat(mentorados_niveles[i][1]).toFixed(1); %>
+                    <% var nivelP2 = nivelP * 100 / 5; %>
+                    <% var nivelB = parseFloat(mentorados_niveles[i][2]).toFixed(1); %>
+                    <% var nivelB2 = nivelB * 100 / 5; %>
 
-                      <!-- Final de la nav-->
-                      <%- include('includes/sidenavFin.ejs') %>
+                  </td>
+                <td>
+                  <div role="progressbar" id="pg1" data-content="<%= nivelC %>" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" value="2"
+                    style="--value:<%= nivelC2 %>;">
+                  </div>
+                </td>
+                <td>
+                  <div role="progressbar" id="pg2" data-content="<%= nivelP %>" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" value="2"
+                  style="--value:<%= nivelP2 %>; --fg: rgb(91, 57, 107); --bg: rgb(238, 229, 249);">
+                  </div>
+                </td>
+                <td>
+                  <div role="progressbar" id="pg3" data-content="<%= nivelB %>" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" value="2"
+                    style="--value:<%= nivelB2 %>;  --fg: rgb(39, 94, 179); --bg: rgb(229, 237, 249);">
+                  </div>
+                </td>
+                <td style="text-align:center">
 
-                      <div class="container px-13">
-                        <div class="space2">
-                          <h2><strong> Mis Mentorados </strong></h2>
-                          <hr class="style17">
-                          <h3>
-                            <%= nombre %>, estos son tus mentorados:
-                          </h3>
-                          <br><br>
-                          <div class="container">
-                            <div class="col-sm-12">
-                              <div class="card">
-                                <h5 class="card-header"><i class="bi bi-people-fill"></i> Mentorados</h5>
-                                <div class="card-body">
-                                  <!--Para tabla con boostrap-->
-                                  <table class="table" style="table-layout: fixed">
-                                    <thead class="thead-dark">
-                                      <tr>
-                                        <th style="text-align:center" scope="col"></th>
-                                        <th style="text-align:center" scope="col">Nombre</th>
-                                        <th style="text-align:center" scope="col">  Craft  </th>
-                                        <th style="text-align:center" scope="col">  People  </th>
-                                        <th style="text-align:center" scope="col">Busisness</th>
-                                        <th style="text-align:center" scope="col">Retroalimentación</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr>
-                                        <% var mentorados_id=[] %>
-                                        <% var mentorados_nombre=[] %>
-                                        <% var mentorados_apellido=[] %>
-                                        <% var mentorados_niveles=[] %>
-                                        <% var mentorados_fotos=[] %>
-                                        <% for (let mentorado of mentorados) { %>
-                                          <% if (!((mentorados_id).includes(mentorado.idMentorado))) {%>
-                                            <% mentorados_id.push(mentorado.idMentorado) %>
-                                            <% mentorados_nombre.push(mentorado.nombre) %>
-                                            <% mentorados_apellido.push(mentorado.apellidoP)%>
-                                            <% mentorados_fotos.push(mentorado.fotoPerfil)%>
-                                            <% mentorados_niveles.push(Array.from(mentorado.nivelE))%>
-                                          <% } %>
-                                          <% if ((mentorados_niveles)[(mentorados_nombre).length - 1].length <= 3) { %>
-                                            <% mentorados_niveles[(mentorados_niveles).length - 1].push(mentorado.nivelE) %>
-                                          <% } %>
-                                        <% } %>
-                                        
-                                      <% for (let i = 0; i < (mentorados_nombre).length; i++) { %>
-                                        <td style="text-align:center"> <img src=" <%= mentorados_fotos[i]; %>"
-                                          alt="hugenerd" width="60" height="60"
-                                          class="rounded-circle"></td>
-                                        <td style="text-align:center">
-                                          <%= mentorados_nombre[i]; %>
-                                          <%=  mentorados_apellido[i]; %>
-                                          <% var nivelC = parseFloat(mentorados_niveles[i][0]).toFixed(1); %>
-                                          <% var nivelC2 = nivelC * 100 / 5; %>
-                                          <% var nivelP = parseFloat(mentorados_niveles[i][1]).toFixed(1); %>
-                                          <% var nivelP2 = nivelP * 100 / 5; %>
-                                          <% var nivelB = parseFloat(mentorados_niveles[i][2]).toFixed(1); %>
-                                          <% var nivelB2 = nivelB * 100 / 5; %>
-
-                                        </td>
-                                      <td>
-                                        <div role="progressbar" id="pg1" data-content="<%= nivelC %>" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" value="2"
-                                          style="--value:<%= nivelC2 %>;">
-                                        </div>
-                                      </td>
-                                      <td>
-                                        <div role="progressbar" id="pg2" data-content="<%= nivelP %>" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" value="2"
-                                        style="--value:<%= nivelP2 %>; --fg: rgb(91, 57, 107); --bg: rgb(238, 229, 249);">
-                                        </div>
-                                      </td>
-                                      <td>
-                                        <div role="progressbar" id="pg3" data-content="<%= nivelB %>" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" value="2"
-                                          style="--value:<%= nivelB2 %>;  --fg: rgb(39, 94, 179); --bg: rgb(229, 237, 249);">
-                                        </div>
-                                      </td>
-                                      <td style="text-align:center">
-
-                                        <form action="/mentorados/vistaFeedback/<%= mentorados_id[i] %>" method="POST">
-                                          <button value="submit" class="btn btn-dark">Detalle</button>
-                                        </form>
-                                        </td>
-                                                                <!-- <button type="button" class="btn btn-lg btn-primary" disabled>Responder</button> -->
-                                      </tr>
-                                      <% } %>
+                  <form action="/mentorados/vistaFeedback/<%= mentorados_id[i] %>" method="POST">
+                    <button value="submit" class="btn btn-dark">Detalle</button>
+                  </form>
+                  </td>
+                                          <!-- <button type="button" class="btn btn-lg btn-primary" disabled>Responder</button> -->
+                </tr>
+                <% } %>
 
 
-                                      <% var sum_craft = 0%>
-                                      <% var sum_people = 0%>
-                                      <% var sum_business = 0%>
+                <% var sum_craft = 0%>
+                <% var sum_people = 0%>
+                <% var sum_business = 0%>
 
-                                      <% for (let nivel of mentorados_niveles) { %>
-                                        <% sum_craft += nivel[0]; %>
-                                        <% sum_people += nivel[1]; %>
-                                        <% sum_business += nivel[2]; %>
-                                      <% } %>
+                <% for (let nivel of mentorados_niveles) { %>
+                  <% sum_craft += nivel[0]; %>
+                  <% sum_people += nivel[1]; %>
+                  <% sum_business += nivel[2]; %>
+                <% } %>
 
-                                      <% var promedio_craft = sum_craft / (mentorados_niveles).length %>
-                                      <% var promedio_people = sum_people / (mentorados_niveles).length %>
-                                      <% var promedio_business = sum_business / (mentorados_niveles).length %>
+                <% var promedio_craft = sum_craft / (mentorados_niveles).length %>
+                <% var promedio_people = sum_people / (mentorados_niveles).length %>
+                <% var promedio_business = sum_business / (mentorados_niveles).length %>
 
 
-                                      <% promedio_craft = promedio_craft.toFixed(2) %>
-                                      <% promedio_people = promedio_people.toFixed(2) %>
-                                      <% promedio_business = promedio_business.toFixed(2) %>
+                <% promedio_craft = promedio_craft.toFixed(2) %>
+                <% promedio_people = promedio_people.toFixed(2) %>
+                <% promedio_business = promedio_business.toFixed(2) %>
 
-                                        <td style="text-align:center"></td>
-                                        <td style="text-align:center; color:rgb(81, 80, 80);"><b>Promedio por dimensión</b></td>
-                                        <td style="text-align:center; color:rgb(81, 80, 80);"><b> <%= promedio_craft %> </b></td>
-                                        <td style="text-align:center; color:rgb(81, 80, 80);"><b> <%= promedio_people %> </b></td>
-                                        <td style="text-align:center; color:rgb(81, 80, 80);"><b> <%= promedio_business %></b></td>
-                                        <td style="text-align:center; color:rgb(81, 80, 80);"></td>
-                                        
-                                        
-                                        
+                  <td style="text-align:center"></td>
+                  <td style="text-align:center; color:rgb(81, 80, 80);"><b>Promedio por dimensión</b></td>
+                  <td style="text-align:center; color:rgb(81, 80, 80);"><b> <%= promedio_craft %> </b></td>
+                  <td style="text-align:center; color:rgb(81, 80, 80);"><b> <%= promedio_people %> </b></td>
+                  <td style="text-align:center; color:rgb(81, 80, 80);"><b> <%= promedio_business %></b></td>
+                  <td style="text-align:center; color:rgb(81, 80, 80);"></td>
+                  
+                  
+                  
 
-                                    </tbody>
-                                  </table>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                          <style>
-                            @keyframes growProgressBar {
-                          
-                              0%,
-                              33% {
-                                --pgPercentage: 0;
-                              }
-                          
-                              100% {
-                                --pgPercentage: var(--value);
-                              }
-                            }
-                          
-                            @property --pgPercentage {
-                              syntax: '<number>';
-                              inherits: false;
-                              initial-value: 0;
-                            }
-                          
-                            div[role="progressbar"] {
-                              --size: 3rem;
-                              --fg: rgb(237, 110, 133);
-                              --bg: rgb(249, 233, 229);
-                              --pgPercentage: var(--value);
-                              animation: growProgressBar 3s 1 forwards;
-                              width: var(--size);
-                              height: var(--size);
-                              border-radius: 50%;
-                              display: grid;
-                              margin: auto;
-                              place-items: center;
-                              background:
-                                radial-gradient(closest-side, white 80%, transparent 0 99.9%, white 0),
-                                conic-gradient(var(--fg) calc(var(--pgPercentage) * 1%), var(--bg) 0);
-                              font-family: Helvetica, Arial, sans-serif;
-                              font-size: calc(var(--size) / 3.2);
-                              font-weight: bold;
-                              color: var(--fg);
-                            }
-                          
-                            div[role="progressbar"]::before {
-                              counter-reset: percentage var(--value);
-                              content: attr(data-content);
-                            }
-                          
-                            /* demo */
-                          </style>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-                        <%- include('includes/foot.ejs') %>
+  <style>
+    @keyframes growProgressBar {
+  
+      0%,
+      33% {
+        --pgPercentage: 0;
+      }
+  
+      100% {
+        --pgPercentage: var(--value);
+      }
+    }
+  
+    @property --pgPercentage {
+      syntax: '<number>';
+      inherits: false;
+      initial-value: 0;
+    }
+  
+    div[role="progressbar"] {
+      --size: 3rem;
+      --fg: rgb(237, 110, 133);
+      --bg: rgb(249, 233, 229);
+      --pgPercentage: var(--value);
+      animation: growProgressBar 3s 1 forwards;
+      width: var(--size);
+      height: var(--size);
+      border-radius: 50%;
+      display: grid;
+      margin: auto;
+      place-items: center;
+      background:
+        radial-gradient(closest-side, white 80%, transparent 0 99.9%, white 0),
+        conic-gradient(var(--fg) calc(var(--pgPercentage) * 1%), var(--bg) 0);
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: calc(var(--size) / 3.2);
+      font-weight: bold;
+      color: var(--fg);
+    }
+  
+    div[role="progressbar"]::before {
+      counter-reset: percentage var(--value);
+      content: attr(data-content);
+    }
+  
+    /* demo */
+  </style>
+
+<%- include('includes/foot.ejs') %>
