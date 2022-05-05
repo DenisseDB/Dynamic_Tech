@@ -7,7 +7,7 @@
    <% } %>
 <% } %>
 
-               <!-- Para que aparezca Empleados del chapter -->
+<!-- Para que aparezca Empleados del chapter -->
 <% for (i=0; i < rolesA.length; i++) { %>
    <% if (rolesA[i].idPrivilegio==2) { %>
       <%- include('includes/sideAgregarE.ejs') %>
@@ -26,8 +26,8 @@
             <div class="accordion" id="accordionExample">
                <div class="accordion-item">
                   <h2 class="accordion-header" id="headingOne">
-                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                        aria-expanded="true" aria-controls="collapseOne">
+                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         <h5> Cuestionarios de Craft </h5>
                      </button>
                   </h2>
@@ -38,7 +38,6 @@
                            <thead class="thead-dark">
                               <tr>
                                  <th style="text-align:center" scope="col">Nombre</th>
-                                 <th style="text-align:center" scope="col"> Dimensión </th>
                                  <th style="text-align:center" scope="col"> Nivel </th>
                                  <th style="text-align:center" scope="col"> Fecha de modificación </th>
                               </tr>
@@ -98,7 +97,6 @@
                            <thead class="thead-dark">
                               <tr>
                                  <th style="text-align:center" scope="col">Nombre</th>
-                                 <th style="text-align:center" scope="col"> Dimensión </th>
                                  <th style="text-align:center" scope="col"> Nivel </th>
                                  <th style="text-align:center" scope="col"> Fecha de modificación </th>
                               </tr>
@@ -156,7 +154,6 @@
                            <thead class="thead-dark">
                               <tr>
                                  <th style="text-align:center" scope="col">Nombre</th>
-                                 <th style="text-align:center" scope="col"> Dimensión </th>
                                  <th style="text-align:center" scope="col"> Nivel </th>
                                  <th style="text-align:center" scope="col"> Fecha de modificación </th>
                               </tr>
@@ -200,7 +197,5 @@
       </div>
    </div>
 </div>
-
 <%- include('includes/foot.ejs') %>
-
 
