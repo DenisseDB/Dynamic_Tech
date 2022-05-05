@@ -101,7 +101,7 @@ module.exports = class ChapterLead {
 
     //Para el nuevo select sin el mentor elegido
     static fetchNoMentoresSelect(idMentor){
-        return db.execute('SELECT * FROM `empleado` WHERE activo = 1 and idEmpleado != ? and idEmpleado NOT IN (SELECT idMentorado FROM asignacionempleado);',[idMentor])
+        return db.execute('SELECT * FROM `empleado` WHERE activo = 1 and idEmpleado != ? and idEmpleado NOT IN (SELECT idMentorado FROM asignacionempleado);', [idMentor]);
     }
 
     static fetchNoMentorados(){
