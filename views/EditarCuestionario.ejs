@@ -62,7 +62,7 @@
                      <tr>
                         <td style="text-align:left">
                            <div class="form-check">
-                              <label class="container">
+                              <label class="container1">
                                  <% if (preguntas_incluidas.includes(pregunta.idPregunta) && p == 0) {%>
                                  <input class="form-check-input" name="checkboxes[]" type="checkbox"
                                     value="<%=pregunta.idPregunta%>" id="flexCheckDefault" checked>
@@ -195,7 +195,7 @@
 
 <style>
    /* Customize the label (the container) */
-   .container {
+   .container1 {
       display: block;
       position: relative;
       padding-left: 35px;
@@ -209,7 +209,7 @@
    }
 
    /* Hide the browser's default checkbox */
-   .container input {
+   .container1 input {
       position: absolute;
       opacity: 0;
       cursor: pointer;
@@ -228,12 +228,12 @@
    }
 
    /* On mouse-over, add a grey background color */
-   .container:hover input~.checkmark {
+   .container1:hover input~.checkmark {
       background-color: #ccc;
    }
 
    /* When the checkbox is checked, add a blue background */
-   .container input:checked~.checkmark {
+   .container1 input:checked~.checkmark {
       background-color: #2196F3;
    }
 
@@ -245,12 +245,12 @@
    }
 
    /* Show the checkmark when checked */
-   .container input:checked~.checkmark:after {
+   .container1 input:checked~.checkmark:after {
       display: block;
    }
 
    /* Style the checkmark/indicator */
-   .container .checkmark:after {
+   .container1 .checkmark:after {
       left: 9px;
       top: 5px;
       width: 5px;
