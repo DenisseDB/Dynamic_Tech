@@ -503,6 +503,10 @@ exports.miChapter = (request, response, next) => {
         Lead.fetchMentorados()
         .then(([mentorados, fieldData]) => {
 
+            Lead.promedio()
+            .then(([promedioChapter, fieldData]) => {
+    
+
         response.render('miChapter', {
 
             correo: request.session.correo ? request.session.correo : '',
@@ -513,10 +517,16 @@ exports.miChapter = (request, response, next) => {
             foto: request.session.foto,
             mentores: mentores,
             mentorados: mentorados,
+            promedioChapter: promedioChapter,
+
 
         });
     })
         
+    .catch(err => {
+        console.log(err);
+    }); 
+    })
     .catch(err => {
         console.log(err);
     }); 

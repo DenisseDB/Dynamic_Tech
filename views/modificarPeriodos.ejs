@@ -57,7 +57,7 @@
                     
                                         <div class="col-sm-6">
                                             <div class="input-group mb-3">
-                                            Fecha Fin:  &nbsp
+                                            Fecha fin:  &nbsp
                                                 <br> <input type="date" style = 'border-radius: 10px' id="finFecha" name="finFecha" required
                                                     pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" value="<%= ultimo_periodo[0].fecha_final %>">
                                                 </label>
@@ -112,24 +112,35 @@
         const nombreMesFinal = NombreMes(mes_finPeriodo);
         const nombreMesInicio = NombreMes(mes_inicioPeriodo);
 
-
         nombre_periodo = nombreMesInicio + ' - ' + nombreMesFinal;
-
-
 
         if (fecha_inicial != '' && fecha_final != '') {
 
+            let fecha_io = "<%= inicial_old %>";
 
-            if( fecha_inicial < hoy && fecha_final < hoy ) {
+            if( fecha_inicial <  fecha_io && fecha_final < hoy ) {
                 console.log('fecha hoy' +  hoy);
-                let respuesta = alert('No puede crear periodos en el pasado. Verifique sus fechas');  
+                let respuesta = alert('No puede crear periodos en el pasado. Verifique sus fechas.');  
                 location.reload(); 
                 return false;
             }
 
+            else if( fecha_inicial <  fecha_io) {
+                console.log('fecha hoy' +  hoy);
+                let respuesta = alert('La nueva fecha inicial no puede ser menor que la original. Verifique sus fechas.');  
+                location.reload(); 
+                return false;
+            }
+
+            else if( fecha_final <  hoy || fecha_final < fecha_io) {
+                console.log('fecha hoy' +  hoy);
+                let respuesta = alert('La nueva fecha final no puede ser menor que la acutal o a la fecha inicial original. Verifique sus fechas.');  
+                location.reload(); 
+                return false;
+            }
 
             else if (fecha_inicial >= fecha_final ){
-                let respuesta = alert('Verifique sus fechas');  
+                let respuesta = alert('Verifique sus fechas.');  
                 location.reload(); 
                 return false;
             }

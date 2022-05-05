@@ -26,7 +26,7 @@
                 <div class="container px-5">
                     <div class="card">
                         <div class="card-header">
-                            <h5> Nuevo periodo de evaluación</h5>
+                            <h5> Nuevo Periodo de Evaluación</h5>
                         </div>
                         <div class="card-body">
 
@@ -40,21 +40,24 @@
                                                     pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"  >
                                                 </label>
                                             </div>
-                                            <br>
                                         </div>
                     
                                         <div class="col-sm-6">
                                             <div class="input-group mb-3">
-                                            Fecha Fin:  &nbsp
+                                            Fecha fin:  &nbsp
                                                 <br> <input type="date" style = 'border-radius: 10px' id="finFecha" name="finFecha" required
                                                     pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
                                                 </label>
                                             </div>
-                                            <br>
                                             <div class="d-flex justify-content-center">
                                                 <div class="p-2">
+                                                    <% if (generar_periodo == true) { %>
+                                                    <button style="margin:auto"
+                                                    class="btn btn-dark" type="submit" id="buttonRegistrar" disabled>Generar</button>
+                                                    <% } else { %>
                                                     <button style="margin:auto"
                                                     class="btn btn-dark" type="submit" id="buttonRegistrar">Generar</button>
+                                                    <% } %>
                                                 </div>
                                             </div>
                                             <br>
@@ -143,14 +146,19 @@
 
             if( fecha_inicial < hoy && fecha_final < hoy ) {
                 console.log('fecha hoy' +  hoy);
-                let respuesta = alert('No puede crear periodos en el pasado. Verifique sus fechas');  
+                let respuesta = alert('No puede crear periodos en el pasado. Verifique sus fechas.');  
                 location.reload(); 
                 return false;
             }
 
+            else if (fecha_inicial < hoy && fecha_final > hoy){
+                let respuesta = alert('La fecha de inicio no puede ser menor a la actual. Verifique sus fechas.');  
+                location.reload(); 
+                return false;
+            }
 
             else if (fecha_inicial >= fecha_final ){
-                let respuesta = alert('Verifique sus fechas');  
+                let respuesta = alert('La fecha final no puede ser menor que la de inicio. Verifique sus fechas.');  
                 location.reload(); 
                 return false;
             }
