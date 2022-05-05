@@ -346,37 +346,56 @@ exports.sinMentor = (request, response, next) => {
 
 
 
-exports.agregarNuevoMentor = async (request, response, next) => {
+// exports.agregarNuevoMentor = async (request, response, next) => {
 
-    console.log(request.body.mentorado);
-    console.log(request.body.mentorados);
+//     console.log(request.body.mentorado);
+//     console.log(request.body.mentorados);
 
-    var mentorado = request.body.mentorados;
+//     console.log(request.body)
+//     var mentorado = request.body.mentorados;
 
     
-    if(Array.isArray(mentorado) === false){
+//     if(Array.isArray(mentorado) === false){
 
-        let res = new Mentor(request.body.mentorado,mentorado);
+//         console.log("No es array")
+//         let res = new Mentor(request.body.mentorado,mentorado);
+//         res.saveMentor();
+//         response.redirect('/miChapter');
+
+//     } else {
+
+//         try {
+//             //Ciclo for para realizar insert de mentorados a mentor 
+//             for (let nuevoMentorado of mentorado ) {
+//                 console.log(nuevoMentorado);
+//                 let res = new Mentor(request.body.mentorado,nuevoMentorado);
+//                 await res.saveMentor();
+                
+//             }
+//             request.session.success = 1;
+//             response.redirect('/miChapter');
+
+//         } catch (error) {
+//             console.log(error);
+//         }
+//     }
+// };
+
+exports.agregarNuevoMentor = (request, response, next) => {
+
+    // console.log(request.body.mentorado);
+    // console.log(request.body.mentorados);
+
+    // console.log(request.body)
+    var mentorados = request.body.mentorados;
+  
+
+        // console.log("No es array")
+        let res = new Mentor(request.body.mentorado,mentorados);
         res.saveMentor();
         response.redirect('/miChapter');
 
-    } else {
 
-        try {
-            //Ciclo for para realizar insert de mentorados a mentor 
-            for (let nuevoMentorado of mentorado ) {
-                console.log(nuevoMentorado);
-                let res = new Mentor(request.body.mentorado,nuevoMentorado);
-                await res.saveMentor();
-                
-            }
-            request.session.success = 1;
-            response.redirect('/miChapter');
-
-        } catch (error) {
-            console.log(error);
-        }
-    }
 };
 
 exports.eliminarMentor = (request, response, next) => {
@@ -503,6 +522,10 @@ exports.miChapter = (request, response, next) => {
         Lead.fetchMentorados()
         .then(([mentorados, fieldData]) => {
 
+            Lead.promedio()
+            .then(([promedioChapter, fieldData]) => {
+    
+
         response.render('miChapter', {
 
             correo: request.session.correo ? request.session.correo : '',
@@ -513,10 +536,16 @@ exports.miChapter = (request, response, next) => {
             foto: request.session.foto,
             mentores: mentores,
             mentorados: mentorados,
+            promedioChapter: promedioChapter,
+
 
         });
     })
         
+    .catch(err => {
+        console.log(err);
+    }); 
+    })
     .catch(err => {
         console.log(err);
     }); 

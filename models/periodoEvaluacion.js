@@ -19,6 +19,17 @@ module.exports = class PeriodoEvaluacion {
         return db.execute('SELECT * FROM periodo ORDER BY idPeriodo DESC LIMIT 1;');
     }
 
+    static fetchUP() { 
+        return db.execute('SELECT * FROM periodo ORDER BY idPeriodo DESC LIMIT 1;')
+            .then(([rows, fielData]) => {
+                return rows;
+            })
+            .catch((error) => {
+                console.log(error);
+                return 0;
+            });
+    }
+
     savePeriodo() {
 
         return db.execute('INSERT INTO periodo(NombrePeriodo, fecha_inicial, fecha_final, anio) VALUES (?,?,?,?)',
