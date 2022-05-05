@@ -143,14 +143,19 @@
 
             if( fecha_inicial < hoy && fecha_final < hoy ) {
                 console.log('fecha hoy' +  hoy);
-                let respuesta = alert('No puede crear periodos en el pasado. Verifique sus fechas');  
+                let respuesta = alert('No puede crear periodos en el pasado. Verifique sus fechas.');  
                 location.reload(); 
                 return false;
             }
 
+            else if (fecha_inicial < hoy && fecha_final > hoy){
+                let respuesta = alert('La fecha de inicio no puede ser menor a la actual. Verifique sus fechas.');  
+                location.reload(); 
+                return false;
+            }
 
             else if (fecha_inicial >= fecha_final ){
-                let respuesta = alert('Verifique sus fechas');  
+                let respuesta = alert('La fecha final no puede ser menor que la de inicio. Verifique sus fechas.');  
                 location.reload(); 
                 return false;
             }
