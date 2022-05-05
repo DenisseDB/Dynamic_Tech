@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: mysql-dynamictech.alwaysdata.net
--- Tiempo de generación: 05-05-2022 a las 04:00:30
+-- Tiempo de generación: 05-05-2022 a las 19:26:03
 -- Versión del servidor: 10.6.5-MariaDB
 -- Versión de PHP: 7.4.19
 
@@ -46,7 +46,7 @@ INSERT INTO dimempleado VALUES
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `modificarEmpleado` (IN `U_nombre` VARCHAR(100), IN `U_apellidoP` VARCHAR(100), IN `U_apellidoM` VARCHAR(100), IN `U_correo` VARCHAR(400), IN `U_contrasena` VARCHAR(400), IN `U_idEquipo` INT, IN `U_idEmpleado` INT, IN `U_idRol` INT, IN `U_nivelCraft` FLOAT, IN `U_nivelPeople` FLOAT, IN `U_nivelBusiness` FLOAT, IN `U_fotoPerfil` VARCHAR(1000))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `modificarEmpleado` (IN `U_nombre` VARCHAR(100), IN `U_apellidoP` VARCHAR(100), IN `U_apellidoM` VARCHAR(100), IN `U_correo` VARCHAR(400), IN `U_contrasena` VARCHAR(400), IN `U_idEquipo` INT, IN `U_idEmpleado` INT, IN `U_idRol` INT, IN `U_nivelCraft` FLOAT, IN `U_nivelPeople` FLOAT, IN `U_nivelBusiness` FLOAT, IN `U_fotoPerfil` VARCHAR(1000))   BEGIN
 
 UPDATE empleado SET nombre = U_nombre, apellidoP = U_apellidoP, apellidoM = U_apellidoM, correo = U_correo, contrasena = U_contrasena,idEquipo = U_idEquipo, fotoPerfil = U_fotoPerfil WHERE idEmpleado = U_idEmpleado;
 
@@ -92,7 +92,7 @@ THEN
 
 END$$
 
-CREATE DEFINER=`root`@`%` PROCEDURE `registrarFeedback` (IN `U_idEvaluado` INT, IN `U_idEvaluador` INT, IN `U_idPregunta` INT, IN `U_idPeriodo` INT, IN `U_respuesta` VARCHAR(40))   BEGIN 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `registrarFeedback` (IN `U_idEvaluado` INT, IN `U_idEvaluador` INT, IN `U_idPregunta` INT, IN `U_idPeriodo` INT, IN `U_respuesta` LONGTEXT)   BEGIN 
 INSERT INTO respondesolicita VALUES(U_idEvaluado,U_idEvaluador, U_idPregunta, U_idPeriodo,U_respuesta);
 
 UPDATE retroalimentacion SET estatus = 1 WHERE idEvaluador = U_idEvaluador and idEvaluado = U_idEvaluado and idPeriodo = U_idPeriodo;
@@ -121,7 +121,6 @@ INSERT INTO `asignacionempleado` (`idMentor`, `idMentorado`) VALUES
 (1, 4),
 (1, 5),
 (1, 13),
-(1, 27),
 (2, 8),
 (2, 9),
 (2, 10),
@@ -131,6 +130,7 @@ INSERT INTO `asignacionempleado` (`idMentor`, `idMentorado`) VALUES
 (13, 15),
 (13, 16),
 (13, 28),
+(20, 17),
 (24, 2),
 (24, 6),
 (26, 7),
@@ -183,7 +183,8 @@ INSERT INTO `cuestionario` (`idCuestionario`, `nombre`, `fecha`, `nivelC`, `idDi
 (22, 'Craft1', '2022-05-03 17:07:49', 1, 1),
 (23, 'Craft1', '2022-05-03 17:58:27', 1, 1),
 (24, 'Craft1', '2022-05-03 17:59:56', 1, 1),
-(25, 'Craft1', '2022-05-03 18:08:20', 1, 1);
+(25, 'Craft1', '2022-05-03 18:08:20', 1, 1),
+(26, 'Craft1', '2022-05-05 02:32:00', 1, 1);
 
 --
 -- Disparadores `cuestionario`
@@ -228,7 +229,7 @@ INSERT INTO `cuestionario_actual` (`idCuestionario`, `nombre`, `fecha`, `nivelC`
 (19, 'People3', '2022-04-29 15:27:05', 3, 2),
 (20, 'Craft2', '2022-04-29 16:36:45', 2, 1),
 (21, 'Craft4', '2022-05-03 05:26:03', 4, 1),
-(25, 'Craft1', '2022-05-03 18:08:20', 1, 1);
+(26, 'Craft1', '2022-05-05 02:32:00', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -395,14 +396,13 @@ INSERT INTO `dimempleado` (`idEmpleado`, `idDimension`, `nivelE`, `fecha`) VALUE
 (37, 3, 1.3, '2022-05-04 18:34:06'),
 (38, 1, 3.1, '2022-05-04 18:38:24'),
 (38, 2, 3.1, '2022-05-04 18:38:24'),
-(38, 3, 3.1, '2022-05-04 18:38:24'),
-(39, 1, 3.2, '2022-05-04 18:41:14'),
-(39, 2, 3.1, '2022-05-04 18:41:14'),
-(39, 3, 2.1, '2022-05-04 18:41:14'),
 (40, 1, 4.1, '2022-05-04 19:18:45'),
 (40, 1, 4.3, '2022-05-04 20:12:11'),
 (40, 2, 3.1, '2022-05-04 19:18:45'),
-(40, 3, 2.3, '2022-05-04 19:18:45');
+(40, 3, 2.3, '2022-05-04 19:18:45'),
+(41, 1, 2.3, '2022-05-05 15:22:16'),
+(41, 2, 3.1, '2022-05-05 15:22:16'),
+(41, 3, 2.2, '2022-05-05 15:22:16');
 
 -- --------------------------------------------------------
 
@@ -497,9 +497,6 @@ INSERT INTO `dimempleado_actual` (`idEmpleado`, `idDimension`, `nivelE`, `fecha`
 (26, 1, 4.1, '2022-04-21 16:58:16'),
 (26, 2, 4.3, '2022-04-21 16:58:16'),
 (26, 3, 4.3, '2022-04-21 16:58:16'),
-(27, 1, 3.1, '2022-04-22 21:24:44'),
-(27, 2, 2.1, '2022-04-22 21:24:44'),
-(27, 3, 1.1, '2022-04-22 21:24:44'),
 (28, 1, 3.2, '2022-04-21 17:02:40'),
 (28, 2, 2.3, '2022-04-21 17:02:40'),
 (28, 3, 2.3, '2022-04-21 17:02:40'),
@@ -533,12 +530,12 @@ INSERT INTO `dimempleado_actual` (`idEmpleado`, `idDimension`, `nivelE`, `fecha`
 (38, 1, 3.1, '2022-05-04 18:38:24'),
 (38, 2, 3.1, '2022-05-04 18:38:24'),
 (38, 3, 3.1, '2022-05-04 18:38:24'),
-(39, 1, 3.2, '2022-05-04 18:41:14'),
-(39, 2, 3.1, '2022-05-04 18:41:14'),
-(39, 3, 2.1, '2022-05-04 18:41:14'),
 (40, 1, 4.3, '2022-05-04 20:12:11'),
 (40, 2, 3.1, '2022-05-04 19:18:45'),
-(40, 3, 2.3, '2022-05-04 19:18:45');
+(40, 3, 2.3, '2022-05-04 19:18:45'),
+(41, 1, 2.3, '2022-05-05 15:22:16'),
+(41, 2, 3.1, '2022-05-05 15:22:16'),
+(41, 3, 2.2, '2022-05-05 15:22:16');
 
 -- --------------------------------------------------------
 
@@ -608,9 +605,9 @@ INSERT INTO `empleado` (`idEmpleado`, `nombre`, `apellidoP`, `apellidoM`, `corre
 (24, 'Enrique', 'Vela', 'Vista', 'enriqueVela@gmail.com', '$2a$12$v5PnrJw4RAkRZXp0vNTQfuN', 2, '1650413560784-enrique.jpg', 1),
 (25, 'Greta', 'Alivi', 'Torres', 'gretaAlivi@gmail.com', '$2a$12$sK9YcWXXIQ.PBXOKBjDp/.X', 7, '1650415270352-greta.jpg', 0),
 (26, 'Jordana', 'Betancourt', 'Menchaca', 'jordanabm2@gmail.com', '$2a$12$nmN.0.vlVh/1zu4oEFDM1OXmfGiLRbYuUmNI8LLlEbG62EvTZS.Ly', 6, '1650560289697-jordywhats.jpg', 1),
-(27, 'Mónica', 'Ramirez', 'Sánchez', 'monicaramirez@example.com', '$2a$12$yVPz7IWFNriaPSY2ZvrhouN', 4, '1650560422655-icon.png', 1),
+(27, 'Ariana', 'Grande', 'Butera', 'arianaGrande@example.com', '$2a$12$yVPz7IWFNriaPSY2ZvrhouN', 4, '1650560422655-icon.png', 1),
 (28, 'Bernardo', 'Quintana', 'Flores', 'bernardoQuintana@gmail.com', '$2a$12$jjotF5eRDDfy8V980VwsteX', 6, '1650560554043-icon.png', 1),
-(29, 'Jennifer', 'Gómez', 'Betancourt', 'jennifergomez@example.com', '$2a$12$h89ovwVG3It90NNbhtiyLOGfL7k.zTMkQN8B1puarmWxNqBHGCbGC', 4, 'iconperfil.png', 1),
+(29, 'Jordana', 'Gómez', 'Betancourt', 'hola@example.com', '$2a$12$h89ovwVG3It90NNbhtiyLOGfL7k.zTMkQN8B1puarmWxNqBHGCbGC', 4, 'iconperfil.png', 1),
 (30, 'Paulina', 'del Campo', 'Cardona', 'PauDelCampo@example.com', '$2a$12$vTfKHnlvvgK2fYr3xptVQuV901Y0iR7xBir/KHi0qtE6PjVJ4t48O', 3, '1650935782841-pau.jpg', 1),
 (31, 'Federico', 'Lisboa', '', 'federicoLisboa@example.com', '$2a$12$SNVFJFS0fs.0uKcq11Q/t.AYz99Km89EwtdRtsvdjbuENdRGT0GEW', 7, 'iconperfil.png', 0),
 (32, 'Juan Pablo', 'de la Garza', 'García', 'juanPabloGarza@gmail.com', '$2a$12$hW29oxS4DI.3DEAkOGCE3eAE3v55XVYXtpmUYZEnJmkICUpRYAx0m', 1, '1651357732754-2680702.jpeg', 1),
@@ -620,8 +617,9 @@ INSERT INTO `empleado` (`idEmpleado`, `nombre`, `apellidoP`, `apellidoM`, `corre
 (36, 'Rodrigo', 'Gómez', '', 'rodrigo@example.com', '$2a$12$rQwJO08ckEXXAnf6u1GoUeKnlYd.NAZd9diPzqHD8xD7JyM4WH7/S', 1, 'iconperfil.png', 0),
 (37, 'Eduardo', 'López', 'Villaseñor', 'eduardo@example.com', '$2a$12$pHsFkjhuhbgb.KcHZ3QT.eM9L2bXHU5sgP1XjdD8lLz.QCkPp61Q2', 1, 'iconperfil.png', 1),
 (38, 'Alfonso', 'Huerta', '', 'alfonso@example.com', '$2a$12$qtqh0VnfiJNC9NdCDiEzJukB7Q6lPeuqCyobaZtvWNaRhqRD8w0VG', 1, 'iconperfil.png', 1),
-(39, 'Hector', 'Sánchez', 'Fernández', 'hectorsanchez@example.com', '$2a$12$k2c2FM5FF0TJEyjFo0ik7uxFEXzSawpCvaFrNxmB68bs3GprcFJLG', 1, 'iconperfil.png', 0),
-(40, 'Javier', 'Hernández', 'Flores', 'javiH123@example.com', '$2a$12$BvrMGCZTYHm4FDvyUE2vg.IVfEH1jwEDM94j6Znqsl/KMZkBTveiK', 2, '1651695131682-gato2.png', 1);
+(39, 'Hola', 'Ejemplo', '', 'hola@example.com', '$2a$12$k2c2FM5FF0TJEyjFo0ik7uxFEXzSawpCvaFrNxmB68bs3GprcFJLG', 1, 'iconperfil.png', 0),
+(40, 'Javier', 'Hernández', 'Flores', 'javiH123@example.com', '$2a$12$BvrMGCZTYHm4FDvyUE2vg.IVfEH1jwEDM94j6Znqsl/KMZkBTveiK', 2, '1651695131682-gato2.png', 1),
+(41, 'Adriana Carolina', 'Hernández', 'Monterroza', 'ariana@example.com', '$2a$12$jxVSip73MliapwgyqvAY4eNY4YBfo8QC.VgP7aGu0U5Toa926I7dm', 3, '1651764120412-adriana.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -685,9 +683,12 @@ INSERT INTO `periodo` (`idPeriodo`, `NombrePeriodo`, `fecha_inicial`, `fecha_fin
 (16, 'Julio-Octubre', '2022-07-23', '2022-10-29', 2022),
 (17, 'Julio-Octubre', '2022-07-23', '2022-10-29', 2022),
 (18, 'Abril-Julio', '2022-04-08', '2022-07-02', 2022),
-(19, 'Abril-Junio', '2022-04-08', '2022-06-25', 2022),
-(20, 'Abril-Diciembre', '2022-04-01', '2022-12-02', 2022),
-(21, 'Abril-Julio', '2022-04-14', '2022-07-02', 2022);
+(20, 'Abril-Junio', '2022-04-08', '2022-06-25', 2022),
+(21, 'Junio-Octubre', '2022-04-01', '2022-12-02', 2021),
+(91, 'Agosto-Octubre', '2022-04-14', '2022-07-02', 2021),
+(190, 'Octubre-Diciembre', '2022-04-29', '2022-05-01', 2021),
+(206, 'Enero-Marzo', '2022-04-29', '2022-05-02', 2022),
+(218, 'Marzo-Mayo', '2022-05-01', '2022-05-20', 2022);
 
 -- --------------------------------------------------------
 
@@ -788,7 +789,9 @@ INSERT INTO `preguntacuestionario` (`idCuestionario`, `idPregunta`, `fechaInclus
 (23, 2, '2022-05-03'),
 (23, 24, '2022-05-03'),
 (24, 1, '2022-05-03'),
-(25, 2, '2022-05-03');
+(25, 2, '2022-05-03'),
+(26, 2, '2022-05-05'),
+(26, 24, '2022-05-05');
 
 -- --------------------------------------------------------
 
@@ -858,7 +861,7 @@ INSERT INTO `respondesolicita` (`idEvaluado`, `idEvaluador`, `idPregunta`, `idPe
 (3, 1, 17, 13, '5'),
 (2, 1, 3, 13, '5'),
 (2, 1, 4, 13, '5'),
-(2, 1, 21, 13, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'),
+(2, 1, 21, 13, 'Sabe identificar los requerimientos de un sistema empresarial'),
 (2, 1, 12, 13, '2'),
 (2, 1, 19, 13, '5'),
 (11, 3, 7, 13, '5'),
@@ -896,7 +899,7 @@ INSERT INTO `respondesolicita` (`idEvaluado`, `idEvaluador`, `idPregunta`, `idPe
 (2, 15, 19, 21, '4'),
 (24, 3, 22, 21, '2'),
 (24, 3, 3, 21, '3'),
-(24, 3, 21, 21, 'Debido a que muestra gran disposición pa'),
+(24, 3, 21, 21, 'Debido a que muestra uan gran disposición para trabajar a gran escala'),
 (24, 3, 11, 21, '2'),
 (24, 3, 16, 21, '3'),
 (3, 1, 5, 91, '5'),
@@ -913,17 +916,17 @@ INSERT INTO `respondesolicita` (`idEvaluado`, `idEvaluador`, `idPregunta`, `idPe
 (3, 16, 17, 91, '3'),
 (2, 1, 22, 190, '5'),
 (2, 1, 3, 190, '5'),
-(2, 1, 21, 190, 'Hola'),
+(2, 1, 21, 190, 'Sí considero asignarle la progrmación empresarial, debido a que es capaz de implementar funciones a muy alto nivel'),
 (2, 1, 12, 190, '5'),
 (2, 1, 19, 190, '5'),
 (2, 3, 22, 190, '3'),
 (2, 3, 3, 190, '5'),
-(2, 3, 21, 190, 'Porque es chido'),
+(2, 3, 21, 190, 'Se lo merece, es capaz de pensar en miles de usuarios concurrentes'),
 (2, 3, 12, 190, '5'),
 (2, 3, 19, 190, '3'),
 (2, 1, 22, 206, '4'),
 (2, 1, 3, 206, '5'),
-(2, 1, 21, 206, 'Porque es la hostia'),
+(2, 1, 21, 206, 'Lo considero apropiado porque generó una aplicación para miles de usuarios'),
 (2, 1, 12, 206, '4'),
 (2, 1, 19, 206, '5'),
 (26, 1, 7, 206, '5'),
@@ -942,17 +945,17 @@ INSERT INTO `respondesolicita` (`idEvaluado`, `idEvaluador`, `idPregunta`, `idPe
 (1, 2, 5, 206, '4'),
 (1, 2, 6, 206, '5'),
 (1, 2, 13, 206, '4'),
-(1, 2, 23, 206, 'Sí'),
+(1, 2, 23, 206, 'Sí, se relaciona con todos los miembros del chapter'),
 (1, 2, 17, 206, '3'),
 (1, 4, 5, 218, '4'),
 (1, 4, 6, 218, '5'),
 (1, 4, 13, 218, '3'),
-(1, 4, 23, 218, 'Sí. Siempre está al tanto de nosotros ya'),
+(1, 4, 23, 218, 'Sí. Siempre está al tanto de nosotros'),
 (1, 4, 17, 218, '5'),
 (1, 5, 5, 218, '5'),
 (1, 5, 6, 218, '4'),
 (1, 5, 13, 218, '5'),
-(1, 5, 23, 218, 'Sí, es muy bueno en ello ya que promueve'),
+(1, 5, 23, 218, 'Sí, es muy bueno en ello ya que promueve la convivencia'),
 (1, 5, 17, 218, '4'),
 (4, 5, 7, 218, '4'),
 (4, 5, 14, 218, '5'),
@@ -960,12 +963,12 @@ INSERT INTO `respondesolicita` (`idEvaluado`, `idEvaluador`, `idPregunta`, `idPe
 (1, 26, 5, 218, '5'),
 (1, 26, 6, 218, '4'),
 (1, 26, 13, 218, '4'),
-(1, 26, 23, 218, 'Sí, él siempre busca la buena convivenci'),
+(1, 26, 23, 218, 'Sí, siempre promueve la convivencia'),
 (1, 26, 17, 218, '3'),
 (1, 3, 5, 218, '5'),
 (1, 3, 6, 218, '4'),
 (1, 3, 13, 218, '4'),
-(1, 3, 23, 218, 'Hola. Espero que funcione el cambio de t'),
+(1, 3, 23, 218, 'Puede hablar con cualquier miembro del chapter sin problemas'),
 (1, 3, 17, 218, '5');
 
 -- --------------------------------------------------------
@@ -1134,7 +1137,7 @@ INSERT INTO `retroalimentacion` (`idEvaluado`, `idEvaluador`, `idCuestionarioCra
 (4, 1, 21, 9, 12, 218, NULL, '2022-05-04 16:24:30', NULL),
 (4, 2, 21, 9, 12, 218, NULL, '2022-05-04 16:24:30', NULL),
 (4, 15, 21, 9, 12, 218, NULL, '2022-05-04 16:26:05', NULL),
-(1, 4, 3, 19, 13, 230, NULL, '2022-05-04 19:32:40', NULL);
+(1, 2, 3, 19, 13, 218, NULL, '2022-05-05 11:23:45', NULL);
 
 -- --------------------------------------------------------
 
@@ -1212,7 +1215,8 @@ INSERT INTO `rolempleado` (`idEmpleado`, `idRol`, `fecha`) VALUES
 (37, 1, '2022-05-04'),
 (38, 1, '2022-05-04'),
 (39, 1, '2022-05-04'),
-(40, 3, '2022-05-04');
+(40, 3, '2022-05-04'),
+(41, 2, '2022-05-05');
 
 -- --------------------------------------------------------
 
@@ -1394,13 +1398,13 @@ ALTER TABLE `tipopregunta`
 -- AUTO_INCREMENT de la tabla `cuestionario`
 --
 ALTER TABLE `cuestionario`
-  MODIFY `idCuestionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `idCuestionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `cuestionario_actual`
 --
 ALTER TABLE `cuestionario_actual`
-  MODIFY `idCuestionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `idCuestionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `dimension`
@@ -1412,7 +1416,7 @@ ALTER TABLE `dimension`
 -- AUTO_INCREMENT de la tabla `empleado`
 --
 ALTER TABLE `empleado`
-  MODIFY `idEmpleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `idEmpleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT de la tabla `equipo`
@@ -1424,7 +1428,7 @@ ALTER TABLE `equipo`
 -- AUTO_INCREMENT de la tabla `periodo`
 --
 ALTER TABLE `periodo`
-  MODIFY `idPeriodo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=233;
+  MODIFY `idPeriodo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=234;
 
 --
 -- AUTO_INCREMENT de la tabla `pregunta`
@@ -1500,7 +1504,9 @@ ALTER TABLE `preguntacuestionario`
 --
 ALTER TABLE `respondesolicita`
   ADD CONSTRAINT `respondesolicita_ibfk_1` FOREIGN KEY (`idEvaluador`) REFERENCES `empleado` (`idEmpleado`),
-  ADD CONSTRAINT `respondesolicita_ibfk_2` FOREIGN KEY (`idEvaluado`) REFERENCES `empleado` (`idEmpleado`);
+  ADD CONSTRAINT `respondesolicita_ibfk_2` FOREIGN KEY (`idEvaluado`) REFERENCES `empleado` (`idEmpleado`),
+  ADD CONSTRAINT `respondesolicita_ibfk_3` FOREIGN KEY (`idPregunta`) REFERENCES `pregunta` (`idPregunta`),
+  ADD CONSTRAINT `respondesolicita_ibfk_4` FOREIGN KEY (`idPeriodo`) REFERENCES `periodo` (`idPeriodo`);
 
 --
 -- Filtros para la tabla `retroalimentacion`
