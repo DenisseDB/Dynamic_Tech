@@ -77,12 +77,11 @@
                                     </td>
                                 </tr>
                                 <tr>
-                    
-                                    <th scope="row">Mentorados asignables: </th>
+                
+                                    <th  width="20%" scope="row">Mentorados asignables: </th>
                                     <td>
                     
-                                        <div id = "hola"></div>
-                                          <select id="mentorados" name="mentorados" class="form-select" title="Selecciona uno o varios mentorados" data-width="100%" required>                                            
+                                          <select id="mentorados" name="mentorados" class="form-select" data-width="200%" required>                                            
                                             <!-- <% for (let mentorado of noMentorados) { %>
                                                  <option value="<%= mentorado.idEmpleado %>">
                                                     <%= mentorado.nombre%>
@@ -145,6 +144,8 @@
                     //console.log(data);
 
                     var respuesta = '';
+
+                    respuesta +=  '<option selected hidden>Elige un mentorado, después podrás agregar más</option>';
 
                     // respuesta +=  ' <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"'+
                     //                '     integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">'+
