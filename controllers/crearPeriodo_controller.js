@@ -92,7 +92,10 @@ exports.generarPeriodoPost = async (request, response, next) => {
 
 };
 
-exports.modificarPeriodo = (request, response, next) => {
+exports.modificarPeriodo = async (request, response, next) => {
+    ultimo_periodo = await PeriodoEvaluacion.fetchUP();
+    let i = ultimo_periodo[0].fecha_inicial;
+
     PeriodoEvaluacion.fetchUltimo()
      .then(([rows, fielData]) => {
          response.render('modificarPeriodos', {
@@ -102,6 +105,7 @@ exports.modificarPeriodo = (request, response, next) => {
             apellidoPSesion: request.session.apellidoPSesion,
             foto: request.session.foto,
             rolesA: request.session.privilegiosPermitidos,
+            inicial_old: i
         });
      }).catch((error) => {
          console.log(error);
@@ -129,19 +133,7 @@ exports.modificarPeriodo_post = (request, response, next) => {
     //const periodoEvaluacion = new PeriodoEvaluacion(nombre_periodo, request.body.inicioFecha, request.body.finFecha, Number(anio_periodo));
     periodoEvaluacion.modifyPeriodo(request.body.id_p)
         .then(() => {
-            PeriodoEvaluacion.fetchUltimo()
-            .then(([rows, fielData]) => {
-                response.render('PeriodosEvaluacion', {
-                    ultimo_periodo: rows,
-                    info: '',
-                    nombreSesion: request.session.nombreSesion,
-                    apellidoPSesion: request.session.apellidoPSesion,
-                    foto: request.session.foto,
-                    rolesA: request.session.privilegiosPermitidos,
-                });
-            }).catch((error) => {
-                console.log(error);
-            });
+            response.redirect('/Periodo');
         })
         .catch(err => {
             console.log(err);
