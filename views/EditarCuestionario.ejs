@@ -27,9 +27,9 @@
             Craft 
          <% } else if (dim == 2) {%>
             People & Mindsets
-         <% } else if (dim == 3){ %>
+         <% } else if (dim == 3){ %>
             Commercial & customer 
-         <% } %>
+         <% } %>
       </h4>
       <h4>
          Nivel: <%= niv %>
@@ -147,14 +147,11 @@
    var checkboxes_value2 = "";
    console.log(checkboxes[0].value);
    //document.getElementById("toast").style.display = "none";
-
    function save() {
       for (i = 0; i < checkboxes.length; i++) {
          localStorage.setItem(checkboxes[i].value, checkboxes[i].checked);
       }
    }
-
-
    window.onload = function () {
       document.getElementById("toast").style.display = "none";
       console.log('<%=p%>');
@@ -164,7 +161,6 @@
          }
       }
    }
-
    document.getElementById("mybutton").onclick = () => {
       for (i = 0; i < checkboxes.length; i++) {
          if (checkboxes[i].checked == true) {
@@ -172,13 +168,11 @@
             console.log(checkboxes_value);
          }
       }
-
       if (checkboxes_value.length == 0) {
          document.getElementById("myform").onsubmit = () => {
             return false;
          }
          document.getElementById("toast").style.display = "block";
-
       } else {
          document.getElementById("myform").onsubmit = () => {
             return true;
@@ -186,10 +180,8 @@
       }
       //document.getElementById("hid").value = checkboxes_value2;
       document.getElementById("hid").value = JSON.stringify(checkboxes_value);
-
       //document.getElementById("hid").value = checkboxes_value;
    }
-
    
 </script>
 
@@ -207,7 +199,6 @@
       -ms-user-select: none;
       user-select: none;
    }
-
    /* Hide the browser's default checkbox */
    .container1 input {
       position: absolute;
@@ -216,7 +207,6 @@
       height: 0;
       width: 0;
    }
-
    /* Create a custom checkbox */
    .checkmark {
       position: absolute;
@@ -226,29 +216,24 @@
       width: 20px;
       background-color: #eee;
    }
-
    /* On mouse-over, add a grey background color */
    .container1:hover input~.checkmark {
       background-color: #ccc;
    }
-
    /* When the checkbox is checked, add a blue background */
    .container1 input:checked~.checkmark {
       background-color: #2196F3;
    }
-
    /* Create the checkmark/indicator (hidden when not checked) */
    .checkmark:after {
       content: "";
       position: absolute;
       display: none;
    }
-
    /* Show the checkmark when checked */
    .container1 input:checked~.checkmark:after {
       display: block;
    }
-
    /* Style the checkmark/indicator */
    .container1 .checkmark:after {
       left: 9px;

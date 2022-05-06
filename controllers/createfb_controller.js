@@ -125,57 +125,56 @@ exports.verCuestionario = (request, response, next) => {
 
 exports.generarFormato = (request, response, next) => {
 
-    //request.session.pr = 0;
+   //request.session.pr = 0;
 
-    Dimension.fetchAll()
-        .then(([rows, fieldData]) => {
-            response.render('generarFormatos', {
-                dimensiones: rows,
-                nombreSesion: request.session.nombreSesion,
-                apellidoPSesion: request.session.apellidoPSesion,
-                foto: request.session.foto,
-                nombreC: "",
-                dimC: "",
-                nivelC: "",
-                pregunta0_p: "",
-                pregunta1_p: "",
-                pregunta2_p: "",
-                rolesA: request.session.privilegiosPermitidos,
-                //pr: request.session.pr
-            });
-        }).catch((error) => {
-            console.log(error);
-        });
+   Dimension.fetchAll()
+      .then(([rows, fieldData]) => {
+         response.render('generarFormatos', {
+            dimensiones: rows,
+            nombreSesion: request.session.nombreSesion,
+            apellidoPSesion: request.session.apellidoPSesion,
+            foto: request.session.foto,
+            nombreC: "",
+            dimC: "",
+            nivelC: "",
+            pregunta0_p: "",
+            pregunta1_p: "",
+            pregunta2_p: "",
+            rolesA: request.session.privilegiosPermitidos,
+            //pr: request.session.pr
+         });
+      }).catch((error) => {
+         console.log(error);
+      });
 };
 
 exports.generarFormato_post = (request, response, next) => {
 
-    //console.log("Controlador:");
-    //console.log(request.body);
-    request.session.info = 'El cuestionario "' + request.body.nombreCuestionario + '" fue registrado con éxito';
-    let preguntas = [request.body.pregunta0, request.body.pregunta1, request.body.pregunta2];
-    const formatoEvaluacion = new FormatoEvaluacion(request.body.nombreCuestionario, request.body.inputDimension, request.body.inputNivel, preguntas);
-    formatoEvaluacion.saveCuestionario()
-        .then(() => {
-            formatoEvaluacion.savePreguntasCuestionario()
-                .then(() => {
-                    response.render('formatosEvaluacion', {
-                        info: request.session.info,
-                        nombreSesion: request.session.nombreSesion,
-                        apellidoPSesion: request.session.apellidoPSesion,
-                        foto: request.session.foto,
-                        rolesA: request.session.privilegiosPermitidos,
-                    });
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        })
-        .catch(err => {
-            console.log(err);
-        });
-    //response.render('generarFormatos', {
-    //});
+   //console.log("Controlador:");
+   //console.log(request.body);
+   request.session.info = 'El cuestionario "' + request.body.nombreCuestionario + '" fue registrado con éxito';
+   const formatoEvaluacion = new FormatoEvaluacion(request.body.nombreCuestionario, request.body.inputDimension, request.body.inputNivel);
+   formatoEvaluacion.saveCuestionario()
+      .then(() => {
+         FormatoEvaluacion.fetchCuestionarios()
+            .then(([rows, fieldData]) => {
+               response.render('formatosEvaluacion', {
+                  info: '',
+                  nombreSesion: request.session.nombreSesion,
+                  apellidoPSesion: request.session.apellidoPSesion,
+                  foto: request.session.foto,
+                  rolesA: request.session.privilegiosPermitidos,
+                  cuestionarios: rows,
+               });
+            }).catch((error) => {
+               console.log(error);
+            });
+      })
+      .catch(err => {
+         console.log(err);
+      });
+   //response.render('generarFormatos', {
+   //});
 };
 
 

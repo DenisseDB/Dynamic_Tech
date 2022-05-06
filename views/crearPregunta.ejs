@@ -82,10 +82,7 @@
    document.getElementById("button1").onclick = () => {
       history.go(-1);
    }
-
-
       document.getElementById('crearPregunta').onsubmit = () =>  {
-
          if (document.getElementById("textoPregunta").value.trim() == ""){
             document.getElementById("toast").style.display = "block";
             return false;
@@ -93,7 +90,6 @@
          else {
             return true;
          }
-
       }
    
 </script>
