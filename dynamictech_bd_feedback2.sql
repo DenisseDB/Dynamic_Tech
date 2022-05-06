@@ -25,7 +25,7 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `agregarEmpleado` (IN `U_nombre` VARCHAR(100) CHARSET utf16, IN `U_apellidoP` VARCHAR(100) CHARSET utf16, IN `U_apellidoM` VARCHAR(100) CHARSET utf16, IN `U_correo` VARCHAR(200) CHARSET utf16, IN `U_contraseña` VARCHAR(200) CHARSET utf16, IN `U_idEquipo` INT, IN `U_fotoPerfil` VARCHAR(400) CHARSET utf16, IN `U_idRol` INT, IN `U_nivelCraft` FLOAT, IN `U_nivelPeople` FLOAT, IN `U_nivelBusiness` FLOAT)   BEGIN
+CREATE DEFINER=`263275`@`localhost` PROCEDURE `agregarEmpleado` (IN `U_nombre` VARCHAR(100) CHARSET utf16, IN `U_apellidoP` VARCHAR(100) CHARSET utf16, IN `U_apellidoM` VARCHAR(100) CHARSET utf16, IN `U_correo` VARCHAR(200) CHARSET utf16, IN `U_contraseña` VARCHAR(200) CHARSET utf16, IN `U_idEquipo` INT, IN `U_fotoPerfil` VARCHAR(400) CHARSET utf16, IN `U_idRol` INT, IN `U_nivelCraft` FLOAT, IN `U_nivelPeople` FLOAT, IN `U_nivelBusiness` FLOAT)   BEGIN
 
 INSERT INTO `empleado` (`idEmpleado`, `nombre`, `apellidoP`, `apellidoM`, `correo`, `contrasena`, `idEquipo`, `fotoPerfil`) VALUES (NULL, U_nombre, U_apellidoP, U_apellidoM, U_correo, U_contraseña, U_idEquipo, U_fotoPerfil);
 
@@ -46,7 +46,7 @@ INSERT INTO dimempleado VALUES
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `modificarEmpleado` (IN `U_nombre` VARCHAR(100), IN `U_apellidoP` VARCHAR(100), IN `U_apellidoM` VARCHAR(100), IN `U_correo` VARCHAR(400), IN `U_contrasena` VARCHAR(400), IN `U_idEquipo` INT, IN `U_idEmpleado` INT, IN `U_idRol` INT, IN `U_nivelCraft` FLOAT, IN `U_nivelPeople` FLOAT, IN `U_nivelBusiness` FLOAT, IN `U_fotoPerfil` VARCHAR(1000))   BEGIN
+CREATE DEFINER=`263275`@`localhost` PROCEDURE `modificarEmpleado` (IN `U_nombre` VARCHAR(100), IN `U_apellidoP` VARCHAR(100), IN `U_apellidoM` VARCHAR(100), IN `U_correo` VARCHAR(400), IN `U_contrasena` VARCHAR(400), IN `U_idEquipo` INT, IN `U_idEmpleado` INT, IN `U_idRol` INT, IN `U_nivelCraft` FLOAT, IN `U_nivelPeople` FLOAT, IN `U_nivelBusiness` FLOAT, IN `U_fotoPerfil` VARCHAR(1000))   BEGIN
 
 UPDATE empleado SET nombre = U_nombre, apellidoP = U_apellidoP, apellidoM = U_apellidoM, correo = U_correo, contrasena = U_contrasena,idEquipo = U_idEquipo, fotoPerfil = U_fotoPerfil WHERE idEmpleado = U_idEmpleado;
 
@@ -304,8 +304,17 @@ INSERT INTO `dimempleado` (`idEmpleado`, `idDimension`, `nivelE`, `fecha`) VALUE
 (7, 2, 2.3, '2020-02-07 23:00:00'),
 (7, 3, 4.1, '2020-02-07 23:00:00'),
 (8, 1, 4.1, '2020-02-17 23:00:00'),
+(8, 1, 4.2, '2020-05-17 19:05:52'),
+(8, 1, 4.2, '2020-08-17 19:08:14'),
+(8, 1, 5.1, '2021-11-17 20:10:01'),
 (8, 2, 4.3, '2020-02-17 23:00:00'),
+(8, 2, 4.3, '2020-05-17 19:06:37'),
+(8, 2, 5.1, '2020-08-17 19:08:55'),
+(8, 2, 5.2, '2020-11-17 20:12:41'),
 (8, 3, 4.1, '2020-02-17 23:00:00'),
+(8, 3, 4.3, '2020-08-17 19:09:35'),
+(8, 3, 4.3, '2020-11-17 20:13:05'),
+(8, 3, 4.2, '2021-05-17 19:07:37'),
 (9, 1, 2.3, '2020-01-14 23:00:00'),
 (9, 2, 1.2, '2020-01-14 23:00:00'),
 (9, 3, 1.3, '2020-01-14 23:00:00'),
@@ -1277,263 +1286,4 @@ ALTER TABLE `cuestionario`
   ADD PRIMARY KEY (`idCuestionario`);
 
 --
--- Indices de la tabla `cuestionario_actual`
---
-ALTER TABLE `cuestionario_actual`
-  ADD PRIMARY KEY (`idCuestionario`);
-
---
--- Indices de la tabla `dimempleado`
---
-ALTER TABLE `dimempleado`
-  ADD PRIMARY KEY (`idEmpleado`,`idDimension`,`fecha`) USING BTREE,
-  ADD KEY `idEmpleado` (`idEmpleado`),
-  ADD KEY `idDimension` (`idDimension`);
-
---
--- Indices de la tabla `dimempleado_actual`
---
-ALTER TABLE `dimempleado_actual`
-  ADD PRIMARY KEY (`idEmpleado`,`idDimension`,`fecha`) USING BTREE,
-  ADD KEY `idEmpleado` (`idEmpleado`),
-  ADD KEY `idDimension` (`idDimension`);
-
---
--- Indices de la tabla `dimension`
---
-ALTER TABLE `dimension`
-  ADD PRIMARY KEY (`idDimension`);
-
---
--- Indices de la tabla `empleado`
---
-ALTER TABLE `empleado`
-  ADD PRIMARY KEY (`idEmpleado`),
-  ADD KEY `idEquipo` (`idEquipo`);
-
---
--- Indices de la tabla `equipo`
---
-ALTER TABLE `equipo`
-  ADD PRIMARY KEY (`idEquipo`);
-
---
--- Indices de la tabla `periodo`
---
-ALTER TABLE `periodo`
-  ADD PRIMARY KEY (`idPeriodo`);
-
---
--- Indices de la tabla `pregunta`
---
-ALTER TABLE `pregunta`
-  ADD PRIMARY KEY (`idPregunta`),
-  ADD KEY `idDimension` (`idDimension`),
-  ADD KEY `idTipo` (`idTipo`);
-
---
--- Indices de la tabla `preguntacuestionario`
---
-ALTER TABLE `preguntacuestionario`
-  ADD KEY `idCuestionario` (`idCuestionario`),
-  ADD KEY `idPregunta` (`idPregunta`);
-
---
--- Indices de la tabla `privilegio`
---
-ALTER TABLE `privilegio`
-  ADD PRIMARY KEY (`idPrivilegio`);
-
---
--- Indices de la tabla `respondesolicita`
---
-ALTER TABLE `respondesolicita`
-  ADD KEY `idEvaluado` (`idEvaluado`),
-  ADD KEY `idEvaluador` (`idEvaluador`),
-  ADD KEY `idPregunta` (`idPregunta`),
-  ADD KEY `idPeriodo` (`idPeriodo`);
-
---
--- Indices de la tabla `retroalimentacion`
---
-ALTER TABLE `retroalimentacion`
-  ADD KEY `idEvaluado` (`idEvaluado`),
-  ADD KEY `idEvaluador` (`idEvaluador`),
-  ADD KEY `idCuestionarioCraft` (`idCuestionarioCraft`),
-  ADD KEY `idCuestionarioPeople` (`idCuestionarioPeople`),
-  ADD KEY `idCuestionarioBusiness` (`idCuestionarioBusiness`),
-  ADD KEY `idPeriodo` (`idPeriodo`);
-
---
--- Indices de la tabla `rol`
---
-ALTER TABLE `rol`
-  ADD PRIMARY KEY (`idRol`);
-
---
--- Indices de la tabla `rolempleado`
---
-ALTER TABLE `rolempleado`
-  ADD KEY `idEmpleado` (`idEmpleado`),
-  ADD KEY `idRol` (`idRol`);
-
---
--- Indices de la tabla `rolprivilegio`
---
-ALTER TABLE `rolprivilegio`
-  ADD KEY `idRol` (`idRol`),
-  ADD KEY `idPrivilegio` (`idPrivilegio`);
-
---
--- Indices de la tabla `tipopregunta`
---
-ALTER TABLE `tipopregunta`
-  ADD PRIMARY KEY (`idTipo`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `cuestionario`
---
-ALTER TABLE `cuestionario`
-  MODIFY `idCuestionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
-
---
--- AUTO_INCREMENT de la tabla `cuestionario_actual`
---
-ALTER TABLE `cuestionario_actual`
-  MODIFY `idCuestionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
-
---
--- AUTO_INCREMENT de la tabla `dimension`
---
-ALTER TABLE `dimension`
-  MODIFY `idDimension` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT de la tabla `empleado`
---
-ALTER TABLE `empleado`
-  MODIFY `idEmpleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
-
---
--- AUTO_INCREMENT de la tabla `equipo`
---
-ALTER TABLE `equipo`
-  MODIFY `idEquipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT de la tabla `periodo`
---
-ALTER TABLE `periodo`
-  MODIFY `idPeriodo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=234;
-
---
--- AUTO_INCREMENT de la tabla `pregunta`
---
-ALTER TABLE `pregunta`
-  MODIFY `idPregunta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
---
--- AUTO_INCREMENT de la tabla `privilegio`
---
-ALTER TABLE `privilegio`
-  MODIFY `idPrivilegio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT de la tabla `rol`
---
-ALTER TABLE `rol`
-  MODIFY `idRol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT de la tabla `tipopregunta`
---
-ALTER TABLE `tipopregunta`
-  MODIFY `idTipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `asignacionempleado`
---
-ALTER TABLE `asignacionempleado`
-  ADD CONSTRAINT `asignacionempleado_ibfk_1` FOREIGN KEY (`idMentor`) REFERENCES `empleado` (`idEmpleado`),
-  ADD CONSTRAINT `asignacionempleado_ibfk_2` FOREIGN KEY (`idMentorado`) REFERENCES `empleado` (`idEmpleado`);
-
---
--- Filtros para la tabla `dimempleado`
---
-ALTER TABLE `dimempleado`
-  ADD CONSTRAINT `dimempleado_ibfk_1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`),
-  ADD CONSTRAINT `dimempleado_ibfk_2` FOREIGN KEY (`idDimension`) REFERENCES `dimension` (`idDimension`);
-
---
--- Filtros para la tabla `dimempleado_actual`
---
-ALTER TABLE `dimempleado_actual`
-  ADD CONSTRAINT `dimempleado_actual_ibfk_1` FOREIGN KEY (`idDimension`) REFERENCES `dimension` (`idDimension`),
-  ADD CONSTRAINT `dimempleado_actual_ibfk_2` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`);
-
---
--- Filtros para la tabla `empleado`
---
-ALTER TABLE `empleado`
-  ADD CONSTRAINT `empleado_ibfk_1` FOREIGN KEY (`idEquipo`) REFERENCES `equipo` (`idEquipo`);
-
---
--- Filtros para la tabla `pregunta`
---
-ALTER TABLE `pregunta`
-  ADD CONSTRAINT `pregunta_ibfk_1` FOREIGN KEY (`idDimension`) REFERENCES `dimension` (`idDimension`),
-  ADD CONSTRAINT `pregunta_ibfk_2` FOREIGN KEY (`idTipo`) REFERENCES `tipopregunta` (`idTipo`);
-
---
--- Filtros para la tabla `preguntacuestionario`
---
-ALTER TABLE `preguntacuestionario`
-  ADD CONSTRAINT `preguntacuestionario_ibfk_1` FOREIGN KEY (`idCuestionario`) REFERENCES `cuestionario` (`idCuestionario`),
-  ADD CONSTRAINT `preguntacuestionario_ibfk_2` FOREIGN KEY (`idPregunta`) REFERENCES `pregunta` (`idPregunta`);
-
---
--- Filtros para la tabla `respondesolicita`
---
-ALTER TABLE `respondesolicita`
-  ADD CONSTRAINT `respondesolicita_ibfk_1` FOREIGN KEY (`idEvaluador`) REFERENCES `empleado` (`idEmpleado`),
-  ADD CONSTRAINT `respondesolicita_ibfk_2` FOREIGN KEY (`idEvaluado`) REFERENCES `empleado` (`idEmpleado`),
-  ADD CONSTRAINT `respondesolicita_ibfk_3` FOREIGN KEY (`idPregunta`) REFERENCES `pregunta` (`idPregunta`),
-  ADD CONSTRAINT `respondesolicita_ibfk_4` FOREIGN KEY (`idPeriodo`) REFERENCES `periodo` (`idPeriodo`);
-
---
--- Filtros para la tabla `retroalimentacion`
---
-ALTER TABLE `retroalimentacion`
-  ADD CONSTRAINT `retroalimentacion_ibfk_1` FOREIGN KEY (`idEvaluado`) REFERENCES `empleado` (`idEmpleado`),
-  ADD CONSTRAINT `retroalimentacion_ibfk_2` FOREIGN KEY (`idEvaluador`) REFERENCES `empleado` (`idEmpleado`),
-  ADD CONSTRAINT `retroalimentacion_ibfk_3` FOREIGN KEY (`idCuestionarioCraft`) REFERENCES `cuestionario` (`idCuestionario`),
-  ADD CONSTRAINT `retroalimentacion_ibfk_4` FOREIGN KEY (`idCuestionarioPeople`) REFERENCES `cuestionario` (`idCuestionario`),
-  ADD CONSTRAINT `retroalimentacion_ibfk_5` FOREIGN KEY (`idCuestionarioBusiness`) REFERENCES `cuestionario` (`idCuestionario`),
-  ADD CONSTRAINT `retroalimentacion_ibfk_6` FOREIGN KEY (`idPeriodo`) REFERENCES `periodo` (`idPeriodo`);
-
---
--- Filtros para la tabla `rolempleado`
---
-ALTER TABLE `rolempleado`
-  ADD CONSTRAINT `rolempleado_ibfk_1` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`),
-  ADD CONSTRAINT `rolempleado_ibfk_2` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`);
-
---
--- Filtros para la tabla `rolprivilegio`
---
-ALTER TABLE `rolprivilegio`
-  ADD CONSTRAINT `rolprivilegio_ibfk_1` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`),
-  ADD CONSTRAINT `rolprivilegio_ibfk_2` FOREIGN KEY (`idPrivilegio`) REFERENCES `privilegio` (`idPrivilegio`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+-- Indices de la tabla `cuestionario_act... (Tiempo restante: 8 KB)
