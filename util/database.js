@@ -24,16 +24,16 @@ const pool = mysql.createPool({
 
 // *
 
-! pool creado para la base de datos de la instancia --> (No usar fuera de rama main)
-const DB_INSTANCIA =  mysql.createPool({
-   host: config.HOST,
-   user: config.USERBD,
-   database: config.DATABASE,
-   password: config.PASSWORD,
-   port: config.PORT,
-   dateStrings: true,
-});
-!
+// ! pool creado para la base de datos de la instancia --> (No usar fuera de rama main)
+// const DB_INSTANCIA =  mysql.createPool({
+//    host: config.HOST,
+//    user: config.USERBD,
+//    database: config.DATABASE,
+//    password: config.PASSWORD,
+//    port: config.PORT,
+//    dateStrings: true,
+// });
+// !
 
 
 // module.exports = pool.promise();
